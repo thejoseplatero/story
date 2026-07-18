@@ -286,6 +286,24 @@
           gap:14px; padding:26px 24px; background:#f4f1ea; opacity:0; pointer-events:none; transition:opacity .3s; }
   .skel.dark { background:#0d0f15; }
   .skel.full { top:0; }
+  /* cerebro stages: raw capture, link graph, finished note */
+  .nbwrap { position:relative; flex:1; display:flex; flex-direction:column; }
+  .nb { transition:opacity .5s var(--major); }
+  .nb-c { opacity:0; display:flex; flex-direction:column; flex:1; }
+  .nb-a, .nb-b { position:absolute; inset:0; opacity:0; pointer-events:none; background:#0d0f15;
+                 display:flex; flex-direction:column; }
+  #artNote[data-stage="a"] .nb-a { opacity:1; }
+  #artNote[data-stage="b"] .nb-b { opacity:1; }
+  #artNote[data-stage="c"] .nb-c { opacity:1; }
+  .nb-a .code { flex:1; }
+  .nbg { flex:1; width:100%; max-height:300px; margin:auto 0; }
+  .nbg text { font:9px "IBM Plex Mono",monospace; fill:#7f8ba8; text-anchor:middle; }
+  .nbg text.tn { fill:#dfe3ee; font-weight:600; }
+  .nbg .gn.old { fill:#1a2030; stroke:#39415a; stroke-width:1.5; }
+  .nbg .gn.new { fill:rgba(57,194,134,.18); stroke:#39c286; stroke-width:2; }
+  .nbg .gl { stroke:#8f9cf5; stroke-width:1.2; opacity:.7; stroke-dasharray:130; stroke-dashoffset:130; }
+  #artNote[data-stage="b"] .gl { stroke-dashoffset:0; transition:stroke-dashoffset 1.4s var(--major) .2s; }
+
   .mail.loading .skel { opacity:1; }
   .skel i { height:12px; border-radius:6px; background:linear-gradient(90deg, rgba(24,21,17,.07) 25%, rgba(24,21,17,.15) 50%, rgba(24,21,17,.07) 75%);
             background-size:200% 100%; animation:shim 1.1s linear infinite; }
@@ -485,7 +503,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Three of the agents are below, live: Daily Briefing, Executive Report, and the Second Brain. Run one and watch the artifact land beside it.</p>
+      <p class="rv">Three of the agents are below, live: Daily Briefing, Executive Report, and Cerebro, the second brain itself. Run one and watch the artifact land beside it.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -499,7 +517,7 @@
   <div class="demotabs rv" role="tablist" aria-label="Live system demos">
     <button class="dt on" data-s="brief">Daily Briefing</button>
     <button class="dt" data-s="report">Executive Report</button>
-    <button class="dt" data-s="note">Second Brain</button>
+    <button class="dt" data-s="note">Cerebro</button>
   </div>
 
   <div class="pipeline rv">
@@ -513,8 +531,8 @@
       <div class="inboxwrap" id="inboxwrap" aria-hidden="true">
         <div class="ibx-head">Inbox<span class="ibx-sum">07:00 to 09:30 · what a morning looks like</span></div>
         <div class="ibx-row fly new" id="ibxNew" data-t="final">
-          <span class="ibx-av">SB</span>
-          <span class="ibx-txt"><b>The Second Brain</b><span><i>The Platero Brief · July 17, 2026</i> · Executive Pulse: AI capex faces its first real credibility test…</span></span>
+          <span class="ibx-av">CB</span>
+          <span class="ibx-txt"><b>Cerebro</b><span><i>The Platero Brief · July 17, 2026</i> · Executive Pulse: AI capex faces its first real credibility test…</span></span>
           <span class="ibx-time">09:25</span>
         </div>
         <div class="ibx-row fly">
@@ -533,8 +551,8 @@
           <span class="ibx-time">07:41</span>
         </div>
         <div class="ibx-row old">
-          <span class="ibx-av">SB</span>
-          <span class="ibx-txt"><b>The Second Brain</b><span><i>The Platero Brief · July 16, 2026</i> · Practitioner Pulse: voice agents in minutes, not sprints…</span></span>
+          <span class="ibx-av">CB</span>
+          <span class="ibx-txt"><b>Cerebro</b><span><i>The Platero Brief · July 16, 2026</i> · Practitioner Pulse: voice agents in minutes, not sprints…</span></span>
           <span class="ibx-time">Jul 16</span>
         </div>
         <div class="ibx-row old">
@@ -544,8 +562,8 @@
         </div>
       </div>
       <div class="mail-top">
-        <span class="mail-av">SB</span>
-        <span class="mail-who"><b>The Second Brain</b><i>via SMTP · to joseplatero@gmail.com</i></span>
+        <span class="mail-av">CB</span>
+        <span class="mail-who"><b>Cerebro</b><i>via SMTP · to joseplatero@gmail.com</i></span>
         <span class="mail-when">09:25<em>✓ in inbox, verified over IMAP</em></span>
       </div>
       <div class="bmast">
@@ -582,31 +600,59 @@
     </div>
 
     <div class="mail dark art" id="artNote" hidden>
-      <div class="filetab"><i></i><i></i><i></i><b>agent-addressable-platform.md</b><span class="ftpath">~/brain/notes</span></div>
+      <div class="filetab"><i></i><i></i><i></i><b id="nbFile">cerebro</b><span class="ftpath" id="nbPath">waiting</span></div>
       <div class="skel dark"><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="code">
-        <div class="cl"><span class="no">1</span><span class="lc"><em>---</em></span></div>
-        <div class="cl"><span class="no">2</span><span class="lc"><em>date:</em> 2026-07-08</span></div>
-        <div class="cl"><span class="no">3</span><span class="lc"><em>tags:</em> [martech, ai, agents, architecture, decision]</span></div>
-        <div class="cl"><span class="no">4</span><span class="lc"><em>related:</em> [<u class="lk">vendor-lock-in-moving-up-the-stack</u>, <u class="lk">first-party-data-table-stakes</u>]</span></div>
-        <div class="cl"><span class="no">5</span><span class="lc"><em>source:</em> daily/2026-07-08-ai-stack-daily.md</span></div>
-        <div class="cl"><span class="no">6</span><span class="lc"><em>---</em></span></div>
-        <div class="cl"><span class="no">7</span><span class="lc">&nbsp;</span></div>
-        <div class="cl"><span class="no">8</span><span class="lc"><b># Agent-addressable is the new platform requirement</b></span></div>
-        <div class="cl"><span class="no">9</span><span class="lc">&nbsp;</span></div>
-        <div class="cl"><span class="no">10</span><span class="lc">A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke.</span></div>
-        <div class="cl"><span class="no">11</span><span class="lc">&nbsp;</span></div>
-        <div class="cl"><span class="no">12</span><span class="lc">Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a <b>liability</b>.</span></div>
+      <div class="nbwrap">
+        <div class="nb nb-c">
+          <div class="code">
+            <div class="cl"><span class="no">1</span><span class="lc"><em>---</em></span></div>
+            <div class="cl"><span class="no">2</span><span class="lc"><em>date:</em> 2026-07-08</span></div>
+            <div class="cl"><span class="no">3</span><span class="lc"><em>tags:</em> [martech, ai, agents, architecture, decision]</span></div>
+            <div class="cl"><span class="no">4</span><span class="lc"><em>related:</em> [<u class="lk">vendor-lock-in-moving-up-the-stack</u>, <u class="lk">first-party-data-table-stakes</u>]</span></div>
+            <div class="cl"><span class="no">5</span><span class="lc"><em>source:</em> daily/2026-07-08-ai-stack-daily.md</span></div>
+            <div class="cl"><span class="no">6</span><span class="lc"><em>---</em></span></div>
+            <div class="cl"><span class="no">7</span><span class="lc">&nbsp;</span></div>
+            <div class="cl"><span class="no">8</span><span class="lc"><b># Agent-addressable is the new platform requirement</b></span></div>
+            <div class="cl"><span class="no">9</span><span class="lc">&nbsp;</span></div>
+            <div class="cl"><span class="no">10</span><span class="lc">A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke.</span></div>
+            <div class="cl"><span class="no">11</span><span class="lc">&nbsp;</span></div>
+            <div class="cl"><span class="no">12</span><span class="lc">Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a <b>liability</b>.</span></div>
+          </div>
+          <div class="dfoot">captured raw · processed and linked by Cerebro · 151 notes, every one traceable to its source</div>
+        </div>
+        <div class="nb nb-a">
+          <div class="code">
+            <div class="cl"><span class="no">1</span><span class="lc">agent-addressable is becoming the platform requirement</span></div>
+            <div class="cl"><span class="no">2</span><span class="lc">&nbsp;</span></div>
+            <div class="cl"><span class="no">3</span><span class="lc"><em>captured 08:12 · unprocessed · fast capture beats perfect capture</em></span></div>
+          </div>
+          <div class="dfoot">a thought, parked in 30 seconds · organizing comes later, and not by me</div>
+        </div>
+        <div class="nb nb-b">
+          <svg class="nbg" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line class="gl" x1="160" y1="100" x2="58" y2="42"/>
+            <line class="gl" x1="160" y1="100" x2="262" y2="46"/>
+            <line class="gl" x1="160" y1="100" x2="228" y2="168"/>
+            <circle class="gn old" cx="58" cy="42" r="7"/>
+            <circle class="gn old" cx="262" cy="46" r="7"/>
+            <circle class="gn old" cx="228" cy="168" r="7"/>
+            <circle class="gn new" cx="160" cy="100" r="10"/>
+            <text x="58" y="26">vendor-lock-in-moving-up-the-stack</text>
+            <text x="262" y="30">first-party-data-table-stakes</text>
+            <text x="228" y="188">salesforce-agentic-stack</text>
+            <text class="tn" x="160" y="126">agent-addressable</text>
+          </svg>
+          <div class="dfoot">matching against 151 notes · 3 related found · linking both ways</div>
+        </div>
       </div>
-      <div class="dfoot">captured in 30 seconds · synthesized on request · 151 notes, every one traceable to its source</div>
     </div>
 
     <div class="mail art" id="artReport" hidden>
       <div class="inboxwrap" id="rbx" aria-hidden="true">
         <div class="ibx-head">Inbox<span class="ibx-sum">Friday, 16:00 to 17:00 · the pre-exec scramble</span></div>
         <div class="ibx-row fly new" id="rbxNew" data-t="final">
-          <span class="ibx-av">SB</span>
-          <span class="ibx-txt"><b>The Second Brain</b><span><i>Weekly readout · initiatives</i> · What changed, what needs a decision. Two escalations flagged.</span></span>
+          <span class="ibx-av">CB</span>
+          <span class="ibx-txt"><b>Cerebro</b><span><i>Weekly readout · initiatives</i> · What changed, what needs a decision. Two escalations flagged.</span></span>
           <span class="ibx-time">16:50</span>
         </div>
         <div class="ibx-row fly">
@@ -620,8 +666,8 @@
           <span class="ibx-time">15:48</span>
         </div>
         <div class="ibx-row old">
-          <span class="ibx-av">SB</span>
-          <span class="ibx-txt"><b>The Second Brain</b><span><i>Weekly readout · July 11</i> · Nine on track, one decision needed by Wednesday…</span></span>
+          <span class="ibx-av">CB</span>
+          <span class="ibx-txt"><b>Cerebro</b><span><i>Weekly readout · July 11</i> · Nine on track, one decision needed by Wednesday…</span></span>
           <span class="ibx-time">Jul 11</span>
         </div>
       </div>
@@ -1094,15 +1140,15 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
       { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
     ]},
-    note: { head: 'second brain · capture to synthesis · one real note', art: 'artNote', lines: [
+    note: { head: 'cerebro · capture · process · link', art: 'artNote', lines: [
       { d: 250,  h: '<span class="ts">[08:12]</span> ❯ <span class="hl">"capture: agent-addressable is becoming the platform requirement"</span>' },
       { d: 800,  h: '<span class="hl">▸ Skill(</span>capture<span class="hl">)</span> · fast capture beats perfect capture · no over-organizing' },
-      { d: 700,  h: '  <span class="hl">Write(</span>inbox/2026-07-08-agent-addressable.md<span class="hl">)</span> <span class="ok">✓</span> <span class="ts">(0.4s)</span>' },
+      { d: 700,  h: '  <span class="hl">Write(</span>inbox/2026-07-08-agent-addressable.md<span class="hl">)</span> <span class="ok">✓</span> <span class="ts">(0.4s)</span>', st: 'a' },
       { d: 950,  h: '<span class="ts">[days later]</span> ❯ <span class="hl">"process my inbox"</span>' },
-      { d: 850,  h: '  <span class="hl">Grep(</span>"agent-addressable", notes/ · 151 files<span class="hl">)</span> · matching against the whole brain' },
+      { d: 850,  h: '  <span class="hl">Grep(</span>"agent-addressable", notes/ · 151 files<span class="hl">)</span> · matching against the whole brain', st: 'b' },
       { d: 850,  h: '  <span class="hl">Read(</span>daily/2026-07-08-ai-stack-daily.md<span class="hl">)</span> · source brief located' },
       { d: 950,  h: '  related: <span class="hl">[[vendor-lock-in-moving-up-the-stack]]</span> · <span class="hl">[[first-party-data-table-stakes]]</span>' },
-      { d: 850,  h: '  <span class="hl">Write(</span>notes/agent-addressable-platform.md<span class="hl">)</span> <span class="ok">✓</span> tagged, linked both ways <span class="ts">(1.2s)</span>', art: true },
+      { d: 850,  h: '  <span class="hl">Write(</span>notes/agent-addressable-platform.md<span class="hl">)</span> <span class="ok">✓</span> tagged, linked both ways <span class="ts">(1.2s)</span>', art: true, st: 'c' },
       { d: 700,  h: '  the brain compounds: every new idea lands next to everything it touches' },
     ]},
     report: { head: 'executive report · sample run · details anonymized', art: 'artReport', lines: [
@@ -1150,6 +1196,17 @@ document.querySelectorAll('.figshot img').forEach(img => {
   };
   let cur = 'brief', runId = 0, timers = [];
   const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+  const STAGE_TAB = {
+    a: ['inbox/2026-07-08-agent-addressable.md', 'raw capture'],
+    b: ['cerebro · processing', 'matching 151 notes'],
+    c: ['notes/agent-addressable-platform.md', '~/brain/notes'],
+  };
+  function setStage(card, st){
+    card.classList.remove('loading');
+    card.dataset.stage = st;
+    document.getElementById('nbFile').textContent = STAGE_TAB[st][0];
+    document.getElementById('nbPath').textContent = STAGE_TAB[st][1];
+  }
   function play(){
     const my = ++runId;
     timers.forEach(clearTimeout); timers = [];
@@ -1158,6 +1215,9 @@ document.querySelectorAll('.figshot img').forEach(img => {
     head.textContent = sc.head;
     const active = document.getElementById(sc.art);
     arts.forEach(a => { a.hidden = a !== active; a.classList.remove('loading', 'inbox'); });
+    const nb = document.getElementById('artNote');
+    nb.dataset.stage = reducedT ? 'c' : '';
+    if (reducedT) { document.getElementById('nbFile').textContent = STAGE_TAB.c[0]; document.getElementById('nbPath').textContent = STAGE_TAB.c[1]; }
     tabs.forEach(x => x.classList.toggle('on', x.dataset.s === cur));
     const ibx = INBOX[cur];
     if (!reducedT) {
@@ -1175,6 +1235,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
       body.appendChild(el);
       t += reducedT ? 0 : Math.round(l.d * SPEED);
       if (l.art) artAt = t;
+      if (l.st && !reducedT) later(() => { if (my === runId) setStage(active, l.st); }, t);
       later(() => { if (my === runId) el.classList.add('on'); }, t);
     });
     if (!reducedT) {
