@@ -103,6 +103,32 @@ for (const a of assets) {
 t('no asset over GitHub 100MB limit', oversize.length === 0, oversize.join(','));
 t(`index.html under 150KB (${(html.length / 1024).toFixed(0)}KB)`, html.length < 150 * 1024);
 
+/* ---------- css integrity ---------- */
+section('css integrity');
+{
+  const css = (html.match(/<style>([\s\S]*?)<\/style>/) || [])[1] || '';
+  let depth = 0, balanced = true;
+  for (const ch of css) { if (ch === '{') depth++; if (ch === '}') depth--; if (depth < 0) balanced = false; }
+  t('style braces balanced', balanced && depth === 0, `end depth ${depth}`);
+  // orphan fragments: at top level, every statement must start with a selector or at-rule,
+  // never with a bare property declaration (a stray "transform:...;}" silently eats the NEXT rule)
+  const orphans = [];
+  let d = 0;
+  for (const raw of css.split('\n')) {
+    const l = raw.trim();
+    if (d === 0 && l && !l.startsWith('/*') && !l.startsWith('@') && !l.startsWith('}') &&
+        /^[a-z-]+\s*:/.test(l) && !/^[a-z-]+\s*:\w*\s*(hover|focus|active|before|after)/.test(l)) {
+      orphans.push(l.slice(0, 60));
+    }
+    for (const ch of raw) { if (ch === '{') d++; if (ch === '}') d--; }
+  }
+  t('no orphaned top-level declarations', orphans.length === 0, orphans.join(' | '));
+  // the load-bearing layout rules must actually exist
+  for (const rule of ['.ch {', '.cols {', '.pipeline {', '#gnav {', '.mail {']) {
+    t(`rule present: ${rule.slice(0, -2)}`, css.includes(rule));
+  }
+}
+
 /* ---------- javascript ---------- */
 section('javascript');
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
