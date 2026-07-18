@@ -448,6 +448,11 @@
   .figshot img { width:100%; display:block; transition:transform .8s var(--major); }
   .figshot:hover img { transform:scale(1.015); }
   .photostrip { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:34px; }
+  .photostrip .figshot img { width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
+  .twshots { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:760px; margin-bottom:18px; }
+  .twshots .figshot { margin:0; }
+  .twshots .figshot img { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 30%; display:block; }
+  .figshot.inset { max-width:440px; }
   @media (max-width:720px){ .photostrip { grid-template-columns:1fr; } }
   @media (min-width:721px) and (max-width:960px){ .photostrip { grid-template-columns:1fr 1fr; } }
   .photostrip .figshot { margin:0; }
@@ -746,7 +751,7 @@
     </aside>
   </div>
   <figure class="figshot rv" hidden>
-    <img src="assets/photos/keynote-stage.jpg" alt="The keynote on stage: the game projected large, Jose presenting from the podium">
+    <img src="assets/photos/ai-native-title.jpg" alt="The keynote title slide on screen: Inside the AI-Native Product Workflow, Jose Platero, Air Canada">
   </figure>
   <div class="gameframe rv">
     <iframe src="https://thejoseplatero.github.io/second-brain-game/cerebro.html" title="The keynote" loading="lazy"></iframe>
@@ -811,6 +816,10 @@
       <span class="num"><i>0</i><small>tools rolled out that he hasn't run on himself first</small></span>
     </aside>
   </div>
+  <figure class="figshot inset rv" hidden>
+    <img src="assets/photos/podium.jpg" alt="Jose mid-lecture at the podium, teaching the operating model">
+  </figure>
+
   <div class="pull rv">"My new product is the system, not the products that system produces."<span class="who">The meta-lesson, from the homepage rethink</span></div>
 </section>
 
@@ -828,15 +837,24 @@
     <span class="pin-cta">Listen ↗︎</span>
   </a>
 
+  <div class="twshots rv">
+    <figure class="figshot" hidden>
+      <img src="assets/photos/tw-fireside.jpg" alt="The Pragmatism in Practice conversation on stage: Charting Your Own Course, Thoughtworks and Air Canada">
+    </figure>
+    <figure class="figshot" hidden>
+      <img src="assets/photos/tw-questions.jpg" alt="Audience questions after the Thoughtworks session">
+    </figure>
+  </div>
+
   <div class="photostrip rv">
     <figure class="figshot" hidden>
-      <img src="assets/photos/panel.jpg" alt="Jose speaking on a design leadership panel">
+      <img src="assets/photos/panel-mic.jpg" alt="Jose speaking on the Leaders in Design panel, co-panelists beside him">
     </figure>
     <figure class="figshot" hidden>
       <img src="assets/photos/studio.jpg" alt="Jose's teaching rig: three screens running a live BrainStation AI certification lab">
     </figure>
     <figure class="figshot" hidden>
-      <img src="assets/photos/room.jpg" alt="A full room watching Jose demo the live agent pipeline on two screens">
+      <img src="assets/photos/armchair.jpg" alt="Jose in conversation on stage, mic in hand">
     </figure>
   </div>
 
