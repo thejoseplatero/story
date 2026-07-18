@@ -112,6 +112,11 @@
   .dek { color:var(--dim); font-size:19px; line-height:1.7; max-width:56ch; margin-bottom:34px; }
   .byline { font-size:13px; color:var(--dimmer); letter-spacing:.04em; }
   .byline b { color:var(--dim); font-weight:500; }
+  .dims { display:grid; grid-template-columns:repeat(3,1fr); gap:34px; padding-top:8px; padding-bottom:58px; }
+  .dim { border-top:1px solid var(--line); padding-top:18px; }
+  .dim-k { display:block; font:600 11px Inter,sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); margin-bottom:10px; }
+  .dim p { font-size:14.5px; line-height:1.65; color:var(--dim); }
+  @media (max-width:760px){ .dims { grid-template-columns:1fr; gap:20px; padding-bottom:44px; } }
     transform:translateY(-2px); box-shadow:0 10px 30px -12px rgba(82,102,235,.55); }
 
   .ch { padding-top:96px; padding-bottom:96px; border-top:1px solid var(--line); }
@@ -448,7 +453,7 @@
   .figshot img { width:100%; display:block; transition:transform .8s var(--major); }
   .figshot:hover img { transform:scale(1.015); }
   .photostrip { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:34px; }
-  .photostrip .figshot img { width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
+  .photostrip .figshot img { width:100%; aspect-ratio:3/2; object-fit:cover; object-position:50% 22%; display:block; }
   .twshots { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:760px; margin-bottom:18px; }
   .twshots .figshot { margin:0; }
   .twshots .figshot img { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 30%; display:block; }
@@ -484,10 +489,10 @@
 <body>
 <div id="prog"></div>
 <nav id="gnav" aria-label="Jump to the artifacts">
-  <a href="#ch-1">Agent demos</a>
-  <a href="#ch-2">The keynote</a>
-  <a href="#watch">Talks &amp; reels</a>
-  <a href="#record">Roles &amp; record</a>
+  <a href="#ch-1">Demos</a>
+  <a href="#ch-2">Keynote</a>
+  <a href="#watch">Talks</a>
+  <a href="#record">Career</a>
 </nav>
 <nav id="nav"><div class="in">
   <span class="brand"><b>Jose Platero</b></span>
@@ -501,15 +506,29 @@
   <div class="byline rv"><b>Jose Platero</b> · Director, Product, Design &amp; MarTech · Air Canada | Aeroplan · Toronto</div>
 </header>
 
+<section class="dims wrap" aria-label="What Jose does">
+  <div class="dim rv">
+    <span class="dim-k">Run the org</span>
+    <p>45+ people across product, design, martech, and adtech. A 9M-member program relaunch run through a manager layer, not through him.</p>
+  </div>
+  <div class="dim rv">
+    <span class="dim-k">Build the systems</span>
+    <p>An AI operating model the whole team ships on. Compass, the design system. Four live agents, running on this page.</p>
+  </div>
+  <div class="dim rv">
+    <span class="dim-k">Teach it</span>
+    <p>AI and product certifications at BrainStation. Advisor at Queen's Smith School. Keynotes, panels, and the Thoughtworks podcast.</p>
+  </div>
+</section>
+
 <section class="ch wrap">
-  <div class="chno rv">Chapter one</div>
+  <div class="chno rv">The agents</div>
   <h2 class="disp rv">While I sleep, it works.</h2>
   <div class="cols">
     <div class="body">
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Four of the agents are below, live: Daily Briefing, Executive Report, Cerebro, and the Coaches Council. Run one and watch the artifact land beside it.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -520,6 +539,7 @@
     </aside>
   </div>
 
+  <p class="rv body" style="margin-top:34px;">Four of the agents run live below.</p>
   <div class="demotabs rv" role="tablist" aria-label="Live system demos">
     <button class="dt on" data-s="brief">Daily Briefing</button>
     <button class="dt" data-s="report">Executive Report</button>
@@ -536,7 +556,7 @@
   <div class="mailwrap" id="mailwrap">
     <div class="mail" id="mailCard">
       <div class="inboxwrap" id="inboxwrap" aria-hidden="true">
-        <div class="ibx-head">Inbox<span class="ibx-sum">07:00 to 09:30 · what a morning looks like</span></div>
+        <div class="ibx-head">Inbox<span class="ibx-sum">07:00 to 09:30</span></div>
         <div class="ibx-row fly new" id="ibxNew" data-t="final">
           <span class="ibx-av">CB</span>
           <span class="ibx-txt"><b>Cerebro</b><span><i>The Platero Brief · July 17, 2026</i> · Executive Pulse: AI capex faces its first real credibility test…</span></span>
@@ -603,7 +623,7 @@
           <p class="bq">Defensive posture after the Gemini slip: multi-model architecture. Own your data and orchestration; treat any one model as replaceable.</p>
         </section>
       </div>
-      <div class="bfoot"><span class="bdots" id="bdots"><i class="on"></i><i></i><i></i><i></i></span><span>4 briefs distilled into one email · excerpts from the real July 17 edition</span></div>
+      <div class="bfoot"><span class="bdots" id="bdots"><i class="on"></i><i></i><i></i><i></i></span><span>excerpts from the real July 17 edition</span></div>
     </div>
 
     <div class="mail dark art" id="artNote" hidden>
@@ -625,15 +645,15 @@
             <div class="cl"><span class="no">11</span><span class="lc">&nbsp;</span></div>
             <div class="cl"><span class="no">12</span><span class="lc">Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a <b>liability</b>.</span></div>
           </div>
-          <div class="dfoot">captured raw · processed and linked by Cerebro · 151 notes, every one traceable to its source</div>
+          <div class="dfoot">151 notes · every one traceable to its source</div>
         </div>
         <div class="nb nb-a">
           <div class="code">
             <div class="cl"><span class="no">1</span><span class="lc">agent-addressable is becoming the platform requirement</span></div>
             <div class="cl"><span class="no">2</span><span class="lc">&nbsp;</span></div>
-            <div class="cl"><span class="no">3</span><span class="lc"><em>captured 08:12 · unprocessed · fast capture beats perfect capture</em></span></div>
+            <div class="cl"><span class="no">3</span><span class="lc"><em>captured 08:12 · unprocessed</em></span></div>
           </div>
-          <div class="dfoot">a thought, parked in 30 seconds · organizing comes later, and not by me</div>
+          <div class="dfoot">parked in 30 seconds · Cerebro files it later</div>
         </div>
         <div class="nb nb-b">
           <svg class="nbg" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -656,7 +676,7 @@
 
     <div class="mail art" id="artReport" hidden>
       <div class="inboxwrap" id="rbx" aria-hidden="true">
-        <div class="ibx-head">Inbox<span class="ibx-sum">Friday, 16:00 to 17:00 · the pre-exec scramble</span></div>
+        <div class="ibx-head">Inbox<span class="ibx-sum">Friday, 16:00 to 17:00</span></div>
         <div class="ibx-row fly new" id="rbxNew" data-t="final">
           <span class="ibx-av">CB</span>
           <span class="ibx-txt"><b>Cerebro</b><span><i>Weekly readout · initiatives</i> · What changed, what needs a decision. Two escalations flagged.</span></span>
@@ -705,7 +725,7 @@
           <p style="font-size:13.5px;">The other nine initiatives are moving as planned. Details live in Jira, one link per line, so owners can go straight to the work.</p>
         </section>
       </div>
-      <div class="bfoot"><span class="bdots" id="rdots"><i class="on"></i><i></i></span><span>exec-report skill · fresh Jira walk, never cached · sample, anonymized</span></div>
+      <div class="bfoot"><span class="bdots" id="rdots"><i class="on"></i><i></i></span><span>exec-report skill · sample, anonymized</span></div>
     </div>
 
   
@@ -714,7 +734,7 @@
       <div class="memo-head">
         <span class="memo-kick">The Coaches Council · challenge mode</span>
         <span class="memo-title">Should we standardize on a single frontier model vendor?</span>
-        <span class="memo-meta">5 of 21 advisors seated · the ones most likely to disagree</span>
+        <span class="memo-meta">5 of 21 advisors seated</span>
       </div>
       <div class="mail-body">
         <div class="rrow"><span class="chip warn">against</span><span><b>Rumelt</b> · You are buying roadmap risk, not capability. That is the diagnosis; everything else is a wish list.</span></div>
@@ -724,7 +744,7 @@
         <div class="rrow"><span class="chip warn">against</span><span><b>Machiavelli</b> · Never depend on borrowed power. Build your own base or be priced by someone else's fortune.</span></div>
         <p class="mail-sec">The verdict · 3 to 2, with conditions</p>
         <p>Do not standardize on the vendor. Standardize on the interface: one orchestration layer, your own data, any model swappable in a sprint. Revisit in two quarters.</p>
-        <p class="mail-foot">an inner board of 21 advisors · each a fully developed lens, not a book summary · sample run</p>
+        <p class="mail-foot">coaches-council skill · sample run</p>
       </div>
     </div>
   </div>
@@ -738,16 +758,16 @@
 </section>
 
 <section class="ch wrap">
-  <div class="chno rv">Chapter two</div>
+  <div class="chno rv">The keynote</div>
   <h2 class="disp rv">How I make complex things land.</h2>
   <div class="cols">
     <div class="body">
       <p class="rv">Half of an executive's job is translation: taking something complex and making a room care about it. For a talk on AI-native second brains, I didn't open with slides. I built a game and used it as the narrative: each level is a piece of how the system works, so the audience follows the concept the way they'd follow a story, and then the real system picks up where the game leaves off.</p>
-      <p class="rv">It's live below. Play through it and you'll follow the same narrative the room did.</p>
+      
     </div>
     <aside class="margin rv">
-      <b>Why it matters</b>
-      <span class="note">Show the artifact, not the deck. The game below is the actual keynote narrative, live, not a screenshot of it.</span>
+      <b>The device</b>
+      <span class="note">Built for the AI Product Summit at BrainStation Toronto. Each level is one piece of the real system.</span>
     </aside>
   </div>
   <figure class="figshot rv" hidden>
@@ -755,17 +775,17 @@
   </figure>
   <div class="gameframe rv">
     <iframe src="https://thejoseplatero.github.io/second-brain-game/cerebro.html" title="The keynote" loading="lazy"></iframe>
-    <div class="cap"><span>the keynote's narrative device · not slides, a world you can walk through · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗︎</a></div>
+    <div class="cap"><span>Inside the AI-Native Product Workflow · AI Product Summit Toronto · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗︎</a></div>
   </div>
 </section>
 
 <section class="ch wrap">
-  <div class="chno rv">Chapter three</div>
+  <div class="chno rv">The origin</div>
   <h2 class="disp rv">I love travel. I loathe the travel experience.</h2>
   <div class="cols">
     <div class="body">
       <p class="rv">As a product person, I vowed that if I ever got the chance to work on it, I would make it great. Fifteen years of preparation first: TELUS, Shaw Media, agencies, and Aimia's innovation lab, running 100+ lean experiments. Then Air Canada, 2019. On my first day I walked into my boss's office and announced I was going to change how people travel. I didn't get to finish the sentence. The priority was launching the new Aeroplan program. So we launched it: a new digital member experience, partnerships with Uber, Starbucks, and Marriott, and a member base that doubled.</p>
-      <p class="rv">Here's the failure part, because every true story has one. I eventually got the homepage into my portfolio, with no development team and a mandate to keep the lights on. My scrappy team of overflow bug-fixers changed the header from black to white and removed one button, and it caused an uproar. The brand team pushed back hard, and they were right: aircanada.com no longer felt like Air Canada. I got excited, pitched a cosmetic update, and after every approval, the only thing that shipped was changing the header back to black. I had let excitement drive. I forgot to think like a product person.</p>
+      <p class="rv">Here's the failure part. I eventually got the homepage into my portfolio, with no development team and a mandate to keep the lights on. My scrappy team of overflow bug-fixers changed the header from black to white and removed one button, and it caused an uproar. The brand team pushed back hard, and they were right: aircanada.com no longer felt like Air Canada. I got excited, pitched a cosmetic update, and after every approval, the only thing that shipped was changing the header back to black. I had let excitement drive. I forgot to think like a product person.</p>
       <p class="rv">So we rebooted. Full discovery: lounges, customer interviews, the data. The business had expanded from flights to cars, hotels, packages, and loyalty, and the page had never scaled with it. Customers were stuck in a Where's Waldo puzzle. We banned the word redesign. This was a rethink of what the page was for, shipped as a beta to a subset of members, expanded loop by loop. That work became a <a class="inlink" href="https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage" target="_blank" rel="noopener">Webby honoree</a>. The bigger wins were underneath: a senior PM carried the vision forward, an overflow bug-squad became a real product-engineering team, and I learned that there is all this work underneath the work that makes the work actually work.</p>
     </div>
     <aside class="margin rv">
@@ -780,7 +800,7 @@
 </section>
 
 <section class="ch wrap">
-  <div class="chno rv">Chapter four</div>
+  <div class="chno rv">The people</div>
   <h2 class="disp rv">The launch I'm proudest of didn't need me.</h2>
   <div class="cols">
     <div class="body">
@@ -800,13 +820,13 @@
 </section>
 
 <section class="ch wrap">
-  <div class="chno rv">Chapter five</div>
+  <div class="chno rv">The operating model</div>
   <h2 class="disp rv">The pivot: my product is the system now.</h2>
   <div class="cols">
     <div class="body">
       <p class="rv">I will not pretend the AI wave arrived calmly. For somebody who considers himself a craftsperson, there was panic in watching the game change. The answer was to get into the tools, learn from the AI natives around me, and then build what I learned into the org: agents that draft the PRDs and user stories, automate the executive reporting, audit initiatives, and plan capacity. Governed, repeatable, used across the team. The manual prep work is what got replaced, not the judgment.</p>
       <p class="rv">Compass, the design system I founded, is the oldest proof of the method. My first pitch was efficiency, and it hit a pain nobody would fund. Then someone senior on the brand team said the real one out loud: when people experience Air Canada, it doesn't feel like Air Canada. That was the pain. I reframed everything around it, the brand team became the advocates, and the system got built. Now it's becoming the AI layer: components and tokens AI tools can read, so a prototype comes out on-brand the first time. The same platform thinking gave marketing a self-serve campaign tool, and turnaround went from months to minutes.</p>
-      <p class="rv">One rule holds it together: nothing rolls out to the team that I haven't run myself first. My own work runs on the same machinery, the research agents you watched run in chapter one, and a knowledge system an AI can actually operate. When one of my own pipelines failed silently, the lesson became policy: every system ships with a watchdog, because a system reporting success is grading its own homework.</p>
+      <p class="rv">One rule holds it together: nothing rolls out to the team that I haven't run myself first. My own work runs on the same machinery, the research agents running at the top of this page, and a knowledge system an AI can actually operate. When one of my own pipelines failed silently, the lesson became policy: every system ships with a watchdog.</p>
     </div>
     <aside class="margin rv">
       <b>What the operating model buys</b>
@@ -820,18 +840,17 @@
     <img src="assets/photos/podium.jpg" alt="Jose mid-lecture at the podium, teaching the operating model">
   </figure>
 
-  <div class="pull rv">"My new product is the system, not the products that system produces."<span class="who">The meta-lesson, from the homepage rethink</span></div>
+  <div class="pull rv">"My new product is the system, not the products that system produces."<span class="who">From the homepage rethink</span></div>
 </section>
 
-<section class="ch wrap">
-  <div class="chno rv">Chapter six</div>
+<section class="ch wrap" id="watch">
+  <div class="chno rv">In public</div>
   <h2 class="disp rv">On stage, in classrooms, on the record.</h2>
 
   <a class="pincard rv" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">
     <span class="pin-main">
       <span class="pin-kick">Podcast · Thoughtworks · Pragmatism in Practice</span>
       <span class="pin-title">Product Innovation: Charting Your Own Course</span>
-      <span class="pin-desc">A long-form conversation on product innovation, on <span class="twword"><i>/</i>thoughtworks</span>' podcast.</span>
     </span>
     <span class="pin-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
     <span class="pin-cta">Listen ↗︎</span>
@@ -867,12 +886,8 @@
     <div class="recrow"><span class="y">Ongoing</span><span><b>Queen's University, Smith School</b><br>Advisor &amp; mentor, Master of Digital Product Management</span></div>
   </div>
   <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗︎</a></p>
-</section>
 
-<section class="ch wrap" id="watch">
-  <div class="chno rv">Watch</div>
-  <h2 class="disp rv">The work behind the work.</h2>
-  <div class="body rv"><p>Three talks. Five reels. What people said after.</p></div>
+  <h3 class="subhead rv">The work behind the work</h3>
 
   <div class="theater rv" id="theater" hidden>
     <div class="stagecol">
@@ -893,8 +908,7 @@
   </div>
   <p class="body rv" id="watchEmpty" style="color:var(--dimmer); font-size:14px;">Loading footage…</p>
 
-  <div class="subhead rv">The reel · <b>@jose.build</b></div>
-  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Shot vertical for social. The full feed is on Instagram.</p>
+  <h3 class="subhead rv">The reel · <b>@jose.build</b></h3>
   <div class="igrail rv">
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Behind the Work, on Instagram">
       <video src="assets/reels/behind-the-work.mp4" poster="assets/posters/behind-work.jpg" muted loop playsinline preload="metadata"></video>
@@ -923,8 +937,7 @@
     </a>
   </div>
 
-  <div class="subhead rv">In the conversation</div>
-  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Afterward, on LinkedIn. Each card links to the original post.</p>
+  <h3 class="subhead rv">In the conversation</h3>
   <div class="quotes rv">
     <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:activity:7482965300599005185/" target="_blank" rel="noopener">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
@@ -971,7 +984,7 @@
     <a class="pill" href="mailto:joseplatero@gmail.com">Start a conversation</a>
     <a class="pill ghost" href="https://www.linkedin.com/in/joseplatero/" target="_blank" rel="noopener">LinkedIn</a>
   </div>
-  <div class="links rv">Writing: <a href="https://loopsandletters.substack.com/" target="_blank" rel="noopener">Loops and Letters</a> · named for the loop model: small loops to big loops</div>
+  <div class="links rv">Writing: <a href="https://loopsandletters.substack.com/" target="_blank" rel="noopener">Loops and Letters</a></div>
 </div>
 
 <script>
@@ -1172,7 +1185,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
   if (!body) return;
   const S = {
     brief: { head: 'daily briefing · 2026-07-17 · replayed from the real log', art: 'mailCard', lines: [
-      { d: 250,  h: '<span class="ts">[07:05:00]</span> launchd fires <span class="hl">com.joseplatero.daily-briefs</span> · no human awake' },
+      { d: 250,  h: '<span class="ts">[07:05:00]</span> launchd fires <span class="hl">com.joseplatero.daily-briefs</span>' },
       { d: 800,  h: '<span class="hl">▸ claude -p</span> · agent: <span class="hl">executive-pulse</span>' },
       { d: 650,  h: '  reading skill: executive-pulse.md · lens: macro, boardroom, org design' },
       { d: 900,  h: '  WebSearch("AI capex credibility test markets") · reading 8 sources' },
@@ -1184,7 +1197,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 700,  h: '<span class="hl">▸ scripts/send_brief.py</span> · compiling the best of all four' },
       { d: 900,  h: '  <span class="ok">Sent:</span> The Platero Brief · July 17, 2026 → joseplatero@gmail.com <span class="ts">[09:25:52]</span>', art: true },
       { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
-      { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
+      { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span>' },
     ]},
     note: { head: 'cerebro · capture · process · link', art: 'artNote', lines: [
       { d: 250,  h: '<span class="ts">[08:12]</span> ❯ <span class="hl">"capture: agent-addressable is becoming the platform requirement"</span>' },
@@ -1195,7 +1208,6 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 850,  h: '  <span class="hl">Read(</span>daily/2026-07-08-ai-stack-daily.md<span class="hl">)</span> · source brief located' },
       { d: 950,  h: '  related: <span class="hl">[[vendor-lock-in-moving-up-the-stack]]</span> · <span class="hl">[[first-party-data-table-stakes]]</span>' },
       { d: 850,  h: '  <span class="hl">Write(</span>notes/agent-addressable-platform.md<span class="hl">)</span> <span class="ok">✓</span> tagged, linked both ways <span class="ts">(1.2s)</span>', art: true, st: 'c' },
-      { d: 700,  h: '  the brain compounds: every new idea lands next to everything it touches' },
     ]},
     council: { head: 'coaches council · challenge mode · 5 of 21 seated', art: 'artCouncil', lines: [
       { d: 250,  h: '❯ <span class="hl">"challenge mode: should we standardize on a single frontier model vendor?"</span>' },
@@ -1205,7 +1217,6 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 900,  h: '  the room splits: speed and simplicity vs roadmap risk and borrowed power' },
       { d: 950,  h: '  synthesizing: where they agree · where they fight · what to do Monday' },
       { d: 850,  h: '  <span class="ok">✓</span> verdict ready · 3 to 2, with conditions', art: true },
-      { d: 700,  h: '  the tension between advisors is where the useful thinking lives' },
     ]},
     report: { head: 'executive report · sample run · details anonymized', art: 'artReport', lines: [
       { d: 250,  h: '<span class="ts">[16:50]</span> ❯ <span class="hl">"run the exec report"</span>' },
@@ -1214,7 +1225,6 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 850,  h: '  reading owner comments · 41 across 14 initiatives · status deltas since last week' },
       { d: 950,  h: '  drafting the narrative: what changed · decisions &amp; escalations · every line linked to Jira' },
       { d: 850,  h: '  <span class="ok">✓</span> report ready · 2 escalations flagged for tonight', art: true },
-      { d: 700,  h: '  built for the 2am call, so the 2am call stops happening' },
     ]},
   };
   const reducedT = matchMedia('(prefers-reduced-motion:reduce)').matches;
