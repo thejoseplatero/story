@@ -200,9 +200,6 @@
   .term-head i { width:11px; height:11px; border-radius:50%; background:#2a2e3d; }
   .term-head i:nth-child(1){ background:#e0654f; } .term-head i:nth-child(2){ background:#e0a83f; } .term-head i:nth-child(3){ background:#39c286; }
   .term-head span { margin-left:10px; font:11.5px "IBM Plex Mono",monospace; color:var(--dimmer); letter-spacing:.04em; }
-  .term-replay { margin-left:auto; font:11.5px "IBM Plex Mono",monospace; color:var(--accent2); background:none; border:1px solid var(--line);
-                 border-radius:999px; padding:4px 12px; cursor:pointer; transition:border-color .25s, color .25s; }
-  .term-replay:hover { border-color:var(--accent2); color:#fff; }
   .term-body { padding:20px 22px 24px; font:13px/1.9 "IBM Plex Mono",monospace; min-height:264px; }
   .tl { opacity:0; transform:translateY(4px); transition:opacity .35s var(--major), transform .35s var(--major); white-space:pre-wrap; word-break:break-word; }
   .tl.on { opacity:1; transform:none; }
@@ -213,17 +210,50 @@
   .mailwrap { margin-top:26px; display:flex; }
   .mail { background:#f4f1ea; color:#181511; border-radius:14px; max-width:660px; width:100%; overflow:hidden;
           box-shadow:0 30px 80px -30px rgba(0,0,0,.6); }
-  .mail-head { padding:18px 24px 14px; border-bottom:1px solid #ddd6c9; }
-  .mail-row { display:grid; grid-template-columns:84px 1fr; gap:10px; font-size:13px; padding:3px 0; color:#4a443b; }
-  .mail-row .k { color:#948c7e; font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; padding-top:1px; }
-  .mail-row b { color:#181511; }
   .mail-body { padding:20px 24px 22px; }
   .mail-body p { font-size:14px; line-height:1.7; color:#3a352c; margin-bottom:12px; }
   .mail-body p b { color:#181511; }
   .mail-sec { font-size:11px !important; letter-spacing:.14em; text-transform:uppercase; color:#b4460f !important; font-weight:600; margin-bottom:4px !important; }
   .mail-foot { font-size:11.5px !important; color:#948c7e !important; border-top:1px solid #ddd6c9; padding-top:12px; margin-bottom:0 !important; }
-  .fm { font:12px/1.75 "SF Mono", ui-monospace, Menlo, monospace; color:#8a8272; background:#f1ecdf;
-    border:1px solid #ddd6c9; border-left:3px solid #c9bfa8; border-radius:8px; padding:10px 14px; margin-bottom:14px; overflow-x:auto; }
+  /* artifact identities: email (paper), markdown file (dark editor), memo (paper masthead), boot sheet (dark) */
+  .mail-top { display:flex; align-items:center; gap:12px; padding:14px 24px 12px; border-bottom:1px solid #ddd6c9; }
+  .mail-av { flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:#1c2748; color:#fff;
+             font:600 12.5px Inter,sans-serif; display:flex; align-items:center; justify-content:center; letter-spacing:.04em; }
+  .mail-who { display:flex; flex-direction:column; gap:1px; min-width:0; }
+  .mail-who b { font-size:13.5px; color:#181511; }
+  .mail-who i { font-style:normal; font-size:11.5px; color:#948c7e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mail-when { margin-left:auto; text-align:right; font-size:12px; color:#4a443b; display:flex; flex-direction:column; gap:2px; }
+  .mail-when em { font-style:normal; font-size:10.5px; color:#3d6b2f; font-weight:600; }
+  .mail-sub { padding:13px 24px; font:600 15.5px Inter,sans-serif; color:#181511; border-bottom:1px solid #ddd6c9; }
+  .mail.dark { background:#0d0f15; color:#c3cadb; border:1px solid #242a3b; }
+  .filetab { display:flex; align-items:center; gap:7px; padding:12px 16px; border-bottom:1px solid #1d2230; }
+  .filetab i { width:10px; height:10px; border-radius:50%; background:#2a2e3d; }
+  .filetab i:nth-child(1){ background:#e0654f; } .filetab i:nth-child(2){ background:#e0a83f; } .filetab i:nth-child(3){ background:#39c286; }
+  .filetab b { margin-left:8px; font:11.5px "IBM Plex Mono",monospace; color:#dfe3ee; font-weight:500; }
+  .filetab .ftpath { margin-left:auto; font:10.5px "IBM Plex Mono",monospace; color:#525a6e; }
+  .code { padding:16px 16px 16px 6px; font:11.5px/1.85 "SF Mono", ui-monospace, Menlo, monospace; flex:1; }
+  .cl { display:grid; grid-template-columns:28px 1fr; gap:12px; }
+  .cl .no { text-align:right; color:#39415a; user-select:none; }
+  .cl .lc { min-width:0; }
+  .cl em { font-style:normal; color:#7f8ba8; }
+  .cl b { color:#fff; font-weight:600; }
+  .cl .lk { text-decoration:none; color:var(--accent2); border-bottom:1px dotted rgba(143,156,245,.55); }
+  .dfoot { font:10.5px/1.6 "IBM Plex Mono",monospace; color:#525a6e; padding:12px 18px; border-top:1px solid #1d2230; }
+  .memo-head { padding:20px 24px 16px; border-bottom:3px solid #181511; }
+  .memo-kick { display:block; font:600 10.5px Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#b4460f; margin-bottom:7px; }
+  .memo-title { display:block; font-family:Fraunces,Georgia,serif; font-weight:400; font-size:21px; color:#181511; line-height:1.22; }
+  .memo-meta { display:block; margin-top:8px; font-size:11.5px; color:#948c7e; }
+  .osbody { padding:18px 20px 10px; flex:1; }
+  .osbar { display:flex; align-items:center; gap:12px; margin-bottom:18px; font:10.5px "IBM Plex Mono",monospace;
+           color:#7f8ba8; text-transform:uppercase; letter-spacing:.12em; }
+  .osbar .bar { flex:1; height:6px; border-radius:999px; background:#1a1f2e; overflow:hidden; }
+  .osbar .bar i { display:block; height:100%; width:0; border-radius:999px;
+                  background:linear-gradient(90deg, #39c286, #8f9cf5); transition:width 2s var(--major) .3s; }
+  .mail.arrived .osbar .bar i { width:100%; }
+  .osbar b { color:#39c286; }
+  .osrow { display:flex; gap:10px; margin-bottom:11px; font-size:13px; line-height:1.55; color:#b9c1d4; }
+  .osrow i { font-style:normal; color:#39c286; font-weight:700; }
+  .osrow b { color:#fff; }
   .rrow { display:flex; gap:10px; align-items:flex-start; margin-bottom:10px; }
   .rrow > span:last-child { font-size:13.5px; line-height:1.55; }
   .chip { flex:0 0 auto; font:600 10px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase;
@@ -231,8 +261,6 @@
   .chip.ok { background:#e3efdd; color:#3d6b2f; }
   .chip.warn { background:#f6e8d3; color:#8a5a14; }
   .chip.esc { background:#f3ddd6; color:#953f24; }
-  .ck { display:flex; gap:10px; margin-bottom:9px; font-size:13.5px; line-height:1.55; }
-  .ck i { font-style:normal; color:#3d6b2f; font-weight:700; }
   .thumb:focus-visible .box { border-color:var(--accent2); outline:none; }
   .thumb { outline:none; }
   .subhead { font:13px "IBM Plex Mono",monospace; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2);
@@ -351,8 +379,7 @@
     .pull { margin-top:38px; padding-top:28px; }
     .gameframe iframe { height:64vh; min-height:400px; }
     .term-body { font-size:12px; padding:16px 16px 18px; min-height:0; }
-    .mail-head, .mail-body { padding-left:18px; padding-right:18px; }
-    .mail-row { grid-template-columns:70px 1fr; }
+    .mail-body, .mail-top, .mail-sub, .memo-head { padding-left:18px; padding-right:18px; }
     .pincard { padding:16px 18px; gap:14px; }
     .pin-title { font-size:17px; }
     .igcard { width:min(252px, 68vw); }
@@ -497,18 +524,18 @@
 
   <div class="pipeline rv">
   <div class="term" id="term" aria-label="Replay of an automated agent run">
-    <div class="term-head"><i></i><i></i><i></i><span id="termHead">the morning run · 2026-07-17 · replayed from the real log</span><button id="termReplay" class="term-replay">↻︎ replay</button></div>
+    <div class="term-head"><i></i><i></i><i></i><span id="termHead">the morning run · 2026-07-17 · replayed from the real log</span></div>
     <div class="term-body" id="termBody"></div>
   </div>
 
   <div class="mailwrap" id="mailwrap">
     <div class="mail" id="mailCard">
-      <div class="mail-head">
-        <div class="mail-row"><span class="k">From</span><span>The Second Brain · via SMTP</span></div>
-        <div class="mail-row"><span class="k">To</span><span>joseplatero@gmail.com</span></div>
-        <div class="mail-row"><span class="k">Subject</span><span><b>The Platero Brief · July 17, 2026</b></span></div>
-        <div class="mail-row"><span class="k">Delivered</span><span>09:25 · verified in inbox by the watchdog, over IMAP</span></div>
+      <div class="mail-top">
+        <span class="mail-av">SB</span>
+        <span class="mail-who"><b>The Second Brain</b><i>via SMTP · to joseplatero@gmail.com</i></span>
+        <span class="mail-when">09:25<em>✓ in inbox, verified over IMAP</em></span>
       </div>
+      <div class="mail-sub">The Platero Brief · July 17, 2026</div>
       <div class="mail-body">
         <p class="mail-sec">Executive Pulse · macro signal</p>
         <p><b>AI capex faces its first real credibility test.</b> Markets sold chips hard after a frontier model slipped months and TSMC lifted capex guidance to $60-64B. The board-level question of 2026: will the buildout earn its return? Stop treating AI investment as a blank check; demand a return thesis on every major AI line item.</p>
@@ -518,26 +545,30 @@
       </div>
     </div>
 
-    <div class="mail art" id="artNote" hidden>
-      <div class="mail-head">
-        <div class="mail-row"><span class="k">File</span><span>notes/agent-addressable-platform.md</span></div>
-        <div class="mail-row"><span class="k">From</span><span>a 30-second raw capture, days earlier</span></div>
-        <div class="mail-row"><span class="k">Linked</span><span><b>[[vendor-lock-in-moving-up-the-stack]] · [[first-party-data-table-stakes]]</b></span></div>
+    <div class="mail dark art" id="artNote" hidden>
+      <div class="filetab"><i></i><i></i><i></i><b>agent-addressable-platform.md</b><span class="ftpath">~/brain/notes</span></div>
+      <div class="code">
+        <div class="cl"><span class="no">1</span><span class="lc"><em>---</em></span></div>
+        <div class="cl"><span class="no">2</span><span class="lc"><em>date:</em> 2026-07-08</span></div>
+        <div class="cl"><span class="no">3</span><span class="lc"><em>tags:</em> [martech, ai, agents, architecture, decision]</span></div>
+        <div class="cl"><span class="no">4</span><span class="lc"><em>related:</em> [<u class="lk">vendor-lock-in-moving-up-the-stack</u>, <u class="lk">first-party-data-table-stakes</u>]</span></div>
+        <div class="cl"><span class="no">5</span><span class="lc"><em>source:</em> daily/2026-07-08-ai-stack-daily.md</span></div>
+        <div class="cl"><span class="no">6</span><span class="lc"><em>---</em></span></div>
+        <div class="cl"><span class="no">7</span><span class="lc">&nbsp;</span></div>
+        <div class="cl"><span class="no">8</span><span class="lc"><b># Agent-addressable is the new platform requirement</b></span></div>
+        <div class="cl"><span class="no">9</span><span class="lc">&nbsp;</span></div>
+        <div class="cl"><span class="no">10</span><span class="lc">A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke.</span></div>
+        <div class="cl"><span class="no">11</span><span class="lc">&nbsp;</span></div>
+        <div class="cl"><span class="no">12</span><span class="lc">Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a <b>liability</b>.</span></div>
       </div>
-      <div class="mail-body">
-        <p class="mail-sec">Atomic note · verbatim from the brain</p>
-        <div class="fm">---<br>date: 2026-07-08<br>tags: [martech, ai, agents, architecture, decision]<br>related: [vendor-lock-in-moving-up-the-stack, first-party-data-table-stakes]<br>source: daily/2026-07-08-ai-stack-daily.md<br>---</div>
-        <p><b># Agent-addressable is the new platform requirement</b></p>
-        <p>A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke. Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a liability.</p>
-        <p class="mail-foot">one idea per file · linked both ways · 151 notes, every one traceable to its source</p>
-      </div>
+      <div class="dfoot">captured in 30 seconds · synthesized on request · 151 notes, every one traceable to its source</div>
     </div>
 
     <div class="mail art" id="artReport" hidden>
-      <div class="mail-head">
-        <div class="mail-row"><span class="k">Report</span><span>Initiatives · weekly readout</span></div>
-        <div class="mail-row"><span class="k">Audience</span><span>executive · narrative, not a spreadsheet</span></div>
-        <div class="mail-row"><span class="k">Source</span><span><b>live Jira walk · 14 initiatives · fresh pull, never cached</b></span></div>
+      <div class="memo-head">
+        <span class="memo-kick">Weekly readout · initiatives</span>
+        <span class="memo-title">What changed, and what needs a decision.</span>
+        <span class="memo-meta">14 initiatives · live Jira walk · narrative for executives, links for owners</span>
       </div>
       <div class="mail-body">
         <p class="mail-sec">What changed this week</p>
@@ -551,21 +582,17 @@
       </div>
     </div>
 
-    <div class="mail art" id="artOS" hidden>
-      <div class="mail-head">
-        <div class="mail-row"><span class="k">Doc</span><span>team-os/new-pod.md · v1.0</span></div>
-        <div class="mail-row"><span class="k">Premise</span><span>a team is a product; the team OS is its operating system</span></div>
-        <div class="mail-row"><span class="k">Time</span><span><b>3 days to baseline, down from 3 months</b></span></div>
+    <div class="mail dark art" id="artOS" hidden>
+      <div class="filetab"><i></i><i></i><i></i><b>team-os/new-pod.md</b><span class="ftpath">v1.0 · booted Monday</span></div>
+      <div class="osbody">
+        <div class="osbar"><span>baseline</span><span class="bar"><i></i></span><b>READY</b></div>
+        <div class="osrow"><i>✓</i><span><b>Decision rights</b> · who calls what, written before the first standup</span></div>
+        <div class="osrow"><i>✓</i><span><b>Rituals</b> · the few meetings that survive, each with an owner and an artifact</span></div>
+        <div class="osrow"><i>✓</i><span><b>Progress</b> · decisions made today, not meetings booked</span></div>
+        <div class="osrow"><i>✓</i><span><b>Ownership</b> · real lanes from day one, artifacts over updates</span></div>
+        <div class="osrow"><i>✓</i><span><b>Onboarding</b> · a system, not a rite of passage; real load by day three</span></div>
       </div>
-      <div class="mail-body">
-        <p class="mail-sec">The contracts the team makes with itself</p>
-        <div class="ck"><i>✓</i><span><b>Decision rights</b> · who calls what, written before the first standup</span></div>
-        <div class="ck"><i>✓</i><span><b>Rituals</b> · the few meetings that survive, each with an owner and an artifact</span></div>
-        <div class="ck"><i>✓</i><span><b>Progress</b> · decisions made today, not meetings booked</span></div>
-        <div class="ck"><i>✓</i><span><b>Ownership</b> · real lanes from day one, artifacts over updates</span></div>
-        <div class="ck"><i>✓</i><span><b>Onboarding</b> · a system, not a rite of passage; real load by day three</span></div>
-        <p class="mail-foot">the team OS template, applied per team · the system behind chapters two and three</p>
-      </div>
+      <div class="dfoot">3 days to baseline, down from 3 months · the system behind chapters two and three</div>
     </div>
   </div>
   </div>
@@ -957,15 +984,16 @@ document.querySelectorAll('.figshot img').forEach(img => {
   const head = document.getElementById('termHead');
   const arts = ['mailCard','artNote','artReport','artOS'].map(id => document.getElementById(id));
   const tabs = [...document.querySelectorAll('.dt')];
-  let cur = 'brief', runId = 0;
+  let cur = 'brief', runId = 0, loopT = 0;
   function play(){
     const my = ++runId;
+    clearTimeout(loopT);
     const sc = S[cur];
     body.innerHTML = '';
     head.textContent = sc.head;
     const active = document.getElementById(sc.art);
-    arts.forEach(a => { a.hidden = a !== active; a.classList.remove('arrived'); });
-    /* the artifact shows immediately; the terminal narrates how it got made */
+    /* the artifact shows immediately and stays put across loop replays */
+    arts.forEach(a => { a.hidden = a !== active; if (a !== active) a.classList.remove('arrived'); });
     requestAnimationFrame(() => requestAnimationFrame(() => { if (my === runId) active.classList.add('arrived'); }));
     let t = 0;
     sc.lines.forEach(l => {
@@ -975,6 +1003,8 @@ document.querySelectorAll('.figshot img').forEach(img => {
       t += reducedT ? 0 : l.d;
       setTimeout(() => { if (my === runId) el.classList.add('on'); }, t);
     });
+    /* the run loops on its own; no button to press */
+    if (!reducedT) loopT = setTimeout(() => { if (my === runId) play(); }, t + 4500);
   }
   tabs.forEach(b => b.addEventListener('click', () => {
     if (b.dataset.s === cur) return;
@@ -995,7 +1025,6 @@ document.querySelectorAll('.figshot img').forEach(img => {
   };
   addEventListener('scroll', sweepT, { passive: true });
   setTimeout(sweepT, 600);
-  document.getElementById('termReplay').addEventListener('click', () => { started = true; play(); });
   tabs.forEach(b => b.addEventListener('click', () => { started = true; }));
 })();
 </script>
