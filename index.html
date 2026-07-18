@@ -323,17 +323,6 @@
   .memo-kick { display:block; font:600 10.5px Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#b4460f; margin-bottom:7px; }
   .memo-title { display:block; font-family:Fraunces,Georgia,serif; font-weight:400; font-size:21px; color:#181511; line-height:1.22; }
   .memo-meta { display:block; margin-top:8px; font-size:11.5px; color:#948c7e; }
-  .osbody { padding:18px 20px 10px; flex:1; }
-  .osbar { display:flex; align-items:center; gap:12px; margin-bottom:18px; font:10.5px "IBM Plex Mono",monospace;
-           color:#7f8ba8; text-transform:uppercase; letter-spacing:.12em; }
-  .osbar .bar { flex:1; height:6px; border-radius:999px; background:#1a1f2e; overflow:hidden; }
-  .osbar .bar i { display:block; height:100%; width:0; border-radius:999px;
-                  background:linear-gradient(90deg, #39c286, #8f9cf5); transition:width 2s var(--major) .3s; }
-  .mail .osbar .bar i { width:100%; }
-  .osbar b { color:#39c286; }
-  .osrow { display:flex; gap:10px; margin-bottom:11px; font-size:13px; line-height:1.55; color:#b9c1d4; }
-  .osrow i { font-style:normal; color:#39c286; font-weight:700; }
-  .osrow b { color:#fff; }
   .rrow { display:flex; gap:10px; align-items:flex-start; margin-bottom:10px; }
   .rrow > span:last-child { font-size:13.5px; line-height:1.55; }
   .chip { flex:0 0 auto; font:600 10px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase;
@@ -496,7 +485,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and the team OS booting a new team to baseline. The terminal cycles through all four on its own, and each run produces the artifact beside it.</p>
+      <p class="rv">Three of the systems are below, live. The morning brief, the exec report, and the second brain's capture to synthesis. Run one and watch the artifact land beside it.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -509,9 +498,8 @@
 
   <div class="demotabs rv" role="tablist" aria-label="Live system demos">
     <button class="dt on" data-s="brief">The morning brief</button>
-    <button class="dt" data-s="note">Capture to synthesis</button>
     <button class="dt" data-s="report">The exec report</button>
-    <button class="dt" data-s="os">The team OS</button>
+    <button class="dt" data-s="note">Capture to synthesis</button>
   </div>
 
   <div class="pipeline rv">
@@ -539,7 +527,7 @@
           <span class="ibx-txt"><b>Talent partner</b><span><i>Head of Product, confidential</i> · Retail marketplace scaling their product org. Would love a call.</span></span>
           <span class="ibx-time">08:02</span>
         </div>
-        <div class="ibx-row fly">
+        <div class="ibx-row">
           <span class="ibx-av alt">WI</span>
           <span class="ibx-txt"><b>Workshop inquiry</b><span><i>Corporate training</i> · Two-day AI operating model session for a 30-person product team?</span></span>
           <span class="ibx-time">07:41</span>
@@ -547,6 +535,11 @@
         <div class="ibx-row old">
           <span class="ibx-av">SB</span>
           <span class="ibx-txt"><b>The Second Brain</b><span><i>The Platero Brief · July 16, 2026</i> · Practitioner Pulse: voice agents in minutes, not sprints…</span></span>
+          <span class="ibx-time">Jul 16</span>
+        </div>
+        <div class="ibx-row old">
+          <span class="ibx-av alt">QS</span>
+          <span class="ibx-txt"><b>Queen's, Smith School</b><span><i>Mentor session</i> · Thanks again for Tuesday. The cohort is still talking about the loop model.</span></span>
           <span class="ibx-time">Jul 16</span>
         </div>
       </div>
@@ -621,7 +614,7 @@
           <span class="ibx-txt"><b>Executive office</b><span><i>Update needed</i> · Can we get a portfolio status before tomorrow's exec?</span></span>
           <span class="ibx-time">16:12</span>
         </div>
-        <div class="ibx-row fly">
+        <div class="ibx-row">
           <span class="ibx-av alt">PM</span>
           <span class="ibx-txt"><b>PMO</b><span><i>Ops review Monday</i> · Requesting slides on the initiatives portfolio.</span></span>
           <span class="ibx-time">15:48</span>
@@ -662,20 +655,7 @@
       <div class="bfoot"><span class="bdots" id="rdots"><i class="on"></i><i></i></span><span>exec-report skill · fresh Jira walk, never cached · sample, anonymized</span></div>
     </div>
 
-    <div class="mail dark art" id="artOS" hidden>
-      <div class="filetab"><i></i><i></i><i></i><b>team-os/new-pod.md</b><span class="ftpath">v1.0 · booted Monday</span></div>
-      <div class="skel dark"><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="osbody">
-        <div class="osbar"><span>baseline</span><span class="bar"><i></i></span><b>READY</b></div>
-        <div class="osrow"><i>✓</i><span><b>Decision rights</b> · who calls what, written before the first standup</span></div>
-        <div class="osrow"><i>✓</i><span><b>Rituals</b> · the few meetings that survive, each with an owner and an artifact</span></div>
-        <div class="osrow"><i>✓</i><span><b>Progress</b> · decisions made today, not meetings booked</span></div>
-        <div class="osrow"><i>✓</i><span><b>Ownership</b> · real lanes from day one, artifacts over updates</span></div>
-        <div class="osrow"><i>✓</i><span><b>Onboarding</b> · a system, not a rite of passage; real load by day three</span></div>
-      </div>
-      <div class="dfoot">3 days to baseline, down from 3 months · the system behind chapters four and five</div>
     </div>
-  </div>
   </div>
 
   <div class="pull rv">"Thank you Jose Platero for teaching us how to sleep more by leveraging AI!"<span class="who">Suzanne Samivand · Agile Delivery Lead, on LinkedIn after a session on this operating model</span></div>
@@ -1134,19 +1114,11 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 850,  h: '  <span class="ok">✓</span> report ready · 2 escalations flagged for tonight', art: true },
       { d: 700,  h: '  built for the 2am call, so the 2am call stops happening' },
     ]},
-    os: { head: 'the team OS · booting a new team to baseline', art: 'artOS', lines: [
-      { d: 250,  h: '❯ <span class="hl">"new pod spins up Monday. boot the OS."</span>' },
-      { d: 800,  h: '<span class="hl">▸ Skill(</span>team-os<span class="hl">)</span> · a team is a product · this is its operating system' },
-      { d: 900,  h: '  <span class="hl">Write(</span>new-pod/team-os.md<span class="hl">)</span> · decision rights · rituals with owners · artifacts over updates' },
-      { d: 900,  h: '  <span class="hl">Write(</span>new-pod/capacity-model.md<span class="hl">)</span> · <span class="hl">Write(</span>new-pod/onboarding-path.md<span class="hl">)</span>' },
-      { d: 850,  h: '  <span class="ok">✓</span> baseline ready · 3 days, not 3 months', art: true },
-      { d: 700,  h: '  the same system that ran a 9M-member launch without me in every room' },
-    ]},
   };
   const reducedT = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const SPEED = .55; /* terminal pacing: readable, not a wait */
   const head = document.getElementById('termHead');
-  const arts = ['mailCard','artNote','artReport','artOS'].map(id => document.getElementById(id));
+  const arts = ['mailCard','artNote','artReport'].map(id => document.getElementById(id));
   const tabs = [...document.querySelectorAll('.dt')];
   const mailCard = document.getElementById('mailCard');
   const ibxNew = document.getElementById('ibxNew');
@@ -1210,7 +1182,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
         /* other emails arrive while the agents work, oldest first, pushing down from the top */
         const flies = [...document.querySelectorAll('#' + ibx.wrap + ' .ibx-row.fly:not(.new)')].reverse();
         flies.forEach((row, i) => later(() => { if (my === runId) row.classList.add('in'); },
-          Math.round(500 + (artAt - 1300) * (i + 1) / (flies.length + 1))));
+          Math.round(300 + (artAt - 1100) * (i + 1) / (flies.length + 1))));
         /* then the one that matters lands and opens */
         later(() => {
           if (my !== runId) return;
@@ -1219,7 +1191,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
             if (my !== runId) return;
             active.classList.remove('inbox');
             ibx.after();
-          }, 1300);
+          }, 1100);
         }, artAt);
       } else {
         later(() => { if (my === runId) active.classList.remove('loading'); }, artAt);
