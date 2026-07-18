@@ -122,6 +122,8 @@
   .body p { color:#c9cede; margin-bottom:22px; font-size:16.5px; }
   .body p:last-child { margin-bottom:0; }
   .margin { border-left:1px solid var(--line); padding-left:26px; position:sticky; top:110px; }
+  .margin .figshot { margin:20px 0 0; }
+  .body .figshot { margin:26px 0 6px; }
   .margin b { display:block; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--dimmer); margin-bottom:18px; font-weight:500; }
   .num { display:block; margin-bottom:18px; }
   .num i { display:block; font-family:Fraunces,Georgia,serif; font-style:normal; font-size:32px; line-height:1.1; }
@@ -178,7 +180,7 @@
   .recrow b { font-weight:500; }
   .recrow span:not(.y) { color:var(--dim); }
 
-  .colo { text-align:center; padding-top:110px; padding-bottom:60px; border-top:1px solid var(--line); }
+  .colo { text-align:center; padding-top:110px; padding-bottom:130px; border-top:1px solid var(--line); }
   .colo .serif { font-family:Fraunces,Georgia,serif; font-weight:300; font-size:clamp(26px,4vw,42px); line-height:1.2; margin-bottom:10px; }
   .colo .bridge { color:var(--dim); max-width:54ch; margin:20px auto 34px; font-size:15.5px; line-height:1.75; }
   .colo .btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:34px; }
@@ -510,6 +512,9 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
+      <figure class="figshot rv" hidden>
+        <img src="assets/photos/pipeline-talk.jpg" alt="Jose on stage teaching the Jira-to-executive-report pipeline, the full workflow illustrated on screen">
+      </figure>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -731,10 +736,6 @@
   </div>
   </div>
 
-  <figure class="figshot rv" hidden>
-    <img src="assets/photos/pipeline-talk.jpg" alt="Jose on stage teaching the Jira-to-executive-report pipeline, the full workflow illustrated on screen">
-  </figure>
-
   <div class="pull rv">"Thank you Jose Platero for teaching us how to sleep more by leveraging AI!"<span class="who">Suzanne Samivand · Agile Delivery Lead, on LinkedIn after a session on this operating model</span></div>
 </section>
 
@@ -815,12 +816,11 @@
       <span class="num"><i>1st try</i><small>prototypes come out on-brand, via Compass + AI</small></span>
       <span class="num"><i>4</i><small>agent jobs running today: PRDs, reporting, audits, capacity</small></span>
       <span class="num"><i>0</i><small>tools rolled out that he hasn't run on himself first</small></span>
+      <figure class="figshot" hidden>
+        <img src="assets/photos/podium.jpg" alt="Jose mid-lecture at the podium, teaching the operating model">
+      </figure>
     </aside>
   </div>
-  <figure class="figshot inset rv" hidden>
-    <img src="assets/photos/podium.jpg" alt="Jose mid-lecture at the podium, teaching the operating model">
-  </figure>
-
   <div class="pull rv">"My new product is the system, not the products that system produces."<span class="who">From the homepage rethink</span></div>
 </section>
 
@@ -863,8 +863,9 @@
     <div class="recrow"><span class="y">Nov 2026</span><span><b>AIAI Toronto</b> · keynote<br>AI for Builders and Executives</span></div>
     <div class="recrow"><span class="y">Jun 2026</span><span><b>AI Product Summit Toronto</b><br>Inside the AI-Native Product Workflow</span></div>
     <div class="recrow"><span class="y">2026</span><span><b>Aviation Festival</b> · Miami &amp; Singapore<br>Personalization, UX, execution at scale</span></div>
-    <div class="recrow"><span class="y">Ongoing</span><span><b>BrainStation</b> · instructor<br>AI Certification (AIC™) · AI Product Management (PMC™) · Product Leadership</span></div>
+    <div class="recrow"><span class="y">Ongoing</span><span><b>BrainStation</b> · instructor<br>AI Certification (AIC™) · AI Product Management (PMC™) · Product Leadership (PLC™)</span></div>
     <div class="recrow"><span class="y">Ongoing</span><span><b>Queen's University, Smith School</b><br>Advisor &amp; mentor, Master of Digital Product Management</span></div>
+    <div class="recrow"><span class="y">Weekly</span><span><b>Loops and Letters</b> · the newsletter<br>Product orgs, operating models, and the work behind the work · <a href="https://loopsandletters.substack.com/" target="_blank" rel="noopener" style="color:var(--accent2);">read ↗︎</a></span></div>
   </div>
   <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗︎</a></p>
 
@@ -963,9 +964,9 @@
   <p class="bridge rv">If we work together, the first quarter looks like this: I learn how your org actually ships, I find the manual work that shouldn't exist, and I start building the operating model your team runs without me in the room.</p>
   <div class="btns rv">
     <a class="pill" href="mailto:joseplatero@gmail.com">Start a conversation</a>
+    <a class="pill ghost" href="https://loopsandletters.substack.com/" target="_blank" rel="noopener">Read Loops and Letters</a>
     <a class="pill ghost" href="https://www.linkedin.com/in/joseplatero/" target="_blank" rel="noopener">LinkedIn</a>
   </div>
-  <div class="links rv">Writing: <a href="https://loopsandletters.substack.com/" target="_blank" rel="noopener">Loops and Letters</a></div>
 </div>
 
 <script>
@@ -988,7 +989,7 @@ const WATCH_ITEMS = [
   { file: 'assets/talks/product-led-alliance-summit.mp4', label: 'Webby Honoree', cat: 'talk', poster: 'assets/posters/webby.jpg',
     link: 'https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage', linkLabel: 'Webby listing ↗︎' },
   { file: 'assets/behind-the-scenes/bts-1.mp4', label: 'Design System Workshop', cat: 'bts', poster: 'assets/posters/workshop.jpg' },
-  { file: 'assets/talks/why-i-teach.mp4', label: 'Why I Teach', cat: 'talk', poster: 'assets/posters/why-i-teach.jpg' },
+  { file: 'assets/talks/why-i-teach.mp4', label: 'Student and Teacher', cat: 'talk', poster: 'assets/posters/why-i-teach.jpg' },
   /* future drops auto-appear when the files land: */
   { file: 'assets/talks/aiai-toronto.mp4', label: 'AI for Builders and Executives · AIAI Toronto', cat: 'talk' },
   { file: 'assets/talks/elevate.mp4', label: 'Panel on AI systems for the digital customer experience · Elevate, Toronto', cat: 'talk' },
@@ -1052,7 +1053,7 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
     else { stage.removeAttribute('poster'); back.removeAttribute('poster'); }
     /* paint a poster frame instead of a black box: nudge both videos to their
        first real frame once metadata lands, only if the user hasn't hit play */
-    stage.addEventListener('loadedmetadata', function poster(){
+    if (!item.poster) stage.addEventListener('loadedmetadata', function poster(){
       if (stage.paused) { try { stage.currentTime = 0.1; back.currentTime = 0.1; } catch(e){} }
     }, { once: true });
     stageCat.textContent = CAT_LABEL[item.cat] || '';
