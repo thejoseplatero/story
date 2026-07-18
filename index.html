@@ -352,6 +352,9 @@
   .chip.esc { background:#b4460f; color:#f4f1ea; border:1px solid #b4460f; }
   .thumb:focus-visible .box { border-color:var(--accent2); outline:none; }
   .thumb { outline:none; }
+  .h3d { font-family:Fraunces,Georgia,serif; font-weight:300; font-size:clamp(24px,3vw,34px); line-height:1.15;
+         color:#fff; letter-spacing:-.01em; margin:92px 0 28px; }
+  @media (max-width:640px){ .h3d { margin:60px 0 20px; } }
   .subhead { font:13px "IBM Plex Mono",monospace; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2);
              margin:64px 0 10px; padding-top:44px; border-top:1px solid var(--line); }
   .subhead b { color:#fff; font-weight:500; }
@@ -504,7 +507,6 @@
 
 
 <section class="ch wrap">
-  <div class="chno rv">The agents</div>
   <h2 class="disp rv">While I sleep, it works.</h2>
   <div class="cols">
     <div class="body">
@@ -739,7 +741,6 @@
 </section>
 
 <section class="ch wrap" id="talks">
-  <div class="chno rv">The keynote</div>
   <h2 class="disp rv">How I make complex things land.</h2>
   <div class="cols">
     <div class="body">
@@ -761,7 +762,6 @@
 </section>
 
 <section class="ch wrap" id="watch">
-  <div class="chno rv">In public</div>
   <h2 class="disp rv">On stage, in classrooms, on the record.</h2>
 
   <a class="pincard rv" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">
@@ -805,7 +805,7 @@
   </div>
   <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗︎</a></p>
 
-  <h3 class="subhead rv">The work behind the work</h3>
+  <h3 class="h3d rv">The work behind the work.</h3>
 
   <div class="theater rv" id="theater" hidden>
     <div class="stagecol">
@@ -826,7 +826,7 @@
   </div>
   <p class="body rv" id="watchEmpty" style="color:var(--dimmer); font-size:14px;">Loading footage…</p>
 
-  <h3 class="subhead rv">The reel · <b>@jose.build</b></h3>
+  <h3 class="h3d rv">The reel.</h3>
   <div class="igrail rv">
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Behind the Work, on Instagram">
       <video src="assets/reels/behind-the-work.mp4" poster="assets/posters/behind-work.jpg" muted loop playsinline preload="metadata"></video>
@@ -855,7 +855,7 @@
     </a>
   </div>
 
-  <h3 class="subhead rv">In the conversation</h3>
+  <h3 class="h3d rv">In the conversation.</h3>
   <div class="quotes rv">
     <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:activity:7482965300599005185/" target="_blank" rel="noopener">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
@@ -882,7 +882,6 @@
 </section>
 
 <section class="ch wrap" id="origin">
-  <div class="chno rv">The origin</div>
   <h2 class="disp rv">I love travel. I loathe the travel experience.</h2>
   <div class="cols">
     <div class="body">
@@ -902,7 +901,6 @@
 </section>
 
 <section class="ch wrap">
-  <div class="chno rv">The people</div>
   <h2 class="disp rv">The launch I'm proudest of didn't need me.</h2>
   <div class="cols">
     <div class="body">
@@ -922,7 +920,6 @@
 </section>
 
 <section class="ch wrap">
-  <div class="chno rv">The operating model</div>
   <h2 class="disp rv">The pivot: my product is the system now.</h2>
   <div class="cols">
     <div class="body">
@@ -942,7 +939,6 @@
 </section>
 
 <section class="ch wrap" id="record">
-  <div class="chno rv">The record</div>
   <h2 class="disp rv">Roles.</h2>
   <div class="rec rv">
     <div class="recrow"><span class="y">2022 – now</span><span><b>Director, Product, Design &amp; Marketing Technology · Air Canada | Aeroplan</b><br>Member experience, aircanada.com, identity, Compass design system, and the martech stack: Adobe Experience Platform (CDP), Journey Optimizer, Campaign, OneTrust consent management. Revenue via co-brand credit partnerships embedded in booking and loyalty journeys. Status program relaunch for 9M+ members. New adtech function from scratch. 45+ people across four practices on an AI-enabled operating model. Business champion on an 18-month product operating model redesign; enterprise marketing value stream council.</span></div>
@@ -1109,7 +1105,7 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
   railEl.id = 'rail';
   secs.forEach((s, i) => {
     if (!s.id) s.id = 'ch-' + (i + 1);
-    const label = (s.querySelector('.chno') || {}).textContent || ('Chapter ' + (i + 1));
+    const label = (s.querySelector('h2') || {}).textContent || ('Section ' + (i + 1));
     const a = document.createElement('a');
     a.href = '#' + s.id;
     a.innerHTML = '<i>' + label + '</i>';
