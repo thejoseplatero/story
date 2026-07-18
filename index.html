@@ -232,7 +232,7 @@
              transition:opacity .3s, transform .3s var(--major); }
   .igcard:hover .ig-ov i { opacity:1; transform:none; }
   .igfollow { display:flex; align-items:center; }
-  .li-embeds { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; max-width:880px; }
+  .li-embeds { display:grid; grid-template-columns:repeat(auto-fit, minmax(264px, 1fr)); gap:16px; }
   .li-card { border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; }
   .li-card iframe { width:100%; display:block; border:none; }
   /* ch5 pipeline: machine on the left, artifact on the right */
@@ -413,6 +413,7 @@
     <div class="recrow"><span class="y">Jun 2026</span><span><b>AI Product Summit Toronto</b><br>Inside the AI-Native Product Workflow</span></div>
     <div class="recrow"><span class="y">2026</span><span><b>Aviation Festival</b> · Miami &amp; Singapore<br>Personalization, UX, execution at scale</span></div>
     <div class="recrow"><span class="y">Ongoing</span><span><b>BrainStation</b> · instructor<br>AI Certification (AIC™) · AI Product Management (PMC™) · Product Leadership</span></div>
+    <div class="recrow"><span class="y">Jan 2025</span><span><b>Thoughtworks · Pragmatism in Practice</b> · podcast<br><a class="inlink" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">Product Innovation: Charting Your Own Course · listen ↗</a></span></div>
     <div class="recrow"><span class="y">Ongoing</span><span><b>Queen's University, Smith School</b><br>Advisor &amp; mentor, Master of Digital Product Management</span></div>
   </div>
   <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗</a></p>
@@ -472,8 +473,8 @@
   <div class="subhead rv">In the conversation</div>
   <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Live posts, pulled straight from LinkedIn.</p>
   <div class="li-embeds rv">
-    <div class="li-card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7483687773804331009?collapsed=1" height="560" title="Embedded LinkedIn post" loading="lazy"></iframe></div>
-    <div class="li-card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7482965300599005185?collapsed=1" height="560" title="Embedded LinkedIn post" loading="lazy"></iframe></div>
+    <div class="li-card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7483687773804331009?collapsed=1" height="420" title="Embedded LinkedIn post" loading="lazy"></iframe></div>
+    <div class="li-card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7482965300599005185?collapsed=1" height="420" title="Embedded LinkedIn post" loading="lazy"></iframe></div>
   </div>
 </section>
 
@@ -591,7 +592,9 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
     else stageLink.hidden = true;
     filmstrip.querySelectorAll('.thumb').forEach((t, j) => t.classList.toggle('active', j === current));
     const active = filmstrip.children[current];
-    if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    /* only nudge the rail on user-driven changes; the initial select(0) at load
+       must never move the page (this was yanking visitors down on arrival) */
+    if (autoplay && active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
     if (autoplay) stage.play().catch(() => {});
   }
 
