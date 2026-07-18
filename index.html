@@ -299,6 +299,12 @@
   #mailCard.inbox .inboxwrap { opacity:1; }
   .ibx-head { font:600 10.5px Inter,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#948c7e;
               padding:16px 24px 10px; border-bottom:1px solid #ddd6c9; }
+  .ibx-sum { display:block; margin-top:3px; font:italic 400 11px/1.4 Fraunces,Georgia,serif; letter-spacing:.02em;
+             text-transform:none; color:#a89f8d; }
+  .ibx-av.alt { background:#8a5a3b; }
+  .ibx-row.fly { display:none; }
+  .ibx-row.fly.in { display:flex; animation:ibxin .5s var(--major); }
+  @keyframes ibxin { from { opacity:0; transform:translateY(-14px); } }
   .ibx-row { display:flex; align-items:center; gap:12px; padding:13px 24px; border-bottom:1px solid #e8e2d5; }
   .ibx-av { flex:0 0 auto; width:32px; height:32px; border-radius:50%; background:#1c2748; color:#fff;
             font:600 11px Inter,sans-serif; display:flex; align-items:center; justify-content:center; }
@@ -307,8 +313,7 @@
   .ibx-txt > span { font-size:12px; color:#77705f; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .ibx-txt i { font-style:normal; color:#3a352c; font-weight:600; }
   .ibx-time { margin-left:auto; font-size:11px; color:#948c7e; flex:0 0 auto; }
-  .ibx-row.new { background:#efe8d8; opacity:0; transform:translateY(-10px); transition:opacity .5s var(--major), transform .5s var(--major); }
-  .ibx-row.new.in { opacity:1; transform:none; }
+  .ibx-row.new.in { background:#efe8d8; }
   .ibx-row.new .ibx-time { color:#b4460f; font-weight:700; }
   .ibx-row.old { opacity:.55; }
   .memo-stats { display:flex; gap:22px; margin-top:14px; }
@@ -518,21 +523,31 @@
   <div class="mailwrap" id="mailwrap">
     <div class="mail" id="mailCard">
       <div class="inboxwrap" id="inboxwrap" aria-hidden="true">
-        <div class="ibx-head">Inbox</div>
-        <div class="ibx-row new" id="ibxNew">
+        <div class="ibx-head">Inbox<span class="ibx-sum">07:00 to 09:30 · what a morning looks like</span></div>
+        <div class="ibx-row fly new" id="ibxNew" data-t="final">
           <span class="ibx-av">SB</span>
           <span class="ibx-txt"><b>The Second Brain</b><span><i>The Platero Brief · July 17, 2026</i> · Executive Pulse: AI capex faces its first real credibility test…</span></span>
           <span class="ibx-time">09:25</span>
+        </div>
+        <div class="ibx-row fly">
+          <span class="ibx-av alt">ES</span>
+          <span class="ibx-txt"><b>Executive search</b><span><i>VP Product, Series C fintech</i> · Your AI operating model work came up twice this week. Open to 20 minutes?</span></span>
+          <span class="ibx-time">08:55</span>
+        </div>
+        <div class="ibx-row fly">
+          <span class="ibx-av alt">TP</span>
+          <span class="ibx-txt"><b>Talent partner</b><span><i>Head of Product, confidential</i> · Retail marketplace scaling their product org. Would love a call.</span></span>
+          <span class="ibx-time">08:02</span>
+        </div>
+        <div class="ibx-row fly">
+          <span class="ibx-av alt">WI</span>
+          <span class="ibx-txt"><b>Workshop inquiry</b><span><i>Corporate training</i> · Two-day AI operating model session for a 30-person product team?</span></span>
+          <span class="ibx-time">07:41</span>
         </div>
         <div class="ibx-row old">
           <span class="ibx-av">SB</span>
           <span class="ibx-txt"><b>The Second Brain</b><span><i>The Platero Brief · July 16, 2026</i> · Practitioner Pulse: voice agents in minutes, not sprints…</span></span>
           <span class="ibx-time">Jul 16</span>
-        </div>
-        <div class="ibx-row old">
-          <span class="ibx-av">SB</span>
-          <span class="ibx-txt"><b>The Second Brain</b><span><i>The Platero Brief · July 15, 2026</i> · Markets Signal: chips extend the slide as capex questions…</span></span>
-          <span class="ibx-time">Jul 15</span>
         </div>
       </div>
       <div class="mail-top">
@@ -594,7 +609,29 @@
     </div>
 
     <div class="mail art" id="artReport" hidden>
-      <div class="skel full"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="inboxwrap" id="rbx" aria-hidden="true">
+        <div class="ibx-head">Inbox<span class="ibx-sum">Friday, 16:00 to 17:00 · the pre-exec scramble</span></div>
+        <div class="ibx-row fly new" id="rbxNew" data-t="final">
+          <span class="ibx-av">SB</span>
+          <span class="ibx-txt"><b>The Second Brain</b><span><i>Weekly readout · initiatives</i> · What changed, what needs a decision. Two escalations flagged.</span></span>
+          <span class="ibx-time">16:50</span>
+        </div>
+        <div class="ibx-row fly">
+          <span class="ibx-av alt">EO</span>
+          <span class="ibx-txt"><b>Executive office</b><span><i>Update needed</i> · Can we get a portfolio status before tomorrow's exec?</span></span>
+          <span class="ibx-time">16:12</span>
+        </div>
+        <div class="ibx-row fly">
+          <span class="ibx-av alt">PM</span>
+          <span class="ibx-txt"><b>PMO</b><span><i>Ops review Monday</i> · Requesting slides on the initiatives portfolio.</span></span>
+          <span class="ibx-time">15:48</span>
+        </div>
+        <div class="ibx-row old">
+          <span class="ibx-av">SB</span>
+          <span class="ibx-txt"><b>The Second Brain</b><span><i>Weekly readout · July 11</i> · Nine on track, one decision needed by Wednesday…</span></span>
+          <span class="ibx-time">Jul 11</span>
+        </div>
+      </div>
       <div class="memo-head">
         <span class="memo-kick">Weekly readout · initiatives · Friday 16:50</span>
         <span class="memo-title">What changed, and what needs a decision.</span>
@@ -1134,22 +1171,30 @@ document.querySelectorAll('.figshot img').forEach(img => {
   const briefPager = pager('#bpages .bp', '#bdots i', 'mailCard');
   const reportPager = pager('#rpages .rp', '#rdots i', 'artReport');
 
-  let cur = 'brief', runId = 0, loopT = 0, openT = 0;
+  /* inbox choreography: traffic flies in while the agent works; its email lands last and opens */
+  const INBOX = {
+    brief:  { card: mailCard, wrap: 'inboxwrap', after: () => briefPager.reset() },
+    report: { card: document.getElementById('artReport'), wrap: 'rbx', after: () => reportPager.reset() },
+  };
+  let cur = 'brief', runId = 0, timers = [];
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
   function play(){
     const my = ++runId;
-    clearTimeout(loopT); clearTimeout(openT);
+    timers.forEach(clearTimeout); timers = [];
     const sc = S[cur];
     body.innerHTML = '';
     head.textContent = sc.head;
     const active = document.getElementById(sc.art);
-    arts.forEach(a => { a.hidden = a !== active; a.classList.remove('loading'); });
-    mailCard.classList.remove('inbox');
-    ibxNew.classList.remove('in');
+    arts.forEach(a => { a.hidden = a !== active; a.classList.remove('loading', 'inbox'); });
     tabs.forEach(x => x.classList.toggle('on', x.dataset.s === cur));
-    /* while the agent works: the email waits in the inbox, files show a loading shimmer */
+    const ibx = INBOX[cur];
     if (!reducedT) {
-      if (cur === 'brief') mailCard.classList.add('inbox');
-      else active.classList.add('loading');
+      if (ibx) {
+        active.classList.add('inbox');
+        document.querySelectorAll('#' + ibx.wrap + ' .ibx-row.fly').forEach(r => r.classList.remove('in'));
+      } else {
+        active.classList.add('loading');
+      }
     }
     let t = 0, artAt = 0;
     sc.lines.forEach(l => {
@@ -1158,30 +1203,29 @@ document.querySelectorAll('.figshot img').forEach(img => {
       body.appendChild(el);
       t += reducedT ? 0 : Math.round(l.d * SPEED);
       if (l.art) artAt = t;
-      setTimeout(() => { if (my === runId) el.classList.add('on'); }, t);
+      later(() => { if (my === runId) el.classList.add('on'); }, t);
     });
-    /* the artifact lands the moment the terminal says it was made */
-    if (!reducedT) setTimeout(() => {
-      if (my !== runId) return;
-      if (cur === 'brief') {
-        ibxNew.classList.add('in');                 /* the email arrives in the inbox */
-        openT = setTimeout(() => {                  /* then it opens */
+    if (!reducedT) {
+      if (ibx) {
+        /* other emails arrive while the agents work, oldest first, pushing down from the top */
+        const flies = [...document.querySelectorAll('#' + ibx.wrap + ' .ibx-row.fly:not(.new)')].reverse();
+        flies.forEach((row, i) => later(() => { if (my === runId) row.classList.add('in'); },
+          Math.round(500 + (artAt - 1300) * (i + 1) / (flies.length + 1))));
+        /* then the one that matters lands and opens */
+        later(() => {
           if (my !== runId) return;
-          mailCard.classList.remove('inbox');
-          briefPager.reset();
-        }, 1100);
+          document.querySelector('#' + ibx.wrap + ' .ibx-row.new').classList.add('in');
+          later(() => {
+            if (my !== runId) return;
+            active.classList.remove('inbox');
+            ibx.after();
+          }, 1300);
+        }, artAt);
       } else {
-        active.classList.remove('loading');
-        if (cur === 'report') reportPager.reset();
+        later(() => { if (my === runId) active.classList.remove('loading'); }, artAt);
       }
-    }, artAt);
-    /* when a run ends, the terminal moves on to the next system */
-    const ORDER = ['brief', 'note', 'report', 'os'];
-    if (!reducedT) loopT = setTimeout(() => {
-      if (my !== runId) return;
-      cur = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length];
-      play();
-    }, t + 5200);
+    }
+    /* no auto-switching between agents; the next run is the reader's call */
   }
   tabs.forEach(b => b.addEventListener('click', () => {
     if (b.dataset.s === cur) return;
