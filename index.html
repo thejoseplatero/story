@@ -234,6 +234,37 @@
   .li-embeds { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; max-width:880px; }
   .li-card { border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; }
   .li-card iframe { width:100%; display:block; border:none; }
+  /* ch5 pipeline: machine on the left, artifact on the right */
+  .pipeline { display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:54px; align-items:stretch; }
+  @media (max-width:960px){ .pipeline { grid-template-columns:1fr; } }
+  .pipeline .term { margin-top:0; display:flex; flex-direction:column; }
+  .pipeline .term-body { flex:1; }
+  .pipeline .mailwrap { margin-top:0; }
+  .pipeline .mail { max-width:none; height:100%; display:flex; flex-direction:column;
+                    opacity:.22; transform:translateY(14px) scale(.985); filter:saturate(.4);
+                    transition:opacity .8s var(--major), transform .8s var(--major), filter .8s var(--major); }
+  .pipeline .mail.arrived { opacity:1; transform:none; filter:none; }
+  .pipeline .mail-body { flex:1; }
+
+  /* theater: stage with side rail when there is room */
+  .theater { display:grid; grid-template-columns:1fr 236px; gap:20px; align-items:start; }
+  @media (max-width:940px){ .theater { grid-template-columns:1fr; } }
+  .theater .filmstrip { flex-direction:column; overflow-x:visible; overflow-y:auto; max-height:78vh; margin-top:0; padding-bottom:0; gap:16px; }
+  @media (max-width:940px){ .theater .filmstrip { flex-direction:row; overflow-x:auto; max-height:none; margin-top:22px; gap:14px; } }
+  .theater .thumb { width:100%; }
+  @media (max-width:940px){ .theater .thumb { width:168px; } }
+  .theater .thumb .box { width:100%; }
+  @media (max-width:940px){ .theater .thumb .box { width:168px; } }
+
+  /* reel ghost/follow card */
+  .ghostcard { border:1.5px dashed var(--dimmer); background:transparent; display:flex; align-items:center; justify-content:center;
+               color:var(--dim); text-align:center; }
+  .ghostcard:hover { border-color:#d62976; color:#fff; box-shadow:none; }
+  .ghost-inner { display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .ghost-inner b { font-size:14px; font-weight:500; line-height:1.4; }
+  .ghost-inner i { font-style:normal; font-size:12px; color:var(--accent2); }
+  .devslot { border:1.5px dashed rgba(224,168,63,.5); display:flex; align-items:center; justify-content:center;
+             color:var(--dimmer); font:11.5px "IBM Plex Mono",monospace; text-align:center; line-height:1.8; padding:14px; }
 </style>
 </head>
 <body>
@@ -346,12 +377,13 @@
     </aside>
   </div>
 
-  <div class="term rv" id="term" aria-label="Replay of this morning's automated pipeline run">
-    <div class="term-head"><i></i><i></i><i></i><span>logs/briefs-headless.log · 2026-07-17</span><button id="termReplay" class="term-replay">↻ replay</button></div>
+  <div class="pipeline rv">
+  <div class="term" id="term" aria-label="Replay of this morning's automated agent run">
+    <div class="term-head"><i></i><i></i><i></i><span>the morning run · 2026-07-17 · replayed from the real log</span><button id="termReplay" class="term-replay">↻ replay</button></div>
     <div class="term-body" id="termBody"></div>
   </div>
 
-  <div class="mailwrap rv">
+  <div class="mailwrap" id="mailwrap">
     <div class="mail" id="mailCard">
       <div class="mail-head">
         <div class="mail-row"><span class="k">From</span><span>The Second Brain · via SMTP</span></div>
@@ -367,6 +399,7 @@
         <p class="mail-foot">4 briefs · compiled and sent by the pipeline · excerpt from the real July 17 edition</p>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -390,6 +423,7 @@
   <div class="body rv"><p>A stage clip is the polished ten percent. The rest is the actual building, in the actual room. Both, below.</p></div>
 
   <div class="theater rv" id="theater" hidden>
+    <div class="stagecol">
     <div class="stage">
       <video class="backdrop" id="stageBack" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>
       <video class="main" id="stageVideo" controls playsinline></video>
@@ -402,12 +436,13 @@
       <a class="stagelink" id="stageLink" target="_blank" rel="noopener" hidden></a>
       <span class="count" id="stageCount"></span>
     </div>
+    </div>
     <div class="filmstrip" id="filmstrip"></div>
   </div>
   <p class="body rv" id="watchEmpty" style="color:var(--dimmer); font-size:14px;">Loading footage…</p>
 
   <div class="subhead rv">The reel · <b>@jose.build</b></div>
-  <p class="body rv" style="max-width:56ch;"><p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px;">Short-form, shot for social. Tap through for the rest of the building-in-public feed.</p></p>
+  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Short-form, shot for social. Tap through for the rest of the building-in-public feed.</p>
   <div class="igrail rv">
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Move at Retail Speed, on Instagram">
       <video src="assets/talks/move-at-retail-speed.mp4" muted loop playsinline preload="metadata"></video>
@@ -419,8 +454,12 @@
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
       <span class="ig-ov"><b>Pitching Ideas</b><i>Watch on Instagram ↗</i></span>
     </a>
-    <a class="igfollow" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener">
-      <span class="pill">Follow @jose.build</span>
+    <a class="igcard ghostcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="More on Instagram">
+      <span class="ghost-inner">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg>
+        <b>More on<br>@jose.build</b>
+        <i>Follow ↗</i>
+      </span>
     </a>
   </div>
 
@@ -557,8 +596,6 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
     thumb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); thumb.click(); } });
     thumb.innerHTML = `
       <div class="box">
-        <span class="cattag">${item.cat === 'talk' ? 'Talk' : 'BTS'}</span>
-        <span class="fmt">${fmtShape(item.w, item.h)}</span>
         <span class="dur">${fmtDuration(item.duration)}</span>
       </div>
       <div class="ttl">${item.label}</div>`;
@@ -613,18 +650,50 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
   addEventListener('scroll', spy, { passive: true }); spy();
 })();
 
-/* ---- IG reel cards: play while visible, pause offscreen ---- */
+/* ---- IG reel cards: play while visible, pause offscreen.               ---- */
+/* ---- Future reels probe-gate like the theater: drop assets/reels/N.mp4 ---- */
+/* ---- and add a line here; missing files show dashed slots on localhost ---- */
+/* ---- only, and render nothing in production.                           ---- */
+const FUTURE_REELS = [
+  { file: 'assets/reels/reel-3.mp4', label: 'Reel three' },
+  { file: 'assets/reels/reel-4.mp4', label: 'Reel four' },
+];
 (function reels(){
-  const vids = [...document.querySelectorAll('.igcard video')];
-  if (!vids.length) return;
+  const rail = document.querySelector('.igrail');
+  const ghost = document.querySelector('.ghostcard');
+  const isDev = ['localhost','127.0.0.1'].includes(location.hostname);
+  FUTURE_REELS.forEach(item => {
+    const probe = document.createElement('video');
+    probe.muted = true; probe.preload = 'metadata'; probe.src = item.file;
+    probe.addEventListener('loadedmetadata', () => {
+      const a = document.createElement('a');
+      a.className = 'igcard';
+      a.href = 'https://www.instagram.com/jose.build/'; a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('aria-label', item.label + ', on Instagram');
+      probe.loop = true; probe.playsInline = true;
+      a.appendChild(probe);
+      a.insertAdjacentHTML('beforeend',
+        '<span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>' +
+        '<span class="ig-ov"><b>' + item.label + '</b><i>Watch on Instagram ↗</i></span>');
+      rail.insertBefore(a, ghost);
+      watchReel(probe);
+    }, { once: true });
+    probe.addEventListener('error', () => {
+      if (!isDev) return;
+      const slot = document.createElement('div');
+      slot.className = 'igcard devslot';
+      slot.textContent = 'dev only · drop ' + item.file + ' and it goes live';
+      rail.insertBefore(slot, ghost);
+    }, { once: true });
+  });
   const reducedR = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  if (reducedR) return;
-  const vio = new IntersectionObserver(es => es.forEach(e => {
+  const vio = reducedR ? null : new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
     if (e.isIntersecting) v.play().catch(() => {});
     else v.pause();
   }), { threshold: .35 });
-  vids.forEach(v => vio.observe(v));
+  function watchReel(v){ if (vio) vio.observe(v); }
+  [...document.querySelectorAll('.igcard video')].forEach(watchReel);
 })();
 
 /* ---- chapter five: replay this morning's real pipeline run ---- */
@@ -632,30 +701,41 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
   const body = document.getElementById('termBody');
   if (!body) return;
   const LINES = [
-    { d: 300,  h: '<span class="ts">[07:05:00]</span> ===== headless brief run for 2026-07-17 =====' },
-    { d: 700,  h: '<span class="hl">claude -p</span> · generating: practitioner-pulse, ai-stack-daily, executive-pulse, markets-signal' },
-    { d: 1500, h: 'Wrote 4 briefs for 2026-07-17 <span class="ts">(+2 atomic notes: own-the-data-rent-the-model, diagnostic-as-conversion-mechanism)</span>' },
-    { d: 500,  h: '<span class="ts">[09:25:46]</span> claude generation <span class="ok">exit=0</span>' },
-    { d: 450,  h: 'All 151 notes already indexed. Nothing new.' },
-    { d: 350,  h: '<span class="ts">[09:25:47]</span> index <span class="ok">ok</span>' },
-    { d: 600,  h: 'Found: Practitioner Pulse, AI Stack Daily, Executive Pulse, Markets Signal' },
-    { d: 800,  h: '<span class="ok">Sent:</span> The Platero Brief · July 17, 2026 → joseplatero@gmail.com' },
-    { d: 500,  h: '<span class="ts">[09:25:52]</span> email <span class="ok">SENT</span> · ----- run complete -----' },
-    { d: 900,  h: '<span class="wd">[github-actions · watchdog]</span> brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
+    { d: 250,  h: '<span class="ts">[07:05:00]</span> launchd fires <span class="hl">com.joseplatero.daily-briefs</span> · no human awake' },
+    { d: 800,  h: '<span class="hl">▸ claude -p</span> · agent: <span class="hl">executive-pulse</span>' },
+    { d: 650,  h: '  reading skill: executive-pulse.md · lens: macro, boardroom, org design' },
+    { d: 900,  h: '  WebSearch("AI capex credibility test markets") · reading 8 sources' },
+    { d: 900,  h: '  WebSearch("TSMC capex guidance") · reading 5 sources' },
+    { d: 1000, h: '  synthesizing: macro signal → tech industry → leadership lens → the question for your team' },
+    { d: 750,  h: '  <span class="ok">✓</span> wrote daily/2026-07-17-executive-pulse.md' },
+    { d: 800,  h: '<span class="hl">▸ 3 more agents run the same loop:</span> practitioner-pulse · ai-stack-daily · markets-signal' },
+    { d: 900,  h: '  <span class="ok">✓</span> 4 briefs written · +2 atomic notes filed into the brain' },
+    { d: 700,  h: '<span class="hl">▸ scripts/send_brief.py</span> · compiling the best of all four' },
+    { d: 900,  h: '  <span class="ok">Sent:</span> The Platero Brief · July 17, 2026 → joseplatero@gmail.com <span class="ts">[09:25:52]</span>', mail: true },
+    { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
+    { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
   ];
   const reducedT = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const mail = document.querySelector('.pipeline .mail');
   let playing = false;
   function play(){
     if (playing) return; playing = true;
     body.innerHTML = '';
+    if (mail) mail.classList.remove('arrived');
     let t = 0;
     LINES.forEach((l, i) => {
       const el = document.createElement('div');
       el.className = 'tl'; el.innerHTML = l.h;
       body.appendChild(el);
       t += reducedT ? 0 : l.d;
-      setTimeout(() => { el.classList.add('on'); if (i === LINES.length - 1) playing = false; }, t);
+      setTimeout(() => {
+        el.classList.add('on');
+        if (l.mail && mail) mail.classList.add('arrived');
+        if (i === LINES.length - 1) playing = false;
+      }, t);
     });
+    /* safety: if anything interrupts the run, the artifact still lands */
+    setTimeout(() => { if (mail) mail.classList.add('arrived'); }, reducedT ? 0 : t + 1200);
   }
   const tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { play(); tio.disconnect(); } }), { threshold: .3 });
   tio.observe(document.getElementById('term'));
