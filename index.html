@@ -810,12 +810,19 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
 (function reels(){
   const reducedR = matchMedia('(prefers-reduced-motion:reduce)').matches;
   if (reducedR) return;
+  /* phones veto play() outside a gesture in low-power / data-saver modes;
+     remember the visible ones and retry on the first touch */
+  const blocked = new Set();
+  const tryPlay = v => { v.muted = true; v.play().then(() => blocked.delete(v)).catch(() => blocked.add(v)); };
   const vio = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
-    if (e.isIntersecting) v.play().catch(() => {});
-    else v.pause();
+    if (e.isIntersecting) tryPlay(v);
+    else { v.pause(); blocked.delete(v); }
   }), { threshold: .35 });
   [...document.querySelectorAll('.igcard video')].forEach(v => vio.observe(v));
+  const unlock = () => blocked.forEach(tryPlay);
+  addEventListener('touchstart', unlock, { passive: true });
+  addEventListener('pointerdown', unlock, { passive: true });
 })();
 
 /* ---- photos: hide any slot whose file has not been dropped yet ---- */
