@@ -383,13 +383,10 @@
   .quotes { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:18px; max-width:880px; }
   .qcard { position:relative; display:flex; flex-direction:column; gap:16px; border:1px solid var(--line); border-radius:16px;
            padding:26px 28px; background:var(--paper); transition:transform .35s var(--major), border-color .3s, box-shadow .35s; }
-  .qcard:hover { transform:translateY(-4px); border-color:rgba(143,156,245,.5); box-shadow:0 18px 44px -22px rgba(82,102,235,.35); }
   .qli { position:absolute; top:20px; right:22px; width:20px; height:20px; opacity:.85; }
   .qt { font-family:Fraunces,Georgia,serif; font-weight:300; font-size:17.5px; line-height:1.55; color:#dfe3ee; padding-right:26px; }
   .qwho { font-size:13px; color:var(--dim); line-height:1.5; }
   .qwho b { display:block; color:#fff; font-weight:500; font-size:14px; }
-  .qgo { font-size:12px; color:var(--accent2); opacity:0; transform:translateY(3px); transition:opacity .3s, transform .3s var(--major); }
-  .qcard:hover .qgo { opacity:1; transform:none; }
   /* ch5 machine room: tabs pick a system; machine on the left, artifact on the right */
   .demotabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:50px; }
   .dt { font:500 13px Inter,sans-serif; color:var(--dim); background:none; border:1px solid var(--line); border-radius:999px;
@@ -857,27 +854,26 @@
 
   <h3 class="h3d rv">In the conversation.</h3>
   <div class="quotes rv">
-    <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:activity:7482965300599005185/" target="_blank" rel="noopener">
+    <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"What immediately stood out was his ability to transform complex ideas into stories people can truly connect with... showing how AI can become a practical thinking partner rather than just another tool."</p>
       <span class="qwho"><b>Beliz Kasirga</b>Data Operations &amp; Systems Analyst</span>
-      <span class="qgo">Read the post ↗︎</span>
-    </a>
-    <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
+    </div>
+    <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"Jose shared how he's built different AI structures and workflows to support how he thinks, works and makes decisions... AI shouldn't replace our judgment. The bigger opportunity is building better systems around it."</p>
       <span class="qwho"><b>Luis Bridgeman</b>Senior Manager, Strategy &amp; Operations, Growth Bets · Uber</span>
-    </a>
-    <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
+    </div>
+    <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"Product leaders don't need tools to generate more content. They need a system to manage cognitive overload... a repeatable framework to think sharper and decide faster under pressure."</p>
       <span class="qwho"><b>Bailey Zambri</b>Associate Director · BrainStation</span>
-    </a>
-    <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
+    </div>
+    <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"I went from commercial PM to building Flowwise, a live AI-powered fintech app, from scratch... A huge thank you to my instructor Jose Platero for his guidance, feedback, and genuine investment in our growth."</p>
       <span class="qwho"><b>Chelsea Pascual</b>Product Manager, Fintech · BrainStation PM Certificate</span>
-    </a>
+    </div>
   </div>
 </section>
 
