@@ -99,10 +99,8 @@
                 background:linear-gradient(180deg, rgba(143,156,245,.3), rgba(143,156,245,.1));
                 box-shadow:0 6px 20px -8px rgba(82,102,235,.75); }
   @media (max-width:640px){
-    #gnav { --tx:0; left:10px; right:10px; justify-content:flex-start; overflow-x:auto;
-            scrollbar-width:none; bottom:10px; }
-    #gnav::-webkit-scrollbar { display:none; }
-    #gnav a { font-size:12px; padding:9px 12px; }
+    #gnav { bottom:12px; padding:5px; max-width:calc(100vw - 20px); }
+    #gnav a { font-size:12.5px; padding:8px 14px; }
   }
 
   .hero { padding-top:64px; padding-bottom:90px; }
@@ -853,23 +851,33 @@
   <div class="quotes rv">
     <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
-      <p class="qt">"What immediately stood out was his ability to transform complex ideas into stories people can truly connect with... showing how AI can become a practical thinking partner rather than just another tool."</p>
-      <span class="qwho"><b>Beliz Kasirga</b>Data Operations &amp; Systems Analyst</span>
-    </div>
-    <div class="qcard">
-      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"Jose shared how he's built different AI structures and workflows to support how he thinks, works and makes decisions... AI shouldn't replace our judgment. The bigger opportunity is building better systems around it."</p>
       <span class="qwho"><b>Luis Bridgeman</b>Senior Manager, Strategy &amp; Operations, Growth Bets · Uber</span>
     </div>
     <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
-      <p class="qt">"Product leaders don't need tools to generate more content. They need a system to manage cognitive overload... a repeatable framework to think sharper and decide faster under pressure."</p>
-      <span class="qwho"><b>Bailey Zambri</b>Associate Director · BrainStation</span>
+      <p class="qt">"This came from chatting with Jose Platero, who demo'd his workflow of connecting Jira with Claude via MCP to generate an executive insight report as a skill. I wanted to automate the workflow entirely so it would run without me present."</p>
+      <span class="qwho"><b>Sarah Yeung</b>Systems &amp; Operations PM</span>
+    </div>
+    <div class="qcard">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"I went in expecting a breakdown of frameworks, tools, and product strategies. Instead, Jose focused on something far more foundational: people, culture change, and communication. And honestly? That hit deeper than expected."</p>
+      <span class="qwho"><b>Hugo Cardoso</b>Business Systems Analyst</span>
     </div>
     <div class="qcard">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"I went from commercial PM to building Flowwise, a live AI-powered fintech app, from scratch... A huge thank you to my instructor Jose Platero for his guidance, feedback, and genuine investment in our growth."</p>
       <span class="qwho"><b>Chelsea Pascual</b>Product Manager, Fintech · BrainStation PM Certificate</span>
+    </div>
+    <div class="qcard">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"What immediately stood out was his ability to transform complex ideas into stories people can truly connect with... showing how AI can become a practical thinking partner rather than just another tool."</p>
+      <span class="qwho"><b>Beliz Kasirga</b>Data Operations &amp; Systems Analyst</span>
+    </div>
+    <div class="qcard">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"One idea I'm particularly excited to explore came from Jose Platero's session on MCP integrations... a practical use case that I can see bringing real value within organizations."</p>
+      <span class="qwho"><b>Nauka Chokshi</b>Product Manager · UX Research &amp; Design</span>
     </div>
   </div>
 </section>
