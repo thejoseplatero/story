@@ -447,8 +447,9 @@
   .figshot { border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--paper); margin:34px 0 10px; }
   .figshot img { width:100%; display:block; transition:transform .8s var(--major); }
   .figshot:hover img { transform:scale(1.015); }
-  .photostrip { display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:760px; margin-bottom:34px; }
+  .photostrip { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:34px; }
   @media (max-width:720px){ .photostrip { grid-template-columns:1fr; } }
+  @media (min-width:721px) and (max-width:960px){ .photostrip { grid-template-columns:1fr 1fr; } }
   .photostrip .figshot { margin:0; }
   /* ---- mobile pass: verified at 375 / 414 / 768 ---- */
   @media (max-width:640px){
@@ -724,6 +725,10 @@
   </div>
   </div>
 
+  <figure class="figshot rv" hidden>
+    <img src="assets/photos/pipeline-talk.jpg" alt="Jose on stage teaching the Jira-to-executive-report pipeline, the full workflow illustrated on screen">
+  </figure>
+
   <div class="pull rv">"Thank you Jose Platero for teaching us how to sleep more by leveraging AI!"<span class="who">Suzanne Samivand · Agile Delivery Lead, on LinkedIn after a session on this operating model</span></div>
 </section>
 
@@ -829,6 +834,9 @@
     </figure>
     <figure class="figshot" hidden>
       <img src="assets/photos/studio.jpg" alt="Jose's teaching rig: three screens running a live BrainStation AI certification lab">
+    </figure>
+    <figure class="figshot" hidden>
+      <img src="assets/photos/room.jpg" alt="A full room watching Jose demo the live agent pipeline on two screens">
     </figure>
   </div>
 
