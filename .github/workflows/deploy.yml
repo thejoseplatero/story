@@ -10,16 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # One-run peek: shows the FTP root's folder structure in the log
-      # so server-dir can be pointed at the joseplatero.com web root.
-      - name: List FTP root
-        run: |
-          sudo apt-get install -y -q lftp > /dev/null
-          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:ssl-force true; set ssl:verify-certificate no; ls; bye" "$FTP_HOST"
-        env:
-          FTP_HOST: ${{ secrets.FTP_SERVER }}
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
 
       # Syncs only changed files (keeps a state file on the server),
       # so the 100MB of video uploads once, not on every deploy.
