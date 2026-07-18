@@ -8,7 +8,7 @@ jobs:
       - name: List FTP home
         run: |
           sudo apt-get install -y -q lftp > /dev/null
-          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:ssl-force true; set ssl:verify-certificate no; echo '== home'; ls; bye" "$FTP_HOST"
+          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:ssl-force true; set ssl:verify-certificate no; echo '== public_html'; ls /public_html; echo '== public_html/joseplatero.com'; ls /public_html/joseplatero.com; bye" "$FTP_HOST"
         env:
           FTP_HOST: ${{ secrets.FTP_SERVER }}
           FTP_USER: ${{ secrets.FTP_USERNAME }}
