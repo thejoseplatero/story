@@ -234,9 +234,16 @@
              transition:opacity .3s, transform .3s var(--major); }
   .igcard:hover .ig-ov i { opacity:1; transform:none; }
   .igfollow { display:flex; align-items:center; }
-  .li-embeds { display:grid; grid-template-columns:repeat(auto-fit, minmax(264px, 1fr)); gap:16px; }
-  .li-card { border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#fff; }
-  .li-card iframe { width:100%; display:block; border:none; }
+  .quotes { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:18px; max-width:880px; }
+  .qcard { position:relative; display:flex; flex-direction:column; gap:16px; border:1px solid var(--line); border-radius:16px;
+           padding:26px 28px; background:var(--paper); transition:transform .35s var(--major), border-color .3s, box-shadow .35s; }
+  .qcard:hover { transform:translateY(-4px); border-color:rgba(143,156,245,.5); box-shadow:0 18px 44px -22px rgba(82,102,235,.35); }
+  .qli { position:absolute; top:20px; right:22px; width:20px; height:20px; opacity:.85; }
+  .qt { font-family:Fraunces,Georgia,serif; font-weight:300; font-size:17.5px; line-height:1.55; color:#dfe3ee; padding-right:26px; }
+  .qwho { font-size:13px; color:var(--dim); line-height:1.5; }
+  .qwho b { display:block; color:#fff; font-weight:500; font-size:14px; }
+  .qgo { font-size:12px; color:var(--accent2); opacity:0; transform:translateY(3px); transition:opacity .3s, transform .3s var(--major); }
+  .qcard:hover .qgo { opacity:1; transform:none; }
   /* ch5 pipeline: machine on the left, artifact on the right */
   .pipeline { display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:54px; align-items:stretch; }
   @media (max-width:960px){ .pipeline { grid-template-columns:1fr; } }
@@ -467,10 +474,20 @@
   </div>
 
   <div class="subhead rv">In the conversation</div>
-  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Live posts, pulled straight from LinkedIn.</p>
-  <div class="li-embeds rv">
-    <div class="li-card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7483687773804331009?collapsed=1" height="420" title="Embedded LinkedIn post" loading="lazy"></iframe></div>
-    <div class="li-card"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7482965300599005185?collapsed=1" height="420" title="Embedded LinkedIn post" loading="lazy"></iframe></div>
+  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">What the room said afterward, in their words. Every card links to the original post.</p>
+  <div class="quotes rv">
+    <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:activity:7482965300599005185/" target="_blank" rel="noopener">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"What immediately stood out was his ability to transform complex ideas into stories people can truly connect with... showing how AI can become a practical thinking partner rather than just another tool."</p>
+      <span class="qwho"><b>Beliz Kasirga</b>Data Operations &amp; Systems Analyst</span>
+      <span class="qgo">Read the post ↗</span>
+    </a>
+    <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:share:7483687773804331009/" target="_blank" rel="noopener">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"What an info-packed session it was! I still have so much to unpack... from a game that explains how your brain compartmentalises information, to figuring out when to use a skill vs an agent."</p>
+      <span class="qwho"><b>Sayli Dabholkar</b>Learning &amp; Development Strategist</span>
+      <span class="qgo">Read the post ↗</span>
+    </a>
   </div>
 </section>
 
