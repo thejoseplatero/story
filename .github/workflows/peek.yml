@@ -1,0 +1,15 @@
+name: Peek FTP home
+on: workflow_dispatch
+
+jobs:
+  peek:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List FTP home
+        run: |
+          sudo apt-get install -y -q lftp > /dev/null
+          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:ssl-force true; set ssl:verify-certificate no; echo '== home'; ls; bye" "$FTP_HOST"
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
