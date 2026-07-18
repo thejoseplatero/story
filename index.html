@@ -79,20 +79,10 @@
   .brand { font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); }
   .brand b { color:#fff; font-weight:500; }
   .brand { white-space:nowrap; }
-  .navlinks { display:flex; gap:22px; margin:0 auto; }
-  .navlinks a { font-size:13px; color:var(--dim); transition:color .25s; }
-  .navlinks a:hover { color:#fff; }
-  @media (max-width:880px){
-    #nav .in { flex-wrap:wrap; }
-    .navlinks { order:3; width:100%; gap:18px; overflow-x:auto; padding:0 0 10px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
-    .navlinks::-webkit-scrollbar { display:none; }
-    .navlinks a { white-space:nowrap; font-size:12.5px; }
-    section[id], .ch { scroll-margin-top:104px; }
-  }
   section[id], .ch { scroll-margin-top:72px; }
   .brand .strap { font-style:normal; }
 
-  .hero { padding-top:110px; padding-bottom:90px; }
+  .hero { padding-top:64px; padding-bottom:90px; }
   .kick { font-size:12.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent2); margin-bottom:26px; }
   .hero h1 { font-size:clamp(44px,7.4vw,92px); line-height:1.02; margin-bottom:30px; }
   .hero h1 em { font-style:italic; color:var(--accent2); }
@@ -102,9 +92,12 @@
   .proof { margin-top:34px; }
   .proof-k { display:block; font-size:13.5px; color:var(--dim); margin-bottom:14px; }
   .proof-row { display:flex; flex-wrap:wrap; gap:10px; }
-  .proof-row a { font-size:13px; color:#fff; border:1px solid var(--line); border-radius:999px; padding:9px 16px;
-    transition:border-color .25s, background .25s, transform .25s; }
-  .proof-row a:hover { border-color:rgba(143,156,245,.6); background:rgba(143,156,245,.08); transform:translateY(-2px); }
+  .proof-row a { font:500 13.5px Inter,sans-serif; color:#fff; border:1px solid rgba(143,156,245,.45); border-radius:999px;
+    padding:11px 20px; background:linear-gradient(180deg, rgba(143,156,245,.14), rgba(143,156,245,.05));
+    box-shadow:0 0 0 0 rgba(143,156,245,0); transition:border-color .25s, background .25s, transform .25s, box-shadow .25s; }
+  .proof-row a::after { content:" ↓"; color:var(--accent2); }
+  .proof-row a:hover { border-color:rgba(143,156,245,.9); background:rgba(143,156,245,.2);
+    transform:translateY(-2px); box-shadow:0 10px 30px -12px rgba(82,102,235,.55); }
 
   .ch { padding-top:96px; padding-bottom:96px; border-top:1px solid var(--line); }
   .chno { font:13px "IBM Plex Mono",monospace; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); margin-bottom:14px; }
@@ -229,6 +222,17 @@
   .mail-body p b { color:#181511; }
   .mail-sec { font-size:11px !important; letter-spacing:.14em; text-transform:uppercase; color:#b4460f !important; font-weight:600; margin-bottom:4px !important; }
   .mail-foot { font-size:11.5px !important; color:#948c7e !important; border-top:1px solid #ddd6c9; padding-top:12px; margin-bottom:0 !important; }
+  .fm { font:12px/1.75 "SF Mono", ui-monospace, Menlo, monospace; color:#8a8272; background:#f1ecdf;
+    border:1px solid #ddd6c9; border-left:3px solid #c9bfa8; border-radius:8px; padding:10px 14px; margin-bottom:14px; overflow-x:auto; }
+  .rrow { display:flex; gap:10px; align-items:flex-start; margin-bottom:10px; }
+  .rrow > span:last-child { font-size:13.5px; line-height:1.55; }
+  .chip { flex:0 0 auto; font:600 10px Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase;
+    border-radius:999px; padding:4px 9px; margin-top:2px; white-space:nowrap; }
+  .chip.ok { background:#e3efdd; color:#3d6b2f; }
+  .chip.warn { background:#f6e8d3; color:#8a5a14; }
+  .chip.esc { background:#f3ddd6; color:#953f24; }
+  .ck { display:flex; gap:10px; margin-bottom:9px; font-size:13.5px; line-height:1.55; }
+  .ck i { font-style:normal; color:#3d6b2f; font-weight:700; }
   .thumb:focus-visible .box { border-color:var(--accent2); outline:none; }
   .thumb { outline:none; }
   .subhead { font:13px "IBM Plex Mono",monospace; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2);
@@ -340,7 +344,7 @@
     nav { padding:12px 0; }
     .brand { font-size:11.5px; letter-spacing:.14em; }
     nav .pill { padding:9px 16px; font-size:12.5px; white-space:nowrap; }
-    .hero { padding-top:60px; padding-bottom:52px; }
+    .hero { padding-top:40px; padding-bottom:52px; }
     .hero h1 { margin-bottom:22px; }
     .dek { font-size:17px; }
     .ch { padding-top:60px; padding-bottom:60px; }
@@ -365,13 +369,6 @@
 <div id="prog"></div>
 <nav id="nav"><div class="in">
   <span class="brand"><b>Jose Platero</b><i class="strap"> · the story</i></span>
-  <span class="navlinks">
-    <a href="#ch-1">The story</a>
-    <a href="#ch-4">The game</a>
-    <a href="#ch-5">Live demo</a>
-    <a href="#watch">Talks &amp; reels</a>
-    <a href="#record">Roles</a>
-  </span>
   <a class="pill" href="mailto:joseplatero@gmail.com?subject=Start a conversation">Start a conversation</a>
 </div></nav>
 
@@ -383,10 +380,10 @@
   <div class="proof rv">
     <span class="proof-k">The fastest way to tell a builder from a describer: ask to see the artifact.</span>
     <span class="proof-row">
-      <a href="#ch-4">Play the game</a>
-      <a href="#ch-5">Watch the machines run</a>
-      <a href="#watch">See the footage</a>
-      <a href="#record">Scan the record</a>
+      <a href="#ch-4">Second-brain game</a>
+      <a href="#ch-5">Agent demos</a>
+      <a href="#watch">Talks &amp; reels</a>
+      <a href="#record">Roles &amp; record</a>
     </span>
   </div>
 </header>
@@ -469,7 +466,7 @@
   </figure>
   <div class="gameframe rv">
     <iframe src="https://thejoseplatero.github.io/second-brain-game/cerebro.html" title="Second Brain Game" loading="lazy"></iframe>
-    <div class="cap"><span>second-brain-game · built as the narrative for a conference keynote · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗</a></div>
+    <div class="cap"><span>second-brain-game · built as the narrative for a conference keynote · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗︎</a></div>
   </div>
 </section>
 
@@ -481,7 +478,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Four of the systems are below, live. The morning brief, capture to synthesis, the exec report, and the team OS. Pick one and watch it run, then look right: every run ends in an artifact.</p>
+      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and Product OS writing a team's operating system. Pick one and watch it run: every run ends in an artifact.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -496,12 +493,12 @@
     <button class="dt on" data-s="brief">The morning brief</button>
     <button class="dt" data-s="note">Capture to synthesis</button>
     <button class="dt" data-s="report">The exec report</button>
-    <button class="dt" data-s="os">The team OS</button>
+    <button class="dt" data-s="os">Product OS</button>
   </div>
 
   <div class="pipeline rv">
   <div class="term" id="term" aria-label="Replay of an automated agent run">
-    <div class="term-head"><i></i><i></i><i></i><span id="termHead">the morning run · 2026-07-17 · replayed from the real log</span><button id="termReplay" class="term-replay">↻ replay</button></div>
+    <div class="term-head"><i></i><i></i><i></i><span id="termHead">the morning run · 2026-07-17 · replayed from the real log</span><button id="termReplay" class="term-replay">↻︎ replay</button></div>
     <div class="term-body" id="termBody"></div>
   </div>
 
@@ -529,11 +526,11 @@
         <div class="mail-row"><span class="k">Linked</span><span><b>[[vendor-lock-in-moving-up-the-stack]] · [[first-party-data-table-stakes]]</b></span></div>
       </div>
       <div class="mail-body">
-        <p class="mail-sec">Atomic note · a real file from the brain</p>
-        <p><b>Agent-addressable is the new platform requirement.</b> A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke. Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a liability.</p>
-        <p class="mail-sec">Why this shape</p>
-        <p>One idea per file, tagged, linked both ways, source brief preserved. Capture stays fast. Synthesis happens on demand.</p>
-        <p class="mail-foot">151 notes in the brain · every one traceable back to its source</p>
+        <p class="mail-sec">Atomic note · verbatim from the brain</p>
+        <div class="fm">---<br>date: 2026-07-08<br>tags: [martech, ai, agents, architecture, decision]<br>related: [vendor-lock-in-moving-up-the-stack, first-party-data-table-stakes]<br>source: daily/2026-07-08-ai-stack-daily.md<br>---</div>
+        <p><b># Agent-addressable is the new platform requirement</b></p>
+        <p>A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke. Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a liability.</p>
+        <p class="mail-foot">one idea per file · linked both ways · 151 notes, every one traceable to its source</p>
       </div>
     </div>
 
@@ -545,25 +542,30 @@
       </div>
       <div class="mail-body">
         <p class="mail-sec">What changed this week</p>
-        <p>Two initiatives moved to build after clearing review. One launch date slipped a sprint; the owner's mitigation is already in the comments. Adoption on last month's release is tracking ahead of forecast.</p>
+        <div class="rrow"><span class="chip ok">to build</span><span><b>INIT-07 · Checkout experiment</b> cleared review; build starts this sprint.</span></div>
+        <div class="rrow"><span class="chip warn">slipped</span><span><b>INIT-12 · Partner integration</b> slipped one sprint; owner's mitigation is already in the comments.</span></div>
+        <div class="rrow"><span class="chip ok">ahead</span><span><b>INIT-03 · Last month's release</b> adoption tracking ahead of forecast.</span></div>
         <p class="mail-sec">Decisions &amp; escalations</p>
-        <p>A vendor contract needs a signature by Friday to hold the integration date. One team is blocked on a data access approval that has sat for nine days.</p>
-        <p class="mail-foot">generated by the exec-report skill · sample run, details anonymized</p>
+        <div class="rrow"><span class="chip esc">friday</span><span>Vendor contract needs a signature to hold the integration date.</span></div>
+        <div class="rrow"><span class="chip esc">9 days</span><span>Data access approval blocking one team. Escalating tonight.</span></div>
+        <p class="mail-foot">generated by the exec-report skill · sample run, details anonymized · every line links back to Jira</p>
       </div>
     </div>
 
     <div class="mail art" id="artOS" hidden>
       <div class="mail-head">
-        <div class="mail-row"><span class="k">Doc</span><span>team-os · new pod · v1.0</span></div>
-        <div class="mail-row"><span class="k">Premise</span><span>a team is a product; this is its operating system</span></div>
+        <div class="mail-row"><span class="k">Doc</span><span>product-os/new-pod/team-os.md · v1.0</span></div>
+        <div class="mail-row"><span class="k">Premise</span><span>a team is a product; the team OS is its operating system</span></div>
         <div class="mail-row"><span class="k">Time</span><span><b>3 days to baseline, down from 3 months</b></span></div>
       </div>
       <div class="mail-body">
         <p class="mail-sec">The contracts the team makes with itself</p>
-        <p><b>Decision rights:</b> who calls what, written down before the first standup. <b>Rituals:</b> the few meetings that survive, each with an owner and an artifact. <b>Progress:</b> measured in decisions made today, not meetings booked. <b>Ownership:</b> real lanes from day one, artifacts over updates.</p>
-        <p class="mail-sec">Day one to owning a lane</p>
-        <p>Onboarding is a system, not a rite of passage. By day three a new hire is carrying a real share of the load.</p>
-        <p class="mail-foot">the operating system behind chapters two and three · applied per team</p>
+        <div class="ck"><i>✓</i><span><b>Decision rights</b> · who calls what, written before the first standup</span></div>
+        <div class="ck"><i>✓</i><span><b>Rituals</b> · the few meetings that survive, each with an owner and an artifact</span></div>
+        <div class="ck"><i>✓</i><span><b>Progress</b> · decisions made today, not meetings booked</span></div>
+        <div class="ck"><i>✓</i><span><b>Ownership</b> · real lanes from day one, artifacts over updates</span></div>
+        <div class="ck"><i>✓</i><span><b>Onboarding</b> · a system, not a rite of passage; real load by day three</span></div>
+        <p class="mail-foot">product-os template, applied per team · the system behind chapters two and three</p>
       </div>
     </div>
   </div>
@@ -586,7 +588,7 @@
       <span class="pin-desc">A long-form conversation on product innovation with the hosts of Pragmatism in Practice.</span>
     </span>
     <span class="pin-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-    <span class="pin-cta">Listen ↗</span>
+    <span class="pin-cta">Listen ↗︎</span>
   </a>
 
   <div class="photostrip rv">
@@ -606,7 +608,7 @@
     <div class="recrow"><span class="y">Ongoing</span><span><b>BrainStation</b> · instructor<br>AI Certification (AIC™) · AI Product Management (PMC™) · Product Leadership</span></div>
     <div class="recrow"><span class="y">Ongoing</span><span><b>Queen's University, Smith School</b><br>Advisor &amp; mentor, Master of Digital Product Management</span></div>
   </div>
-  <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗</a></p>
+  <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗︎</a></p>
 </section>
 
 <section class="ch wrap" id="watch">
@@ -639,27 +641,27 @@
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Behind the Work, on Instagram">
       <video src="assets/reels/behind-the-work.mp4" poster="assets/posters/behind-work.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
-      <span class="ig-ov"><b>Behind the Work</b><i>Watch on Instagram ↗</i></span>
+      <span class="ig-ov"><b>Behind the Work</b><i>Watch on Instagram ↗︎</i></span>
     </a>
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Pitching Ideas, on Instagram">
       <video src="assets/behind-the-scenes/bts-3.mp4" poster="assets/posters/pitching.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
-      <span class="ig-ov"><b>Pitching Ideas</b><i>Watch on Instagram ↗</i></span>
+      <span class="ig-ov"><b>Pitching Ideas</b><i>Watch on Instagram ↗︎</i></span>
     </a>
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Talking product, mid-flight, on Instagram">
       <video src="assets/reels/mid-flight.mp4" poster="assets/posters/mid-flight.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
-      <span class="ig-ov"><b>Talking product, mid-flight</b><i>Watch on Instagram ↗</i></span>
+      <span class="ig-ov"><b>Talking product, mid-flight</b><i>Watch on Instagram ↗︎</i></span>
     </a>
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Move at Retail Speed, on Instagram">
       <video src="assets/talks/move-at-retail-speed.mp4" poster="assets/posters/retail.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
-      <span class="ig-ov"><b>Move at Retail Speed, Even as an Airline</b><i>Watch on Instagram ↗</i></span>
+      <span class="ig-ov"><b>Move at Retail Speed, Even as an Airline</b><i>Watch on Instagram ↗︎</i></span>
     </a>
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Teaching Product Leadership, on Instagram">
       <video src="assets/behind-the-scenes/bts-2.mp4" poster="assets/posters/teaching.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
-      <span class="ig-ov"><b>Teaching Product Leadership</b><i>Watch on Instagram ↗</i></span>
+      <span class="ig-ov"><b>Teaching Product Leadership</b><i>Watch on Instagram ↗︎</i></span>
     </a>
   </div>
 
@@ -670,25 +672,25 @@
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"What immediately stood out was his ability to transform complex ideas into stories people can truly connect with... showing how AI can become a practical thinking partner rather than just another tool."</p>
       <span class="qwho"><b>Beliz Kasirga</b>Data Operations &amp; Systems Analyst</span>
-      <span class="qgo">Read the post ↗</span>
+      <span class="qgo">Read the post ↗︎</span>
     </a>
     <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"Jose shared how he's built different AI structures and workflows to support how he thinks, works and makes decisions... AI shouldn't replace our judgment. The bigger opportunity is building better systems around it."</p>
       <span class="qwho"><b>Luis Bridgeman</b>Senior Manager, Strategy &amp; Operations, Growth Bets · Uber</span>
-      <span class="qgo">Read the post ↗</span>
+      <span class="qgo">Read the post ↗︎</span>
     </a>
     <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"Product leaders don't need tools to generate more content. They need a system to manage cognitive overload... AI should be a thinking partner, not just an execution engine."</p>
       <span class="qwho"><b>Bailey Zambri</b>Associate Director · BrainStation</span>
-      <span class="qgo">Read the post ↗</span>
+      <span class="qgo">Read the post ↗︎</span>
     </a>
     <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"I went from commercial PM to building Flowwise, a live AI-powered fintech app, from scratch... A huge thank you to my instructor Jose Platero for his guidance, feedback, and genuine investment in our growth."</p>
       <span class="qwho"><b>Chelsea Pascual</b>Product Manager, Fintech · BrainStation PM Certificate</span>
-      <span class="qgo">Read the post ↗</span>
+      <span class="qgo">Read the post ↗︎</span>
     </a>
   </div>
 </section>
@@ -732,7 +734,7 @@ addEventListener('scroll', ()=>{
 /* ---- only files that actually decode ever reach the filmstrip.           ---- */
 const WATCH_ITEMS = [
   { file: 'assets/talks/product-led-alliance-summit.mp4', label: 'Webby Honoree', cat: 'talk', poster: 'assets/posters/webby.jpg',
-    link: 'https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage', linkLabel: 'Webby listing ↗' },
+    link: 'https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage', linkLabel: 'Webby listing ↗︎' },
   { file: 'assets/behind-the-scenes/bts-1.mp4', label: 'Design System Workshop', cat: 'bts', poster: 'assets/posters/workshop.jpg' },
   { file: 'assets/talks/why-i-teach.mp4', label: 'Why I Teach', cat: 'talk', poster: 'assets/posters/why-i-teach.jpg' },
   /* future drops auto-appear when the files land: */
@@ -804,7 +806,7 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
     stageCat.textContent = CAT_LABEL[item.cat] || '';
     stageTtl.textContent = item.label;
     stageCount.textContent = (current + 1) + ' / ' + valid.length;
-    if (item.link) { stageLink.href = item.link; stageLink.textContent = item.linkLabel || 'Source ↗'; stageLink.hidden = false; }
+    if (item.link) { stageLink.href = item.link; stageLink.textContent = item.linkLabel || 'Source ↗︎'; stageLink.hidden = false; }
     else stageLink.hidden = true;
     filmstrip.querySelectorAll('.thumb').forEach((t, j) => t.classList.toggle('active', j === current));
     const active = filmstrip.children[current];
@@ -926,29 +928,31 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
       { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
     ]},
-    note: { head: 'capture to synthesis · one real note, end to end', art: 'artNote', lines: [
-      { d: 250,  h: '<span class="ts">[08:12]</span> jose: <span class="hl">"capture: agent-addressable is becoming the platform requirement"</span>' },
-      { d: 800,  h: '<span class="hl">▸ claude</span> · fast capture beats perfect capture · no over-organizing' },
-      { d: 700,  h: '  <span class="ok">✓</span> wrote inbox/2026-07-08-agent-addressable.md · raw, date-stamped' },
-      { d: 950,  h: '<span class="ts">[days later]</span> jose: <span class="hl">"process my inbox"</span>' },
-      { d: 900,  h: '  reading raw captures · matching against 151 notes already in the brain' },
-      { d: 950,  h: '  related found: <span class="hl">[[vendor-lock-in-moving-up-the-stack]]</span> · <span class="hl">[[first-party-data-table-stakes]]</span>' },
-      { d: 850,  h: '  <span class="ok">✓</span> wrote notes/agent-addressable-platform.md · tagged, linked both ways, source preserved', art: true },
+    note: { head: 'the second brain · capture to synthesis · one real note', art: 'artNote', lines: [
+      { d: 250,  h: '<span class="ts">[08:12]</span> ❯ <span class="hl">"capture: agent-addressable is becoming the platform requirement"</span>' },
+      { d: 800,  h: '<span class="hl">▸ Skill(</span>capture<span class="hl">)</span> · fast capture beats perfect capture · no over-organizing' },
+      { d: 700,  h: '  <span class="hl">Write(</span>inbox/2026-07-08-agent-addressable.md<span class="hl">)</span> <span class="ok">✓</span> <span class="ts">(0.4s)</span>' },
+      { d: 950,  h: '<span class="ts">[days later]</span> ❯ <span class="hl">"process my inbox"</span>' },
+      { d: 850,  h: '  <span class="hl">Grep(</span>"agent-addressable", notes/ · 151 files<span class="hl">)</span> · matching against the whole brain' },
+      { d: 850,  h: '  <span class="hl">Read(</span>daily/2026-07-08-ai-stack-daily.md<span class="hl">)</span> · source brief located' },
+      { d: 950,  h: '  related: <span class="hl">[[vendor-lock-in-moving-up-the-stack]]</span> · <span class="hl">[[first-party-data-table-stakes]]</span>' },
+      { d: 850,  h: '  <span class="hl">Write(</span>notes/agent-addressable-platform.md<span class="hl">)</span> <span class="ok">✓</span> tagged, linked both ways <span class="ts">(1.2s)</span>', art: true },
       { d: 700,  h: '  the brain compounds: every new idea lands next to everything it touches' },
     ]},
     report: { head: 'the exec report · sample run · details anonymized', art: 'artReport', lines: [
-      { d: 250,  h: '<span class="ts">[16:50]</span> jose: <span class="hl">"run the exec report"</span>' },
-      { d: 800,  h: '<span class="hl">▸ exec-report skill</span> · walking the initiatives board · fresh pull, never cached' },
-      { d: 900,  h: '  reading 14 initiatives · owner comments · status deltas since last week' },
-      { d: 950,  h: '  drafting the narrative: what changed · decisions &amp; escalations · links back to Jira' },
+      { d: 250,  h: '<span class="ts">[16:50]</span> ❯ <span class="hl">"run the exec report"</span>' },
+      { d: 800,  h: '<span class="hl">▸ Skill(</span>exec-report<span class="hl">)</span> · fresh board walk, never cached' },
+      { d: 900,  h: '  <span class="hl">Jira(</span>GET /search · board=initiatives<span class="hl">)</span> · 14 issues <span class="ts">(1.8s)</span>' },
+      { d: 850,  h: '  reading owner comments · 41 across 14 initiatives · status deltas since last week' },
+      { d: 950,  h: '  drafting the narrative: what changed · decisions &amp; escalations · every line linked to Jira' },
       { d: 850,  h: '  <span class="ok">✓</span> report ready · 2 escalations flagged for tonight', art: true },
       { d: 700,  h: '  built for the 2am call, so the 2am call stops happening' },
     ]},
-    os: { head: 'the team OS · booting a new team to baseline', art: 'artOS', lines: [
-      { d: 250,  h: 'jose: <span class="hl">"new pod spins up Monday. boot the OS."</span>' },
-      { d: 800,  h: '<span class="hl">▸ team-os template</span> · a team is a product · this is its operating system' },
-      { d: 950,  h: '  writing the contracts: decision rights · rituals with owners · artifacts over updates' },
-      { d: 950,  h: '  seeding the capacity model · onboarding path: day one to owning a lane' },
+    os: { head: 'product-os · booting a new team to baseline', art: 'artOS', lines: [
+      { d: 250,  h: '❯ <span class="hl">"new pod spins up Monday. boot the OS."</span>' },
+      { d: 800,  h: '<span class="hl">▸ Skill(</span>product-os<span class="hl">)</span> · a team is a product · writing its team OS' },
+      { d: 900,  h: '  <span class="hl">Write(</span>new-pod/team-os.md<span class="hl">)</span> · decision rights · rituals with owners · artifacts over updates' },
+      { d: 900,  h: '  <span class="hl">Write(</span>new-pod/capacity-model.md<span class="hl">)</span> · <span class="hl">Write(</span>new-pod/onboarding-path.md<span class="hl">)</span>' },
       { d: 850,  h: '  <span class="ok">✓</span> baseline ready · 3 days, not 3 months', art: true },
       { d: 700,  h: '  the same system that ran a 9M-member launch without me in every room' },
     ]},
