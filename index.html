@@ -222,7 +222,9 @@
   .igcard:hover { transform:translateY(-6px); border-color:transparent;
                   box-shadow:0 24px 60px -22px rgba(214,41,118,.45), 0 0 0 2px #d62976; }
   .igcard video { width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s var(--major); }
-  .igcard video.fit-contain { object-fit:contain; background:#000; }
+  .igcard video.fit-contain { object-fit:contain; background:transparent; position:relative; z-index:1; }
+  .igcard .blurfill { position:absolute; left:-24px; top:-24px; width:calc(100% + 48px); height:calc(100% + 48px);
+                      object-fit:cover; filter:blur(34px) saturate(1.2) brightness(.5); }
   .igcard:hover video { transform:scale(1.04); }
   .ig-glyph { position:absolute; top:12px; right:12px; width:26px; height:26px; opacity:.9; }
   .ig-ov { position:absolute; left:0; right:0; bottom:0; padding:44px 16px 14px;
@@ -452,6 +454,7 @@
       <span class="ig-ov"><b>Move at Retail Speed, Even as an Airline</b><i>Watch on Instagram ↗</i></span>
     </a>
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Teaching Product Leadership, on Instagram">
+      <img class="blurfill" src="assets/posters/teaching.jpg" alt="" aria-hidden="true">
       <video class="fit-contain" src="assets/behind-the-scenes/bts-2.mp4" poster="assets/posters/teaching.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
       <span class="ig-ov"><b>Teaching Product Leadership</b><i>Watch on Instagram ↗</i></span>
@@ -460,13 +463,6 @@
       <video src="assets/behind-the-scenes/bts-3.mp4" poster="assets/posters/pitching.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
       <span class="ig-ov"><b>Pitching Ideas</b><i>Watch on Instagram ↗</i></span>
-    </a>
-    <a class="igcard ghostcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="More on Instagram">
-      <span class="ghost-inner">
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg>
-        <b>More on<br>@jose.build</b>
-        <i>Follow ↗</i>
-      </span>
     </a>
   </div>
 
@@ -519,6 +515,7 @@ const WATCH_ITEMS = [
   { file: 'assets/talks/product-led-alliance-summit.mp4', label: 'The Work Behind the Work · Webby Honoree', cat: 'talk', poster: 'assets/posters/webby.jpg',
     link: 'https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage', linkLabel: 'Webby listing ↗' },
   { file: 'assets/behind-the-scenes/bts-1.mp4', label: 'Design System Workshop', cat: 'bts', poster: 'assets/posters/workshop.jpg' },
+  { file: 'assets/talks/developerweek.mp4', label: 'Scaling Smarter · DeveloperWeek / Product World', cat: 'talk', poster: 'assets/posters/scaling.jpg' },
   /* future drops auto-appear when the files land: */
   { file: 'assets/talks/aiai-toronto.mp4', label: 'AI for Builders and Executives · AIAI Toronto', cat: 'talk' },
   { file: 'assets/talks/elevate.mp4', label: 'Panel on AI systems for the digital customer experience · Elevate, Toronto', cat: 'talk' },
@@ -665,46 +662,15 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
 /* ---- Future reels probe-gate like the theater: drop assets/reels/N.mp4 ---- */
 /* ---- and add a line here; missing files show dashed slots on localhost ---- */
 /* ---- only, and render nothing in production.                           ---- */
-const FUTURE_REELS = [
-  { file: 'assets/reels/reel-3.mp4', label: 'Reel three' },
-  { file: 'assets/reels/reel-4.mp4', label: 'Reel four' },
-];
 (function reels(){
-  const rail = document.querySelector('.igrail');
-  const ghost = document.querySelector('.ghostcard');
-  const isDev = ['localhost','127.0.0.1'].includes(location.hostname);
-  FUTURE_REELS.forEach(item => {
-    const probe = document.createElement('video');
-    probe.muted = true; probe.preload = 'metadata'; probe.src = item.file;
-    probe.addEventListener('loadedmetadata', () => {
-      const a = document.createElement('a');
-      a.className = 'igcard';
-      a.href = 'https://www.instagram.com/jose.build/'; a.target = '_blank'; a.rel = 'noopener';
-      a.setAttribute('aria-label', item.label + ', on Instagram');
-      probe.loop = true; probe.playsInline = true;
-      a.appendChild(probe);
-      a.insertAdjacentHTML('beforeend',
-        '<span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>' +
-        '<span class="ig-ov"><b>' + item.label + '</b><i>Watch on Instagram ↗</i></span>');
-      rail.insertBefore(a, ghost);
-      watchReel(probe);
-    }, { once: true });
-    probe.addEventListener('error', () => {
-      if (!isDev) return;
-      const slot = document.createElement('div');
-      slot.className = 'igcard devslot';
-      slot.textContent = 'dev only · drop ' + item.file + ' and it goes live';
-      rail.insertBefore(slot, ghost);
-    }, { once: true });
-  });
   const reducedR = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const vio = reducedR ? null : new IntersectionObserver(es => es.forEach(e => {
+  if (reducedR) return;
+  const vio = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
     if (e.isIntersecting) v.play().catch(() => {});
     else v.pause();
   }), { threshold: .35 });
-  function watchReel(v){ if (vio) vio.observe(v); }
-  [...document.querySelectorAll('.igcard video')].forEach(watchReel);
+  [...document.querySelectorAll('.igcard video')].forEach(v => vio.observe(v));
 })();
 
 /* ---- chapter five: replay this morning's real pipeline run ---- */
