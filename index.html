@@ -79,6 +79,11 @@
   .brand { font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); }
   .brand b { color:#fff; font-weight:500; }
   .brand { white-space:nowrap; }
+  .navlinks { display:flex; gap:22px; margin:0 auto; }
+  .navlinks a { font-size:13px; color:var(--dim); transition:color .25s; }
+  .navlinks a:hover { color:#fff; }
+  @media (max-width:880px){ .navlinks { display:none; } }
+  section[id], .ch { scroll-margin-top:72px; }
   .brand .strap { font-style:normal; }
 
   .hero { padding-top:110px; padding-bottom:90px; }
@@ -342,13 +347,19 @@
 <div id="prog"></div>
 <nav id="nav"><div class="in">
   <span class="brand"><b>Jose Platero</b><i class="strap"> · the story</i></span>
+  <span class="navlinks">
+    <a href="#ch-1">Story</a>
+    <a href="#ch-5">The machine</a>
+    <a href="#watch">Watch</a>
+    <a href="#record">Record</a>
+  </span>
   <a class="pill" href="mailto:joseplatero@gmail.com?subject=Start a conversation">Start a conversation</a>
 </div></nav>
 
 <header class="wrap hero">
   <div class="kick rv">Product leadership from the trenches</div>
   <h1 class="disp rv"><span class="mask"><span>Product orgs,</span></span><span class="mask dl1"><span>built like <em>products.</em></span></span></h1>
-  <p class="dek rv">Jose Platero builds product organizations the way product people build products: as systems with operating models, feedback loops, and version numbers. The newest version thinks with AI. This is the story, told straight, no fluff.</p>
+  <p class="dek rv">Jose Platero builds product organizations the way product people build products: as systems with operating models, feedback loops, and version numbers. The newest version thinks with AI.</p>
   <div class="byline rv"><b>Jose Platero</b> · Director, Product, Design &amp; MarTech · Air Canada | Aeroplan · Toronto</div>
 </header>
 
@@ -441,7 +452,7 @@
     <div class="body">
       <p class="rv">Everything this page claims about operating models has a live counterpart. Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Below is this morning's actual run, replayed from the real log, and the artifact it produced. Not a mockup. Today's.</p>
+      <p class="rv">This morning's actual run, replayed from the real log, and the email it produced.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -489,7 +500,7 @@
     <span class="pin-main">
       <span class="pin-kick">Pinned · Podcast · Thoughtworks, Pragmatism in Practice</span>
       <span class="pin-title">Product Innovation: Charting Your Own Course</span>
-      <span class="pin-desc">A long-form conversation on product innovation: the deepest unscripted sample of how I think, short of a call.</span>
+      <span class="pin-desc">A long-form conversation on product innovation with the hosts of Pragmatism in Practice.</span>
     </span>
     <span class="pin-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
     <span class="pin-cta">Listen ↗</span>
@@ -519,8 +530,8 @@
 
 <section class="ch wrap" id="watch">
   <div class="chno rv">Watch</div>
-  <h2 class="disp rv">The talks, and the room behind them.</h2>
-  <div class="body rv"><p>A stage clip is the polished ten percent. The rest is the actual building, in the actual room. Both, below.</p></div>
+  <h2 class="disp rv">The work behind the work.</h2>
+  <div class="body rv"><p>Three talks. Five reels. What people said after.</p></div>
 
   <div class="theater rv" id="theater" hidden>
     <div class="stagecol">
@@ -542,7 +553,7 @@
   <p class="body rv" id="watchEmpty" style="color:var(--dimmer); font-size:14px;">Loading footage…</p>
 
   <div class="subhead rv">The reel · <b>@jose.build</b></div>
-  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Short-form, shot for social. Tap through for the rest of the building-in-public feed.</p>
+  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Shot vertical for social. The full feed is on Instagram.</p>
   <div class="igrail rv">
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Move at Retail Speed, on Instagram">
       <video src="assets/talks/move-at-retail-speed.mp4" poster="assets/posters/retail.jpg" muted loop playsinline preload="metadata"></video>
@@ -572,7 +583,7 @@
   </div>
 
   <div class="subhead rv">In the conversation</div>
-  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">What the room said afterward, in their words. Every card links to the original post.</p>
+  <p class="rv" style="color:var(--dim); font-size:15px; margin-bottom:22px; max-width:56ch;">Afterward, on LinkedIn. Each card links to the original post.</p>
   <div class="quotes rv">
     <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:activity:7482965300599005185/" target="_blank" rel="noopener">
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
@@ -601,7 +612,7 @@
   </div>
 </section>
 
-<section class="ch wrap">
+<section class="ch wrap" id="record">
   <div class="chno rv">The record</div>
   <h2 class="disp rv">Roles.</h2>
   <div class="rec rv">
@@ -639,10 +650,10 @@ addEventListener('scroll', ()=>{
 /* ---- Watch: validate every candidate file in the browser's own decoder;   ---- */
 /* ---- only files that actually decode ever reach the filmstrip.           ---- */
 const WATCH_ITEMS = [
-  { file: 'assets/talks/product-led-alliance-summit.mp4', label: 'The Work Behind the Work · Webby Honoree', cat: 'talk', poster: 'assets/posters/webby.jpg',
+  { file: 'assets/talks/product-led-alliance-summit.mp4', label: 'Webby Honoree', cat: 'talk', poster: 'assets/posters/webby.jpg',
     link: 'https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage', linkLabel: 'Webby listing ↗' },
   { file: 'assets/behind-the-scenes/bts-1.mp4', label: 'Design System Workshop', cat: 'bts', poster: 'assets/posters/workshop.jpg' },
-  { file: 'assets/talks/developerweek.mp4', label: 'Scaling Smarter · DeveloperWeek / Product World', cat: 'talk', poster: 'assets/posters/scaling.jpg' },
+  { file: 'assets/talks/developerweek.mp4', label: 'Product World', cat: 'talk', poster: 'assets/posters/scaling.jpg' },
   /* future drops auto-appear when the files land: */
   { file: 'assets/talks/aiai-toronto.mp4', label: 'AI for Builders and Executives · AIAI Toronto', cat: 'talk' },
   { file: 'assets/talks/elevate.mp4', label: 'Panel on AI systems for the digital customer experience · Elevate, Toronto', cat: 'talk' },
