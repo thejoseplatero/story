@@ -82,6 +82,25 @@
   section[id], .ch { scroll-margin-top:72px; }
   .brand .strap { font-style:normal; }
 
+  /* liquid glass dock */
+  #gnav { --tx:-50%; position:fixed; top:auto; left:50%; bottom:16px; z-index:60; display:flex; gap:2px; padding:6px;
+          border-radius:999px; border:1px solid rgba(255,255,255,.14);
+          background:rgba(16,18,28,.55);
+          backdrop-filter:blur(22px) saturate(1.6); -webkit-backdrop-filter:blur(22px) saturate(1.6);
+          box-shadow:0 20px 50px -14px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.09);
+          opacity:0; pointer-events:none; transform:translate(var(--tx), 84px);
+          transition:transform .55s var(--major), opacity .4s; }
+  #gnav.on { opacity:1; pointer-events:auto; transform:translate(var(--tx), 0); }
+  #gnav a { font:500 12.5px Inter,sans-serif; color:var(--dim); padding:9px 15px; border-radius:999px;
+            white-space:nowrap; transition:color .25s, background .25s; }
+  #gnav a:hover { color:#fff; background:rgba(255,255,255,.1); }
+  @media (max-width:640px){
+    #gnav { --tx:0; left:10px; right:10px; justify-content:flex-start; overflow-x:auto;
+            scrollbar-width:none; bottom:10px; }
+    #gnav::-webkit-scrollbar { display:none; }
+    #gnav a { font-size:12px; padding:9px 12px; }
+  }
+
   .hero { padding-top:64px; padding-bottom:90px; }
   .kick { font-size:12.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent2); margin-bottom:26px; }
   .hero h1 { font-size:clamp(44px,7.4vw,92px); line-height:1.02; margin-bottom:30px; }
@@ -270,7 +289,7 @@
   .osbar .bar { flex:1; height:6px; border-radius:999px; background:#1a1f2e; overflow:hidden; }
   .osbar .bar i { display:block; height:100%; width:0; border-radius:999px;
                   background:linear-gradient(90deg, #39c286, #8f9cf5); transition:width 2s var(--major) .3s; }
-  .mail.arrived .osbar .bar i { width:100%; }
+  .mail.live .osbar .bar i, .mail .osbar .bar i { width:100%; }
   .osbar b { color:#39c286; }
   .osrow { display:flex; gap:10px; margin-bottom:11px; font-size:13px; line-height:1.55; color:#b9c1d4; }
   .osrow i { font-style:normal; color:#39c286; font-weight:700; }
@@ -325,17 +344,17 @@
     padding:9px 16px; cursor:pointer; transition:color .25s, border-color .25s, background .25s; }
   .dt:hover { color:#fff; border-color:rgba(143,156,245,.5); }
   .dt.on { color:#fff; background:rgba(143,156,245,.12); border-color:rgba(143,156,245,.6); }
-  .pipeline { display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:54px; align-items:stretch; }
+  .pipeline { display:flex; flex-direction:column; gap:22px; margin-top:54px; }
   .demotabs + .pipeline { margin-top:20px; }
-  @media (max-width:960px){ .pipeline { grid-template-columns:1fr; } }
   .pipeline .term { margin-top:0; display:flex; flex-direction:column; }
   .pipeline .term-body { flex:1; }
-  .pipeline .mailwrap { margin-top:0; }
+  /* all four artifacts stay on the table; the one being made right now is lit */
+  .pipeline .mailwrap { margin-top:0; display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:stretch; }
+  @media (max-width:880px){ .pipeline .mailwrap { grid-template-columns:1fr; } }
   .pipeline .mail { max-width:none; height:100%; display:flex; flex-direction:column;
-                    opacity:.22; transform:translateY(14px) scale(.985); filter:saturate(.4);
-                    transition:opacity .8s var(--major), transform .8s var(--major), filter .8s var(--major); }
-  .pipeline .mail.arrived { opacity:1; transform:none; filter:none; }
-  .pipeline .mail[hidden] { display:none; }
+                    transition:box-shadow .6s var(--major), transform .6s var(--major), opacity .6s; opacity:.86; }
+  .pipeline .mail.live { opacity:1; transform:translateY(-3px);
+                         box-shadow:0 0 0 2px rgba(143,156,245,.75), 0 26px 60px -24px rgba(82,102,235,.5); }
   .pipeline .mail-body { flex:1; }
 
   /* theater: stage with side rail when there is room */
@@ -414,8 +433,14 @@
 </head>
 <body>
 <div id="prog"></div>
+<nav id="gnav" aria-label="Jump to the artifacts">
+  <a href="#ch-4">The playable keynote</a>
+  <a href="#ch-5">Agent demos</a>
+  <a href="#watch">Talks &amp; reels</a>
+  <a href="#record">Roles &amp; record</a>
+</nav>
 <nav id="nav"><div class="in">
-  <span class="brand"><b>Jose Platero</b><i class="strap"> · the story</i></span>
+  <span class="brand"><b>Jose Platero</b></span>
   <a class="pill" href="mailto:joseplatero@gmail.com?subject=Start a conversation">Start a conversation</a>
 </div></nav>
 
@@ -525,7 +550,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and the team OS booting a new team to baseline. Pick one and watch it run: every run ends in an artifact.</p>
+      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and the team OS booting a new team to baseline. The terminal cycles through all four on its own; each run lights up the artifact it produces.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -589,7 +614,7 @@
       <div class="bfoot"><span class="bdots" id="bdots"><i class="on"></i><i></i><i></i><i></i></span><span>4 briefs distilled into one email · excerpts from the real July 17 edition</span></div>
     </div>
 
-    <div class="mail dark art" id="artNote" hidden>
+    <div class="mail dark art" id="artNote">
       <div class="filetab"><i></i><i></i><i></i><b>agent-addressable-platform.md</b><span class="ftpath">~/brain/notes</span></div>
       <div class="code">
         <div class="cl"><span class="no">1</span><span class="lc"><em>---</em></span></div>
@@ -608,7 +633,7 @@
       <div class="dfoot">captured in 30 seconds · synthesized on request · 151 notes, every one traceable to its source</div>
     </div>
 
-    <div class="mail art" id="artReport" hidden>
+    <div class="mail art" id="artReport">
       <div class="memo-head">
         <span class="memo-kick">Weekly readout · initiatives · Friday 16:50</span>
         <span class="memo-title">What changed, and what needs a decision.</span>
@@ -633,7 +658,7 @@
       </div>
     </div>
 
-    <div class="mail dark art" id="artOS" hidden>
+    <div class="mail dark art" id="artOS">
       <div class="filetab"><i></i><i></i><i></i><b>team-os/new-pod.md</b><span class="ftpath">v1.0 · booted Monday</span></div>
       <div class="osbody">
         <div class="osbar"><span>baseline</span><span class="bar"><i></i></span><b>READY</b></div>
@@ -1043,9 +1068,9 @@ document.querySelectorAll('.figshot img').forEach(img => {
     body.innerHTML = '';
     head.textContent = sc.head;
     const active = document.getElementById(sc.art);
-    /* the artifact shows immediately and stays put across loop replays */
-    arts.forEach(a => { a.hidden = a !== active; if (a !== active) a.classList.remove('arrived'); });
-    requestAnimationFrame(() => requestAnimationFrame(() => { if (my === runId) active.classList.add('arrived'); }));
+    /* every artifact stays on the table; the one being made right now is lit */
+    arts.forEach(a => a.classList.toggle('live', a === active));
+    tabs.forEach(x => x.classList.toggle('on', x.dataset.s === cur));
     let t = 0;
     sc.lines.forEach(l => {
       const el = document.createElement('div');
@@ -1054,13 +1079,17 @@ document.querySelectorAll('.figshot img').forEach(img => {
       t += reducedT ? 0 : l.d;
       setTimeout(() => { if (my === runId) el.classList.add('on'); }, t);
     });
-    /* the run loops on its own; no button to press */
-    if (!reducedT) loopT = setTimeout(() => { if (my === runId) play(); }, t + 4500);
+    /* when a run ends, the terminal moves on to the next system */
+    const ORDER = ['brief', 'note', 'report', 'os'];
+    if (!reducedT) loopT = setTimeout(() => {
+      if (my !== runId) return;
+      cur = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length];
+      play();
+    }, t + 4000);
   }
   tabs.forEach(b => b.addEventListener('click', () => {
     if (b.dataset.s === cur) return;
     cur = b.dataset.s;
-    tabs.forEach(x => x.classList.toggle('on', x === b));
     play();
   }));
   /* autoplay when the terminal scrolls into view; scroll-sweep fallback because
@@ -1086,13 +1115,26 @@ document.querySelectorAll('.figshot img').forEach(img => {
     if (!pages.length) return;
     let p = 0;
     setInterval(() => {
-      const card = document.getElementById('mailCard');
-      if (card.hidden || !card.classList.contains('arrived')) return;
+      const r = document.getElementById('mailCard').getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return; /* only flip while on screen */
       p = (p + 1) % pages.length;
       pages.forEach((el, i) => el.classList.toggle('on', i === p));
       dots.forEach((el, i) => el.classList.toggle('on', i === p));
     }, 6500);
   })();
+})();
+
+/* ---- liquid glass dock: appears once the hero chips scroll away ---- */
+(function dock(){
+  const g = document.getElementById('gnav');
+  const hero = document.querySelector('.hero');
+  if (!g || !hero) return;
+  const check = () => {
+    const past = scrollY > hero.offsetTop + hero.offsetHeight - 80;
+    g.classList.toggle('on', past);
+  };
+  addEventListener('scroll', check, { passive: true });
+  check();
 })();
 </script>
 </body>
