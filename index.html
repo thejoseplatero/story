@@ -309,14 +309,11 @@
   .devslot { border:1.5px dashed rgba(224,168,63,.5); display:flex; align-items:center; justify-content:center;
              color:var(--dimmer); font:11.5px "IBM Plex Mono",monospace; text-align:center; line-height:1.8; padding:14px; }
   /* pinned podcast card */
-  .pincard { display:grid; grid-template-columns:64px 1fr auto auto; gap:20px; align-items:center; max-width:760px;
+  .pincard { display:grid; grid-template-columns:1fr auto auto; gap:20px; align-items:center; max-width:760px;
              border:1px solid rgba(143,156,245,.32); border-radius:16px; padding:20px 24px; margin-bottom:34px;
              background:linear-gradient(120deg, rgba(82,102,235,.12), rgba(82,102,235,.03) 60%);
              transition:transform .35s var(--major), border-color .3s, box-shadow .35s; }
   .pincard:hover { transform:translateY(-3px); border-color:var(--accent2); box-shadow:0 18px 44px -20px rgba(82,102,235,.4); }
-  .pin-art { width:64px; height:64px; border-radius:14px; background:#003d4f;
-             display:flex; align-items:center; justify-content:center; }
-  .pin-art b { font:800 38px/1 Inter,sans-serif; font-style:italic; color:#f2617a; transform:translateY(-2px); }
   .twword { font:700 1em Inter,sans-serif; color:#fff; letter-spacing:0; text-transform:none; }
   .twword i { font-style:italic; font-weight:800; color:#f2617a; }
   .pin-main { display:flex; flex-direction:column; gap:4px; min-width:0; }
@@ -334,7 +331,7 @@
   .pin-cta { font-size:13.5px; font-weight:500; color:#fff; background:var(--accent); border-radius:999px; padding:10px 20px;
              transition:background .25s; white-space:nowrap; }
   .pincard:hover .pin-cta { background:#6272ef; }
-  @media (max-width:720px){ .pincard { grid-template-columns:52px 1fr; } .pin-wave { display:none; } .pin-cta { grid-column:2; justify-self:start; } .pin-art { width:52px; height:52px; } }
+  @media (max-width:720px){ .pincard { grid-template-columns:1fr; } .pin-wave { display:none; } .pin-cta { justify-self:start; } }
   .figshot { border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--paper); margin:34px 0 10px; }
   .figshot img { width:100%; display:block; transition:transform .8s var(--major); }
   .figshot:hover img { transform:scale(1.015); }
@@ -581,7 +578,6 @@
   <h2 class="disp rv">On stage, in classrooms, on the record.</h2>
 
   <a class="pincard rv" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">
-    <span class="pin-art" aria-hidden="true"><b>/</b></span>
     <span class="pin-main">
       <span class="pin-kick">Podcast · Thoughtworks · Pragmatism in Practice</span>
       <span class="pin-title">Product Innovation: Charting Your Own Course</span>
