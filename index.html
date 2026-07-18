@@ -84,14 +84,14 @@
 
   /* liquid glass dock */
   #gnav { --tx:-50%; position:fixed; top:auto; left:50%; bottom:16px; z-index:60; display:flex; gap:2px; padding:6px;
-          border-radius:999px; border:1px solid rgba(143,156,245,.3);
-          background:rgba(16,18,28,.55);
+          border-radius:999px; border:1px solid rgba(143,156,245,.5);
+          background:rgba(18,21,33,.78);
           backdrop-filter:blur(22px) saturate(1.6); -webkit-backdrop-filter:blur(22px) saturate(1.6);
           box-shadow:0 20px 50px -14px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.09);
           opacity:0; pointer-events:none; transform:translate(var(--tx), 84px);
           transition:transform .55s var(--major), opacity .4s; }
   #gnav.on { opacity:1; pointer-events:auto; transform:translate(var(--tx), 0); }
-  #gnav a { font:500 12.5px Inter,sans-serif; color:var(--dim); padding:9px 15px; border-radius:999px;
+  #gnav a { font:500 12.5px Inter,sans-serif; color:#c6cddc; padding:9px 15px; border-radius:999px;
             border:1px solid transparent; white-space:nowrap;
             transition:color .25s, background .25s, border-color .25s, box-shadow .25s; }
   #gnav a:hover { color:#fff; background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.16); }
@@ -112,14 +112,6 @@
   .dek { color:var(--dim); font-size:19px; line-height:1.7; max-width:56ch; margin-bottom:34px; }
   .byline { font-size:13px; color:var(--dimmer); letter-spacing:.04em; }
   .byline b { color:var(--dim); font-weight:500; }
-  .proof { margin-top:34px; }
-  .proof-k { display:block; font-size:13.5px; color:var(--dim); margin-bottom:14px; }
-  .proof-row { display:flex; flex-wrap:wrap; gap:10px; }
-  .proof-row a { font:500 13.5px Inter,sans-serif; color:#fff; border:1px solid rgba(143,156,245,.45); border-radius:999px;
-    padding:11px 20px; background:linear-gradient(180deg, rgba(143,156,245,.14), rgba(143,156,245,.05));
-    box-shadow:0 0 0 0 rgba(143,156,245,0); transition:border-color .25s, background .25s, transform .25s, box-shadow .25s; }
-  .proof-row a::after { content:" ↓"; color:var(--accent2); }
-  .proof-row a:hover { border-color:rgba(143,156,245,.9); background:rgba(143,156,245,.2);
     transform:translateY(-2px); box-shadow:0 10px 30px -12px rgba(82,102,235,.55); }
 
   .ch { padding-top:96px; padding-bottom:96px; border-top:1px solid var(--line); }
@@ -474,8 +466,8 @@
 <body>
 <div id="prog"></div>
 <nav id="gnav" aria-label="Jump to the artifacts">
-  <a href="#ch-4">The keynote</a>
-  <a href="#ch-5">Agent demos</a>
+  <a href="#ch-1">Agent demos</a>
+  <a href="#ch-2">The keynote</a>
   <a href="#watch">Talks &amp; reels</a>
   <a href="#record">Roles &amp; record</a>
 </nav>
@@ -489,101 +481,10 @@
   <h1 class="disp rv"><span class="mask"><span>Product orgs,</span></span><span class="mask dl1"><span>built like <em>products.</em></span></span></h1>
   <p class="dek rv">Jose Platero is a builder who runs a 45+ person org. He builds product organizations the way product people build products: as systems with operating models, feedback loops, and version numbers. The newest version thinks with AI.</p>
   <div class="byline rv"><b>Jose Platero</b> · Director, Product, Design &amp; MarTech · Air Canada | Aeroplan · Toronto</div>
-  <div class="proof rv">
-    <span class="proof-k">The fastest way to tell a builder from a describer: ask to see the artifact.</span>
-    <span class="proof-row">
-      <a href="#ch-4">The keynote</a>
-      <a href="#ch-5">Agent demos</a>
-      <a href="#watch">Talks &amp; reels</a>
-      <a href="#record">Roles &amp; record</a>
-    </span>
-  </div>
 </header>
 
 <section class="ch wrap">
   <div class="chno rv">Chapter one</div>
-  <h2 class="disp rv">I love travel. I loathe the travel experience.</h2>
-  <div class="cols">
-    <div class="body">
-      <p class="rv">As a product person, I vowed that if I ever got the chance to work on it, I would make it great. Fifteen years of preparation first: TELUS, Shaw Media, agencies, and Aimia's innovation lab, running 100+ lean experiments. Then Air Canada, 2019. On my first day I walked into my boss's office and announced I was going to change how people travel. I didn't get to finish the sentence. The priority was launching the new Aeroplan program. So we launched it: a new digital member experience, partnerships with Uber, Starbucks, and Marriott, and a member base that doubled.</p>
-      <p class="rv">Here's the failure part, because every true story has one. I eventually got the homepage into my portfolio, with no development team and a mandate to keep the lights on. My scrappy team of overflow bug-fixers changed the header from black to white and removed one button, and it caused an uproar. The brand team pushed back hard, and they were right: aircanada.com no longer felt like Air Canada. I got excited, pitched a cosmetic update, and after every approval, the only thing that shipped was changing the header back to black. I had let excitement drive. I forgot to think like a product person.</p>
-      <p class="rv">So we rebooted. Full discovery: lounges, customer interviews, the data. The business had expanded from flights to cars, hotels, packages, and loyalty, and the page had never scaled with it. Customers were stuck in a Where's Waldo puzzle. We banned the word redesign. This was a rethink of what the page was for, shipped as a beta to a subset of members, expanded loop by loop. That work became a <a class="inlink" href="https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage" target="_blank" rel="noopener">Webby honoree</a>. The bigger wins were underneath: a senior PM carried the vision forward, an overflow bug-squad became a real product-engineering team, and I learned that there is all this work underneath the work that makes the work actually work.</p>
-    </div>
-    <aside class="margin rv">
-      <b>The record, in numbers</b>
-      <span class="num"><i>45+</i><small>person org: product, design, martech, adtech</small></span>
-      <span class="num"><i>9M+</i><small>Aeroplan members served by launches led</small></span>
-      <span class="num"><i>2×</i><small>active membership after the loyalty relaunch</small></span>
-      <span class="num"><i>100+</i><small>lean experiments at Aimia's 021 Lab</small></span>
-    </aside>
-  </div>
-  <div class="pull rv">"The main thing you want to go after is not the solution you're pitching. It's the pain point. And make sure that pain point is strong."<span class="who">From a Q&amp;A on selling big ideas inside a large org</span></div>
-</section>
-
-<section class="ch wrap">
-  <div class="chno rv">Chapter two</div>
-  <h2 class="disp rv">The launch I'm proudest of didn't need me.</h2>
-  <div class="cols">
-    <div class="body">
-      <p class="rv">The trap I watch new managers fall into is the one I had to escape myself: the high performer's certainty that you can do it faster than anyone else. You end up too busy to hire, so you stay too busy. The mindset shift is slow down to go fast. Hiring and onboarding cost you real time up front, and then the returns turn exponential. Past forty-five people across four practices, the job stopped being the products and became the people who ship them, so I stopped hiring hands and started developing a manager layer.</p>
-      <p class="rv">The proof is the status program relaunch. The biggest change to the program since the Aeroplan relaunch itself, 9M+ members moving to spend-based earning, and it was run day-to-day by one of my senior managers. My job was the operating system it ran on and the air cover it needed. The launch landing without me in every room is the point: that is what the manager layer is for.</p>
-      <p class="rv">The other calibration is speed. Getting a new hire moving used to take me three months; I have it down to three days, with real ownership and a chunk of the overflow on their plate by the end of the week. And I teach one measure of progress: decisions made today, not meetings booked three weeks out. Pick up the phone, send the message, door-pop. That is the difference between a product shipping in six months and shipping in three weeks.</p>
-    </div>
-    <aside class="margin rv">
-      <b>Leading through leaders</b>
-      <span class="num"><i>45+</i><small>people across product, design, martech, adtech</small></span>
-      <span class="num"><i>4</i><small>practices, each with real owners</small></span>
-      <span class="num"><i>9M+</i><small>member launch run day-to-day by his senior manager</small></span>
-      <span class="num"><i>3 days</i><small>from hire to carrying real load, down from three months</small></span>
-    </aside>
-  </div>
-  <div class="pull rv">"It's the mindset shift: slow down to go fast."<span class="who">The advice he gives every new manager</span></div>
-</section>
-
-<section class="ch wrap">
-  <div class="chno rv">Chapter three</div>
-  <h2 class="disp rv">The pivot: my product is the system now.</h2>
-  <div class="cols">
-    <div class="body">
-      <p class="rv">I will not pretend the AI wave arrived calmly. For somebody who considers himself a craftsperson, there was panic in watching the game change. The answer was to get into the tools, learn from the AI natives around me, and then build what I learned into the org: agents that draft the PRDs and user stories, automate the executive reporting, audit initiatives, and plan capacity. Governed, repeatable, used across the team. The manual prep work is what got replaced, not the judgment.</p>
-      <p class="rv">Compass, the design system I founded, is the oldest proof of the method. My first pitch was efficiency, and it hit a pain nobody would fund. Then someone senior on the brand team said the real one out loud: when people experience Air Canada, it doesn't feel like Air Canada. That was the pain. I reframed everything around it, the brand team became the advocates, and the system got built. Now it's becoming the AI layer: components and tokens AI tools can read, so a prototype comes out on-brand the first time. The same platform thinking gave marketing a self-serve campaign tool, and turnaround went from months to minutes.</p>
-      <p class="rv">One rule holds it together: nothing rolls out to the team that I haven't run myself first. My own work runs on the same machinery, research agents that brief me every morning and a knowledge system an AI can actually operate. When one of my own pipelines failed silently, the lesson became policy: every system ships with a watchdog, because a system reporting success is grading its own homework.</p>
-    </div>
-    <aside class="margin rv">
-      <b>What the operating model buys</b>
-      <span class="num"><i>Minutes</i><small>campaign turnaround, down from months</small></span>
-      <span class="num"><i>1st try</i><small>prototypes come out on-brand, via Compass + AI</small></span>
-      <span class="num"><i>4</i><small>agent jobs running today: PRDs, reporting, audits, capacity</small></span>
-      <span class="num"><i>0</i><small>tools rolled out that he hasn't run on himself first</small></span>
-    </aside>
-  </div>
-  <div class="pull rv">"My new product is the system, not the products that system produces."<span class="who">The meta-lesson, from the homepage rethink</span></div>
-</section>
-
-<section class="ch wrap">
-  <div class="chno rv">Chapter four</div>
-  <h2 class="disp rv">How I make complex things land.</h2>
-  <div class="cols">
-    <div class="body">
-      <p class="rv">Half of an executive's job is translation: taking something complex and making a room care about it. For a talk on AI-native second brains, I didn't open with slides. I built a game and used it as the narrative: each level is a piece of how the system works, so the audience follows the concept the way they'd follow a story, and then the real system picks up where the game leaves off.</p>
-      <p class="rv">It's live below. Play through it and you'll follow the same narrative the room did.</p>
-    </div>
-    <aside class="margin rv">
-      <b>Why it matters</b>
-      <span class="note">Show the artifact, not the deck. The game below is the actual keynote narrative, live, not a screenshot of it.</span>
-    </aside>
-  </div>
-  <figure class="figshot rv" hidden>
-    <img src="assets/photos/game-demo.jpg" alt="Jose presenting the second-brain game live at BrainStation Toronto, the game projected behind him">
-  </figure>
-  <div class="gameframe rv">
-    <iframe src="https://thejoseplatero.github.io/second-brain-game/cerebro.html" title="The keynote" loading="lazy"></iframe>
-    <div class="cap"><span>the keynote's narrative device · not slides, a world you can walk through · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗︎</a></div>
-  </div>
-</section>
-
-<section class="ch wrap">
-  <div class="chno rv">Chapter five</div>
   <h2 class="disp rv">While I sleep, it works.</h2>
   <div class="cols">
     <div class="body">
@@ -735,12 +636,94 @@
         <div class="osrow"><i>✓</i><span><b>Ownership</b> · real lanes from day one, artifacts over updates</span></div>
         <div class="osrow"><i>✓</i><span><b>Onboarding</b> · a system, not a rite of passage; real load by day three</span></div>
       </div>
-      <div class="dfoot">3 days to baseline, down from 3 months · the system behind chapters two and three</div>
+      <div class="dfoot">3 days to baseline, down from 3 months · the system behind chapters four and five</div>
     </div>
   </div>
   </div>
 
   <div class="pull rv">"Thank you Jose Platero for teaching us how to sleep more by leveraging AI!"<span class="who">Suzanne Samivand · Agile Delivery Lead, on LinkedIn after a session on this operating model</span></div>
+</section>
+
+<section class="ch wrap">
+  <div class="chno rv">Chapter two</div>
+  <h2 class="disp rv">How I make complex things land.</h2>
+  <div class="cols">
+    <div class="body">
+      <p class="rv">Half of an executive's job is translation: taking something complex and making a room care about it. For a talk on AI-native second brains, I didn't open with slides. I built a game and used it as the narrative: each level is a piece of how the system works, so the audience follows the concept the way they'd follow a story, and then the real system picks up where the game leaves off.</p>
+      <p class="rv">It's live below. Play through it and you'll follow the same narrative the room did.</p>
+    </div>
+    <aside class="margin rv">
+      <b>Why it matters</b>
+      <span class="note">Show the artifact, not the deck. The game below is the actual keynote narrative, live, not a screenshot of it.</span>
+    </aside>
+  </div>
+  <figure class="figshot rv" hidden>
+    <img src="assets/photos/game-demo.jpg" alt="Jose presenting the second-brain game live at BrainStation Toronto, the game projected behind him">
+  </figure>
+  <div class="gameframe rv">
+    <iframe src="https://thejoseplatero.github.io/second-brain-game/cerebro.html" title="The keynote" loading="lazy"></iframe>
+    <div class="cap"><span>the keynote's narrative device · not slides, a world you can walk through · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗︎</a></div>
+  </div>
+</section>
+
+<section class="ch wrap">
+  <div class="chno rv">Chapter three</div>
+  <h2 class="disp rv">I love travel. I loathe the travel experience.</h2>
+  <div class="cols">
+    <div class="body">
+      <p class="rv">As a product person, I vowed that if I ever got the chance to work on it, I would make it great. Fifteen years of preparation first: TELUS, Shaw Media, agencies, and Aimia's innovation lab, running 100+ lean experiments. Then Air Canada, 2019. On my first day I walked into my boss's office and announced I was going to change how people travel. I didn't get to finish the sentence. The priority was launching the new Aeroplan program. So we launched it: a new digital member experience, partnerships with Uber, Starbucks, and Marriott, and a member base that doubled.</p>
+      <p class="rv">Here's the failure part, because every true story has one. I eventually got the homepage into my portfolio, with no development team and a mandate to keep the lights on. My scrappy team of overflow bug-fixers changed the header from black to white and removed one button, and it caused an uproar. The brand team pushed back hard, and they were right: aircanada.com no longer felt like Air Canada. I got excited, pitched a cosmetic update, and after every approval, the only thing that shipped was changing the header back to black. I had let excitement drive. I forgot to think like a product person.</p>
+      <p class="rv">So we rebooted. Full discovery: lounges, customer interviews, the data. The business had expanded from flights to cars, hotels, packages, and loyalty, and the page had never scaled with it. Customers were stuck in a Where's Waldo puzzle. We banned the word redesign. This was a rethink of what the page was for, shipped as a beta to a subset of members, expanded loop by loop. That work became a <a class="inlink" href="https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage" target="_blank" rel="noopener">Webby honoree</a>. The bigger wins were underneath: a senior PM carried the vision forward, an overflow bug-squad became a real product-engineering team, and I learned that there is all this work underneath the work that makes the work actually work.</p>
+    </div>
+    <aside class="margin rv">
+      <b>The record, in numbers</b>
+      <span class="num"><i>45+</i><small>person org: product, design, martech, adtech</small></span>
+      <span class="num"><i>9M+</i><small>Aeroplan members served by launches led</small></span>
+      <span class="num"><i>2×</i><small>active membership after the loyalty relaunch</small></span>
+      <span class="num"><i>100+</i><small>lean experiments at Aimia's 021 Lab</small></span>
+    </aside>
+  </div>
+  <div class="pull rv">"The main thing you want to go after is not the solution you're pitching. It's the pain point. And make sure that pain point is strong."<span class="who">From a Q&amp;A on selling big ideas inside a large org</span></div>
+</section>
+
+<section class="ch wrap">
+  <div class="chno rv">Chapter four</div>
+  <h2 class="disp rv">The launch I'm proudest of didn't need me.</h2>
+  <div class="cols">
+    <div class="body">
+      <p class="rv">The trap I watch new managers fall into is the one I had to escape myself: the high performer's certainty that you can do it faster than anyone else. You end up too busy to hire, so you stay too busy. The mindset shift is slow down to go fast. Hiring and onboarding cost you real time up front, and then the returns turn exponential. Past forty-five people across four practices, the job stopped being the products and became the people who ship them, so I stopped hiring hands and started developing a manager layer.</p>
+      <p class="rv">The proof is the status program relaunch. The biggest change to the program since the Aeroplan relaunch itself, 9M+ members moving to spend-based earning, and it was run day-to-day by one of my senior managers. My job was the operating system it ran on and the air cover it needed. The launch landing without me in every room is the point: that is what the manager layer is for.</p>
+      <p class="rv">The other calibration is speed. Getting a new hire moving used to take me three months; I have it down to three days, with real ownership and a chunk of the overflow on their plate by the end of the week. And I teach one measure of progress: decisions made today, not meetings booked three weeks out. Pick up the phone, send the message, door-pop. That is the difference between a product shipping in six months and shipping in three weeks.</p>
+    </div>
+    <aside class="margin rv">
+      <b>Leading through leaders</b>
+      <span class="num"><i>45+</i><small>people across product, design, martech, adtech</small></span>
+      <span class="num"><i>4</i><small>practices, each with real owners</small></span>
+      <span class="num"><i>9M+</i><small>member launch run day-to-day by his senior manager</small></span>
+      <span class="num"><i>3 days</i><small>from hire to carrying real load, down from three months</small></span>
+    </aside>
+  </div>
+  <div class="pull rv">"It's the mindset shift: slow down to go fast."<span class="who">The advice he gives every new manager</span></div>
+</section>
+
+<section class="ch wrap">
+  <div class="chno rv">Chapter five</div>
+  <h2 class="disp rv">The pivot: my product is the system now.</h2>
+  <div class="cols">
+    <div class="body">
+      <p class="rv">I will not pretend the AI wave arrived calmly. For somebody who considers himself a craftsperson, there was panic in watching the game change. The answer was to get into the tools, learn from the AI natives around me, and then build what I learned into the org: agents that draft the PRDs and user stories, automate the executive reporting, audit initiatives, and plan capacity. Governed, repeatable, used across the team. The manual prep work is what got replaced, not the judgment.</p>
+      <p class="rv">Compass, the design system I founded, is the oldest proof of the method. My first pitch was efficiency, and it hit a pain nobody would fund. Then someone senior on the brand team said the real one out loud: when people experience Air Canada, it doesn't feel like Air Canada. That was the pain. I reframed everything around it, the brand team became the advocates, and the system got built. Now it's becoming the AI layer: components and tokens AI tools can read, so a prototype comes out on-brand the first time. The same platform thinking gave marketing a self-serve campaign tool, and turnaround went from months to minutes.</p>
+      <p class="rv">One rule holds it together: nothing rolls out to the team that I haven't run myself first. My own work runs on the same machinery, the research agents you watched run in chapter one, and a knowledge system an AI can actually operate. When one of my own pipelines failed silently, the lesson became policy: every system ships with a watchdog, because a system reporting success is grading its own homework.</p>
+    </div>
+    <aside class="margin rv">
+      <b>What the operating model buys</b>
+      <span class="num"><i>Minutes</i><small>campaign turnaround, down from months</small></span>
+      <span class="num"><i>1st try</i><small>prototypes come out on-brand, via Compass + AI</small></span>
+      <span class="num"><i>4</i><small>agent jobs running today: PRDs, reporting, audits, capacity</small></span>
+      <span class="num"><i>0</i><small>tools rolled out that he hasn't run on himself first</small></span>
+    </aside>
+  </div>
+  <div class="pull rv">"My new product is the system, not the products that system produces."<span class="who">The meta-lesson, from the homepage rethink</span></div>
 </section>
 
 <section class="ch wrap">
