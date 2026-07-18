@@ -310,28 +310,28 @@
              color:var(--dimmer); font:11.5px "IBM Plex Mono",monospace; text-align:center; line-height:1.8; padding:14px; }
   /* pinned podcast card */
   .pincard { display:grid; grid-template-columns:64px 1fr auto auto; gap:20px; align-items:center; max-width:760px;
-             border:1px solid rgba(242,97,122,.35); border-radius:16px; padding:20px 24px; margin-bottom:34px;
-             background:#01414e;
+             border:1px solid rgba(143,156,245,.32); border-radius:16px; padding:20px 24px; margin-bottom:34px;
+             background:linear-gradient(120deg, rgba(82,102,235,.12), rgba(82,102,235,.03) 60%);
              transition:transform .35s var(--major), border-color .3s, box-shadow .35s; }
-  .pincard:hover { transform:translateY(-3px); border-color:#f2617a; box-shadow:0 18px 44px -20px rgba(242,97,122,.45); }
-  .pin-art { width:64px; height:64px; border-radius:14px; background:#013340;
+  .pincard:hover { transform:translateY(-3px); border-color:var(--accent2); box-shadow:0 18px 44px -20px rgba(82,102,235,.4); }
+  .pin-art { width:64px; height:64px; border-radius:14px; background:#003d4f;
              display:flex; align-items:center; justify-content:center; }
   .pin-art b { font:800 38px/1 Inter,sans-serif; font-style:italic; color:#f2617a; transform:translateY(-2px); }
   .twword { font:700 1em Inter,sans-serif; color:#fff; letter-spacing:0; text-transform:none; }
   .twword i { font-style:italic; font-weight:800; color:#f2617a; }
   .pin-main { display:flex; flex-direction:column; gap:4px; min-width:0; }
-  .pin-kick { font:10.5px "IBM Plex Mono",monospace; letter-spacing:.14em; text-transform:uppercase; color:#f2617a; }
+  .pin-kick { font:10.5px "IBM Plex Mono",monospace; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2); }
   .pin-title { font-family:Fraunces,Georgia,serif; font-weight:300; font-size:19px; color:#fff; line-height:1.25; }
   .pin-desc { font-size:13px; color:var(--dim); line-height:1.5; }
   .pin-wave { display:flex; align-items:center; gap:3px; height:30px; }
-  .pin-wave i { width:3px; border-radius:2px; background:#f2617a; height:30%; opacity:.75; animation:wave 1.15s ease-in-out infinite; }
+  .pin-wave i { width:3px; border-radius:2px; background:var(--accent2); height:30%; opacity:.75; animation:wave 1.15s ease-in-out infinite; }
   .pin-wave i:nth-child(2){animation-delay:.1s} .pin-wave i:nth-child(3){animation-delay:.22s} .pin-wave i:nth-child(4){animation-delay:.31s}
   .pin-wave i:nth-child(5){animation-delay:.14s} .pin-wave i:nth-child(6){animation-delay:.4s} .pin-wave i:nth-child(7){animation-delay:.05s}
   .pin-wave i:nth-child(8){animation-delay:.27s} .pin-wave i:nth-child(9){animation-delay:.36s} .pin-wave i:nth-child(10){animation-delay:.18s}
   .pin-wave i:nth-child(11){animation-delay:.45s} .pin-wave i:nth-child(12){animation-delay:.08s}
   @keyframes wave { 0%,100% { height:26%; } 50% { height:96%; } }
   @media (prefers-reduced-motion:reduce){ .pin-wave i { animation:none; height:60%; } }
-  .pin-cta { font-size:13.5px; font-weight:500; color:#fff; background:#f2617a; border-radius:999px; padding:10px 20px;
+  .pin-cta { font-size:13.5px; font-weight:500; color:#fff; background:var(--accent); border-radius:999px; padding:10px 20px;
              transition:background .25s; white-space:nowrap; }
   .pincard:hover .pin-cta { background:#6272ef; }
   @media (max-width:720px){ .pincard { grid-template-columns:52px 1fr; } .pin-wave { display:none; } .pin-cta { grid-column:2; justify-self:start; } .pin-art { width:52px; height:52px; } }
@@ -480,7 +480,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and Product OS writing a team's operating system. Pick one and watch it run: every run ends in an artifact.</p>
+      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and the team OS booting a new team to baseline. Pick one and watch it run: every run ends in an artifact.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -495,7 +495,7 @@
     <button class="dt on" data-s="brief">The morning brief</button>
     <button class="dt" data-s="note">Capture to synthesis</button>
     <button class="dt" data-s="report">The exec report</button>
-    <button class="dt" data-s="os">Product OS</button>
+    <button class="dt" data-s="os">The team OS</button>
   </div>
 
   <div class="pipeline rv">
@@ -556,7 +556,7 @@
 
     <div class="mail art" id="artOS" hidden>
       <div class="mail-head">
-        <div class="mail-row"><span class="k">Doc</span><span>product-os/new-pod/team-os.md · v1.0</span></div>
+        <div class="mail-row"><span class="k">Doc</span><span>team-os/new-pod.md · v1.0</span></div>
         <div class="mail-row"><span class="k">Premise</span><span>a team is a product; the team OS is its operating system</span></div>
         <div class="mail-row"><span class="k">Time</span><span><b>3 days to baseline, down from 3 months</b></span></div>
       </div>
@@ -567,7 +567,7 @@
         <div class="ck"><i>✓</i><span><b>Progress</b> · decisions made today, not meetings booked</span></div>
         <div class="ck"><i>✓</i><span><b>Ownership</b> · real lanes from day one, artifacts over updates</span></div>
         <div class="ck"><i>✓</i><span><b>Onboarding</b> · a system, not a rite of passage; real load by day three</span></div>
-        <p class="mail-foot">product-os template, applied per team · the system behind chapters two and three</p>
+        <p class="mail-foot">the team OS template, applied per team · the system behind chapters two and three</p>
       </div>
     </div>
   </div>
@@ -583,7 +583,7 @@
   <a class="pincard rv" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">
     <span class="pin-art" aria-hidden="true"><b>/</b></span>
     <span class="pin-main">
-      <span class="pin-kick">Podcast · Pragmatism in Practice</span>
+      <span class="pin-kick">Podcast · Thoughtworks · Pragmatism in Practice</span>
       <span class="pin-title">Product Innovation: Charting Your Own Course</span>
       <span class="pin-desc">A long-form conversation on product innovation, on <span class="twword"><i>/</i>thoughtworks</span>' podcast.</span>
     </span>
@@ -948,9 +948,9 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 850,  h: '  <span class="ok">✓</span> report ready · 2 escalations flagged for tonight', art: true },
       { d: 700,  h: '  built for the 2am call, so the 2am call stops happening' },
     ]},
-    os: { head: 'product-os · booting a new team to baseline', art: 'artOS', lines: [
+    os: { head: 'the team OS · booting a new team to baseline', art: 'artOS', lines: [
       { d: 250,  h: '❯ <span class="hl">"new pod spins up Monday. boot the OS."</span>' },
-      { d: 800,  h: '<span class="hl">▸ Skill(</span>product-os<span class="hl">)</span> · a team is a product · writing its team OS' },
+      { d: 800,  h: '<span class="hl">▸ Skill(</span>team-os<span class="hl">)</span> · a team is a product · this is its operating system' },
       { d: 900,  h: '  <span class="hl">Write(</span>new-pod/team-os.md<span class="hl">)</span> · decision rights · rituals with owners · artifacts over updates' },
       { d: 900,  h: '  <span class="hl">Write(</span>new-pod/capacity-model.md<span class="hl">)</span> · <span class="hl">Write(</span>new-pod/onboarding-path.md<span class="hl">)</span>' },
       { d: 850,  h: '  <span class="ok">✓</span> baseline ready · 3 days, not 3 months', art: true },
@@ -969,20 +969,16 @@ document.querySelectorAll('.figshot img').forEach(img => {
     head.textContent = sc.head;
     const active = document.getElementById(sc.art);
     arts.forEach(a => { a.hidden = a !== active; a.classList.remove('arrived'); });
+    /* the artifact shows immediately; the terminal narrates how it got made */
+    requestAnimationFrame(() => requestAnimationFrame(() => { if (my === runId) active.classList.add('arrived'); }));
     let t = 0;
     sc.lines.forEach(l => {
       const el = document.createElement('div');
       el.className = 'tl'; el.innerHTML = l.h;
       body.appendChild(el);
       t += reducedT ? 0 : l.d;
-      setTimeout(() => {
-        if (my !== runId) return;
-        el.classList.add('on');
-        if (l.art) active.classList.add('arrived');
-      }, t);
+      setTimeout(() => { if (my === runId) el.classList.add('on'); }, t);
     });
-    /* safety: if anything interrupts the run, the artifact still lands */
-    setTimeout(() => { if (my === runId) active.classList.add('arrived'); }, reducedT ? 0 : t + 1200);
   }
   tabs.forEach(b => b.addEventListener('click', () => {
     if (b.dataset.s === cur) return;
