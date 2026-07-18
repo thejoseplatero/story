@@ -485,7 +485,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Three of the systems are below, live. The morning brief, the exec report, and the second brain's capture to synthesis. Run one and watch the artifact land beside it.</p>
+      <p class="rv">Three of the agents are below, live: Daily Briefing, Executive Report, and the Second Brain. Run one and watch the artifact land beside it.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -497,14 +497,14 @@
   </div>
 
   <div class="demotabs rv" role="tablist" aria-label="Live system demos">
-    <button class="dt on" data-s="brief">The morning brief</button>
-    <button class="dt" data-s="report">The exec report</button>
-    <button class="dt" data-s="note">Capture to synthesis</button>
+    <button class="dt on" data-s="brief">Daily Briefing</button>
+    <button class="dt" data-s="report">Executive Report</button>
+    <button class="dt" data-s="note">Second Brain</button>
   </div>
 
   <div class="pipeline rv">
   <div class="term" id="term" aria-label="Replay of an automated agent run">
-    <div class="term-head"><i></i><i></i><i></i><span id="termHead">the morning run · 2026-07-17 · replayed from the real log</span></div>
+    <div class="term-head"><i></i><i></i><i></i><span id="termHead">daily briefing · 2026-07-17 · replayed from the real log</span></div>
     <div class="term-body" id="termBody"></div>
   </div>
 
@@ -1079,7 +1079,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
   const body = document.getElementById('termBody');
   if (!body) return;
   const S = {
-    brief: { head: 'the morning run · 2026-07-17 · replayed from the real log', art: 'mailCard', lines: [
+    brief: { head: 'daily briefing · 2026-07-17 · replayed from the real log', art: 'mailCard', lines: [
       { d: 250,  h: '<span class="ts">[07:05:00]</span> launchd fires <span class="hl">com.joseplatero.daily-briefs</span> · no human awake' },
       { d: 800,  h: '<span class="hl">▸ claude -p</span> · agent: <span class="hl">executive-pulse</span>' },
       { d: 650,  h: '  reading skill: executive-pulse.md · lens: macro, boardroom, org design' },
@@ -1094,7 +1094,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
       { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
     ]},
-    note: { head: 'the second brain · capture to synthesis · one real note', art: 'artNote', lines: [
+    note: { head: 'second brain · capture to synthesis · one real note', art: 'artNote', lines: [
       { d: 250,  h: '<span class="ts">[08:12]</span> ❯ <span class="hl">"capture: agent-addressable is becoming the platform requirement"</span>' },
       { d: 800,  h: '<span class="hl">▸ Skill(</span>capture<span class="hl">)</span> · fast capture beats perfect capture · no over-organizing' },
       { d: 700,  h: '  <span class="hl">Write(</span>inbox/2026-07-08-agent-addressable.md<span class="hl">)</span> <span class="ok">✓</span> <span class="ts">(0.4s)</span>' },
@@ -1105,7 +1105,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 850,  h: '  <span class="hl">Write(</span>notes/agent-addressable-platform.md<span class="hl">)</span> <span class="ok">✓</span> tagged, linked both ways <span class="ts">(1.2s)</span>', art: true },
       { d: 700,  h: '  the brain compounds: every new idea lands next to everything it touches' },
     ]},
-    report: { head: 'the exec report · sample run · details anonymized', art: 'artReport', lines: [
+    report: { head: 'executive report · sample run · details anonymized', art: 'artReport', lines: [
       { d: 250,  h: '<span class="ts">[16:50]</span> ❯ <span class="hl">"run the exec report"</span>' },
       { d: 800,  h: '<span class="hl">▸ Skill(</span>exec-report<span class="hl">)</span> · fresh board walk, never cached' },
       { d: 900,  h: '  <span class="hl">Jira(</span>GET /search · board=initiatives<span class="hl">)</span> · 14 issues <span class="ts">(1.8s)</span>' },
