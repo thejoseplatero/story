@@ -94,6 +94,7 @@
   #gnav a { font:500 12.5px Inter,sans-serif; color:var(--dim); padding:9px 15px; border-radius:999px;
             white-space:nowrap; transition:color .25s, background .25s; }
   #gnav a:hover { color:#fff; background:rgba(255,255,255,.1); }
+  #gnav a.act { color:#fff; background:rgba(143,156,245,.22); }
   @media (max-width:640px){
     #gnav { --tx:0; left:10px; right:10px; justify-content:flex-start; overflow-x:auto;
             scrollbar-width:none; bottom:10px; }
@@ -289,7 +290,7 @@
   .osbar .bar { flex:1; height:6px; border-radius:999px; background:#1a1f2e; overflow:hidden; }
   .osbar .bar i { display:block; height:100%; width:0; border-radius:999px;
                   background:linear-gradient(90deg, #39c286, #8f9cf5); transition:width 2s var(--major) .3s; }
-  .mail.live .osbar .bar i, .mail .osbar .bar i { width:100%; }
+  .mail .osbar .bar i { width:100%; }
   .osbar b { color:#39c286; }
   .osrow { display:flex; gap:10px; margin-bottom:11px; font-size:13px; line-height:1.55; color:#b9c1d4; }
   .osrow i { font-style:normal; color:#39c286; font-weight:700; }
@@ -344,17 +345,14 @@
     padding:9px 16px; cursor:pointer; transition:color .25s, border-color .25s, background .25s; }
   .dt:hover { color:#fff; border-color:rgba(143,156,245,.5); }
   .dt.on { color:#fff; background:rgba(143,156,245,.12); border-color:rgba(143,156,245,.6); }
-  .pipeline { display:flex; flex-direction:column; gap:22px; margin-top:54px; }
+  .pipeline { display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:54px; align-items:stretch; }
   .demotabs + .pipeline { margin-top:20px; }
+  @media (max-width:960px){ .pipeline { grid-template-columns:1fr; } }
   .pipeline .term { margin-top:0; display:flex; flex-direction:column; }
   .pipeline .term-body { flex:1; }
-  /* all four artifacts stay on the table; the one being made right now is lit */
-  .pipeline .mailwrap { margin-top:0; display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:stretch; }
-  @media (max-width:880px){ .pipeline .mailwrap { grid-template-columns:1fr; } }
-  .pipeline .mail { max-width:none; height:100%; display:flex; flex-direction:column;
-                    transition:box-shadow .6s var(--major), transform .6s var(--major), opacity .6s; opacity:.86; }
-  .pipeline .mail.live { opacity:1; transform:translateY(-3px);
-                         box-shadow:0 0 0 2px rgba(143,156,245,.75), 0 26px 60px -24px rgba(82,102,235,.5); }
+  .pipeline .mailwrap { margin-top:0; }
+  .pipeline .mail { max-width:none; height:100%; display:flex; flex-direction:column; }
+  .pipeline .mail[hidden] { display:none; }
   .pipeline .mail-body { flex:1; }
 
   /* theater: stage with side rail when there is room */
@@ -550,7 +548,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and the team OS booting a new team to baseline. The terminal cycles through all four on its own; each run lights up the artifact it produces.</p>
+      <p class="rv">Four of the systems are below, live. The morning brief, the second brain's capture to synthesis, the exec report, and the team OS booting a new team to baseline. The terminal cycles through all four on its own, and each run produces the artifact beside it.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -614,7 +612,7 @@
       <div class="bfoot"><span class="bdots" id="bdots"><i class="on"></i><i></i><i></i><i></i></span><span>4 briefs distilled into one email · excerpts from the real July 17 edition</span></div>
     </div>
 
-    <div class="mail dark art" id="artNote">
+    <div class="mail dark art" id="artNote" hidden>
       <div class="filetab"><i></i><i></i><i></i><b>agent-addressable-platform.md</b><span class="ftpath">~/brain/notes</span></div>
       <div class="code">
         <div class="cl"><span class="no">1</span><span class="lc"><em>---</em></span></div>
@@ -633,7 +631,7 @@
       <div class="dfoot">captured in 30 seconds · synthesized on request · 151 notes, every one traceable to its source</div>
     </div>
 
-    <div class="mail art" id="artReport">
+    <div class="mail art" id="artReport" hidden>
       <div class="memo-head">
         <span class="memo-kick">Weekly readout · initiatives · Friday 16:50</span>
         <span class="memo-title">What changed, and what needs a decision.</span>
@@ -658,7 +656,7 @@
       </div>
     </div>
 
-    <div class="mail dark art" id="artOS">
+    <div class="mail dark art" id="artOS" hidden>
       <div class="filetab"><i></i><i></i><i></i><b>team-os/new-pod.md</b><span class="ftpath">v1.0 · booted Monday</span></div>
       <div class="osbody">
         <div class="osbar"><span>baseline</span><span class="bar"><i></i></span><b>READY</b></div>
@@ -1068,8 +1066,8 @@ document.querySelectorAll('.figshot img').forEach(img => {
     body.innerHTML = '';
     head.textContent = sc.head;
     const active = document.getElementById(sc.art);
-    /* every artifact stays on the table; the one being made right now is lit */
-    arts.forEach(a => a.classList.toggle('live', a === active));
+    /* one artifact beside the terminal; it appears immediately */
+    arts.forEach(a => { a.hidden = a !== active; });
     tabs.forEach(x => x.classList.toggle('on', x.dataset.s === cur));
     let t = 0;
     sc.lines.forEach(l => {
@@ -1115,8 +1113,9 @@ document.querySelectorAll('.figshot img').forEach(img => {
     if (!pages.length) return;
     let p = 0;
     setInterval(() => {
-      const r = document.getElementById('mailCard').getBoundingClientRect();
-      if (r.bottom < 0 || r.top > innerHeight) return; /* only flip while on screen */
+      const card = document.getElementById('mailCard');
+      const r = card.getBoundingClientRect();
+      if (card.hidden || r.bottom < 0 || r.top > innerHeight) return; /* only flip while on screen */
       p = (p + 1) % pages.length;
       pages.forEach((el, i) => el.classList.toggle('on', i === p));
       dots.forEach((el, i) => el.classList.toggle('on', i === p));
@@ -1124,17 +1123,20 @@ document.querySelectorAll('.figshot img').forEach(img => {
   })();
 })();
 
-/* ---- liquid glass dock: appears once the hero chips scroll away ---- */
+/* ---- liquid glass dock: always present, lights up the section you are in ---- */
 (function dock(){
   const g = document.getElementById('gnav');
-  const hero = document.querySelector('.hero');
-  if (!g || !hero) return;
-  const check = () => {
-    const past = scrollY > hero.offsetTop + hero.offsetHeight - 80;
-    g.classList.toggle('on', past);
+  if (!g) return;
+  g.classList.add('on');
+  const links = [...g.querySelectorAll('a')];
+  const secs = links.map(a => document.querySelector(a.hash));
+  const spy = () => {
+    let idx = -1;
+    secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight * .5) idx = i; });
+    links.forEach((a, i) => a.classList.toggle('act', i === idx));
   };
-  addEventListener('scroll', check, { passive: true });
-  check();
+  addEventListener('scroll', spy, { passive: true });
+  spy();
 })();
 </script>
 </body>
