@@ -82,7 +82,13 @@
   .navlinks { display:flex; gap:22px; margin:0 auto; }
   .navlinks a { font-size:13px; color:var(--dim); transition:color .25s; }
   .navlinks a:hover { color:#fff; }
-  @media (max-width:880px){ .navlinks { display:none; } }
+  @media (max-width:880px){
+    #nav .in { flex-wrap:wrap; }
+    .navlinks { order:3; width:100%; gap:18px; overflow-x:auto; padding:0 0 10px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .navlinks::-webkit-scrollbar { display:none; }
+    .navlinks a { white-space:nowrap; font-size:12.5px; }
+    section[id], .ch { scroll-margin-top:104px; }
+  }
   section[id], .ch { scroll-margin-top:72px; }
   .brand .strap { font-style:normal; }
 
@@ -93,6 +99,12 @@
   .dek { color:var(--dim); font-size:19px; line-height:1.7; max-width:56ch; margin-bottom:34px; }
   .byline { font-size:13px; color:var(--dimmer); letter-spacing:.04em; }
   .byline b { color:var(--dim); font-weight:500; }
+  .proof { margin-top:34px; }
+  .proof-k { display:block; font-size:13.5px; color:var(--dim); margin-bottom:14px; }
+  .proof-row { display:flex; flex-wrap:wrap; gap:10px; }
+  .proof-row a { font-size:13px; color:#fff; border:1px solid var(--line); border-radius:999px; padding:9px 16px;
+    transition:border-color .25s, background .25s, transform .25s; }
+  .proof-row a:hover { border-color:rgba(143,156,245,.6); background:rgba(143,156,245,.08); transform:translateY(-2px); }
 
   .ch { padding-top:96px; padding-bottom:96px; border-top:1px solid var(--line); }
   .chno { font:13px "IBM Plex Mono",monospace; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); margin-bottom:14px; }
@@ -254,8 +266,14 @@
   .qwho b { display:block; color:#fff; font-weight:500; font-size:14px; }
   .qgo { font-size:12px; color:var(--accent2); opacity:0; transform:translateY(3px); transition:opacity .3s, transform .3s var(--major); }
   .qcard:hover .qgo { opacity:1; transform:none; }
-  /* ch5 pipeline: machine on the left, artifact on the right */
+  /* ch5 machine room: tabs pick a system; machine on the left, artifact on the right */
+  .demotabs { display:flex; gap:8px; flex-wrap:wrap; margin-top:50px; }
+  .dt { font:500 13px Inter,sans-serif; color:var(--dim); background:none; border:1px solid var(--line); border-radius:999px;
+    padding:9px 16px; cursor:pointer; transition:color .25s, border-color .25s, background .25s; }
+  .dt:hover { color:#fff; border-color:rgba(143,156,245,.5); }
+  .dt.on { color:#fff; background:rgba(143,156,245,.12); border-color:rgba(143,156,245,.6); }
   .pipeline { display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:54px; align-items:stretch; }
+  .demotabs + .pipeline { margin-top:20px; }
   @media (max-width:960px){ .pipeline { grid-template-columns:1fr; } }
   .pipeline .term { margin-top:0; display:flex; flex-direction:column; }
   .pipeline .term-body { flex:1; }
@@ -264,6 +282,7 @@
                     opacity:.22; transform:translateY(14px) scale(.985); filter:saturate(.4);
                     transition:opacity .8s var(--major), transform .8s var(--major), filter .8s var(--major); }
   .pipeline .mail.arrived { opacity:1; transform:none; filter:none; }
+  .pipeline .mail[hidden] { display:none; }
   .pipeline .mail-body { flex:1; }
 
   /* theater: stage with side rail when there is room */
@@ -357,10 +376,19 @@
 </div></nav>
 
 <header class="wrap hero">
-  <div class="kick rv">A story in six chapters, with artifacts</div>
+  <div class="kick rv">Builder first</div>
   <h1 class="disp rv"><span class="mask"><span>Product orgs,</span></span><span class="mask dl1"><span>built like <em>products.</em></span></span></h1>
-  <p class="dek rv">Jose Platero builds product organizations the way product people build products: as systems with operating models, feedback loops, and version numbers. The newest version thinks with AI.</p>
+  <p class="dek rv">Jose Platero is a builder who runs a 45+ person org. He builds product organizations the way product people build products: as systems with operating models, feedback loops, and version numbers. The newest version thinks with AI.</p>
   <div class="byline rv"><b>Jose Platero</b> · Director, Product, Design &amp; MarTech · Air Canada | Aeroplan · Toronto</div>
+  <div class="proof rv">
+    <span class="proof-k">The fastest way to tell a builder from a describer: ask to see the artifact.</span>
+    <span class="proof-row">
+      <a href="#ch-4">Play the game</a>
+      <a href="#ch-5">Watch the machines run</a>
+      <a href="#watch">See the footage</a>
+      <a href="#record">Scan the record</a>
+    </span>
+  </div>
 </header>
 
 <section class="ch wrap">
@@ -370,7 +398,7 @@
     <div class="body">
       <p class="rv">As a product person, I vowed that if I ever got the chance to work on it, I would make it great. Fifteen years of preparation first: TELUS, Shaw Media, agencies, and Aimia's innovation lab, running 100+ lean experiments. Then Air Canada, 2019. On my first day I walked into my boss's office and announced I was going to change how people travel. I didn't get to finish the sentence. The priority was launching the new Aeroplan program. So we launched it: a new digital member experience, partnerships with Uber, Starbucks, and Marriott, and a member base that doubled.</p>
       <p class="rv">Here's the failure part, because every true story has one. I eventually got the homepage into my portfolio, with no development team and a mandate to keep the lights on. My scrappy team of overflow bug-fixers changed the header from black to white and removed one button, and it caused an uproar. The brand team pushed back hard, and they were right: aircanada.com no longer felt like Air Canada. I got excited, pitched a cosmetic update, and after every approval, the only thing that shipped was changing the header back to black. I had let excitement drive. I forgot to think like a product person.</p>
-      <p class="rv">So we rebooted. Full discovery: lounges, customer interviews, the data. The business had expanded from flights to cars, hotels, packages, and loyalty, and the page had never scaled with it. Customers were stuck in a Where's Waldo puzzle. We banned the word redesign. This was a rethink of what the page was for, shipped as a beta to a subset of members, expanded loop by loop. That work became a <a class="inlink" href="https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage" target="_blank" rel="noopener">Webby honoree</a>. The bigger wins were underneath: a senior PM carried the vision forward, the overflow bug team in Colombia became a real product-engineering team, and I learned that there is all this work underneath the work that makes the work actually work.</p>
+      <p class="rv">So we rebooted. Full discovery: lounges, customer interviews, the data. The business had expanded from flights to cars, hotels, packages, and loyalty, and the page had never scaled with it. Customers were stuck in a Where's Waldo puzzle. We banned the word redesign. This was a rethink of what the page was for, shipped as a beta to a subset of members, expanded loop by loop. That work became a <a class="inlink" href="https://winners.webbyawards.com/2025/websites-and-mobile-sites/features-design/best-user-experience/324614/air-canada-homepage" target="_blank" rel="noopener">Webby honoree</a>. The bigger wins were underneath: a senior PM carried the vision forward, an overflow bug-squad became a real product-engineering team, and I learned that there is all this work underneath the work that makes the work actually work.</p>
     </div>
     <aside class="margin rv">
       <b>The record, in numbers</b>
@@ -433,7 +461,7 @@
     </div>
     <aside class="margin rv">
       <b>Why it matters</b>
-      <span class="note">The fastest way to tell a builder from a describer: ask to see the artifact. Everything on this page has one.</span>
+      <span class="note">Show the artifact, not the deck. The game below is the actual keynote narrative, live, not a screenshot of it.</span>
     </aside>
   </div>
   <figure class="figshot rv" hidden>
@@ -453,7 +481,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">This morning's actual run, replayed from the real log, and the email it produced.</p>
+      <p class="rv">Four of the systems are below, live. The morning brief, capture to synthesis, the exec report, and the team OS. Pick one and watch it run, then look right: every run ends in an artifact.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -464,9 +492,16 @@
     </aside>
   </div>
 
+  <div class="demotabs rv" role="tablist" aria-label="Live system demos">
+    <button class="dt on" data-s="brief">The morning brief</button>
+    <button class="dt" data-s="note">Capture to synthesis</button>
+    <button class="dt" data-s="report">The exec report</button>
+    <button class="dt" data-s="os">The team OS</button>
+  </div>
+
   <div class="pipeline rv">
-  <div class="term" id="term" aria-label="Replay of this morning's automated agent run">
-    <div class="term-head"><i></i><i></i><i></i><span>the morning run · 2026-07-17 · replayed from the real log</span><button id="termReplay" class="term-replay">↻ replay</button></div>
+  <div class="term" id="term" aria-label="Replay of an automated agent run">
+    <div class="term-head"><i></i><i></i><i></i><span id="termHead">the morning run · 2026-07-17 · replayed from the real log</span><button id="termReplay" class="term-replay">↻ replay</button></div>
     <div class="term-body" id="termBody"></div>
   </div>
 
@@ -484,6 +519,51 @@
         <p class="mail-sec">Question worth asking your team this week</p>
         <p>If our most important AI vendor slipped their roadmap by six months tomorrow, what breaks in our plan, and how fast could we swap them out?</p>
         <p class="mail-foot">4 briefs · compiled and sent by the pipeline · excerpt from the real July 17 edition</p>
+      </div>
+    </div>
+
+    <div class="mail art" id="artNote" hidden>
+      <div class="mail-head">
+        <div class="mail-row"><span class="k">File</span><span>notes/agent-addressable-platform.md</span></div>
+        <div class="mail-row"><span class="k">From</span><span>a 30-second raw capture, days earlier</span></div>
+        <div class="mail-row"><span class="k">Linked</span><span><b>[[vendor-lock-in-moving-up-the-stack]] · [[first-party-data-table-stakes]]</b></span></div>
+      </div>
+      <div class="mail-body">
+        <p class="mail-sec">Atomic note · a real file from the brain</p>
+        <p><b>Agent-addressable is the new platform requirement.</b> A martech platform is useful only to the degree its capabilities are exposed as callable services AI agents can invoke. Test for any vendor or internal build: can an agent trigger this capability programmatically, or only a human in a UI? The second answer is a liability.</p>
+        <p class="mail-sec">Why this shape</p>
+        <p>One idea per file, tagged, linked both ways, source brief preserved. Capture stays fast. Synthesis happens on demand.</p>
+        <p class="mail-foot">151 notes in the brain · every one traceable back to its source</p>
+      </div>
+    </div>
+
+    <div class="mail art" id="artReport" hidden>
+      <div class="mail-head">
+        <div class="mail-row"><span class="k">Report</span><span>Initiatives · weekly readout</span></div>
+        <div class="mail-row"><span class="k">Audience</span><span>executive · narrative, not a spreadsheet</span></div>
+        <div class="mail-row"><span class="k">Source</span><span><b>live Jira walk · 14 initiatives · fresh pull, never cached</b></span></div>
+      </div>
+      <div class="mail-body">
+        <p class="mail-sec">What changed this week</p>
+        <p>Two initiatives moved to build after clearing review. One launch date slipped a sprint; the owner's mitigation is already in the comments. Adoption on last month's release is tracking ahead of forecast.</p>
+        <p class="mail-sec">Decisions &amp; escalations</p>
+        <p>A vendor contract needs a signature by Friday to hold the integration date. One team is blocked on a data access approval that has sat for nine days.</p>
+        <p class="mail-foot">generated by the exec-report skill · sample run, details anonymized</p>
+      </div>
+    </div>
+
+    <div class="mail art" id="artOS" hidden>
+      <div class="mail-head">
+        <div class="mail-row"><span class="k">Doc</span><span>team-os · new pod · v1.0</span></div>
+        <div class="mail-row"><span class="k">Premise</span><span>a team is a product; this is its operating system</span></div>
+        <div class="mail-row"><span class="k">Time</span><span><b>3 days to baseline, down from 3 months</b></span></div>
+      </div>
+      <div class="mail-body">
+        <p class="mail-sec">The contracts the team makes with itself</p>
+        <p><b>Decision rights:</b> who calls what, written down before the first standup. <b>Rituals:</b> the few meetings that survive, each with an owner and an artifact. <b>Progress:</b> measured in decisions made today, not meetings booked. <b>Ownership:</b> real lanes from day one, artifacts over updates.</p>
+        <p class="mail-sec">Day one to owning a lane</p>
+        <p>Onboarding is a system, not a rite of passage. By day three a new hire is carrying a real share of the load.</p>
+        <p class="mail-foot">the operating system behind chapters two and three · applied per team</p>
       </div>
     </div>
   </div>
@@ -625,7 +705,7 @@
 </section>
 
 <div class="colo wrap">
-  <div class="serif rv">"You need systems. My mind is in<br>a hundred different places all the time."</div>
+  <div class="serif rv">"There's all this work underneath the work<br>that makes it actually work."</div>
   <p class="bridge rv">If we work together, the first quarter looks like this: I learn how your org actually ships, I find the manual work that shouldn't exist, and I start building the operating model your team runs without me in the room.</p>
   <div class="btns rv">
     <a class="pill" href="mailto:joseplatero@gmail.com">Start a conversation</a>
@@ -826,50 +906,101 @@ document.querySelectorAll('.figshot img').forEach(img => {
   else img.addEventListener('load', show, { once: true });
 });
 
-/* ---- chapter five: replay this morning's real pipeline run ---- */
+/* ---- chapter five machine room: four systems, one terminal, one artifact slot ---- */
 (function terminal(){
   const body = document.getElementById('termBody');
   if (!body) return;
-  const LINES = [
-    { d: 250,  h: '<span class="ts">[07:05:00]</span> launchd fires <span class="hl">com.joseplatero.daily-briefs</span> · no human awake' },
-    { d: 800,  h: '<span class="hl">▸ claude -p</span> · agent: <span class="hl">executive-pulse</span>' },
-    { d: 650,  h: '  reading skill: executive-pulse.md · lens: macro, boardroom, org design' },
-    { d: 900,  h: '  WebSearch("AI capex credibility test markets") · reading 8 sources' },
-    { d: 900,  h: '  WebSearch("TSMC capex guidance") · reading 5 sources' },
-    { d: 1000, h: '  synthesizing: macro signal → tech industry → leadership lens → the question for your team' },
-    { d: 750,  h: '  <span class="ok">✓</span> wrote daily/2026-07-17-executive-pulse.md' },
-    { d: 800,  h: '<span class="hl">▸ 3 more agents run the same loop:</span> practitioner-pulse · ai-stack-daily · markets-signal' },
-    { d: 900,  h: '  <span class="ok">✓</span> 4 briefs written · +2 atomic notes filed into the brain' },
-    { d: 700,  h: '<span class="hl">▸ scripts/send_brief.py</span> · compiling the best of all four' },
-    { d: 900,  h: '  <span class="ok">Sent:</span> The Platero Brief · July 17, 2026 → joseplatero@gmail.com <span class="ts">[09:25:52]</span>', mail: true },
-    { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
-    { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
-  ];
+  const S = {
+    brief: { head: 'the morning run · 2026-07-17 · replayed from the real log', art: 'mailCard', lines: [
+      { d: 250,  h: '<span class="ts">[07:05:00]</span> launchd fires <span class="hl">com.joseplatero.daily-briefs</span> · no human awake' },
+      { d: 800,  h: '<span class="hl">▸ claude -p</span> · agent: <span class="hl">executive-pulse</span>' },
+      { d: 650,  h: '  reading skill: executive-pulse.md · lens: macro, boardroom, org design' },
+      { d: 900,  h: '  WebSearch("AI capex credibility test markets") · reading 8 sources' },
+      { d: 900,  h: '  WebSearch("TSMC capex guidance") · reading 5 sources' },
+      { d: 1000, h: '  synthesizing: macro signal → tech industry → leadership lens → the question for your team' },
+      { d: 750,  h: '  <span class="ok">✓</span> wrote daily/2026-07-17-executive-pulse.md' },
+      { d: 800,  h: '<span class="hl">▸ 3 more agents run the same loop:</span> practitioner-pulse · ai-stack-daily · markets-signal' },
+      { d: 900,  h: '  <span class="ok">✓</span> 4 briefs written · +2 atomic notes filed into the brain' },
+      { d: 700,  h: '<span class="hl">▸ scripts/send_brief.py</span> · compiling the best of all four' },
+      { d: 900,  h: '  <span class="ok">Sent:</span> The Platero Brief · July 17, 2026 → joseplatero@gmail.com <span class="ts">[09:25:52]</span>', art: true },
+      { d: 900,  h: '<span class="wd">▸ watchdog</span> <span class="ts">(github actions, separate infrastructure)</span>' },
+      { d: 700,  h: '  brief files <span class="ok">✓</span> · email in inbox over IMAP <span class="ok">✓</span> · nothing trusted, everything verified' },
+    ]},
+    note: { head: 'capture to synthesis · one real note, end to end', art: 'artNote', lines: [
+      { d: 250,  h: '<span class="ts">[08:12]</span> jose: <span class="hl">"capture: agent-addressable is becoming the platform requirement"</span>' },
+      { d: 800,  h: '<span class="hl">▸ claude</span> · fast capture beats perfect capture · no over-organizing' },
+      { d: 700,  h: '  <span class="ok">✓</span> wrote inbox/2026-07-08-agent-addressable.md · raw, date-stamped' },
+      { d: 950,  h: '<span class="ts">[days later]</span> jose: <span class="hl">"process my inbox"</span>' },
+      { d: 900,  h: '  reading raw captures · matching against 151 notes already in the brain' },
+      { d: 950,  h: '  related found: <span class="hl">[[vendor-lock-in-moving-up-the-stack]]</span> · <span class="hl">[[first-party-data-table-stakes]]</span>' },
+      { d: 850,  h: '  <span class="ok">✓</span> wrote notes/agent-addressable-platform.md · tagged, linked both ways, source preserved', art: true },
+      { d: 700,  h: '  the brain compounds: every new idea lands next to everything it touches' },
+    ]},
+    report: { head: 'the exec report · sample run · details anonymized', art: 'artReport', lines: [
+      { d: 250,  h: '<span class="ts">[16:50]</span> jose: <span class="hl">"run the exec report"</span>' },
+      { d: 800,  h: '<span class="hl">▸ exec-report skill</span> · walking the initiatives board · fresh pull, never cached' },
+      { d: 900,  h: '  reading 14 initiatives · owner comments · status deltas since last week' },
+      { d: 950,  h: '  drafting the narrative: what changed · decisions &amp; escalations · links back to Jira' },
+      { d: 850,  h: '  <span class="ok">✓</span> report ready · 2 escalations flagged for tonight', art: true },
+      { d: 700,  h: '  built for the 2am call, so the 2am call stops happening' },
+    ]},
+    os: { head: 'the team OS · booting a new team to baseline', art: 'artOS', lines: [
+      { d: 250,  h: 'jose: <span class="hl">"new pod spins up Monday. boot the OS."</span>' },
+      { d: 800,  h: '<span class="hl">▸ team-os template</span> · a team is a product · this is its operating system' },
+      { d: 950,  h: '  writing the contracts: decision rights · rituals with owners · artifacts over updates' },
+      { d: 950,  h: '  seeding the capacity model · onboarding path: day one to owning a lane' },
+      { d: 850,  h: '  <span class="ok">✓</span> baseline ready · 3 days, not 3 months', art: true },
+      { d: 700,  h: '  the same system that ran a 9M-member launch without me in every room' },
+    ]},
+  };
   const reducedT = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const mail = document.querySelector('.pipeline .mail');
-  let playing = false;
+  const head = document.getElementById('termHead');
+  const arts = ['mailCard','artNote','artReport','artOS'].map(id => document.getElementById(id));
+  const tabs = [...document.querySelectorAll('.dt')];
+  let cur = 'brief', runId = 0;
   function play(){
-    if (playing) return; playing = true;
+    const my = ++runId;
+    const sc = S[cur];
     body.innerHTML = '';
-    if (mail) mail.classList.remove('arrived');
+    head.textContent = sc.head;
+    const active = document.getElementById(sc.art);
+    arts.forEach(a => { a.hidden = a !== active; a.classList.remove('arrived'); });
     let t = 0;
-    LINES.forEach((l, i) => {
+    sc.lines.forEach(l => {
       const el = document.createElement('div');
       el.className = 'tl'; el.innerHTML = l.h;
       body.appendChild(el);
       t += reducedT ? 0 : l.d;
       setTimeout(() => {
+        if (my !== runId) return;
         el.classList.add('on');
-        if (l.mail && mail) mail.classList.add('arrived');
-        if (i === LINES.length - 1) playing = false;
+        if (l.art) active.classList.add('arrived');
       }, t);
     });
     /* safety: if anything interrupts the run, the artifact still lands */
-    setTimeout(() => { if (mail) mail.classList.add('arrived'); }, reducedT ? 0 : t + 1200);
+    setTimeout(() => { if (my === runId) active.classList.add('arrived'); }, reducedT ? 0 : t + 1200);
   }
-  const tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { play(); tio.disconnect(); } }), { threshold: .3 });
+  tabs.forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.s === cur) return;
+    cur = b.dataset.s;
+    tabs.forEach(x => x.classList.toggle('on', x === b));
+    play();
+  }));
+  /* autoplay when the terminal scrolls into view; scroll-sweep fallback because
+     some embedded browsers throttle IntersectionObserver */
+  let started = false;
+  const start = () => { if (!started) { started = true; play(); } };
+  const tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { start(); tio.disconnect(); } }), { threshold: .2 });
   tio.observe(document.getElementById('term'));
-  document.getElementById('termReplay').addEventListener('click', () => { playing = false; play(); });
+  const sweepT = () => {
+    if (started) return;
+    const r = document.getElementById('term').getBoundingClientRect();
+    if (r.top < innerHeight * .9 && r.bottom > 0) start();
+  };
+  addEventListener('scroll', sweepT, { passive: true });
+  setTimeout(sweepT, 600);
+  document.getElementById('termReplay').addEventListener('click', () => { started = true; play(); });
+  tabs.forEach(b => b.addEventListener('click', () => { started = true; }));
 })();
 </script>
 </body>
