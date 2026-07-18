@@ -503,7 +503,7 @@
       <p class="rv">When I demo this system on stage, I open the same way every time: I just want to solve a simple problem for myself. I need to sleep more. Anyone running a wide portfolio knows the 2am call. The top boss wants an update, so he calls my boss, who calls me. This machine is my answer.</p>
       <p class="rv">Every morning at 7:05, before I am awake, launchd fires a headless pipeline: four research agents read the world through four lenses, write their briefs into the archive, and a script compiles the best of it into one email. By the time I am on my bike, the day's intelligence is a podcast in my ears.</p>
       <p class="rv">And because a system reporting success is grading its own homework, an independent watchdog on separate infrastructure checks the outcome, not the log: did the files land, did the email actually arrive in the inbox. That rule has a scar behind it. The original scheduler once skipped three days while reporting green.</p>
-      <p class="rv">Three of the agents are below, live: Daily Briefing, Executive Report, and Cerebro, the second brain itself. Run one and watch the artifact land beside it.</p>
+      <p class="rv">Four of the agents are below, live: Daily Briefing, Executive Report, Cerebro, and the Coaches Council. Run one and watch the artifact land beside it.</p>
     </div>
     <aside class="margin rv">
       <b>This morning, unattended</b>
@@ -518,6 +518,7 @@
     <button class="dt on" data-s="brief">Daily Briefing</button>
     <button class="dt" data-s="report">Executive Report</button>
     <button class="dt" data-s="note">Cerebro</button>
+    <button class="dt" data-s="council">Coaches Council</button>
   </div>
 
   <div class="pipeline rv">
@@ -701,7 +702,26 @@
       <div class="bfoot"><span class="bdots" id="rdots"><i class="on"></i><i></i></span><span>exec-report skill · fresh Jira walk, never cached · sample, anonymized</span></div>
     </div>
 
+  
+    <div class="mail art" id="artCouncil" hidden>
+      <div class="skel full"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="memo-head">
+        <span class="memo-kick">The Coaches Council · challenge mode</span>
+        <span class="memo-title">Should we standardize on a single frontier model vendor?</span>
+        <span class="memo-meta">5 of 21 advisors seated · the ones most likely to disagree</span>
+      </div>
+      <div class="mail-body">
+        <div class="rrow"><span class="chip warn">against</span><span><b>Rumelt</b> · You are buying roadmap risk, not capability. That is the diagnosis; everything else is a wish list.</span></div>
+        <div class="rrow"><span class="chip ok">for</span><span><b>Cagan</b> · Viability is a risk too. Two model stacks means two of everything, and complexity kills more products than vendors do.</span></div>
+        <div class="rrow"><span class="chip warn">against</span><span><b>Christensen</b> · You would be perfecting the current S-curve while the next one forms somewhere else.</span></div>
+        <div class="rrow"><span class="chip ok">for</span><span><b>Hormozi</b> · Consolidation buys speed and price leverage. Complexity is a tax you pay every sprint.</span></div>
+        <div class="rrow"><span class="chip warn">against</span><span><b>Machiavelli</b> · Never depend on borrowed power. Build your own base or be priced by someone else's fortune.</span></div>
+        <p class="mail-sec">The verdict · 3 to 2, with conditions</p>
+        <p>Do not standardize on the vendor. Standardize on the interface: one orchestration layer, your own data, any model swappable in a sprint. Revisit in two quarters.</p>
+        <p class="mail-foot">an inner board of 21 advisors · each a fully developed lens, not a book summary · sample run</p>
+      </div>
     </div>
+  </div>
   </div>
 
   <div class="pull rv">"Thank you Jose Platero for teaching us how to sleep more by leveraging AI!"<span class="who">Suzanne Samivand · Agile Delivery Lead, on LinkedIn after a session on this operating model</span></div>
@@ -1151,6 +1171,16 @@ document.querySelectorAll('.figshot img').forEach(img => {
       { d: 850,  h: '  <span class="hl">Write(</span>notes/agent-addressable-platform.md<span class="hl">)</span> <span class="ok">✓</span> tagged, linked both ways <span class="ts">(1.2s)</span>', art: true, st: 'c' },
       { d: 700,  h: '  the brain compounds: every new idea lands next to everything it touches' },
     ]},
+    council: { head: 'coaches council · challenge mode · 5 of 21 seated', art: 'artCouncil', lines: [
+      { d: 250,  h: '❯ <span class="hl">"challenge mode: should we standardize on a single frontier model vendor?"</span>' },
+      { d: 800,  h: '<span class="hl">▸ Skill(</span>coaches-council<span class="hl">)</span> · seating the advisors most likely to disagree' },
+      { d: 850,  h: '  convening: <span class="hl">Rumelt · Cagan · Christensen · Hormozi · Machiavelli</span> <span class="ts">(5 of 21)</span>' },
+      { d: 900,  h: '  <span class="hl">Read(</span>voices/rumelt.md<span class="hl">)</span> · diagnosis first: what problem is the vendor actually solving?' },
+      { d: 900,  h: '  the room splits: speed and simplicity vs roadmap risk and borrowed power' },
+      { d: 950,  h: '  synthesizing: where they agree · where they fight · what to do Monday' },
+      { d: 850,  h: '  <span class="ok">✓</span> verdict ready · 3 to 2, with conditions', art: true },
+      { d: 700,  h: '  the tension between advisors is where the useful thinking lives' },
+    ]},
     report: { head: 'executive report · sample run · details anonymized', art: 'artReport', lines: [
       { d: 250,  h: '<span class="ts">[16:50]</span> ❯ <span class="hl">"run the exec report"</span>' },
       { d: 800,  h: '<span class="hl">▸ Skill(</span>exec-report<span class="hl">)</span> · fresh board walk, never cached' },
@@ -1164,7 +1194,7 @@ document.querySelectorAll('.figshot img').forEach(img => {
   const reducedT = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const SPEED = .55; /* terminal pacing: readable, not a wait */
   const head = document.getElementById('termHead');
-  const arts = ['mailCard','artNote','artReport'].map(id => document.getElementById(id));
+  const arts = ['mailCard','artNote','artReport','artCouncil'].map(id => document.getElementById(id));
   const tabs = [...document.querySelectorAll('.dt')];
   const mailCard = document.getElementById('mailCard');
   const ibxNew = document.getElementById('ibxNew');
