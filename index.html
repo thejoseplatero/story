@@ -217,16 +217,19 @@
   .subhead { font:13px "IBM Plex Mono",monospace; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2);
              margin:64px 0 10px; padding-top:44px; border-top:1px solid var(--line); }
   .subhead b { color:#fff; font-weight:500; }
-  .igrail { display:flex; gap:20px; align-items:stretch; flex-wrap:wrap; justify-content:center; }
+  .igrail { display:flex; gap:18px; align-items:stretch; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x proximity;
+            padding:4px 4px 16px; scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+            -webkit-mask-image:linear-gradient(90deg, #000 92%, transparent); mask-image:linear-gradient(90deg, #000 92%, transparent); }
+  .igrail::-webkit-scrollbar { height:6px; }
+  .igrail::-webkit-scrollbar-thumb { background:rgba(255,255,255,.12); border-radius:999px; }
+  .igcard { flex:0 0 auto; scroll-snap-align:start; }
   .igcard { position:relative; width:min(252px, 42vw); aspect-ratio:9/16; border-radius:20px; overflow:hidden;
             border:1px solid var(--line); background:#000; display:block;
             transition:transform .45s var(--major), box-shadow .45s var(--major), border-color .3s; }
   .igcard:hover { transform:translateY(-6px); border-color:transparent;
                   box-shadow:0 24px 60px -22px rgba(214,41,118,.45), 0 0 0 2px #d62976; }
   .igcard video { width:100%; height:100%; object-fit:cover; display:block; transition:transform .8s var(--major); }
-  .igcard video.fit-contain { object-fit:contain; background:transparent; position:relative; z-index:1; }
-  .igcard .blurfill { position:absolute; left:-24px; top:-24px; width:calc(100% + 48px); height:calc(100% + 48px);
-                      object-fit:cover; filter:blur(34px) saturate(1.2) brightness(.5); }
+
   .igcard:hover video { transform:scale(1.04); }
   .ig-glyph { position:absolute; top:12px; right:12px; width:26px; height:26px; opacity:.9; }
   .ig-ov { position:absolute; left:0; right:0; bottom:0; padding:44px 16px 14px;
@@ -498,8 +501,8 @@
       <figcaption>Leaders in Design panel · with 1Password and Felix</figcaption>
     </figure>
     <figure class="figshot" hidden>
-      <img src="assets/photos/presenting.jpg" alt="Jose presenting the second brain system on stage">
-      <figcaption>The second-brain session, live</figcaption>
+      <img src="assets/photos/studio.jpg" alt="Jose's teaching rig: three screens running a live BrainStation AI certification lab">
+      <figcaption>The teaching rig: BrainStation's AI certification, broadcast live</figcaption>
     </figure>
   </div>
 
@@ -547,8 +550,7 @@
       <span class="ig-ov"><b>Move at Retail Speed, Even as an Airline</b><i>Watch on Instagram ↗</i></span>
     </a>
     <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Teaching Product Leadership, on Instagram">
-      <img class="blurfill" src="assets/posters/teaching.jpg" alt="" aria-hidden="true">
-      <video class="fit-contain" src="assets/behind-the-scenes/bts-2.mp4" poster="assets/posters/teaching.jpg" muted loop playsinline preload="metadata"></video>
+      <video src="assets/behind-the-scenes/bts-2.mp4" poster="assets/posters/teaching.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
       <span class="ig-ov"><b>Teaching Product Leadership</b><i>Watch on Instagram ↗</i></span>
     </a>
@@ -556,6 +558,16 @@
       <video src="assets/behind-the-scenes/bts-3.mp4" poster="assets/posters/pitching.jpg" muted loop playsinline preload="metadata"></video>
       <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
       <span class="ig-ov"><b>Pitching Ideas</b><i>Watch on Instagram ↗</i></span>
+    </a>
+    <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Behind the Work, on Instagram">
+      <video src="assets/reels/behind-the-work.mp4" poster="assets/posters/behind-work.jpg" muted loop playsinline preload="metadata"></video>
+      <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
+      <span class="ig-ov"><b>Behind the Work</b><i>Watch on Instagram ↗</i></span>
+    </a>
+    <a class="igcard" href="https://www.instagram.com/jose.build/" target="_blank" rel="noopener" aria-label="Talking product, mid-flight, on Instagram">
+      <video src="assets/reels/mid-flight.mp4" poster="assets/posters/mid-flight.jpg" muted loop playsinline preload="metadata"></video>
+      <span class="ig-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="#fff" stroke="none"/></svg></span>
+      <span class="ig-ov"><b>Talking product, mid-flight</b><i>Watch on Instagram ↗</i></span>
     </a>
   </div>
 
