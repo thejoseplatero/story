@@ -300,6 +300,13 @@
              transition:background .25s; white-space:nowrap; }
   .pincard:hover .pin-cta { background:#6272ef; }
   @media (max-width:720px){ .pincard { grid-template-columns:52px 1fr; } .pin-wave { display:none; } .pin-cta { grid-column:2; justify-self:start; } .pin-art { width:52px; height:52px; } }
+  .figshot { border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--paper); margin:34px 0 10px; }
+  .figshot img { width:100%; display:block; transition:transform .8s var(--major); }
+  .figshot:hover img { transform:scale(1.015); }
+  .figshot figcaption { padding:10px 16px; font-size:12.5px; color:var(--dimmer); border-top:1px solid var(--line); }
+  .photostrip { display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:760px; margin-bottom:34px; }
+  @media (max-width:720px){ .photostrip { grid-template-columns:1fr; } }
+  .photostrip .figshot { margin:0; }
 </style>
 </head>
 <body>
@@ -388,6 +395,10 @@
       <span class="note">The fastest way to tell a builder from a describer: ask to see the artifact. Everything on this page has one.</span>
     </aside>
   </div>
+  <figure class="figshot rv" hidden>
+    <img src="assets/photos/game-demo.jpg" alt="Jose presenting the second-brain game live at BrainStation Toronto, the game projected behind him">
+    <figcaption>The narrative device at work: the game on screen at BrainStation Toronto.</figcaption>
+  </figure>
   <div class="gameframe rv">
     <iframe src="https://thejoseplatero.github.io/second-brain-game/cerebro.html" title="Second Brain Game" loading="lazy"></iframe>
     <div class="cap"><span>second-brain-game · built as the narrative for a conference keynote · live on GitHub Pages</span><a href="https://thejoseplatero.github.io/second-brain-game/cerebro.html" target="_blank" rel="noopener">open full screen ↗</a></div>
@@ -455,6 +466,17 @@
     <span class="pin-cta">Listen ↗</span>
   </a>
 
+  <div class="photostrip rv">
+    <figure class="figshot" hidden>
+      <img src="assets/photos/panel.jpg" alt="Jose speaking on a design leadership panel">
+      <figcaption>Leaders in Design panel · with 1Password and Felix</figcaption>
+    </figure>
+    <figure class="figshot" hidden>
+      <img src="assets/photos/presenting.jpg" alt="Jose presenting the second brain system on stage">
+      <figcaption>The second-brain session, live</figcaption>
+    </figure>
+  </div>
+
   <div class="rec rv" style="max-width:760px;">
     <div class="recrow"><span class="y">Sep 2026</span><span><b>Elevate, Toronto</b> · panel<br>Panel on AI systems for the digital customer experience</span></div>
     <div class="recrow"><span class="y">Nov 2026</span><span><b>AIAI Toronto</b> · keynote<br>AI for Builders and Executives</span></div>
@@ -518,6 +540,18 @@
       <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
       <p class="qt">"What immediately stood out was his ability to transform complex ideas into stories people can truly connect with... showing how AI can become a practical thinking partner rather than just another tool."</p>
       <span class="qwho"><b>Beliz Kasirga</b>Data Operations &amp; Systems Analyst</span>
+      <span class="qgo">Read the post ↗</span>
+    </a>
+    <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"Jose shared how he's built different AI structures and workflows to support how he thinks, works and makes decisions... AI shouldn't replace our judgment. The bigger opportunity is building better systems around it."</p>
+      <span class="qwho"><b>Luis Bridgeman</b>Senior Manager, Strategy &amp; Operations, Growth Bets · Uber</span>
+      <span class="qgo">Read the post ↗</span>
+    </a>
+    <a class="qcard" href="https://www.linkedin.com/in/joseplatero/recent-activity/all/" target="_blank" rel="noopener">
+      <svg class="qli" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      <p class="qt">"Product leaders don't need tools to generate more content. They need a system to manage cognitive overload... AI should be a thinking partner, not just an execution engine."</p>
+      <span class="qwho"><b>Bailey Zambri</b>Associate Director · BrainStation</span>
       <span class="qgo">Read the post ↗</span>
     </a>
     <a class="qcard" href="https://www.linkedin.com/feed/update/urn:li:share:7483687773804331009/" target="_blank" rel="noopener">
@@ -727,6 +761,13 @@ Promise.all(WATCH_ITEMS.map(probe)).then(results => {
   }), { threshold: .35 });
   [...document.querySelectorAll('.igcard video')].forEach(v => vio.observe(v));
 })();
+
+/* ---- photos: hide any slot whose file has not been dropped yet ---- */
+document.querySelectorAll('.figshot img').forEach(img => {
+  const show = () => { img.closest('.figshot').hidden = false; };
+  if (img.complete && img.naturalWidth > 0) show();
+  else img.addEventListener('load', show, { once: true });
+});
 
 /* ---- chapter five: replay this morning's real pipeline run ---- */
 (function terminal(){
