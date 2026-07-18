@@ -275,6 +275,31 @@
   .ghost-inner i { font-style:normal; font-size:12px; color:var(--accent2); }
   .devslot { border:1.5px dashed rgba(224,168,63,.5); display:flex; align-items:center; justify-content:center;
              color:var(--dimmer); font:11.5px "IBM Plex Mono",monospace; text-align:center; line-height:1.8; padding:14px; }
+  /* pinned podcast card */
+  .pincard { display:grid; grid-template-columns:64px 1fr auto auto; gap:20px; align-items:center; max-width:760px;
+             border:1px solid rgba(143,156,245,.32); border-radius:16px; padding:20px 24px; margin-bottom:34px;
+             background:linear-gradient(120deg, rgba(82,102,235,.12), rgba(82,102,235,.03) 60%);
+             transition:transform .35s var(--major), border-color .3s, box-shadow .35s; }
+  .pincard:hover { transform:translateY(-3px); border-color:var(--accent2); box-shadow:0 18px 44px -20px rgba(82,102,235,.4); }
+  .pin-art { width:64px; height:64px; border-radius:14px; background:linear-gradient(140deg, var(--accent), #2c2f8f);
+             display:flex; align-items:center; justify-content:center; }
+  .pin-art svg { width:26px; height:26px; }
+  .pin-main { display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .pin-kick { font:10.5px "IBM Plex Mono",monospace; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2); }
+  .pin-title { font-family:Fraunces,Georgia,serif; font-weight:300; font-size:19px; color:#fff; line-height:1.25; }
+  .pin-desc { font-size:13px; color:var(--dim); line-height:1.5; }
+  .pin-wave { display:flex; align-items:center; gap:3px; height:30px; }
+  .pin-wave i { width:3px; border-radius:2px; background:var(--accent2); height:30%; opacity:.75; animation:wave 1.15s ease-in-out infinite; }
+  .pin-wave i:nth-child(2){animation-delay:.1s} .pin-wave i:nth-child(3){animation-delay:.22s} .pin-wave i:nth-child(4){animation-delay:.31s}
+  .pin-wave i:nth-child(5){animation-delay:.14s} .pin-wave i:nth-child(6){animation-delay:.4s} .pin-wave i:nth-child(7){animation-delay:.05s}
+  .pin-wave i:nth-child(8){animation-delay:.27s} .pin-wave i:nth-child(9){animation-delay:.36s} .pin-wave i:nth-child(10){animation-delay:.18s}
+  .pin-wave i:nth-child(11){animation-delay:.45s} .pin-wave i:nth-child(12){animation-delay:.08s}
+  @keyframes wave { 0%,100% { height:26%; } 50% { height:96%; } }
+  @media (prefers-reduced-motion:reduce){ .pin-wave i { animation:none; height:60%; } }
+  .pin-cta { font-size:13.5px; font-weight:500; color:#fff; background:var(--accent); border-radius:999px; padding:10px 20px;
+             transition:background .25s; white-space:nowrap; }
+  .pincard:hover .pin-cta { background:#6272ef; }
+  @media (max-width:720px){ .pincard { grid-template-columns:52px 1fr; } .pin-wave { display:none; } .pin-cta { grid-column:2; justify-self:start; } .pin-art { width:52px; height:52px; } }
 </style>
 </head>
 <body>
@@ -416,13 +441,26 @@
 <section class="ch wrap">
   <div class="chno rv">Chapter six</div>
   <h2 class="disp rv">On stage, in classrooms, on the record.</h2>
+
+  <a class="pincard rv" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">
+    <span class="pin-art" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3.5"/></svg>
+    </span>
+    <span class="pin-main">
+      <span class="pin-kick">Pinned · Podcast · Thoughtworks, Pragmatism in Practice</span>
+      <span class="pin-title">Product Innovation: Charting Your Own Course</span>
+      <span class="pin-desc">A long-form conversation on product innovation: the deepest unscripted sample of how I think, short of a call.</span>
+    </span>
+    <span class="pin-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <span class="pin-cta">Listen ↗</span>
+  </a>
+
   <div class="rec rv" style="max-width:760px;">
     <div class="recrow"><span class="y">Sep 2026</span><span><b>Elevate, Toronto</b> · panel<br>Panel on AI systems for the digital customer experience</span></div>
     <div class="recrow"><span class="y">Nov 2026</span><span><b>AIAI Toronto</b> · keynote<br>AI for Builders and Executives</span></div>
     <div class="recrow"><span class="y">Jun 2026</span><span><b>AI Product Summit Toronto</b><br>Inside the AI-Native Product Workflow</span></div>
     <div class="recrow"><span class="y">2026</span><span><b>Aviation Festival</b> · Miami &amp; Singapore<br>Personalization, UX, execution at scale</span></div>
     <div class="recrow"><span class="y">Ongoing</span><span><b>BrainStation</b> · instructor<br>AI Certification (AIC™) · AI Product Management (PMC™) · Product Leadership</span></div>
-    <div class="recrow"><span class="y">Jan 2025</span><span><b>Thoughtworks · Pragmatism in Practice</b> · podcast<br><a class="inlink" href="https://www.thoughtworks.com/en-ca/insights/podcasts/pragmatism-in-practice/product-innovation-charting-your-own-course" target="_blank" rel="noopener">Product Innovation: Charting Your Own Course · listen ↗</a></span></div>
     <div class="recrow"><span class="y">Ongoing</span><span><b>Queen's University, Smith School</b><br>Advisor &amp; mentor, Master of Digital Product Management</span></div>
   </div>
   <p class="body rv" style="margin-top:18px; font-size:14px;"><a href="https://loopsandletters.substack.com/p/talks-and-events" target="_blank" rel="noopener" style="color:var(--accent2); border-bottom:1px solid var(--line);">Full list of talks and events on Loops and Letters ↗</a></p>
