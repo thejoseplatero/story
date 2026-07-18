@@ -10,15 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # One-run peek: can this FTP user reach the real web root?
-      - name: List reachable directories
-        run: |
-          sudo apt-get install -y -q lftp > /dev/null
-          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:ssl-force true; set ssl:verify-certificate no; echo '== /'; ls /; echo '== /public_html'; ls /public_html || true; echo '== /public_html/joseplatero.com'; ls /public_html/joseplatero.com || true; bye" "$FTP_HOST" || true
-        env:
-          FTP_HOST: ${{ secrets.FTP_SERVER }}
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
 
       # Syncs only changed files (keeps a state file on the server),
       # so the 100MB of video uploads once, not on every deploy.
@@ -30,7 +21,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
-          server-dir: /public_html/joseplatero.com/
+          server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
