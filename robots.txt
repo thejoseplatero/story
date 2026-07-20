@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /affirm/
 
 Sitemap: https://joseplatero.com/sitemap.xml
