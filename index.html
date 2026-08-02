@@ -82,26 +82,70 @@
   .navlink { font:500 13px Inter,sans-serif; color:var(--accent2); letter-spacing:.01em; white-space:nowrap; }
   .navlink:hover { color:#fff; }
 
-  /* ---- Build with Jose card: slides in once, dismissible, remembered ---- */
-  #bwj { position:fixed; right:20px; bottom:20px; z-index:70; width:300px; max-width:calc(100vw - 40px);
-         background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px;
-         box-shadow:0 18px 50px rgba(0,0,0,.55); opacity:0; transform:translateY(14px);
-         transition:opacity .45s var(--major), transform .45s var(--major); }
-  #bwj.on { opacity:1; transform:translateY(0); }
-  #bwj .bwj-k { font:600 10.5px Inter,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--accent2); margin:0 0 8px; }
-  #bwj .bwj-h { font:600 16px Inter,sans-serif; line-height:1.3; color:#fff; margin:0 0 8px; }
-  #bwj .bwj-d { font:400 13px Inter,sans-serif; line-height:1.5; color:var(--dim); margin:0 0 14px; }
-  #bwj .bwj-b { display:block; text-align:center; font:600 13px Inter,sans-serif; color:#fff;
-                background:var(--accent); border-radius:999px; padding:10px 16px; transition:background .2s; }
-  #bwj .bwj-b:hover { background:#6274ef; }
-  #bwj #bwjX { position:absolute; top:10px; right:10px; width:26px; height:26px; border:0; border-radius:50%;
-               background:transparent; color:var(--dimmer); font-size:19px; line-height:1; cursor:pointer; }
-  #bwj #bwjX:hover { color:#fff; background:rgba(255,255,255,.08); }
+  /* ---- Build with Jose: dock pill plus offer card ---- */
+  #bwjdock { position:fixed; right:20px; bottom:20px; z-index:65; display:flex; align-items:center; gap:10px;
+             padding:11px 16px 11px 13px; border-radius:999px; cursor:pointer;
+             background:rgba(16,18,24,.92); backdrop-filter:blur(12px);
+             border:1px solid rgba(255,255,255,.14); box-shadow:0 12px 34px rgba(0,0,0,.5);
+             font:600 13.5px Inter,sans-serif; color:#fff;
+             opacity:0; transform:translateY(12px); pointer-events:none;
+             transition:opacity .5s var(--major), transform .5s var(--major), border-color .2s; }
+  #bwjdock.on { opacity:1; transform:translateY(0); pointer-events:auto; }
+  #bwjdock:hover { border-color:rgba(255,74,28,.6); }
+  #bwjdock .od-ic { display:grid; place-items:center; width:24px; height:24px; border-radius:50%;
+                    background:#ff4a1c; color:#fff; flex:none; }
+  #bwjdock .od-n { font:700 10.5px 'IBM Plex Mono',monospace; letter-spacing:.1em; color:#ff4a1c;
+                   border:1px solid rgba(255,74,28,.45); border-radius:999px; padding:3px 8px; }
+
+  #bwjsheet { position:fixed; inset:0; z-index:90; display:grid; place-items:center; padding:20px; }
+  #bwjsheet[hidden] { display:none; }
+  .bs-back { position:absolute; inset:0; background:rgba(4,5,8,.72); backdrop-filter:blur(6px); }
+  .bs-card { position:relative; width:100%; max-width:392px; border-radius:20px; overflow:hidden;
+             background:var(--paper); border:1px solid var(--line);
+             box-shadow:0 30px 80px rgba(0,0,0,.7);
+             animation:bsIn .42s var(--major) both; }
+  @keyframes bsIn { from { opacity:0; transform:translateY(18px) scale(.97); } to { opacity:1; transform:none; } }
+  .bs-vis { position:relative; height:212px; display:grid; place-items:center; overflow:hidden;
+            background:linear-gradient(150deg,#ff4a1c 0%,#d8380f 58%,#8f2409 100%); }
+  .bs-ad { position:absolute; top:16px; left:18px; font:600 11.5px Inter,sans-serif; color:rgba(255,255,255,.8); }
+  .bs-x { position:absolute; top:12px; right:12px; width:32px; height:32px; border:0; border-radius:50%;
+          background:rgba(0,0,0,.24); color:#fff; cursor:pointer; display:grid; place-items:center; }
+  .bs-x:hover { background:rgba(0,0,0,.42); }
+  .bs-mark { font:800 62px Literata,Georgia,serif; color:#fff; letter-spacing:-.03em; line-height:1; }
+  .bs-mark i { font-style:normal; font-size:30px; opacity:.82; margin-left:2px; }
+  .bs-tile { display:grid; place-items:center; gap:12px; padding:22px 30px; border-radius:16px;
+             background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.22); }
+  .bs-cat { font:600 11px 'IBM Plex Mono',monospace; letter-spacing:.14em; text-transform:uppercase;
+            color:#fff; background:rgba(0,0,0,.24); border-radius:999px; padding:5px 12px; }
+  .bs-body { padding:22px 24px 18px; }
+  .bs-brand { display:flex; align-items:center; gap:10px; font:600 13.5px Inter,sans-serif; color:#fff; margin-bottom:16px; }
+  .bs-av { display:grid; place-items:center; width:32px; height:32px; border-radius:50%; flex:none;
+           background:#ff4a1c; font:800 15px Literata,Georgia,serif; color:#fff; }
+  .bs-tag { display:inline-block; font:700 10.5px 'IBM Plex Mono',monospace; letter-spacing:.12em;
+            text-transform:uppercase; color:#0a0b0f; background:#ffb59f; border-radius:999px;
+            padding:5px 11px; margin-bottom:12px; }
+  .bs-slide { display:none; }
+  .bs-slide.on { display:block; animation:bsFade .3s ease both; }
+  @keyframes bsFade { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .bs-slide h3 { font:700 21px Literata,Georgia,serif; line-height:1.25; letter-spacing:-.015em; color:#fff; margin:0 0 10px; }
+  .bs-slide p { font:400 14px Inter,sans-serif; line-height:1.55; color:var(--dim); margin:0; }
+  .bs-dash { border-top:1px dashed rgba(255,255,255,.18); margin:18px 0 16px; }
+  .bs-cta { display:block; text-align:center; font:700 14px Inter,sans-serif; color:#fff;
+            background:#ff4a1c; border-radius:999px; padding:13px 18px; transition:background .2s; }
+  .bs-cta:hover { background:#ff5f36; }
+  .bs-foot { display:flex; align-items:center; justify-content:space-between; margin-top:14px; }
+  .bs-next { border:0; background:transparent; cursor:pointer; font:600 12.5px Inter,sans-serif; color:var(--dim); padding:4px 0; }
+  .bs-next:hover { color:#fff; }
+  .bs-dots { display:flex; gap:6px; }
+  .bs-dots i { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.24); transition:background .25s; }
+  .bs-dots i.on { background:#ff4a1c; }
   @media (max-width:680px){
-    #bwj { right:10px; left:10px; width:auto; bottom:74px; padding:16px; }
+    #bwjdock { right:10px; bottom:74px; padding:10px 14px 10px 11px; font-size:12.5px; }
     .navlink { display:none; }
   }
-  @media (prefers-reduced-motion:reduce){ #bwj { transition:none; } }
+  @media (prefers-reduced-motion:reduce){
+    #bwjdock, .bs-card, .bs-slide.on { transition:none; animation:none; }
+  }
   nav .in { max-width:1040px; margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; }
   .brand { font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); }
   .brand b { color:#fff; font-weight:500; }
@@ -522,13 +566,57 @@
   </span>
 </div></nav>
 
-<aside id="bwj" hidden>
-  <button id="bwjX" aria-label="Dismiss">&times;</button>
-  <p class="bwj-k">Workshop</p>
-  <p class="bwj-h">Land your first North American product role</p>
-  <p class="bwj-d">One day in Toronto, Nov 7. Build your entire job search system with Claude Code. 30 seats.</p>
-  <a class="bwj-b" href="/build/" target="_blank" rel="noopener">See the sessions</a>
-</aside>
+<button class="bwjdock" id="bwjdock" aria-haspopup="dialog">
+  <span class="od-ic" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg>
+  </span>
+  Build with Jose
+  <span class="od-n">Nov 7</span>
+</button>
+
+<div id="bwjsheet" role="dialog" aria-modal="true" aria-label="Build with Jose" hidden>
+  <div class="bs-back" data-bsclose></div>
+  <div class="bs-card">
+    <div class="bs-vis">
+      <span class="bs-ad" id="bsad">1 of 3</span>
+      <button class="bs-x" data-bsclose aria-label="Close">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="bs-tile" aria-hidden="true">
+        <span class="bs-mark" id="bsmark">1<i>DAY</i></span>
+        <span class="bs-cat" id="bscat">In person, Toronto</span>
+      </div>
+    </div>
+    <div class="bs-body">
+      <div class="bs-brand"><span class="bs-av" aria-hidden="true">J</span>Build with Jose</div>
+
+      <div id="bsslides">
+        <div class="bs-slide on" data-cta="See the Nov 7 course" data-mark="1&lt;i&gt;DAY&lt;/i&gt;" data-cat="In person, Toronto">
+          <span class="bs-tag">Nov 7</span>
+          <h3>Your experience is not worth less here. It is just untranslated.</h3>
+          <p>One day in Toronto to build the system that translates it. For product builders trained outside North America.</p>
+        </div>
+        <div class="bs-slide" data-cta="Join the intro" data-mark="90&lt;i&gt;min&lt;/i&gt;" data-cat="Live online">
+          <span class="bs-tag">$25</span>
+          <h3>The whole system, in 90 minutes.</h3>
+          <p>Aim, Attract, Convert, Connect, explained live. Watch me build part of it in Claude Code. Aug 27 or Oct 29.</p>
+        </div>
+        <div class="bs-slide" data-cta="Save your seat" data-mark="30" data-cat="Seats only">
+          <span class="bs-tag">Small room</span>
+          <h3>You do not just learn the system. You build it.</h3>
+          <p>Not slides. A working job search system you leave the room with, built in Claude Code with me beside you.</p>
+        </div>
+      </div>
+
+      <div class="bs-dash"></div>
+      <a class="bs-cta" id="bscta" href="/build/">See the Nov 7 course</a>
+      <div class="bs-foot">
+        <button class="bs-next" id="bsnext">Next offer</button>
+        <span class="bs-dots" id="bsdots"><i class="on"></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <header class="wrap hero">
   <h1 class="disp rv"><span class="mask"><span>Product orgs,</span></span><span class="mask dl1"><span>built like <em>products.</em></span></span></h1>
@@ -1372,30 +1460,55 @@ document.querySelectorAll('.figshot img').forEach(img => {
   spy();
 })();
 
-/* ---- Build with Jose card: show once past 35% depth, remember dismissal ---- */
+/* ---- Build with Jose: dock reveals on scroll, card auto-opens once per visitor ---- */
 (() => {
-  const card = document.getElementById('bwj');
-  if (!card) return;
-  let dismissed = false;
-  try { dismissed = localStorage.getItem('bwj-dismissed') === '1'; } catch (e) {}
-  if (dismissed) return;
+  const dock = document.getElementById('bwjdock');
+  const sheet = document.getElementById('bwjsheet');
+  if (!dock || !sheet) return;
 
-  const reveal = () => {
-    card.hidden = false;
-    requestAnimationFrame(() => card.classList.add('on'));
-    removeEventListener('scroll', onScroll);
+  const slides = [...sheet.querySelectorAll('.bs-slide')];
+  const dots = [...document.getElementById('bsdots').children];
+  const cta = document.getElementById('bscta');
+  const mark = document.getElementById('bsmark');
+  const cat = document.getElementById('bscat');
+  const ad = document.getElementById('bsad');
+  let i = 0;
+
+  const paint = () => {
+    slides.forEach((s, n) => s.classList.toggle('on', n === i));
+    dots.forEach((d, n) => d.classList.toggle('on', n === i));
+    const s = slides[i];
+    cta.textContent = s.dataset.cta;
+    mark.innerHTML = s.dataset.mark;
+    cat.textContent = s.dataset.cat;
+    ad.textContent = (i + 1) + ' of ' + slides.length;
   };
+
+  const open = () => { sheet.hidden = false; document.body.style.overflow = 'hidden'; };
+  const close = () => {
+    sheet.hidden = true;
+    document.body.style.overflow = '';
+    try { localStorage.setItem('bwj-seen', '1'); } catch (e) {}
+  };
+
+  dock.addEventListener('click', open);
+  sheet.querySelectorAll('[data-bsclose]').forEach(el => el.addEventListener('click', close));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) close(); });
+  document.getElementById('bsnext').addEventListener('click', () => { i = (i + 1) % slides.length; paint(); });
+  cta.addEventListener('click', close);
+
+  let seen = false;
+  try { seen = localStorage.getItem('bwj-seen') === '1'; } catch (e) {}
+
   const onScroll = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
-    if (max > 0 && scrollY / max > 0.35) reveal();
+    if (max <= 0) return;
+    const depth = scrollY / max;
+    if (depth > 0.12) dock.classList.add('on');
+    if (!seen && depth > 0.45) { seen = true; open(); }
   };
   addEventListener('scroll', onScroll, { passive: true });
-
-  document.getElementById('bwjX').addEventListener('click', () => {
-    card.classList.remove('on');
-    setTimeout(() => { card.hidden = true; }, 450);
-    try { localStorage.setItem('bwj-dismissed', '1'); } catch (e) {}
-  });
+  onScroll();
 })();
 </script>
 </body>
