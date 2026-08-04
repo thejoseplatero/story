@@ -1063,45 +1063,107 @@
     #coin .ping { animation: none; opacity: 0; }
   }
 
-  /* konami easter egg: lesson zero */
+  /* konami easter egg: lesson zero, an arcade unlock */
   #egg {
     position: fixed; inset: 0; z-index: 80;
     display: grid; place-items: center;
     padding: 20px;
-    background: rgba(21,23,28,.55);
+    background: rgba(10,11,15,.72);
+    backdrop-filter: blur(5px);
+    animation: eggFade .25s ease both;
   }
   #egg[hidden] { display: none; }
+  @keyframes eggFade { from { opacity: 0; } }
+
   .egg-card {
     position: relative;
-    max-width: 430px;
-    background: var(--paper);
-    border: 1.5px solid var(--ink);
-    box-shadow: 8px 8px 0 var(--orange);
-    padding: 30px 32px 26px;
-    animation: eggIn .35s cubic-bezier(.22,.61,.36,1) both;
+    width: 100%;
+    max-width: 500px;
+    background: var(--char);
+    border: 2px solid var(--orange);
+    box-shadow: 10px 10px 0 rgba(255,74,28,.28), 0 30px 70px rgba(0,0,0,.6);
+    padding: 34px 34px 26px;
+    animation: eggIn .5s cubic-bezier(.34,1.4,.5,1) both;
+    overflow: hidden;
   }
-  @keyframes eggIn { from { opacity: 0; transform: translateY(14px); } }
+  @keyframes eggIn {
+    from { opacity: 0; transform: translateY(26px) scale(.94); }
+  }
+  /* pixel confetti burst behind the card content */
+  .egg-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(rgba(255,74,28,.30) 1.5px, transparent 1.5px),
+      radial-gradient(rgba(255,255,255,.10) 1.5px, transparent 1.5px);
+    background-size: 22px 22px, 34px 34px;
+    background-position: 0 0, 11px 17px;
+    mask-image: radial-gradient(circle at 82% 0%, #000 0%, transparent 62%);
+    -webkit-mask-image: radial-gradient(circle at 82% 0%, #000 0%, transparent 62%);
+    pointer-events: none;
+  }
+  .egg-card > * { position: relative; z-index: 1; }
+
+  .egg-top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .egg-top svg { width: 46px; height: 46px; flex: none; }
   .egg-card .egg-tag {
     display: inline-block;
     font-family: var(--mono); font-size: 10px; font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    background: var(--ink); color: #fff;
-    padding: 5px 10px; margin-bottom: 14px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--orange); color: #fff;
+    padding: 6px 11px;
+    animation: eggBlink 1.1s steps(2, end) 3;
   }
-  .egg-card h4 { font-family: var(--serif); font-size: 24px; font-weight: 700; margin: 0 0 10px; }
-  .egg-card p { font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 12px; }
-  .egg-card ol { margin: 0 0 14px; padding-left: 20px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
-  .egg-card ol li { margin-bottom: 8px; }
-  .egg-card ol b { color: var(--ink); }
-  .egg-card .egg-note { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange-deep); margin: 0; }
+  @keyframes eggBlink { 50% { opacity: .35; } }
+
+  .egg-card h4 {
+    font-family: var(--serif); font-size: 27px; font-weight: 800;
+    line-height: 1.15; letter-spacing: -.015em;
+    color: #fff; margin: 0 0 8px;
+  }
+  .egg-card .egg-lede { font-size: 14px; line-height: 1.55; color: #b9b3ac; margin: 0 0 22px; }
+
+  .egg-rows { display: grid; gap: 14px; margin-bottom: 20px; }
+  .egg-row {
+    border-left: 3px solid rgba(255,74,28,.5);
+    padding: 2px 0 2px 14px;
+    animation: rowIn .45s cubic-bezier(.22,.61,.36,1) both;
+  }
+  .egg-row:nth-child(1) { animation-delay: .18s; }
+  .egg-row:nth-child(2) { animation-delay: .32s; }
+  .egg-row:nth-child(3) { animation-delay: .46s; }
+  @keyframes rowIn { from { opacity: 0; transform: translateX(-10px); } }
+  .egg-row .k {
+    display: block;
+    font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 7px;
+  }
+  .egg-row .b, .egg-row .a { display: block; font-size: 13.5px; line-height: 1.45; }
+  .egg-row .b {
+    color: #857f78;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,74,28,.55);
+    margin-bottom: 4px;
+  }
+  .egg-row .a { color: #fff; font-weight: 600; }
+  .egg-row .a::before { content: "→ "; color: var(--orange); }
+
+  .egg-card .egg-note {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #857f78; margin: 0;
+    border-top: 1px solid var(--char-line); padding-top: 16px;
+  }
+  .egg-card .egg-note a { color: var(--orange); text-decoration: underline; text-underline-offset: 3px; }
   .egg-card .egg-x {
-    position: absolute; top: 10px; right: 10px;
-    width: 30px; height: 30px;
-    border: 1.5px solid var(--ink); background: var(--surface);
-    font-family: var(--mono); font-size: 15px; line-height: 1;
+    position: absolute; top: 12px; right: 12px;
+    width: 32px; height: 32px; z-index: 2;
+    border: 1.5px solid rgba(255,255,255,.25); background: transparent;
+    color: #fff; font-family: var(--mono); font-size: 15px; line-height: 1;
     cursor: pointer;
   }
-  .egg-card .egg-x:hover { background: var(--orange); color: #fff; }
+  .egg-card .egg-x:hover { background: var(--orange); border-color: var(--orange); }
+  @media (max-width: 560px) { .egg-card { padding: 28px 22px 22px; } .egg-card h4 { font-size: 23px; } }
 
   /* the pain, named */
   .void-band {
@@ -1335,6 +1397,10 @@
   }
 
   .seat-alert {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    line-height: 1.35;
     margin: 0 0 14px;
     text-align: center;
     font-family: var(--mono);
@@ -1347,6 +1413,8 @@
     border: 1.5px solid var(--orange);
     padding: 9px 10px;
   }
+  .seat-alert b { font-weight: 700; }
+  .seat-alert span { font-weight: 500; opacity: .85; }
   .seat-alert.soft {
     color: var(--ink-mute);
     background: transparent;
@@ -1839,7 +1907,7 @@
           <li>Aug 27 only: a smaller room, longer Q&amp;A, and the first look at the kits</li>
           <li>Live demo: watch a real resume and a real job posting become a company-branded pitch page, in minutes</li>
         </ul>
-        <p class="seat-alert">Aug 27 is the small room · Longer Q&amp;A · First look at the kits</p>
+        <p class="seat-alert soft"><b>Aug 27 is the small room</b><span>Longer Q&amp;A and the first look at the kits</span></p>
         <a class="btn block ghost" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register · Aug 27</a>
         <a class="tier-alt" href="https://luma.com/rslv1skh" target="_blank" rel="noopener">Or join the Oct 29 session</a>
       </article>
@@ -1860,7 +1928,7 @@
           <li>Bonus: the Offer Coach kit, for the day the offer comes</li>
           <li>Stay connected with your cohort after the day</li>
         </ul>
-        <p class="seat-alert">30 seats only · Registration closes Nov 3</p>
+        <p class="seat-alert"><b>30 seats only</b><span>Registration closes Nov 3</span></p>
         <a class="btn block" href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">Save Your Seat · Nov 7</a>
         <a class="tier-alt" href="#agenda">See the day, hour by hour</a>
       </article>
@@ -1956,17 +2024,45 @@
 <div id="egg" role="dialog" aria-modal="true" aria-label="Lesson zero" hidden>
   <div class="egg-card">
     <button class="egg-x" id="eggX" aria-label="Close">&times;</button>
-    <span class="egg-tag">Lesson zero · from the hiring side</span>
-    <h4>Five things that do not translate.</h4>
-    <p>These habits are normal almost everywhere else in the world. Here they quietly cost people the interview, and nobody tells you.</p>
-    <ol>
-      <li><b>Saying "we" when you mean "I".</b> In most places, taking credit alone sounds arrogant. Here, if you write "we launched it," the reader cannot tell what you did, so they assume you were standing nearby when it happened. Write "I" even when it feels rude.</li>
-      <li><b>Listing duties instead of outcomes.</b> "Responsible for the mobile app" tells me your job title. "Grew mobile checkout from 40 to 61 percent" tells me what happens if I hire you.</li>
-      <li><b>Polite words that read as junior.</b> Helped with. Assisted. Was involved in. Had the opportunity to. Each one moves you down a level in the reader's head.</li>
-      <li><b>Assuming your company is known.</b> A recruiter here may not know your last employer is huge at home. Carry your own scale: users, revenue, team size, market position.</li>
-      <li><b>Trusting your title to carry over.</b> Levels do not match across markets. Translate by scope instead: how many people, how much budget, what you decided without asking.</li>
-    </ol>
-    <p class="egg-note">You found lesson zero. The rest of the translation happens Nov 7.</p>
+    <div class="egg-top">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="19" fill="#fff" stroke="#15171c" stroke-width="2.6"/>
+        <ellipse cx="17.5" cy="22" rx="2.2" ry="3" fill="#15171c"/>
+        <ellipse cx="30.5" cy="22" rx="2.2" ry="3" fill="#15171c"/>
+        <circle cx="16.8" cy="20.9" r="0.8" fill="#fff"/><circle cx="31.4" cy="20.9" r="0.8" fill="#fff"/>
+        <path d="M18 30q6 5.5 12 0" fill="none" stroke="#15171c" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M41 8l1.5 3.6L46 13l-3.5 1.4L41 18l-1.5-3.6L36 13l3.5-1.4z" fill="#ff4a1c">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite"/>
+        </path>
+        <path d="M6 12l1 2.4 2.4 1-2.4 1L6 18.8l-1-2.4-2.4-1 2.4-1z" fill="#ff4a1c">
+          <animate attributeName="opacity" values="1;0.3;1" dur="1.6s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+      <span class="egg-tag">Lesson zero unlocked</span>
+    </div>
+
+    <h4>Three things that do not translate.</h4>
+    <p class="egg-lede">Normal almost everywhere else. Here they quietly cost you the interview, and nobody tells you.</p>
+
+    <div class="egg-rows">
+      <div class="egg-row">
+        <span class="k">Duties become outcomes</span>
+        <span class="b">Responsible for the mobile app</span>
+        <span class="a">Grew mobile checkout from 40 to 61 percent</span>
+      </div>
+      <div class="egg-row">
+        <span class="k">Politeness reads as junior</span>
+        <span class="b">Helped with the redesign. Assisted the team.</span>
+        <span class="a">Led the redesign. Decided what shipped.</span>
+      </div>
+      <div class="egg-row">
+        <span class="k">Titles do not carry over</span>
+        <span class="b">Senior Manager, Product</span>
+        <span class="a">Ran a team of nine and a $2M budget</span>
+      </div>
+    </div>
+
+    <p class="egg-note">You found lesson zero. The rest of the translation happens <a href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">Nov 7</a>.</p>
   </div>
 </div>
 
