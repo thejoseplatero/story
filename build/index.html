@@ -399,10 +399,12 @@
   }
   .portrait::after {
     content: "JOSE PLATERO";
-    position: absolute; left: 10px; bottom: 8px;
-    font-family: var(--mono); font-size: 10px;
-    color: rgba(255,255,255,.55); letter-spacing: 0.18em;
-    z-index: 1;
+    position: absolute; left: 0; bottom: 0;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    color: #fff; letter-spacing: 0.18em;
+    background: var(--ink);
+    padding: 7px 12px;
+    z-index: 3;
   }
 
   .founder h2 {
@@ -1162,7 +1164,7 @@
 <!-- ————————— FOUNDER ————————— -->
 <section class="founder" id="founder">
   <div class="wrap founder-grid">
-    <div class="portrait rv">
+    <div class="portrait">
       <img src="jose.jpg" alt="Jose Platero, Director of Product, Design and MarTech at Air Canada Aeroplan" width="798" height="1200" style="width:100%; height:100%; object-fit:cover; display:block;">
       <canvas aria-hidden="true"></canvas>
     </div>
@@ -1592,10 +1594,10 @@
       const h = cv.height = wrap.clientHeight || 320;
       const iw = img.naturalWidth, ih = img.naturalHeight;
       if (!iw || !ih) return;
-      // replicate object-fit: cover so the pixel frame crops like the photo
+      // replicate object-fit: cover, object-position: top center exactly
       const scale = Math.max(w / iw, h / ih);
       const sw = w / scale, sh = h / scale;
-      const sx = (iw - sw) / 2, sy = (ih - sh) / 2;
+      const sx = (iw - sw) / 2, sy = 0;
       const t = document.createElement('canvas');
       t.width = res;
       t.height = Math.max(1, Math.round(res * h / w));
