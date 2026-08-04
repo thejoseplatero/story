@@ -975,6 +975,24 @@
     #catch .no { padding: 14px 10px; min-height: 44px; }
   }
 
+  .egg-hint {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 12px 8px;
+    min-height: 44px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .egg-hint:hover { color: var(--ink); }
+
   /* konami easter egg: lesson zero */
   #egg {
     position: fixed; inset: 0; z-index: 80;
@@ -1888,7 +1906,8 @@
         <a href="https://loopsandletters.substack.com" rel="noopener" target="_blank">Loops &amp; Letters</a>
       </nav>
     </div>
-    <p class="copy">© 2026 Build with Jose. Made in El Salvador. Built in Canada. <span style="opacity:.35;">↑↑↓↓←→←→BA</span></p>
+    <p class="copy">© 2026 Build with Jose. Made in El Salvador. Built in Canada.</p>
+    <p class="copy"><button type="button" class="egg-hint" id="eggOpen">Lesson zero: three questions that win interviews <span aria-hidden="true">↗</span></button></p>
   </div>
 </footer>
 
@@ -2079,10 +2098,13 @@
     addEventListener('keydown', (e) => {
       const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       pos = (k === code[pos]) ? pos + 1 : (k === code[0] ? 1 : 0);
-      if (pos === code.length) { pos = 0; egg.hidden = false; }
+      if (pos === code.length) { pos = 0; open(); }
     });
     const close = () => { egg.hidden = true; };
+    const open = () => { egg.hidden = false; };
     document.getElementById('eggX').addEventListener('click', close);
+    const opener = document.getElementById('eggOpen');
+    if (opener) opener.addEventListener('click', open);
     egg.addEventListener('click', (e) => { if (e.target === egg) close(); });
     addEventListener('keydown', (e) => { if (e.key === 'Escape' && !egg.hidden) close(); });
   })();
