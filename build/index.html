@@ -11,7 +11,10 @@
 <meta property="og:title" content="Land your first North American product role">
 <meta property="og:description" content="For product builders trained outside North America. Your experience is not worth less here. It is just untranslated. Build your job-search system in one day.">
 <meta property="og:site_name" content="Build with Jose">
-<meta property="og:image" content="https://joseplatero.com/build/jose.jpg">
+<meta property="og:image" content="https://joseplatero.com/build/og-build.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Build with Jose: your experience is not worth less here, it is just untranslated. Nov 7 in Toronto.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#fcf9f6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)">
@@ -916,6 +919,46 @@
     color: var(--orange);
   }
 
+  /* leaving without buying: one quiet catch, dismissible forever */
+  #catch {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 70;
+    background: var(--ink);
+    color: #f6f3ee;
+    border-top: 3px solid var(--orange);
+    transform: translateY(100%);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  #catch.on { transform: translateY(0); }
+  #catch .in {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  #catch p { margin: 0; font-size: 14.5px; line-height: 1.5; max-width: 58ch; }
+  #catch p b { color: #fff; }
+  #catch .acts { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  #catch .go {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--orange); color: #fff; padding: 12px 18px;
+    border: 1.5px solid var(--orange); white-space: nowrap;
+  }
+  #catch .go:hover { background: #ff5f36; }
+  #catch .no {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8b857e;
+    background: none; border: 0; cursor: pointer; padding: 8px;
+  }
+  #catch .no:hover { color: #f6f3ee; }
+  @media (max-width: 720px) { #catch .in { padding: 16px 20px; } #catch p { font-size: 13.5px; } }
+
   /* konami easter egg: lesson zero */
   #egg {
     position: fixed; inset: 0; z-index: 80;
@@ -1204,6 +1247,16 @@
     color: var(--ink-mute);
     background: transparent;
     border-color: var(--ink-10);
+  }
+  .guarantee {
+    margin: 12px 0 0;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--ink);
   }
   .tier-alt {
     display: block; text-align: center; margin-top: 12px;
@@ -1683,15 +1736,16 @@
         <h4>Online Intro</h4>
         <p class="when">Aug 27 or Oct 29 · 6pm ET · 90 min · Live online</p>
         <div class="amt">$25 <small>CAD</small></div>
-        <p class="amt-note">Same session on both dates</p>
+        <p class="amt-note">Two dates · Aug 27 is the smaller room</p>
         <p class="desc">Not a preview. Your first class. You leave with real work done and the kits to keep going that night.</p>
         <ul>
           <li>The full system, explained: why cold applications get no reply and what works instead</li>
           <li><b>Take home 1: your first target list, drafted live in the session</b></li>
           <li><b>Take home 2: the Targeting Kit and resume skill, the same ones Jose uses, free</b></li>
+          <li>Aug 27 only: a smaller room, longer Q&amp;A, and the first look at the kits</li>
           <li>Live demo: watch a real resume and a real job posting become a company-branded pitch page, in minutes</li>
         </ul>
-        <p class="seat-alert soft">Runs twice · Aug 27 and Oct 29</p>
+        <p class="seat-alert">Aug 27 is the small room · Longer Q&amp;A · First look at the kits</p>
         <a class="btn block ghost" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register · Aug 27</a>
         <a class="tier-alt" href="https://luma.com/rslv1skh" target="_blank" rel="noopener">Or join the Oct 29 session</a>
       </article>
@@ -1713,6 +1767,7 @@
           <li>Stay connected with your cohort after the day</li>
         </ul>
         <p class="seat-alert">30 seats only · Registration closes Nov 3</p>
+        <p class="guarantee">You leave with your system running, or you get your money back.</p>
         <a class="btn block" href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">Save Your Seat · Nov 7</a>
         <a class="tier-alt" href="#agenda">See the day, hour by hour</a>
       </article>
@@ -1752,6 +1807,14 @@
         <div class="ans">Yes. We map the full interview loop: the HR screen, the hiring manager, the team round, panels and case studies, and the leadership round. Each one wants something different from you. You build an Interviewer Profiler that makes a prep sheet for each specific room. And we cover the offer itself: ranges, anchors, and how to ask for more. I have sat on the hiring side of many offers, and the first number is rarely the last.</div>
       </details>
       <details class="qa">
+        <summary>Is there a guarantee?</summary>
+        <div class="ans">Yes, on the thing I control. You come to build a working system. If you do the day and leave without your system running, tell me before you go and I refund you in full. I cannot promise you a job, and I will not pretend to. I can promise you walk out with the machine.</div>
+      </details>
+      <details class="qa">
+        <summary>Who is this not for?</summary>
+        <div class="ans">This is not a job board, a resume review service, or a place to be handed openings. It is for builders who will do the work in the weeks after. If you want someone to find you a job, this is not it. If you want a system you run yourself, you are in the right room.</div>
+      </details>
+      <details class="qa">
         <summary>Will one day really get me a job?</summary>
         <div class="ans">One day gets your system built. The job comes from running it in the weeks after. You leave with the machine, the playbook, and every kit, and they stay yours. When I improve the kits, you get the new versions. The results come from the work you put in next. I will always be honest about that.</div>
       </details>
@@ -1770,6 +1833,17 @@
     <p class="footnote">No spam. Just signal. <a href="https://loopsandletters.substack.com" target="_blank" rel="noopener" style="color:#fff; text-decoration:underline;">Read it first ↗</a></p>
   </div>
 </section>
+
+<!-- ————————— LEAVING WITHOUT BUYING ————————— -->
+<aside id="catch" aria-label="Newsletter">
+  <div class="in">
+    <p>Not ready for Nov 7? <b>Get the same lessons free.</b> I write about hiring, positioning, and building systems with AI in Loops &amp; Letters.</p>
+    <span class="acts">
+      <a class="go" href="https://loopsandletters.substack.com/subscribe" target="_blank" rel="noopener">Subscribe free</a>
+      <button class="no" id="catchNo" type="button">No thanks</button>
+    </span>
+  </div>
+</aside>
 
 <!-- ————————— KONAMI EGG: LESSON ZERO ————————— -->
 <div id="egg" role="dialog" aria-modal="true" aria-label="Lesson zero" hidden>
@@ -1928,6 +2002,40 @@
       replay.addEventListener('click', again);
       replay.addEventListener('touchend', again, { passive: false });
     }
+  })();
+
+  // One quiet catch on the way out: exit intent on desktop, deep scroll on touch
+  (() => {
+    const bar = document.getElementById('catch');
+    if (!bar) return;
+    let done = false;
+    try { done = localStorage.getItem('bwj-catch') === '1'; } catch (e) {}
+    if (done) return;
+
+    const show = () => {
+      if (done) return;
+      done = true;
+      bar.classList.add('on');
+      cleanup();
+    };
+    const dismiss = () => {
+      bar.classList.remove('on');
+      try { localStorage.setItem('bwj-catch', '1'); } catch (e) {}
+    };
+    const onLeave = (e) => { if (e.clientY <= 0) show(); };
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      if (max > 0 && scrollY / max > 0.82) show();
+    };
+    function cleanup() {
+      document.removeEventListener('mouseout', onLeave);
+      removeEventListener('scroll', onScroll);
+    }
+
+    if (matchMedia('(hover: hover)').matches) document.addEventListener('mouseout', onLeave);
+    addEventListener('scroll', onScroll, { passive: true });
+    document.getElementById('catchNo').addEventListener('click', dismiss);
+    bar.querySelector('.go').addEventListener('click', dismiss);
   })();
 
   // Konami code unlocks lesson zero
