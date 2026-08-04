@@ -118,6 +118,18 @@
   img { display: block; max-width: 100%; }
   html { scroll-behavior: smooth; }
   ::selection { background: var(--orange); color: #fff; }
+  h1, h2, h3, h4 { text-wrap: balance; }
+
+  /* reading progress: a loading bar for your own attention */
+  #pbar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--orange);
+    z-index: 60;
+    pointer-events: none;
+  }
 
   /* keyboard focus: visible on every interactive element */
   a:focus-visible, button:focus-visible, summary:focus-visible {
@@ -208,6 +220,12 @@
   .btn.ghost { --bg: transparent; --fg: var(--ink); }
   .btn.lg { padding: 18px 28px; font-size: 13px; }
   .btn.block { width: 100%; }
+  .btn.lg::after, .btn.block::after {
+    content: "→";
+    font-family: var(--sans);
+    transition: transform .15s ease;
+  }
+  .btn.lg:hover::after, .btn.block:hover::after { transform: translateX(4px); }
 
 
   /* ——————————————————— header ——————————————————— */
@@ -215,7 +233,9 @@
     border-bottom: 1px solid var(--ink-10);
     background: var(--surface);
     position: sticky; top: 0; z-index: 20;
+    transition: box-shadow .25s ease;
   }
+  header.top.scrolled { box-shadow: 0 4px 0 var(--ink-06); }
   .top-row {
     display: flex;
     align-items: center;
@@ -287,6 +307,13 @@
     background: var(--orange);
     margin-right: 6px;
     transform: translateY(-6px);
+    animation: pxIn 1.1s steps(4, end) .5s both;
+  }
+  @keyframes pxIn {
+    0% { opacity: 0; }
+    25% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
   }
   .hero p.lede {
     font-size: 17px;
@@ -373,24 +400,26 @@
   .founder h2 {
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 34px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    margin: 0 0 14px;
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0 0 20px;
     color: var(--ink);
+    max-width: 21ch;
+    position: relative;
+    padding-top: 18px;
   }
-  .founder h2 .q { color: var(--orange); font-weight: 700; }
-  .founder .meta {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--ink-mute);
-    text-transform: uppercase;
-    margin: 0 0 22px;
-    display: flex; flex-wrap: wrap; gap: 12px;
+  .founder h2::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 44px; height: 6px;
+    background:
+      linear-gradient(90deg,
+        var(--orange) 0 12px, transparent 12px 16px,
+        var(--orange) 16px 28px, transparent 28px 32px,
+        var(--orange) 32px 44px);
   }
-  .founder .meta span::before { content: "·  "; color: var(--orange); }
-  .founder .meta span:first-child::before { content: ""; }
   .founder p { font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 14px; max-width: 56ch; }
 
   .as-seen {
@@ -424,6 +453,19 @@
   /* ——————————————————— pillars ——————————————————— */
   .pillars { padding: 72px 0 80px; background: var(--surface-low); }
   .section-head { text-align: center; margin: 0 0 40px; }
+  .section-head .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--orange-deep);
+    margin-bottom: 12px;
+  }
+  .section-head .eyebrow::before,
+  .section-head .eyebrow::after {
+    content: "";
+    width: 7px; height: 7px;
+    background: currentColor;
+  }
   .section-head h3 {
     font-family: var(--serif);
     font-weight: 700;
@@ -508,7 +550,12 @@
     font-weight: 700;
   }
   .dark-section h3 + p { color: #b8b3ac; font-size: 14px; max-width: 30ch; margin: 14px 0 0; }
-  .res-card { border-top: 1px solid var(--char-line); padding-top: 22px; }
+  .res-card {
+    border-top: 1px solid var(--char-line);
+    padding-top: 22px;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .res-card:hover { transform: translateY(-4px); border-top-color: var(--orange); }
   .res-card .n { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--orange); margin-bottom: 14px; }
   .res-card h4 {
     font-family: var(--serif);
@@ -659,6 +706,11 @@
     line-height: 1.6;
     max-width: 64ch;
   }
+  details.qa[open] .ans { animation: ansIn .32s cubic-bezier(.22,.61,.36,1) both; }
+  @keyframes ansIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: none; }
+  }
 
   /* ——————————————————— CTA banner ——————————————————— */
   .cta-banner {
@@ -667,6 +719,15 @@
     position: relative;
     overflow: hidden;
     padding: 64px 0 72px;
+  }
+  .cta-banner::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.16) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 45%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 45%, transparent 100%);
+    pointer-events: none;
   }
   .cta-inner { position: relative; z-index: 2; text-align: center; max-width: 620px; margin: 0 auto; }
   .cta-banner h3 {
@@ -888,6 +949,7 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
+<div id="pbar" aria-hidden="true"></div>
 
 <!-- ————————— HEADER ————————— -->
 <header class="top">
@@ -935,7 +997,7 @@
     <div>
       <span class="pill-tag rv">For International Product Builders</span>
       <h1 class="rv d1">Land your first <span class="accent">North&nbsp;American</span> product role.</h1>
-      <p class="lede rv d2">Your experience is not worth less here. It is just untranslated. This is the system that translates it: for PMs, designers, makers, and builders who refuse the void.</p>
+      <p class="lede rv d2">Your experience is not worth less here. It is just untranslated. This is the working system that translates it, built for PMs, designers, and makers trained outside North America.</p>
       <div class="cta-row rv d3">
         <a class="btn lg" href="#price">See the Sessions</a>
         <a class="btn lg ghost" href="#founder">Meet Jose</a>
@@ -970,10 +1032,7 @@
       <img src="jose.jpg" alt="Jose Platero, Director of Product, Design and MarTech at Air Canada Aeroplan" width="798" height="1200" style="width:100%; height:100%; object-fit:cover; display:block;">
     </div>
     <div>
-      <h2><span class="q">"</span>Hi, I'm Jose. I built this because no one built it for me.<span class="q">"</span></h2>
-      <p class="meta">
-        <span>Role: Product</span><span>Creator</span><span>Educator</span><span>Evangelist</span>
-      </p>
+      <h2>Hi, I'm Jose. I built this because no one built it for&nbsp;me.</h2>
       <p>My family left El Salvador during the civil war when I was three. I grew up in Canada watching my parents rebuild from zero. So I know exactly what it costs to start over in a country that does not yet know what you are worth.</p>
       <p>I won't pretend I broke into this market as a foreign-trained newcomer. I didn't. I have spent my career on the <em>other</em> side of the table: hiring product people, and mentoring hundreds of international builders through this exact transition. I know what gets someone hired here, because I am one of the people who decides.</p>
       <p>Today I am a Director of Product, Design &amp; MarTech at Air Canada | Aeroplan, leading a team of 45+ people. Your experience is not worth less here. It is just untranslated. This curriculum is the translation layer: the specific moves that actually work in US and Canada tech companies.</p>
@@ -993,7 +1052,8 @@
 <section class="pillars" id="pillars">
   <div class="wrap">
     <div class="section-head rv">
-      <h3>The Curriculum: Aim · Attract · Convert · Connect</h3>
+      <span class="eyebrow">The Curriculum</span>
+      <h3>Aim · Attract · Convert · Connect</h3>
       <p>Stop sending applications that get no reply. Build a system that makes the right people come to you, with AI doing the heavy lifting.</p>
     </div>
     <div class="pillar-grid">
@@ -1094,6 +1154,7 @@
 <section class="agenda" id="agenda">
   <div class="wrap">
     <div class="section-head rv">
+      <span class="eyebrow">The Full Day</span>
       <h3>Nov 7, Hour by Hour</h3>
       <p>Six hours, four builds, one working system. Every block starts from a pre-made kit, so the time goes into making it yours, not starting from zero.</p>
     </div>
@@ -1157,6 +1218,7 @@
 <section class="price-section" id="price">
   <div class="wrap">
     <div class="section-head rv">
+      <span class="eyebrow">Sessions &amp; Pricing</span>
       <h3>Two Ways In</h3>
       <p>Start online for $25. Build the whole system in one day on Nov 7.</p>
     </div>
@@ -1204,6 +1266,7 @@
 <section class="results">
   <div class="wrap">
     <div class="section-head rv">
+      <span class="eyebrow">Proof</span>
       <h3>What Mentees &amp; Students Say</h3>
     </div>
     <div class="results-grid">
@@ -1334,6 +1397,19 @@
       });
     }, { threshold: 0.4 });
     io.observe(strip);
+  })();
+
+  // Reading progress bar + header shadow once scrolling starts
+  (() => {
+    const bar = document.getElementById('pbar');
+    const top = document.querySelector('header.top');
+    const paint = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      if (bar && max > 0) bar.style.width = (scrollY / max * 100) + '%';
+      if (top) top.classList.toggle('scrolled', scrollY > 8);
+    };
+    addEventListener('scroll', paint, { passive: true });
+    paint();
   })();
 </script>
 
