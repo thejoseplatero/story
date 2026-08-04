@@ -383,6 +383,14 @@
     position: relative;
     overflow: hidden;
   }
+  .portrait canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    image-rendering: pixelated;
+    transition: opacity .5s ease;
+    z-index: 2;
+    pointer-events: none;
+  }
   .portrait img {
     width: 100%; height: 100%;
     object-fit: cover;
@@ -618,12 +626,19 @@
     box-shadow: 5px 5px 0 var(--ink);
   }
   .result .mark {
-    font-family: var(--serif);
-    font-size: 42px;
-    line-height: 1;
+    width: 6px; height: 6px;
+    font-size: 0;
+    line-height: 0;
     color: var(--orange);
-    font-weight: 700;
-    margin: -4px 0 10px;
+    background: currentColor;
+    margin: 4px 0 24px;
+    box-shadow:
+      6px 0 0 currentColor,
+      0 6px 0 currentColor, 6px 6px 0 currentColor,
+      6px 12px 0 currentColor,
+      18px 0 0 currentColor, 24px 0 0 currentColor,
+      18px 6px 0 currentColor, 24px 6px 0 currentColor,
+      24px 12px 0 currentColor;
   }
   .result blockquote {
     margin: 0 0 18px;
@@ -1030,6 +1045,7 @@
   <div class="wrap founder-grid">
     <div class="portrait rv">
       <img src="jose.jpg" alt="Jose Platero, Director of Product, Design and MarTech at Air Canada Aeroplan" width="798" height="1200" style="width:100%; height:100%; object-fit:cover; display:block;">
+      <canvas aria-hidden="true"></canvas>
     </div>
     <div>
       <h2>Hi, I'm Jose. I built this because no one built it for&nbsp;me.</h2>
@@ -1054,20 +1070,22 @@
     <div class="section-head rv">
       <span class="eyebrow">The Curriculum</span>
       <h3>Aim · Attract · Convert · Connect</h3>
-      <p>Stop sending applications that get no reply. Build a system that makes the right people come to you, with AI doing the heavy lifting.</p>
+      <p>Stop sending applications that get no reply. Build a system that makes the right people come to you. You bring the judgment. AI does the busywork.</p>
     </div>
     <div class="pillar-grid">
 
       <article class="pillar rv d1">
         <span class="num" aria-hidden="true">01</span>
-        <svg class="pixicon" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true">
+        <svg class="pixicon" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
           <g fill="#15171c">
-            <rect x="0" y="0" width="3" height="3"/>
-            <rect x="4" y="0" width="3" height="3"/>
-            <rect x="0" y="4" width="3" height="3"/>
+            <rect x="5" y="0" width="2" height="3"/>
+            <rect x="5" y="9" width="2" height="3"/>
+            <rect x="0" y="5" width="3" height="2"/>
+            <rect x="9" y="5" width="3" height="2"/>
+            <rect x="3" y="3" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/>
+            <rect x="3" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/>
           </g>
-          <rect x="4" y="4" width="3" height="3" fill="#ff4a1c"/>
-          <rect x="7" y="7" width="3" height="3" fill="#15171c"/>
+          <rect x="5" y="5" width="2" height="2" fill="#ff4a1c"/>
         </svg>
         <h4>Aim</h4>
         <p>Find the roles that actually fit you: your expertise &times; your interests &times; where the market is. You leave with a short, sharp target list. The opposite of spray-and-pray.</p>
@@ -1075,15 +1093,15 @@
 
       <article class="pillar rv d2">
         <span class="num" aria-hidden="true">02</span>
-        <svg class="pixicon" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true">
+        <svg class="pixicon" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+          <rect x="0" y="9" width="3" height="3" fill="#ff4a1c"/>
           <g fill="#15171c">
-            <rect x="0" y="4" width="6" height="2"/>
-            <rect x="6" y="2" width="2" height="2"/>
-            <rect x="6" y="6" width="2" height="2"/>
-            <rect x="8" y="0" width="2" height="2"/>
-            <rect x="8" y="8" width="2" height="2"/>
+            <rect x="4" y="6" width="2" height="2"/>
+            <rect x="7" y="3" width="2" height="2"/>
+            <rect x="10" y="0" width="2" height="2"/>
+            <rect x="0" y="4" width="2" height="2"/>
+            <rect x="6" y="10" width="2" height="2"/>
           </g>
-          <rect x="0" y="0" width="2" height="2" fill="#ff4a1c"/>
         </svg>
         <h4>Attract</h4>
         <p>Document your journey in public and pull the right people to you. Your posts, your voice, your proof, all captured in one system, so opportunities start finding <em>you</em>.</p>
@@ -1091,10 +1109,18 @@
 
       <article class="pillar rv d3">
         <span class="num" aria-hidden="true">03</span>
-        <svg class="pixicon" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true">
-          <rect x="0" y="3" width="10" height="6" fill="#15171c"/>
-          <rect x="3" y="1" width="4" height="2" fill="#15171c"/>
-          <rect x="4" y="5" width="2" height="2" fill="#ff4a1c"/>
+        <svg class="pixicon" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+          <g fill="#15171c">
+            <rect x="7" y="0" width="5" height="2"/>
+            <rect x="10" y="2" width="2" height="8"/>
+            <rect x="7" y="10" width="5" height="2"/>
+          </g>
+          <g fill="#ff4a1c">
+            <rect x="0" y="5" width="6" height="2"/>
+            <rect x="4" y="3" width="2" height="2"/>
+            <rect x="4" y="7" width="2" height="2"/>
+            <rect x="6" y="5" width="2" height="2"/>
+          </g>
         </svg>
         <h4>Convert</h4>
         <p>Resumes and portfolios targeted to your list. Built to translate your experience into what North American hiring teams recognize, and to land the interview.</p>
@@ -1102,15 +1128,18 @@
 
       <article class="pillar rv d4">
         <span class="num" aria-hidden="true">04</span>
-        <svg class="pixicon" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true">
+        <svg class="pixicon" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
           <g fill="#15171c">
-            <rect x="1" y="2" width="2" height="2"/>
-            <rect x="0" y="4" width="4" height="3"/>
-            <rect x="7" y="2" width="2" height="2"/>
-            <rect x="6" y="4" width="4" height="3"/>
+            <rect x="0" y="0" width="3" height="3"/>
+            <rect x="9" y="0" width="3" height="3"/>
+            <rect x="4" y="1" width="1" height="1"/>
+            <rect x="6" y="1" width="1" height="1"/>
+            <rect x="2" y="4" width="1" height="1"/>
+            <rect x="3" y="6" width="1" height="1"/>
+            <rect x="9" y="4" width="1" height="1"/>
+            <rect x="8" y="6" width="1" height="1"/>
           </g>
-          <rect x="4" y="3" width="2" height="2" fill="#ff4a1c"/>
-          <rect x="3" y="5" width="4" height="3" fill="#ff4a1c"/>
+          <rect x="4" y="8" width="4" height="4" fill="#ff4a1c"/>
         </svg>
         <h4>Connect</h4>
         <p>The real way to network: relationships over transactions. Build a network that grows in value for years, not one-off asks that go nowhere.</p>
@@ -1205,7 +1234,7 @@
         <span class="t">3:30</span>
         <div>
           <h4>Launch: run it live</h4>
-          <p>You send your first real application through your new system before you leave. Then your week one plan, so momentum survives the weekend.</p>
+          <p>You send your first real application through your new system before you leave. Then we write your plan for week one, so you keep going after the room empties.</p>
         </div>
         <span class="out">You send: application one</span>
       </div>
@@ -1397,6 +1426,52 @@
       });
     }, { threshold: 0.4 });
     io.observe(strip);
+  })();
+
+  // Portrait renders from pixelated to sharp: untranslated to translated
+  (() => {
+    const wrap = document.querySelector('.portrait');
+    const img = wrap && wrap.querySelector('img');
+    const cv = wrap && wrap.querySelector('canvas');
+    if (!wrap || !img || !cv) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { cv.remove(); return; }
+
+    const draw = (res) => {
+      const w = cv.width = wrap.clientWidth || 280;
+      const h = cv.height = wrap.clientHeight || 320;
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      if (!iw || !ih) return;
+      // replicate object-fit: cover so the pixel frame crops like the photo
+      const scale = Math.max(w / iw, h / ih);
+      const sw = w / scale, sh = h / scale;
+      const sx = (iw - sw) / 2, sy = (ih - sh) / 2;
+      const t = document.createElement('canvas');
+      t.width = res;
+      t.height = Math.max(1, Math.round(res * h / w));
+      t.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, t.width, t.height);
+      const ctx = cv.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(t, 0, 0, w, h);
+    };
+
+    const steps = [7, 12, 20, 34, 60];
+    const run = () => {
+      let i = 0;
+      const tick = () => {
+        if (i < steps.length) { draw(steps[i++]); setTimeout(tick, 150); }
+        else { cv.style.opacity = '0'; setTimeout(() => cv.remove(), 550); }
+      };
+      tick();
+    };
+    const start = () => {
+      draw(steps[0]);
+      const io = new IntersectionObserver((e) => {
+        if (e[0].isIntersecting) { io.disconnect(); setTimeout(run, 300); }
+      }, { threshold: 0.4 });
+      io.observe(wrap);
+    };
+    if (img.complete && img.naturalWidth) start();
+    else img.addEventListener('load', start);
   })();
 
   // Reading progress bar + header shadow once scrolling starts
