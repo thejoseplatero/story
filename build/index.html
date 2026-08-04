@@ -492,6 +492,7 @@
   /* icon motion is SMIL inside each SVG: reliable in iOS Safari, where
      CSS px transforms on SVG groups are not. Hover/tap lifts the whole icon. */
   .pillar:hover .pixicon, .pillar.tapped .pixicon { transform: translateY(-4px) scale(1.08); }
+  .pillar.tapped { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
   @media (hover: none) { .pillar { cursor: pointer; -webkit-tap-highlight-color: transparent; } }
   .pillar::before {
     content: "";
@@ -1895,8 +1896,15 @@
 <script>
   // Reveal sections as they enter the viewport
   (() => {
+    const kick = (root) => root.querySelectorAll('svg').forEach(svg => {
+      if (typeof svg.unpauseAnimations === 'function') {
+        try { svg.unpauseAnimations(); } catch (err) {}
+      }
+    });
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // no slide-up, but everything still lives
       document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
+      kick(document);
       return;
     }
     const io = new IntersectionObserver((entries) => {
@@ -1918,7 +1926,6 @@
 
   // Coming back to the tab should not leave the icons frozen
   (() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) return;
       document.querySelectorAll('svg').forEach(svg => {
@@ -1929,29 +1936,33 @@
     });
   })();
 
-  // Reduced motion: stop things that travel, keep things that fade or pulse
+  // Tap on a card should feel exactly like hovering it on desktop:
+  // the icon lifts and its motion replays from the top. No media query
+  // gate, because some mobile browsers misreport hover support.
   (() => {
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    document.querySelectorAll('animateTransform').forEach(a => a.remove());
-  })();
-
-  // Touch has no hover, so a tap plays the exaggerated icon motion
-  (() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (matchMedia('(hover: hover)').matches) return;
     document.querySelectorAll('.pillar').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('.pillar.tapped').forEach(o => { if (o !== card) o.classList.remove('tapped'); });
+      const play = () => {
+        document.querySelectorAll('.pillar.tapped').forEach(o => {
+          if (o !== card) o.classList.remove('tapped');
+        });
         card.classList.add('tapped');
+        card.querySelectorAll('svg').forEach(svg => {
+          try {
+            if (typeof svg.unpauseAnimations === 'function') svg.unpauseAnimations();
+            if (typeof svg.setCurrentTime === 'function') svg.setCurrentTime(0);
+          } catch (err) {}
+        });
         clearTimeout(card._tapT);
-        card._tapT = setTimeout(() => card.classList.remove('tapped'), 2600);
-      });
+        card._tapT = setTimeout(() => card.classList.remove('tapped'), 3000);
+      };
+      card.addEventListener('pointerdown', play);
+      card.addEventListener('touchstart', play, { passive: true });
+      card.addEventListener('click', play);
     });
   })();
 
   // Stats strip: count up when it scrolls into view
   (() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const strip = document.querySelector('.strip');
     if (!strip) return;
     const io = new IntersectionObserver((entries) => {
@@ -1979,17 +1990,13 @@
     if (!el) return;
     el.textContent = '';
     const line = 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.';
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.textContent = line;
-      el.classList.add('done');
-      return;
-    }
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let i = 0, run = 0;
     const type = (r) => {
       if (r !== run) return;
       if (i <= line.length) {
         el.textContent = line.slice(0, i++);
-        setTimeout(() => type(r), 26 + Math.random() * 34);
+        setTimeout(() => type(r), calm ? 12 : 26 + Math.random() * 34);
       } else {
         setTimeout(() => { if (r === run) el.classList.add('done'); }, 1200);
       }
@@ -2095,7 +2102,6 @@
     const img = wrap && wrap.querySelector('img');
     const cv = wrap && wrap.querySelector('canvas');
     if (!wrap || !img || !cv) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { cv.remove(); return; }
 
     const draw = (res) => {
       const w = cv.width = wrap.clientWidth || 280;
