@@ -542,10 +542,11 @@
   .dark-section .lab::before { content: ""; width: 8px; height: 8px; background: var(--orange); flex-shrink: 0; }
   .dark-grid {
     display: grid;
-    grid-template-columns: 1.3fr 1fr 1fr 1fr;
-    gap: 36px 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 30px;
     align-items: start;
   }
+  .dark-grid > div:first-child { grid-column: 1 / -1; max-width: 640px; }
   .dark-section h3 {
     font-family: var(--serif);
     font-size: 30px;
@@ -890,12 +891,18 @@
     text-transform: uppercase;
     color: var(--orange-deep);
   }
-  .xlate .xlate-note a {
+  .xlate .xlate-note button {
+    font: inherit;
     color: var(--ink-mute);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
     text-decoration: underline;
     text-underline-offset: 3px;
+    -webkit-tap-highlight-color: transparent;
   }
-  .xlate .xlate-note a:hover { color: var(--orange); }
+  .xlate .xlate-note button:hover { color: var(--orange); }
   .xlate ul { list-style: none; margin: 0 0 14px; padding: 0; border-top: 1.5px solid var(--ink); }
   .xlate li {
     padding: 10px 0;
@@ -1285,7 +1292,7 @@
           <span class="xl on">After</span>
           <p class="xafter" id="xafter"><noscript>Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.</noscript></p>
         </div>
-        <p class="xlate-note">Same person. Same 8 years. Translated. <a href="#" id="xreplay">Run it again ↻</a></p>
+        <p class="xlate-note">Same person. Same 8 years. Translated. <button type="button" id="xreplay">Run it again ↻</button></p>
         <ul>
           <li><b>Online Intro</b><span>Aug 27 &amp; Oct 29 · 6pm ET · $25</span></li>
           <li><b>Full Course</b><span>Nov 7 · 10am–4pm · 30 seats only</span></li>
@@ -1526,25 +1533,31 @@
     <div>
       <div class="lab">Built with Claude Code</div>
       <h3>You don't just learn the system. You build it.</h3>
-      <p>We use AI to build your job-search machine, not to mass-produce the spam that gets ignored. This is how I actually work, and you will leave with your system running.</p>
+      <p>Four pillars, four things you actually build. We use AI to make your job-search machine, not to mass-produce the spam that gets ignored. This is how I work, and you will leave with your system running.</p>
     </div>
 
     <article class="res-card rv d1">
-      <div class="n">01</div>
+      <div class="n">Aim</div>
       <h4>Your Targeting System</h4>
       <p>Expertise &times; interests &times; market, mapped in Claude Code into a living target list of the roles worth your energy.</p>
     </article>
 
     <article class="res-card rv d2">
-      <div class="n">02</div>
+      <div class="n">Get Found</div>
+      <h4>Your Presence Machine</h4>
+      <p>A second brain that captures your work, your wins, and your voice, then helps you post about it. Day one is the setup. After that, it grows.</p>
+    </article>
+
+    <article class="res-card rv d3">
+      <div class="n">Get Answered</div>
       <h4>Your Application Engine</h4>
       <p>A resume and portfolio pipeline that tailors every application to its target. Each one lands 10&times; harder than a cold send.</p>
     </article>
 
-    <article class="res-card rv d3">
-      <div class="n">03</div>
-      <h4>Your Presence Machine</h4>
-      <p>A second brain that captures your work, your wins, and your voice, then helps you post about it. Day one is the setup. After that, it grows.</p>
+    <article class="res-card rv d4">
+      <div class="n">Connect</div>
+      <h4>Your Warm Circle</h4>
+      <p>A way to remember people properly: what they care about, what they are working on, and when to be useful again.</p>
     </article>
   </div>
 </section>
@@ -1841,6 +1854,7 @@
   (() => {
     const el = document.getElementById('xafter');
     if (!el) return;
+    el.textContent = '';
     const line = 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.';
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
       el.textContent = line;
@@ -1857,21 +1871,35 @@
         setTimeout(() => { if (r === run) el.classList.add('done'); }, 1200);
       }
     };
-    const startWhenSeen = () => {
-      const io = new IntersectionObserver((e) => {
-        if (e[0].isIntersecting) { io.disconnect(); setTimeout(() => type(run), 500); }
-      }, { threshold: 0.35 });
-      io.observe(el.closest(".xlate") || el);
+    let started = false;
+    const begin = () => {
+      if (started) return;
+      started = true;
+      setTimeout(() => type(run), 400);
     };
-    startWhenSeen();
+    const target = el.closest('.xlate') || el;
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) { io.disconnect(); begin(); }
+      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+      io.observe(target);
+    }
+    // fallback: never leave the line blank if the observer misses
+    setTimeout(begin, 2600);
     const replay = document.getElementById('xreplay');
-    if (replay) replay.addEventListener('click', (e) => {
-      e.preventDefault();
-      run++;
-      i = 0;
-      el.classList.remove('done');
-      type(run);
-    });
+    if (replay) {
+      const again = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        run++;
+        i = 0;
+        el.textContent = '';
+        el.classList.remove('done');
+        type(run);
+      };
+      replay.addEventListener('click', again);
+      replay.addEventListener('touchend', again, { passive: false });
+    }
   })();
 
   // Konami code unlocks lesson zero
