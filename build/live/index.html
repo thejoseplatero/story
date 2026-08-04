@@ -6,6 +6,7 @@
 <title>Tonight's session · Build with Jose</title>
 <meta name="description" content="The live page for the Build with Jose online intro. The exercise, the prompts, and what to do after.">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#fcf9f6">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11' shape-rendering='crispEdges'%3E%3Cg fill='%2315171c'%3E%3Crect x='1' y='1' width='2' height='2'/%3E%3Crect x='3' y='1' width='2' height='2'/%3E%3Crect x='5' y='1' width='2' height='2'/%3E%3Crect x='1' y='3' width='2' height='2'/%3E%3Crect x='7' y='3' width='2' height='2'/%3E%3Crect x='1' y='5' width='2' height='2'/%3E%3Crect x='3' y='5' width='2' height='2'/%3E%3Crect x='5' y='5' width='2' height='2'/%3E%3Crect x='1' y='7' width='2' height='2'/%3E%3Crect x='7' y='7' width='2' height='2'/%3E%3C/g%3E%3Crect x='7' y='1' width='2' height='2' fill='%23ff4a1c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +14,11 @@
 <style>
   :root {
     --surface:#fcf9f6; --surface-low:#f6f3f0; --ink:#15171c; --ink-soft:#3d3a36;
-    --ink-mute:#6c655e; --ink-10:rgba(21,23,28,.10); --orange:#ff4a1c; --orange-deep:#d6310a;
-    --orange-soft:#ffe4dc; --char:#1c1c1a;
+    --ink-mute:#6c655e; --ink-10:rgba(21,23,28,.10); --ink-06:rgba(21,23,28,.06);
+    --orange:#ff4a1c; --orange-deep:#d6310a; --orange-soft:#ffe4dc; --char:#1c1c1a;
+    --char-line:rgba(255,255,255,.10);
     --serif:"Literata",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif;
-    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --max:820px;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --max:860px;
   }
   *,*::before,*::after { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
@@ -24,90 +26,173 @@
          font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
   a { color:inherit; }
   ::selection { background:var(--orange); color:#fff; }
-  a:focus-visible, button:focus-visible { outline:3px solid var(--orange); outline-offset:3px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline:3px solid var(--orange); outline-offset:3px; }
+  h1,h2,h3 { text-wrap:balance; }
   .wrap { max-width:var(--max); margin:0 auto; padding:0 22px; }
 
-  header.top { border-bottom:1px solid var(--ink-10); background:var(--surface);
-               position:sticky; top:0; z-index:20; }
+  /* progress bar */
+  #pbar { position:fixed; top:0; left:0; height:3px; width:0; background:var(--orange); z-index:60; }
+
+  /* header */
+  header.top { border-bottom:1px solid var(--ink-10); background:rgba(252,249,246,.94);
+               backdrop-filter:blur(8px); position:sticky; top:0; z-index:30; }
   .top-row { display:flex; align-items:center; justify-content:space-between; height:60px; gap:14px; }
   .brand { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-weight:700;
            font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
   .brand-mark { width:30px; height:30px; display:grid; place-items:center;
                 border:1.5px solid var(--ink); flex:none; }
-  .jump { display:flex; gap:14px; }
-  .jump a { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
-            color:var(--ink-mute); text-decoration:none; }
-  .jump a:hover { color:var(--orange); }
-  @media (max-width:620px) { .jump { display:none; } }
+  .steps { display:flex; gap:6px; align-items:center; }
+  .steps a { width:30px; height:30px; display:grid; place-items:center; text-decoration:none;
+             border:1.5px solid var(--ink-10); font-family:var(--mono); font-size:11px; font-weight:700;
+             color:var(--ink-mute); transition:background .15s,color .15s,border-color .15s; }
+  .steps a:hover, .steps a.on { background:var(--orange); color:#fff; border-color:var(--orange); }
 
-  .hero { padding:46px 0 30px; }
+  /* hero */
+  .hero { padding:54px 0 12px; position:relative; }
   .eyebrow { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px;
              font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-deep);
-             margin-bottom:14px; }
-  .eyebrow::before { content:""; width:7px; height:7px; background:currentColor; }
-  h1 { font-family:var(--serif); font-weight:800; font-size:clamp(32px,6vw,50px); line-height:1.05;
-       letter-spacing:-.02em; margin:0 0 16px; text-wrap:balance; }
-  .lede { font-size:17px; color:var(--ink-soft); margin:0 0 6px; max-width:60ch; }
+             margin-bottom:16px; }
+  .eyebrow::before, .eyebrow::after { content:""; width:7px; height:7px; background:currentColor; }
+  h1 { font-family:var(--serif); font-weight:800; font-size:clamp(36px,7.5vw,60px); line-height:1.02;
+       letter-spacing:-.025em; margin:0 0 18px; }
+  .lede { font-size:17.5px; color:var(--ink-soft); margin:0; max-width:56ch; }
+  .hero-mascot { position:absolute; right:8px; top:44px; width:96px; height:96px; }
+  @media (max-width:760px) { .hero-mascot { display:none; } }
 
-  section { padding:32px 0; border-top:1px solid var(--ink-10); }
-  h2 { font-family:var(--serif); font-weight:700; font-size:clamp(23px,3.6vw,30px); line-height:1.2;
-       letter-spacing:-.01em; margin:0 0 6px; text-wrap:balance; }
-  h3 { font-family:var(--serif); font-weight:700; font-size:18px; margin:24px 0 8px; }
+  /* start card */
+  .start { background:var(--char); color:#f6f3ee; border:1.5px solid var(--ink);
+           box-shadow:8px 8px 0 var(--orange); padding:26px 28px; margin:34px 0 10px; position:relative; }
+  .start::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.12) 1.3px, transparent 1.3px);
+    background-size:22px 22px;
+    mask-image:radial-gradient(circle at 88% 0%, #000 0%, transparent 60%);
+    -webkit-mask-image:radial-gradient(circle at 88% 0%, #000 0%, transparent 60%); }
+  .start > * { position:relative; }
+  .start .k { display:inline-block; font-family:var(--mono); font-size:10px; font-weight:700;
+              letter-spacing:.16em; text-transform:uppercase; background:var(--orange); color:#fff;
+              padding:5px 11px; margin-bottom:14px; }
+  .start h2 { font-family:var(--serif); font-size:23px; margin:0 0 10px; color:#fff; }
+  .start p { margin:0 0 12px; color:#b9b3ac; font-size:15px; }
+  .start p:last-child { margin:0; }
+  .start b { color:#fff; }
+  .start a { color:var(--orange); }
+
+  /* sections */
+  section { padding:44px 0; }
+  section + section { border-top:1px solid var(--ink-10); }
+  h2 { font-family:var(--serif); font-weight:700; font-size:clamp(25px,4.2vw,34px); line-height:1.14;
+       letter-spacing:-.015em; margin:0 0 8px; }
+  h3 { font-family:var(--serif); font-weight:700; font-size:18px; margin:22px 0 8px; }
   p { margin:0 0 14px; } p, li { color:var(--ink-soft); } b, strong { color:var(--ink); }
 
-  .round-head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:4px; }
+  /* round header with big numeral */
+  .round { display:grid; grid-template-columns:auto 1fr; gap:0 22px; align-items:start; }
+  .numeral { font-family:var(--serif); font-weight:800; font-size:clamp(56px,11vw,88px); line-height:.82;
+             color:transparent; -webkit-text-stroke:2px var(--orange); letter-spacing:-.03em;
+             user-select:none; }
+  .round-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
   .mins { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.14em;
-          text-transform:uppercase; color:#fff; background:var(--orange); padding:5px 10px; }
-  .sub { font-size:15px; color:var(--ink-mute); margin:0 0 18px; }
+          text-transform:uppercase; color:#fff; background:var(--ink); padding:5px 10px; }
+  .sub { font-size:15.5px; color:var(--ink-mute); margin:0 0 20px; }
+  @media (max-width:600px) { .round { grid-template-columns:1fr; gap:4px; } .numeral { font-size:52px; } }
 
-  .note { background:var(--orange-soft); border:1.5px solid var(--ink); box-shadow:5px 5px 0 var(--ink);
-          padding:18px 20px; margin:22px 0; }
-  .note p:last-child { margin:0; }
-  .note .k { display:block; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
-             text-transform:uppercase; color:var(--orange-deep); margin-bottom:8px; }
-  .note.quiet { background:var(--surface-low); box-shadow:5px 5px 0 var(--ink-10); border-color:var(--ink-10); }
-  .note.quiet .k { color:var(--ink-mute); }
-
-  .cmd { position:relative; margin:0 0 18px; }
-  pre { background:var(--char); color:#f6f3ee; padding:44px 18px 18px; overflow-x:auto; margin:0;
-        font-family:var(--mono); font-size:13px; line-height:1.65; border:1.5px solid var(--ink);
-        white-space:pre-wrap; word-break:break-word; }
-  code { font-family:var(--mono); font-size:.92em; background:var(--surface-low); padding:2px 5px; }
-  pre code { background:none; padding:0; color:inherit; font-size:inherit; }
-  .copy { position:absolute; top:9px; right:9px; font-family:var(--mono); font-size:10px; font-weight:700;
-          letter-spacing:.12em; text-transform:uppercase; background:var(--orange); color:#fff;
-          border:0; padding:9px 14px; cursor:pointer; min-height:36px; }
+  /* prompt block, styled like a terminal window */
+  .cmd { margin:0 0 20px; border:1.5px solid var(--ink); box-shadow:6px 6px 0 var(--ink); }
+  .cmd-bar { display:flex; align-items:center; justify-content:space-between; gap:10px;
+             background:var(--ink); padding:9px 12px; }
+  .cmd-dots { display:flex; gap:5px; }
+  .cmd-dots i { width:8px; height:8px; background:rgba(255,255,255,.28); display:block; }
+  .cmd-dots i:first-child { background:var(--orange); }
+  .cmd-name { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.14em;
+              text-transform:uppercase; color:#8b857e; margin-right:auto; margin-left:6px; }
+  .copy { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.12em;
+          text-transform:uppercase; background:var(--orange); color:#fff; border:0;
+          padding:8px 13px; cursor:pointer; min-height:34px; }
   .copy:hover { background:#ff5f36; }
   .copy.done { background:#2f8a4f; }
+  pre { background:var(--char); color:#e8e4de; padding:18px; overflow-x:auto; margin:0;
+        font-family:var(--mono); font-size:12.5px; line-height:1.65;
+        white-space:pre-wrap; word-break:break-word; max-height:340px; overflow-y:auto; }
+  code { font-family:var(--mono); font-size:.92em; background:var(--surface-low); padding:2px 5px; }
+  pre code { background:none; padding:0; color:inherit; font-size:inherit; }
 
-  ol, ul { padding-left:22px; margin:0 0 16px; } li { margin-bottom:9px; }
-  .check { list-style:none; padding:0; }
-  .check li { padding-left:26px; position:relative; }
-  .check li::before { content:""; position:absolute; left:0; top:8px; width:9px; height:9px;
-                      background:var(--orange); }
+  /* notes */
+  .note { border:1.5px solid var(--ink); box-shadow:5px 5px 0 var(--ink);
+          background:var(--orange-soft); padding:18px 20px; margin:22px 0;
+          display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start; }
+  .note svg { width:38px; height:38px; flex:none; }
+  .note p:last-child { margin:0; }
+  .note .k { display:block; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+             text-transform:uppercase; color:var(--orange-deep); margin-bottom:7px; }
+  .note.quiet { background:var(--surface-low); box-shadow:5px 5px 0 var(--ink-10); border-color:var(--ink-10); }
+  .note.quiet .k { color:var(--ink-mute); }
+  @media (max-width:560px) { .note { grid-template-columns:1fr; gap:10px; } .note svg { width:34px; height:34px; } }
 
-  .btn { display:inline-flex; align-items:center; gap:8px; padding:13px 19px; background:var(--orange);
-         color:#fff; border:1.5px solid var(--ink); font-family:var(--mono); font-size:11px; font-weight:700;
+  /* dark band for the paper fallback */
+  .band { background:var(--char); color:#e8e4de; padding:52px 0; margin:0; position:relative; overflow:hidden; }
+  .band::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:radial-gradient(rgba(255,74,28,.22) 1.4px, transparent 1.4px);
+    background-size:26px 26px;
+    mask-image:linear-gradient(180deg, #000 0%, transparent 70%);
+    -webkit-mask-image:linear-gradient(180deg, #000 0%, transparent 70%); }
+  .band .wrap { position:relative; }
+  .band h2 { color:#fff; }
+  .band p, .band li { color:#b9b3ac; }
+  .band b { color:#fff; }
+  .band .eyebrow { color:var(--orange); }
+  .band .step { border-left:3px solid rgba(255,74,28,.5); padding:2px 0 2px 16px; margin:0 0 18px; }
+  .band .step b { display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+                  text-transform:uppercase; color:var(--orange); margin-bottom:6px; }
+  .band .shape { font-family:var(--serif); font-style:italic; font-size:19px; color:#fff;
+                 border:1.5px dashed rgba(255,255,255,.3); padding:18px 20px; margin:22px 0 0; }
+
+  /* after list */
+  .check { list-style:none; padding:0; margin:0 0 18px; }
+  .check li { padding-left:34px; position:relative; margin-bottom:14px; }
+  .check li::before { content:""; position:absolute; left:0; top:5px; width:18px; height:18px;
+                      border:1.5px solid var(--ink); background:var(--surface); }
+  .check li::after { content:""; position:absolute; left:5px; top:10px; width:8px; height:8px;
+                     background:var(--orange); }
+
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:14px 20px; background:var(--orange);
+         color:#fff; border:1.5px solid var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;
          letter-spacing:.12em; text-transform:uppercase; text-decoration:none;
          box-shadow:4px 4px 0 var(--ink); transition:transform .12s, box-shadow .12s; }
   .btn:hover { transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+  .btn::after { content:"→"; font-family:var(--sans); transition:transform .15s; }
+  .btn:hover::after { transform:translateX(4px); }
   .btn.ghost { background:transparent; color:var(--ink); }
-  .acts { display:flex; gap:12px; flex-wrap:wrap; margin:18px 0 0; }
+  .acts { display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 0; }
 
   details { border-top:1px solid var(--ink-10); padding:14px 0; }
-  summary { cursor:pointer; font-family:var(--serif); font-weight:700; font-size:17px; list-style:none; }
+  details:last-of-type { border-bottom:1px solid var(--ink-10); }
+  summary { cursor:pointer; font-family:var(--serif); font-weight:700; font-size:17px; list-style:none;
+            display:flex; justify-content:space-between; gap:14px; align-items:center; }
   summary::-webkit-details-marker { display:none; }
-  summary::after { content:"+"; float:right; color:var(--orange); font-family:var(--mono); }
-  details[open] summary::after { content:"–"; }
+  summary::after { content:"+"; color:var(--orange); font-family:var(--mono); font-size:19px;
+                   transition:transform .25s cubic-bezier(.22,.61,.36,1); }
+  details[open] summary::after { transform:rotate(45deg); }
   details .body { padding-top:12px; }
+  details .body p { margin:0; }
 
-  footer { border-top:1px solid var(--ink-10); padding:28px 0 44px; margin-top:16px; }
+  footer { border-top:1px solid var(--ink-10); padding:30px 0 46px; }
   footer p { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
              color:var(--ink-mute); margin:0; }
-  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } html { scroll-behavior:auto; } }
+
+  .rv { opacity:0; transform:translateY(16px);
+        transition:opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    .rv { opacity:1; transform:none; transition:none; }
+    .btn:hover { transform:none; }
+  }
 </style>
+<noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
 </head>
 <body>
+
+<div id="pbar" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap top-row">
@@ -126,12 +211,11 @@
       </span>
       Build with Jose
     </a>
-    <nav class="jump">
-      <a href="#r1">Round 1</a>
-      <a href="#r2">Round 2</a>
-      <a href="#r3">Round 3</a>
-      <a href="#paper">Paper</a>
-      <a href="#after">After</a>
+    <nav class="steps" aria-label="Jump to a round">
+      <a href="#r1" title="Round 1">1</a>
+      <a href="#r2" title="Round 2">2</a>
+      <a href="#r3" title="Round 3">3</a>
+      <a href="#after" title="After tonight">★</a>
     </nav>
   </div>
 </header>
@@ -140,27 +224,51 @@
 <div class="wrap">
 
   <div class="hero">
+    <svg class="hero-mascot" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="22" cy="24" r="16" fill="#fff" stroke="#15171c" stroke-width="2.5"/>
+      <ellipse cx="16.5" cy="22.5" rx="1.9" ry="2.6" fill="#15171c"/>
+      <ellipse cx="27.5" cy="22.5" rx="1.9" ry="2.6" fill="#15171c"/>
+      <circle cx="15.9" cy="21.6" r="0.7" fill="#fff"/><circle cx="28.3" cy="21.6" r="0.7" fill="#fff"/>
+      <path d="M17.5 29.5q4.5 4 9 0" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="40" cy="11" r="6.5" fill="none" stroke="#ff4a1c" stroke-width="2.6">
+        <animate attributeName="r" values="6.5;7.6;6.5" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="40" cy="11" r="2.4" fill="#ff4a1c">
+        <animate attributeName="r" values="2.4;3.4;2.4" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
     <span class="eyebrow">Tonight's session</span>
-    <h1>Your first target list.</h1>
-    <p class="lede">Keep this page open. Every prompt you need is here with a copy button, so you never have to type one out or wait for me to read it aloud. If you fall behind, everything is still here. Nothing on this page disappears after tonight.</p>
+    <h1>Your first<br>target list.</h1>
+    <p class="lede">Keep this page open. Every prompt is here with a copy button, so you never type one out or wait for me to read it aloud. If you fall behind, everything is still here. Nothing on this page disappears after tonight.</p>
+  </div>
+
+  <div class="start rv">
+    <span class="k">Before you start</span>
+    <h2>You need one thing.</h2>
+    <p><b>A Claude account.</b> Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and check you can log in. A free account is enough for tonight. You do not need Claude Code and you do not need to pay for anything.</p>
+    <p>Keep a blank document open too. At the end you will paste your list somewhere you can find it again.</p>
   </div>
 
   <section>
-    <div class="note">
-      <span class="k">Before you start</span>
-      <p><b>You need one thing: a Claude account.</b> Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and make sure you can log in. A free account is enough for tonight. You do not need Claude Code and you do not need to pay for anything.</p>
-      <p style="margin:0;">Keep a blank document open too. At the end you will paste your list somewhere you can find it again.</p>
-    </div>
-    <p><b>How this works.</b> Three rounds, about 30 minutes. You paste a prompt, answer questions in normal words, then paste the next one. Do not skip ahead. Round 2 does not work if round 1 was rushed.</p>
-    <p><b>English does not need to be perfect.</b> The prompt tells Claude to keep everything in short, simple sentences. Answer however you would speak.</p>
+    <p><b>How this works.</b> Three rounds, about 30 minutes. You paste a prompt, answer in normal words, then paste the next one. Do not skip ahead. Round 2 does not work if round 1 was rushed.</p>
+    <p style="margin:0;"><b>Your English does not need to be perfect.</b> The prompt tells Claude to keep everything in short, simple sentences. Answer however you would speak.</p>
   </section>
 
   <section id="r1">
-    <div class="round-head"><h2>Round 1. Tell Claude who you are</h2><span class="mins">8 min</span></div>
-    <p class="sub">Six questions, one at a time. Then a summary you check before anything else happens.</p>
+    <div class="round rv">
+      <span class="numeral" aria-hidden="true">1</span>
+      <div>
+        <div class="round-meta"><h2>Tell Claude who you are</h2><span class="mins">8 min</span></div>
+        <p class="sub">Six questions, one at a time. Then a summary you check before anything else happens.</p>
+      </div>
+    </div>
 
-    <div class="cmd">
-      <button class="copy" data-target="p1">Copy prompt</button>
+    <div class="cmd rv">
+      <div class="cmd-bar">
+        <span class="cmd-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="cmd-name">Round 1 prompt</span>
+        <button class="copy" data-target="p1">Copy</button>
+      </div>
       <pre><code id="p1">You are helping me build my first target list of companies to aim my job search at.
 I am a product builder who trained and worked outside North America, and I am
 looking for work in North America now. English may not be my first language, so
@@ -201,18 +309,36 @@ Rules for the whole conversation:
   them. If it comes up, tell me to check with a real immigration professional.</code></pre>
     </div>
 
-    <div class="note quiet">
-      <span class="k">Done looks like</span>
-      <p style="margin:0;">A three line summary that sounds like you, not like a job description. If EXPERTISE reads like your old job title, tell Claude it is wrong and make it try again. This is the part everything else is built on.</p>
+    <div class="note quiet rv">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="22" cy="24" r="15" fill="#fff" stroke="#15171c" stroke-width="2.4"/>
+        <ellipse cx="17" cy="22.5" rx="1.8" ry="2.4" fill="#15171c"/>
+        <ellipse cx="27" cy="22.5" rx="1.8" ry="2.4" fill="#15171c"/>
+        <path d="M18 29.5q4 3.5 8 0" fill="none" stroke="#15171c" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M36 16l1.4 3.2 3.2 1.4-3.2 1.4L36 25.2l-1.4-3.2-3.2-1.4 3.2-1.4z" fill="#ff4a1c"/>
+      </svg>
+      <div>
+        <span class="k">Done looks like</span>
+        <p>A three line summary that sounds like you, not like a job description. If EXPERTISE reads like your old job title, tell Claude it is wrong and make it try again. This is the part everything else is built on.</p>
+      </div>
     </div>
   </section>
 
   <section id="r2">
-    <div class="round-head"><h2>Round 2. Get the list, then cut it</h2><span class="mins">9 min</span></div>
-    <p class="sub">Twelve companies. Then you throw most of them away, which is the actual work.</p>
+    <div class="round rv">
+      <span class="numeral" aria-hidden="true">2</span>
+      <div>
+        <div class="round-meta"><h2>Get the list, then cut it</h2><span class="mins">9 min</span></div>
+        <p class="sub">Twelve companies. Then you throw most of them away, which is the actual work.</p>
+      </div>
+    </div>
 
-    <div class="cmd">
-      <button class="copy" data-target="p2">Copy prompt</button>
+    <div class="cmd rv">
+      <div class="cmd-bar">
+        <span class="cmd-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="cmd-name">Round 2 prompt</span>
+        <button class="copy" data-target="p2">Copy</button>
+      </div>
       <pre><code id="p2">The summary is right. Go to ROUND TWO.
 
 Give me twelve companies to aim at, based on my expertise, my interests and my
@@ -237,19 +363,37 @@ Important: you may be wrong or out of date about any of these companies. Say so
 plainly at the top. I am going to verify every one of them myself.</code></pre>
     </div>
 
-    <div class="note">
-      <span class="k">Now the real work</span>
-      <p>Cut twelve down to eight. Delete anything where the WHY YOU line does not sound true when you read it out loud. Delete anything you would be embarrassed to explain to a friend.</p>
-      <p style="margin:0;"><b>Claude gets company facts wrong.</b> It does not know who is hiring today. Every company on this list is a guess until you open their real website yourself. That is your homework this week, not tonight.</p>
+    <div class="note rv">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="20" cy="24" r="15" fill="#fff" stroke="#15171c" stroke-width="2.4"/>
+        <ellipse cx="15" cy="22.5" rx="1.8" ry="2.4" fill="#15171c"/>
+        <ellipse cx="25" cy="22.5" rx="1.8" ry="2.4" fill="#15171c"/>
+        <path d="M16 30q4 2.5 8 0" fill="none" stroke="#15171c" stroke-width="2.1" stroke-linecap="round"/>
+        <path d="M34 14l10 10M44 14l-10 10" stroke="#ff4a1c" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <span class="k">Now the real work</span>
+        <p>Cut twelve down to eight. Delete anything where the WHY YOU line does not sound true when you read it out loud. Delete anything you would be embarrassed to explain to a friend.</p>
+        <p><b>Claude gets company facts wrong.</b> It does not know who is hiring today. Every company on this list is a guess until you open their real website yourself. That is your homework this week, not tonight.</p>
+      </div>
     </div>
   </section>
 
   <section id="r3">
-    <div class="round-head"><h2>Round 3. Your top three</h2><span class="mins">4 min</span></div>
-    <p class="sub">One sentence you could actually say to a human being.</p>
+    <div class="round rv">
+      <span class="numeral" aria-hidden="true">3</span>
+      <div>
+        <div class="round-meta"><h2>Your top three</h2><span class="mins">4 min</span></div>
+        <p class="sub">One sentence you could actually say to a human being.</p>
+      </div>
+    </div>
 
-    <div class="cmd">
-      <button class="copy" data-target="p3">Copy prompt</button>
+    <div class="cmd rv">
+      <div class="cmd-bar">
+        <span class="cmd-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="cmd-name">Round 3 prompt</span>
+        <button class="copy" data-target="p3">Copy</button>
+      </div>
       <pre><code id="p3">Go to ROUND THREE.
 
 I am picking my top three from the list: [write the three names].
@@ -267,26 +411,40 @@ Then give me the whole thing back as a clean markdown table I can save:
 company, bucket, why you, what to check, and my one line for the top three.</code></pre>
     </div>
 
-    <div class="note quiet">
-      <span class="k">Save it</span>
-      <p style="margin:0;">Paste that final table somewhere you will find it again. That file is your target list. It is the first thing you built tonight and everything else in the system points back at it.</p>
+    <div class="note quiet rv">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="8" y="10" width="26" height="30" rx="2" fill="#fff" stroke="#15171c" stroke-width="2.4"/>
+        <path d="M14 19h14M14 25h14M14 31h9" stroke="#15171c" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="36" cy="34" r="8" fill="#ff4a1c" stroke="#15171c" stroke-width="2.2"/>
+        <path d="M32.5 34l2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <span class="k">Save it</span>
+        <p>Paste that final table somewhere you will find it again. That file is your target list. It is the first thing you built tonight and everything else in the system points back at it.</p>
+      </div>
     </div>
   </section>
 
-  <section id="paper">
-    <h2>No laptop, or the tool is not cooperating</h2>
-    <p class="sub">Same 30 minutes, same result. Write these on paper.</p>
-    <p><b>Round 1, 8 minutes.</b> Write your answers to the six questions above. Then write three headings and fill them in: MY EXPERTISE, MY INTERESTS, MY CONSTRAINTS.</p>
-    <p><b>Round 2, 9 minutes.</b> Draw three columns: obvious, stretch, overlooked. Write as many company names as you can think of under each, then stop and cut to eight total. Beside each survivor write one line: why you.</p>
-    <p><b>Round 3, 4 minutes.</b> Circle three. Write the one line for each, in this shape:</p>
-    <div class="note quiet">
-      <p style="margin:0; font-family:var(--serif); font-size:17px; font-style:italic; color:var(--ink);">"I want to work at ______ because ______, and I would be useful there because ______."</p>
-    </div>
-    <p style="margin:0;">That is the same exercise. The tool makes it faster and gives you companies you had not thought of. It does not do the deciding, and neither round 2 nor round 3 gets any easier because a machine is helping.</p>
-  </section>
+</div>
 
+<section class="band" id="paper">
+  <div class="wrap">
+    <span class="eyebrow">No laptop, or the tool is not cooperating</span>
+    <h2>Do it on paper. Same 30 minutes, same result.</h2>
+    <div style="max-width:60ch; margin-top:24px;">
+      <div class="step"><b>Round 1 · 8 minutes</b>Write your answers to the six questions above. Then write three headings and fill them in: MY EXPERTISE, MY INTERESTS, MY CONSTRAINTS.</div>
+      <div class="step"><b>Round 2 · 9 minutes</b>Draw three columns: obvious, stretch, overlooked. Write as many company names as you can under each, then stop and cut to eight total. Beside each survivor write one line: why you.</div>
+      <div class="step"><b>Round 3 · 4 minutes</b>Circle three. Write the one line for each, in this shape:</div>
+      <p class="shape">"I want to work at ______ because ______, and I would be useful there because ______."</p>
+      <p style="margin-top:22px;">That is the same exercise. The tool makes it faster and gives you companies you had not thought of. It does not do the deciding, and neither round 2 nor round 3 gets any easier because a machine is helping.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
   <section id="after">
-    <h2>This week, about 20 minutes a day</h2>
+    <span class="eyebrow">This week</span>
+    <h2>About 20 minutes a day.</h2>
     <p class="sub">Tonight was a first draft. Here is what makes it real.</p>
     <ul class="check">
       <li><b>Cut your list to five.</b> Five real companies beats twenty maybes. A list you can hold in your head is a list you will actually use.</li>
@@ -295,15 +453,23 @@ company, bucket, why you, what to check, and my one line for the top three.</cod
     </ul>
     <p>That third step is the whole of Connect, the fourth part of the system, and it is the one that changes searches.</p>
 
-    <div class="note">
-      <span class="k">The honest part</span>
-      <p>Tonight was one block of one part out of five. It is a real start and it is not a system yet. The five parts are Aim, Get Found, Get Answered, Connect, and Interviews. Tonight was Aim.</p>
-      <p style="margin:0;">I cannot promise you a job. What I can do is give you a system, and be honest that the job comes from running it, week after week, after the class ends.</p>
+    <div class="note rv">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="16" fill="#fff" stroke="#15171c" stroke-width="2.5"/>
+        <ellipse cx="18.5" cy="22.5" rx="1.9" ry="2.5" fill="#15171c"/>
+        <ellipse cx="29.5" cy="22.5" rx="1.9" ry="2.5" fill="#15171c"/>
+        <path d="M19.5 29.5q4.5 4 9 0" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <span class="k">The honest part</span>
+        <p>Tonight was one block of one part out of five. It is a real start and it is not a system yet. The five parts are Aim, Get Found, Get Answered, Connect, and Interviews. Tonight was Aim.</p>
+        <p>I cannot promise you a job. What I can do is give you a system, and be honest that the job comes from running it, week after week, after the class ends.</p>
+      </div>
     </div>
 
     <div class="acts">
-      <a class="btn ghost" href="/build/kits/">Get the kits</a>
       <a class="btn" href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">The full day, Nov 7</a>
+      <a class="btn ghost" href="/build/kits/">Get the kits</a>
     </div>
   </section>
 
@@ -311,22 +477,21 @@ company, bucket, why you, what to check, and my one line for the top three.</cod
     <h2>Questions that come up</h2>
     <details>
       <summary>Claude gave me companies that do not exist</summary>
-      <div class="body"><p style="margin:0;">It does that. It is guessing from patterns, not looking anything up. Delete them and keep going. This is exactly why round 2 asks it to tell you what to verify, and why checking every company yourself is the homework.</p></div>
+      <div class="body"><p>It does that. It is guessing from patterns, not looking anything up. Delete them and keep going. This is exactly why round 2 asks it to tell you what to verify, and why checking every company yourself is the homework.</p></div>
     </details>
     <details>
       <summary>My summary in round 1 sounds generic</summary>
-      <div class="body"><p style="margin:0;">Tell it so, in those words: "this sounds generic, it could be anyone, use the specific things I told you." Then answer question 2 again with more detail about what actually happened because of the thing you built.</p></div>
+      <div class="body"><p>Tell it so, in those words: "this sounds generic, it could be anyone, use the specific things I told you." Then answer question 2 again with more detail about what actually happened because of the thing you built.</p></div>
     </details>
     <details>
       <summary>I only got through round 1 tonight</summary>
-      <div class="body"><p style="margin:0;">That is fine and it is common. Round 1 is the part that matters most. Finish rounds 2 and 3 this week using this page. It does not go anywhere.</p></div>
+      <div class="body"><p>That is fine and it is common. Round 1 is the part that matters most. Finish rounds 2 and 3 this week using this page. It does not go anywhere.</p></div>
     </details>
     <details>
       <summary>Do I need to pay for Claude to do this?</summary>
-      <div class="body"><p style="margin:0;">Not for tonight. A free account is enough for the exercise. The kits are a different thing: they run in Claude Code and need a paid plan, about $20 USD a month. That is explained on the <a href="/build/kits/">kits page</a> before you download anything.</p></div>
+      <div class="body"><p>Not for tonight. A free account is enough for the exercise. The kits are a different thing: they run in Claude Code and need a paid plan, about $20 USD a month. That is explained on the <a href="/build/kits/">kits page</a> before you download anything.</p></div>
     </details>
   </section>
-
 </div>
 </main>
 
@@ -337,26 +502,63 @@ company, bucket, why you, what to check, and my one line for the top three.</cod
 </footer>
 
 <script>
+  // copy buttons
   document.querySelectorAll('.copy').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var el = document.getElementById(btn.getAttribute('data-target'));
       if (!el) return;
-      var text = el.textContent;
       var done = function () {
         btn.textContent = 'Copied';
         btn.classList.add('done');
-        setTimeout(function () { btn.textContent = 'Copy prompt'; btn.classList.remove('done'); }, 1800);
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () {});
+        navigator.clipboard.writeText(el.textContent).then(done, function () {});
       } else {
         var ta = document.createElement('textarea');
-        ta.value = text; document.body.appendChild(ta); ta.select();
+        ta.value = el.textContent; document.body.appendChild(ta); ta.select();
         try { document.execCommand('copy'); done(); } catch (e) {}
         document.body.removeChild(ta);
       }
     });
   });
+
+  // reveal
+  (function () {
+    var els = document.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('in'); }); return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        e.target.querySelectorAll('svg').forEach(function (s) {
+          if (typeof s.unpauseAnimations === 'function') { try { s.unpauseAnimations(); } catch (err) {} }
+        });
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // progress bar + which round you are in
+  (function () {
+    var bar = document.getElementById('pbar');
+    var links = [].slice.call(document.querySelectorAll('.steps a'));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function paint() {
+      var max = document.documentElement.scrollHeight - innerHeight;
+      if (bar && max > 0) bar.style.width = (scrollY / max * 100) + '%';
+      var current = -1;
+      targets.forEach(function (t, i) {
+        if (t && t.getBoundingClientRect().top < innerHeight * 0.45) current = i;
+      });
+      links.forEach(function (a, i) { a.classList.toggle('on', i === current); });
+    }
+    addEventListener('scroll', paint, { passive: true });
+    paint();
+  })();
 </script>
 
 </body>

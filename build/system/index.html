@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The System · Build with Jose</title>
+<meta name="description" content="Where foreign trained product builders get stuck, what is actually happening, and the five moves that change it. The whole system, walked through.">
+<meta property="og:title" content="The System: where you are stuck, and why">
+<meta property="og:description" content="Five places people get stuck in a North American job search, what is really happening at each one, and what to do instead.">
+<meta property="og:image" content="https://joseplatero.com/build/og-build.jpg">
+<meta property="og:url" content="https://joseplatero.com/build/system/">
+<meta name="theme-color" content="#15171c">
+<link rel="canonical" href="https://joseplatero.com/build/system/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11' shape-rendering='crispEdges'%3E%3Cg fill='%2315171c'%3E%3Crect x='1' y='1' width='2' height='2'/%3E%3Crect x='3' y='1' width='2' height='2'/%3E%3Crect x='5' y='1' width='2' height='2'/%3E%3Crect x='1' y='3' width='2' height='2'/%3E%3Crect x='7' y='3' width='2' height='2'/%3E%3Crect x='1' y='5' width='2' height='2'/%3E%3Crect x='3' y='5' width='2' height='2'/%3E%3Crect x='5' y='5' width='2' height='2'/%3E%3Crect x='1' y='7' width='2' height='2'/%3E%3Crect x='7' y='7' width='2' height='2'/%3E%3C/g%3E%3Crect x='7' y='1' width='2' height='2' fill='%23ff4a1c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700;0,7..72,800;1,7..72,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --surface:#fcf9f6; --surface-low:#f6f3f0; --ink:#15171c; --ink-soft:#3d3a36;
+    --ink-mute:#6c655e; --ink-10:rgba(21,23,28,.10); --orange:#ff4a1c; --orange-deep:#d6310a;
+    --orange-soft:#ffe4dc; --char:#1c1c1a; --char-line:rgba(255,255,255,.10);
+    --serif:"Literata",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --max:940px; --text:660px;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--surface); color:var(--ink); font-family:var(--sans);
+         font-size:16px; line-height:1.62; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  ::selection { background:var(--orange); color:#fff; }
+  a:focus-visible, button:focus-visible { outline:3px solid var(--orange); outline-offset:3px; }
+  h1,h2,h3 { text-wrap:balance; }
+  .wrap { max-width:var(--max); margin:0 auto; padding:0 24px; }
+  .col { max-width:var(--text); }
+
+  #pbar { position:fixed; top:0; left:0; height:3px; width:0; background:var(--orange); z-index:60; }
+
+  header.top { border-bottom:1px solid var(--ink-10); background:rgba(252,249,246,.94);
+               backdrop-filter:blur(8px); position:sticky; top:0; z-index:30; }
+  .top-row { display:flex; align-items:center; justify-content:space-between; height:58px; gap:14px; }
+  .brand { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-weight:700;
+           font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
+  .brand-mark { width:29px; height:29px; display:grid; place-items:center; border:1.5px solid var(--ink); flex:none; }
+  .top-cta { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.12em;
+             text-transform:uppercase; text-decoration:none; background:var(--orange); color:#fff;
+             padding:10px 14px; border:1.5px solid var(--ink); box-shadow:3px 3px 0 var(--ink); }
+
+  /* hero */
+  .hero { padding:70px 0 56px; }
+  .eyebrow { display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:11px;
+             font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--orange-deep);
+             margin-bottom:20px; }
+  .eyebrow::before, .eyebrow::after { content:""; width:7px; height:7px; background:currentColor; }
+  h1 { font-family:var(--serif); font-weight:800; font-size:clamp(38px,8vw,68px); line-height:1.0;
+       letter-spacing:-.028em; margin:0 0 22px; }
+  h1 em { font-style:normal; color:var(--orange); }
+  .lede { font-size:19px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:56ch; }
+
+  /* the opening pain, full bleed dark */
+  .pain { background:var(--char); color:#f6f3ee; padding:76px 0; position:relative; overflow:hidden; text-align:center; }
+  .pain::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:radial-gradient(rgba(255,74,28,.24) 1.5px, transparent 1.5px);
+    background-size:26px 26px;
+    mask-image:linear-gradient(180deg, transparent, #000 45%, transparent);
+    -webkit-mask-image:linear-gradient(180deg, transparent, #000 45%, transparent); }
+  .pain .wrap { position:relative; }
+  .pain-mascot { width:104px; height:74px; margin:0 auto 20px; display:block; }
+  .pain h2 { font-family:var(--serif); font-weight:800; font-size:clamp(30px,6vw,54px); line-height:1.06;
+             letter-spacing:-.025em; margin:0 0 16px; color:#fff; }
+  .pain h2 b { color:var(--orange); font-weight:800; }
+  .pain p { max-width:52ch; margin:0 auto; color:#b9b3ac; font-size:16.5px; }
+
+  /* parts */
+  .part { padding:66px 0; border-top:1px solid var(--ink-10); }
+  .part.dark { background:var(--char); color:#e8e4de; border-top:0; }
+  .part.dark h2, .part.dark .stuck q, .part.dark .after b { color:#fff; }
+  .part.dark p, .part.dark li { color:#b9b3ac; }
+  .part.dark .label { color:var(--orange); }
+  .part.dark .numeral { -webkit-text-stroke-color:rgba(255,74,28,.85); }
+  .part.dark .stuck { border-color:var(--char-line); background:rgba(255,255,255,.03); }
+  .part.dark .move { border-left-color:var(--orange); }
+  .part.dark .after { background:rgba(255,74,28,.10); border-color:rgba(255,74,28,.4); }
+
+  .part-head { display:grid; grid-template-columns:auto 1fr; gap:0 24px; align-items:start; margin-bottom:26px; }
+  .numeral { font-family:var(--serif); font-weight:800; font-size:clamp(60px,12vw,104px); line-height:.78;
+             color:transparent; -webkit-text-stroke:2px var(--orange); letter-spacing:-.03em; user-select:none; }
+  .label { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.16em;
+           text-transform:uppercase; color:var(--orange-deep); display:block; margin-bottom:8px; }
+  .part h2 { font-family:var(--serif); font-weight:700; font-size:clamp(27px,4.6vw,40px); line-height:1.1;
+             letter-spacing:-.018em; margin:0; }
+  @media (max-width:620px) { .part-head { grid-template-columns:1fr; gap:6px; } .numeral { font-size:56px; } }
+
+  /* the stuck quote */
+  .stuck { border:1.5px solid var(--ink-10); background:var(--surface-low); padding:22px 24px;
+           margin:0 0 24px; display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; }
+  .stuck svg { width:44px; height:44px; flex:none; }
+  .stuck q { font-family:var(--serif); font-style:italic; font-size:20px; line-height:1.4;
+             color:var(--ink); quotes:none; display:block; }
+  .stuck .who { font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+                color:var(--ink-mute); margin-top:9px; display:block; }
+  @media (max-width:560px) { .stuck { grid-template-columns:1fr; gap:12px; } }
+
+  .part p { margin:0 0 16px; max-width:var(--text); }
+  .part p:last-child { margin-bottom:0; }
+
+  .move { border-left:3px solid var(--orange); padding:4px 0 4px 20px; margin:26px 0; max-width:var(--text); }
+  .move b { display:block; font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.15em;
+            text-transform:uppercase; color:var(--orange-deep); margin-bottom:9px; }
+  .part.dark .move b { color:var(--orange); }
+
+  .after { border:1.5px solid var(--orange); background:var(--orange-soft); padding:18px 22px;
+           margin:26px 0 0; max-width:var(--text); }
+  .after b { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.15em;
+             text-transform:uppercase; color:var(--orange-deep); display:block; margin-bottom:8px; }
+  .after p { margin:0; }
+
+  .kitline { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+             color:var(--ink-mute); margin-top:22px; }
+  .part.dark .kitline { color:#857f78; }
+  .kitline a { color:var(--orange); text-decoration:underline; text-underline-offset:3px; }
+
+  /* translation demo */
+  .xl { border:1.5px solid var(--ink); background:#fff; box-shadow:6px 6px 0 var(--ink);
+        padding:20px 22px; margin:26px 0 0; max-width:var(--text); }
+  .xl-row { display:grid; grid-template-columns:54px 1fr; gap:14px; padding:10px 0; align-items:start; }
+  .xl-row + .xl-row { border-top:1px dashed var(--ink-10); }
+  .xl-k { font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.13em;
+          text-transform:uppercase; color:var(--ink-mute); border:1px solid var(--ink-10);
+          text-align:center; padding:3px 0; }
+  .xl-k.on { background:var(--orange); color:#fff; border-color:var(--orange); }
+  .xl-b { color:var(--ink-mute); text-decoration:line-through;
+          text-decoration-color:rgba(214,49,10,.5); margin:0; font-size:14.5px; }
+  .xl-a { color:var(--ink); font-weight:600; margin:0; font-size:14.5px; }
+
+  /* close */
+  .close { background:var(--orange-deep); color:#fff; padding:70px 0; text-align:center; position:relative; overflow:hidden; }
+  .close::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.16) 1.5px, transparent 1.5px);
+    background-size:26px 26px;
+    mask-image:linear-gradient(180deg, transparent, #000 45%, transparent);
+    -webkit-mask-image:linear-gradient(180deg, transparent, #000 45%, transparent); }
+  .close .wrap { position:relative; }
+  .close h2 { font-family:var(--serif); font-weight:800; font-size:clamp(28px,5.4vw,46px);
+              line-height:1.08; margin:0 0 14px; }
+  .close p { max-width:50ch; margin:0 auto 28px; color:#ffe0d6; }
+  .acts { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:16px 24px; background:#fff;
+         color:var(--ink); border:1.5px solid var(--ink); font-family:var(--mono); font-size:12px;
+         font-weight:700; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;
+         box-shadow:5px 5px 0 var(--ink); transition:transform .12s, box-shadow .12s; }
+  .btn:hover { transform:translate(-1px,-1px); box-shadow:6px 6px 0 var(--ink); }
+  .btn::after { content:"→"; font-family:var(--sans); transition:transform .15s; }
+  .btn:hover::after { transform:translateX(4px); }
+  .btn.ghost { background:transparent; color:#fff; border-color:#fff; box-shadow:5px 5px 0 rgba(0,0,0,.35); }
+
+  footer { border-top:1px solid var(--ink-10); padding:30px 0 46px; }
+  footer p { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+             color:var(--ink-mute); margin:0; }
+
+  .rv { opacity:0; transform:translateY(18px);
+        transition:opacity .65s cubic-bezier(.22,.61,.36,1), transform .65s cubic-bezier(.22,.61,.36,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    .rv { opacity:1; transform:none; transition:none; }
+    .btn:hover { transform:none; }
+  }
+</style>
+<noscript><style>.rv{opacity:1;transform:none;}</style></noscript>
+</head>
+<body>
+
+<div id="pbar" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="/build/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="19" height="19" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-hidden="true">
+          <g fill="#15171c">
+            <rect x="1" y="1" width="2" height="2"/><rect x="3" y="1" width="2" height="2"/>
+            <rect x="5" y="1" width="2" height="2"/><rect x="1" y="3" width="2" height="2"/>
+            <rect x="7" y="3" width="2" height="2"/><rect x="1" y="5" width="2" height="2"/>
+            <rect x="3" y="5" width="2" height="2"/><rect x="5" y="5" width="2" height="2"/>
+            <rect x="1" y="7" width="2" height="2"/><rect x="7" y="7" width="2" height="2"/>
+          </g>
+          <rect x="7" y="1" width="2" height="2" fill="#ff4a1c"/>
+        </svg>
+      </span>
+      Build with Jose
+    </a>
+    <a class="top-cta" href="/build/#price">Join a session</a>
+  </div>
+</header>
+
+<main>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow">The System</span>
+    <h1>Five places people<br>get stuck. And what<br>is <em>actually</em> happening.</h1>
+    <p class="lede">This is the whole thing, walked through. If you only read this page and never buy anything, you will still know more about why your search is not working than you did ten minutes ago.</p>
+  </div>
+</div>
+
+<section class="pain">
+  <div class="wrap">
+    <svg class="pain-mascot" viewBox="0 0 80 56" aria-hidden="true">
+      <circle cx="26" cy="34" r="15" fill="#f6f3ee" stroke="#15171c" stroke-width="2.6"/>
+      <path d="M18 31q3.2-2.6 6.4 0M27.6 31q3.2-2.6 6.4 0" fill="none" stroke="#15171c" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M22 42q4-3 8 0" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+      <rect x="48" y="8" width="28" height="20" rx="5" fill="none" stroke="#ff4a1c" stroke-width="2.6"/>
+      <path d="M52 28l.8-5.4 4.8 1z" fill="none" stroke="#ff4a1c" stroke-width="2.6" stroke-linejoin="round"/>
+      <circle cx="56" cy="18" r="1.9" fill="#ff4a1c"/><circle cx="62" cy="18" r="1.9" fill="#ff4a1c"/><circle cx="68" cy="18" r="1.9" fill="#ff4a1c"/>
+    </svg>
+    <h2>Two hundred applications.<br><b>Two replies.</b></h2>
+    <p>If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated, and translation is a fixable problem. Here is where it breaks, in order.</p>
+  </div>
+</section>
+
+<section class="part" id="aim">
+  <div class="wrap">
+    <div class="part-head rv">
+      <span class="numeral" aria-hidden="true">1</span>
+      <div><span class="label">Aim</span><h2>You are applying to everything, and it is making every application worse.</h2></div>
+    </div>
+    <div class="col">
+      <div class="stuck rv">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="22" cy="24" r="15" fill="#fff" stroke="#15171c" stroke-width="2.4"/>
+          <path d="M16 22q2.5-2 5 0M25 22q2.5-2 5 0" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M18 31q4-2.5 8 0" fill="none" stroke="#15171c" stroke-width="2.1" stroke-linecap="round"/>
+          <path d="M36 12v10M36 26v2" stroke="#ff4a1c" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <q>I apply to everything I can find. Forty this month. Nothing sticks.</q>
+          <span class="who">Where most people start</span>
+        </div>
+      </div>
+
+      <p>Applying widely feels like effort. It is usually avoidance of a harder decision: choosing. And it quietly costs you twice, because forty generic applications are worse than eight specific ones, not better.</p>
+      <p>From my side of the table, a generic application is obvious in about ten seconds. It says nothing about us. If you cannot say why this company, I cannot argue for you in a hiring meeting, even if I want to.</p>
+
+      <div class="move">
+        <b>The move</b>
+        <p>Stop asking what jobs exist. Ask what fits: your real expertise, your real interests, and where the market actually is. The output is a short list you can hold in your head, with a written reason beside every name.</p>
+      </div>
+
+      <div class="after">
+        <b>What changes</b>
+        <p>Eight companies you can talk about instead of forty you cannot. Every application after this gets better, because they all start from the same clear answer to why you and why them.</p>
+      </div>
+
+      <p class="kitline">You build: your targeting system &middot; <a href="/build/kits/">targeting-kit</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="part dark" id="get-found">
+  <div class="wrap">
+    <div class="part-head rv">
+      <span class="numeral" aria-hidden="true">2</span>
+      <div><span class="label">Get Found</span><h2>They looked you up. There was nothing there.</h2></div>
+    </div>
+    <div class="col">
+      <div class="stuck rv">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="22" cy="24" r="15" fill="#f6f3ee" stroke="#15171c" stroke-width="2.4"/>
+          <ellipse cx="17" cy="22.5" rx="1.8" ry="2.4" fill="#15171c"/>
+          <ellipse cx="27" cy="22.5" rx="1.8" ry="2.4" fill="#15171c"/>
+          <path d="M18 31q4-2 8 0" fill="none" stroke="#15171c" stroke-width="2.1" stroke-linecap="round"/>
+          <path d="M34 14a8 8 0 1 0 8 8" fill="none" stroke="#ff4a1c" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <q>Nobody knows I exist. I am invisible here.</q>
+          <span class="who">The quietest part of the problem</span>
+        </div>
+      </div>
+
+      <p>Here is what actually happens when your application does well. Somebody types your name into a search box. What they find decides whether you are a person or a PDF.</p>
+      <p>Most people hear this and think it means self promotion, which they hate, so they do nothing. That is the wrong read. You are not performing expertise. You are keeping a public notebook of work you are doing anyway.</p>
+
+      <div class="move">
+        <b>The move</b>
+        <p>Document the journey instead of promoting yourself. What you built, what you learned, what you got wrong. Pick one lane and stay in it. Comment properly on other people's work before you post anything of your own.</p>
+      </div>
+
+      <div class="after">
+        <b>What changes</b>
+        <p>Someone searches your name and finds a person who is visibly doing the work. Over months, the direction reverses: instead of only you reaching out, some of them start reaching you.</p>
+      </div>
+
+      <p class="kitline">You build: your presence machine &middot; <a href="/build/kits/">voice-and-tone</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="get-answered">
+  <div class="wrap">
+    <div class="part-head rv">
+      <span class="numeral" aria-hidden="true">3</span>
+      <div><span class="label">Get Answered</span><h2>Your experience is not worth less here. It is just untranslated.</h2></div>
+    </div>
+    <div class="col">
+      <div class="stuck rv">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="6" y="8" width="24" height="32" rx="2" fill="#fff" stroke="#15171c" stroke-width="2.4"/>
+          <path d="M12 17h12M12 23h12M12 29h7" stroke="#15171c" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="36" cy="32" r="8" fill="none" stroke="#ff4a1c" stroke-width="2.6"/>
+          <path d="M33 32h6" stroke="#ff4a1c" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <q>I get no reply. Not even a no. Just silence.</q>
+          <span class="who">The most common message I get</span>
+        </div>
+      </div>
+
+      <p>In most of the world it is normal, and polite, to describe your job by its responsibilities and to give the team credit. Here, that same modesty reads as vague. And vague loses, because the reader cannot tell what you actually did.</p>
+      <p>This is not about claiming more than you did. It is about naming exactly what was yours.</p>
+
+      <div class="xl rv">
+        <div class="xl-row"><span class="xl-k">Before</span><p class="xl-b">Responsible for management of digital banking products for 8 years</p></div>
+        <div class="xl-row"><span class="xl-k on">After</span><p class="xl-a">Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.</p></div>
+      </div>
+
+      <div class="move">
+        <b>The move</b>
+        <p>Translate every line from duty into outcome. Say what you decided, not what you were assigned. Carry your own scale, because a recruiter here may not know your last employer is huge at home. Keep your title and add the scope.</p>
+      </div>
+
+      <div class="after">
+        <b>What changes</b>
+        <p>The same eight years, read properly. Replies instead of silence, from the same record you already had.</p>
+      </div>
+
+      <p class="kitline">You build: your application engine &middot; <a href="/build/kits/">resume-formats</a>, target-employer</p>
+    </div>
+  </div>
+</section>
+
+<section class="part dark" id="connect">
+  <div class="wrap">
+    <div class="part-head rv">
+      <span class="numeral" aria-hidden="true">4</span>
+      <div><span class="label">Connect</span><h2>Most people only reach out when they need something. That is exactly why it does not work.</h2></div>
+    </div>
+    <div class="col">
+      <div class="stuck rv">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="15" cy="20" r="9" fill="#f6f3ee" stroke="#15171c" stroke-width="2.3"/>
+          <ellipse cx="12" cy="19" rx="1.4" ry="1.9" fill="#15171c"/><ellipse cx="18" cy="19" rx="1.4" ry="1.9" fill="#15171c"/>
+          <path d="M12.5 24q2.5 2 5 0" fill="none" stroke="#15171c" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="34" cy="20" r="9" fill="none" stroke="#ff4a1c" stroke-width="2.3" stroke-dasharray="4 4"/>
+          <path d="M20 34h9M33 34h9" stroke="#ff4a1c" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <q>I do not know anyone here. I have no network.</q>
+          <span class="who">Said by almost everyone who moves</span>
+        </div>
+      </div>
+
+      <p>A referred candidate does not wait in the same queue. That is not unfair, it is just how risk works: someone is vouching, so the cost of interviewing you drops.</p>
+      <p>The reason networking fails for most people is not shyness. It is that they only appear when they need something. Nobody wants to be the person you contact only when you want a job, and everyone can feel it.</p>
+
+      <div class="move">
+        <b>The move</b>
+        <p>Remember people properly. What they care about, what they are working on, what you last talked about. Then be useful before you need anything, on purpose, on a schedule. No tricks, no templates, no automated sending.</p>
+      </div>
+
+      <div class="after">
+        <b>What changes</b>
+        <p>In six months you have twenty people who know what you are working on, because you have been genuinely interested in what they are working on. When you finally need something, you are not a stranger.</p>
+      </div>
+
+      <p class="kitline">You build: your warm circle &middot; <a href="/build/kits/">warm-circle</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="interviews">
+  <div class="wrap">
+    <div class="part-head rv">
+      <span class="numeral" aria-hidden="true">5</span>
+      <div><span class="label">Interviews</span><h2>The interviewer is your user. Each round wants a different thing.</h2></div>
+    </div>
+    <div class="col">
+      <div class="stuck rv">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="16" cy="20" r="9" fill="#fff" stroke="#15171c" stroke-width="2.3"/>
+          <ellipse cx="13" cy="19" rx="1.4" ry="1.9" fill="#15171c"/><ellipse cx="19" cy="19" rx="1.4" ry="1.9" fill="#15171c"/>
+          <path d="M13.5 24q2.5 2 5 0" fill="none" stroke="#15171c" stroke-width="1.8" stroke-linecap="round"/>
+          <rect x="28" y="10" width="16" height="12" rx="3" fill="#ff4a1c" stroke="#15171c" stroke-width="2.2"/>
+          <path d="M31 22l.6-4 3.4.7z" fill="#ff4a1c" stroke="#15171c" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M10 34h28" stroke="#15171c" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="3 5"/>
+        </svg>
+        <div>
+          <q>I get to the interview and then it just ends.</q>
+          <span class="who">The last mile, where good people lose</span>
+        </div>
+      </div>
+
+      <p>There is no such thing as "the interview". There are four or five different rooms, and each one is judging something different. Most people tell the same story the same way in all of them, and lose rounds they should have won.</p>
+      <p>The HR screen wants to know you are real and roughly affordable. The hiring manager wants to know you can solve the problem they live with. The team wants to know if they want to sit beside you. The panel wants to see how you think under pressure. Leadership wants to know if you see past your own task.</p>
+
+      <div class="move">
+        <b>The move</b>
+        <p>Read the room before the room. Find out who you are meeting and what they are judged on, then choose which of your stories is actually for them. And when the salary question comes early, do not name your number first.</p>
+      </div>
+
+      <div class="after">
+        <b>What changes</b>
+        <p>You walk into each round knowing what that person needs to hear, with a story chosen for them and a question ready to ask back. And when the offer comes, you know the first number is rarely the last.</p>
+      </div>
+
+      <p class="kitline">You build: your interviewer profiler &middot; <a href="/build/kits/">interviewer-profiler</a>, offer-coach</p>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2>You do not just learn this. You build it.</h2>
+    <p>Every part above is a thing you make and keep, starting from a kit I built first. Ninety minutes online to try the first one, or one Saturday in Toronto to build all five.</p>
+    <div class="acts">
+      <a class="btn" href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">Nov 7 in Toronto</a>
+      <a class="btn ghost" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Try the intro, $25</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Build with Jose &middot; Made in El Salvador. Built in Canada.</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('in'); }); return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  (function () {
+    var bar = document.getElementById('pbar');
+    function paint() {
+      var max = document.documentElement.scrollHeight - innerHeight;
+      if (bar && max > 0) bar.style.width = (scrollY / max * 100) + '%';
+    }
+    addEventListener('scroll', paint, { passive: true });
+    paint();
+  })();
+</script>
+
+</body>
+</html>
