@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Kits · Build with Jose</title>
+<meta name="description" content="The kits from Build with Jose. What each one does, how to install it, and what to do if you have never used a terminal.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11' shape-rendering='crispEdges'%3E%3Cg fill='%2315171c'%3E%3Crect x='1' y='1' width='2' height='2'/%3E%3Crect x='3' y='1' width='2' height='2'/%3E%3Crect x='5' y='1' width='2' height='2'/%3E%3Crect x='1' y='3' width='2' height='2'/%3E%3Crect x='7' y='3' width='2' height='2'/%3E%3Crect x='1' y='5' width='2' height='2'/%3E%3Crect x='3' y='5' width='2' height='2'/%3E%3Crect x='5' y='5' width='2' height='2'/%3E%3Crect x='1' y='7' width='2' height='2'/%3E%3Crect x='7' y='7' width='2' height='2'/%3E%3C/g%3E%3Crect x='7' y='1' width='2' height='2' fill='%23ff4a1c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700;7..72,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --surface:#fcf9f6; --surface-low:#f6f3f0; --ink:#15171c; --ink-soft:#3d3a36;
+    --ink-mute:#6c655e; --ink-10:rgba(21,23,28,.10); --orange:#ff4a1c; --orange-deep:#d6310a;
+    --orange-soft:#ffe4dc; --paper:#fff; --char:#1c1c1a;
+    --serif:"Literata",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --max:820px;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--surface); color:var(--ink); font-family:var(--sans);
+         font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  ::selection { background:var(--orange); color:#fff; }
+  a:focus-visible, button:focus-visible { outline:3px solid var(--orange); outline-offset:3px; }
+  .wrap { max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+  header.top { border-bottom:1px solid var(--ink-10); background:var(--surface);
+               position:sticky; top:0; z-index:20; }
+  .top-row { display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px; }
+  .brand { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-weight:700;
+           font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
+  .brand-mark { width:32px; height:32px; display:grid; place-items:center;
+                border:1.5px solid var(--ink); background:var(--surface); flex:none; }
+  .top-row .back { font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+                   text-transform:uppercase; color:var(--ink-mute); text-decoration:none; }
+  .top-row .back:hover { color:var(--orange); }
+
+  .hero { padding:52px 0 34px; }
+  .eyebrow { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px;
+             font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-deep);
+             margin-bottom:14px; }
+  .eyebrow::before { content:""; width:7px; height:7px; background:currentColor; }
+  h1 { font-family:var(--serif); font-weight:800; font-size:clamp(32px,6vw,50px); line-height:1.05;
+       letter-spacing:-.02em; margin:0 0 16px; text-wrap:balance; }
+  .lede { font-size:17px; color:var(--ink-soft); margin:0 0 8px; max-width:60ch; }
+
+  section { padding:34px 0; border-top:1px solid var(--ink-10); }
+  h2 { font-family:var(--serif); font-weight:700; font-size:clamp(23px,3.6vw,30px); line-height:1.2;
+       letter-spacing:-.01em; margin:0 0 14px; text-wrap:balance; }
+  h3 { font-family:var(--serif); font-weight:700; font-size:19px; margin:26px 0 8px; }
+  p { margin:0 0 14px; }
+  p, li { color:var(--ink-soft); }
+  b, strong { color:var(--ink); }
+
+  .note { background:var(--orange-soft); border:1.5px solid var(--ink); box-shadow:5px 5px 0 var(--ink);
+          padding:18px 20px; margin:22px 0; }
+  .note p:last-child { margin:0; }
+  .note .k { display:block; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+             text-transform:uppercase; color:var(--orange-deep); margin-bottom:8px; }
+
+  .kit { border-top:1.5px solid var(--ink); padding:22px 0 24px; }
+  .kit-head { display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  .kit h3 { margin:0; font-size:21px; }
+  .kit .part { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.14em;
+               text-transform:uppercase; color:var(--orange-deep); }
+  .kit p { margin:10px 0 14px; font-size:15px; }
+  .status { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:700;
+            letter-spacing:.12em; text-transform:uppercase; padding:4px 9px; border:1.5px solid var(--ink); }
+  .status.proven { background:var(--orange); color:#fff; border-color:var(--orange); }
+  .status.draft { background:transparent; color:var(--ink-mute); border-color:var(--ink-10); }
+  .status.soon { background:var(--surface-low); color:var(--ink-mute); border-color:var(--ink-10); }
+  .kit-acts { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:4px; }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:11px 17px; background:var(--orange);
+         color:#fff; border:1.5px solid var(--ink); font-family:var(--mono); font-size:11px; font-weight:700;
+         letter-spacing:.12em; text-transform:uppercase; text-decoration:none; cursor:pointer;
+         box-shadow:3px 3px 0 var(--ink); transition:transform .12s, box-shadow .12s; }
+  .btn:hover { transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
+  .btn.ghost { background:transparent; color:var(--ink); }
+
+  pre { background:var(--char); color:#f6f3ee; padding:16px 18px; overflow-x:auto; margin:0;
+        font-family:var(--mono); font-size:13.5px; line-height:1.6; border:1.5px solid var(--ink); }
+  code { font-family:var(--mono); font-size:.92em; background:var(--surface-low); padding:2px 5px; }
+  pre code { background:none; padding:0; color:inherit; font-size:inherit; }
+  .cmd { position:relative; margin:0 0 16px; }
+  .copy { position:absolute; top:8px; right:8px; font-family:var(--mono); font-size:9.5px; font-weight:700;
+          letter-spacing:.12em; text-transform:uppercase; background:var(--orange); color:#fff;
+          border:0; padding:7px 11px; cursor:pointer; }
+  .copy:hover { background:#ff5f36; }
+  .copy.done { background:#2f8a4f; }
+
+  ol, ul { padding-left:22px; margin:0 0 16px; }
+  li { margin-bottom:9px; }
+  table { width:100%; border-collapse:collapse; margin:0 0 18px; font-size:14.5px; }
+  th, td { text-align:left; padding:10px 12px 10px 0; border-bottom:1px solid var(--ink-10); vertical-align:top; }
+  th { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.12em;
+       text-transform:uppercase; color:var(--ink-mute); }
+  td code { white-space:nowrap; }
+
+  footer { border-top:1px solid var(--ink-10); padding:30px 0 44px; margin-top:20px; }
+  footer p { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+             color:var(--ink-mute); margin:0; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="/build/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-hidden="true">
+          <g fill="#15171c">
+            <rect x="1" y="1" width="2" height="2"/><rect x="3" y="1" width="2" height="2"/>
+            <rect x="5" y="1" width="2" height="2"/><rect x="1" y="3" width="2" height="2"/>
+            <rect x="7" y="3" width="2" height="2"/><rect x="1" y="5" width="2" height="2"/>
+            <rect x="3" y="5" width="2" height="2"/><rect x="5" y="5" width="2" height="2"/>
+            <rect x="1" y="7" width="2" height="2"/><rect x="7" y="7" width="2" height="2"/>
+          </g>
+          <rect x="7" y="1" width="2" height="2" fill="#ff4a1c"/>
+        </svg>
+      </span>
+      Build with Jose
+    </a>
+    <a class="back" href="/build/">Back to the course</a>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">The Kits</span>
+    <h1>You never start from a blank screen.</h1>
+    <p class="lede">A kit is a small file that teaches Claude how to do one job well. You put the file on your computer, and from then on Claude knows that job. Every kit here was built first, then handed to you. They are yours to keep, including future versions.</p>
+  </div>
+
+  <section>
+    <div class="note">
+      <span class="k">Read this before you download</span>
+      <p>Kits run in <b>Claude Code</b>, which is a version of Claude that works on your computer. To use them you need Claude Code installed and a paid Claude plan, about <b>$20 USD a month</b>.</p>
+      <p>I am telling you before you download rather than after. The kits are yours either way, and they will still be here whenever you decide to set that up. If you came from the online intro, the exercise you did that night needs none of this.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where each kit fits</h2>
+    <p>The system has five parts. Every kit belongs to one of them, plus one bonus kit for the offer conversation weeks later.</p>
+    <table>
+      <tr><th>Part</th><th>What it does for you</th></tr>
+      <tr><td><b>Aim</b></td><td>Find the roles that actually fit</td></tr>
+      <tr><td><b>Get Found</b></td><td>Document your journey in public so the right people find you</td></tr>
+      <tr><td><b>Get Answered</b></td><td>Your resume and portfolio, translated into what North American hiring teams recognise</td></tr>
+      <tr><td><b>Connect</b></td><td>Relationships, not transactions</td></tr>
+      <tr><td><b>Interviews</b></td><td>The interviewer is your user. Each round wants a different thing</td></tr>
+    </table>
+
+    <div class="note" style="background:var(--surface-low); box-shadow:5px 5px 0 var(--ink-10);">
+      <span class="k" style="color:var(--ink-mute);">Status, honestly</span>
+      <p style="margin:0;">Only one kit has been run all the way through against a real resume and a real job posting. The rest are written and not yet tested. We say so here rather than let you find out. Nothing gets handed to a room until it has been run.</p>
+    </div>
+  </section>
+
+  <section id="kits">
+    <h2>The kits</h2>
+
+    <div class="kit">
+      <div class="kit-head"><h3>target-employer</h3><span class="part">Aim &amp; Get Answered</span></div>
+      <p>Takes one job posting and your record, and builds a web page that pitches you for that one role, designed in that company's own style. Not a template swap. One company, one role, one page. This is the live demo in the intro session.</p>
+      <p style="font-size:14px;">Two finished examples: <a href="/affirm">joseplatero.com/affirm</a> and <a href="/thomsonreuters">joseplatero.com/thomsonreuters</a>. Read those before you build one. They teach more than the instructions do.</p>
+      <div class="kit-acts">
+        <span class="status proven">Proven</span>
+        <a class="btn" href="files/target-employer.md" download>Download SKILL.md</a>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-head"><h3>targeting-kit</h3><span class="part">Aim</span></div>
+      <p>Takes what you are actually good at, what you actually care about, and what the market is actually doing, and gives you a short ranked list of companies and role titles worth your energy. With a written reason for each one, so you can say out loud why you are applying there.</p>
+      <p style="font-size:14px;">This is the longer version of the intro session exercise, for when you have real job postings in front of you. Open the file and fill in the four bracketed fields at the top before your first run.</p>
+      <div class="kit-acts">
+        <span class="status draft">Drafted, not yet tested</span>
+        <a class="btn ghost" href="files/targeting-kit.md" download>Download SKILL.md</a>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-head"><h3>voice-and-tone</h3><span class="part">Get Found</span></div>
+      <p>Reads writing you have already done, learns how you actually sound, then drafts LinkedIn posts and newsletter issues in your voice instead of in robot voice. Includes a step where you throw away drafts that do not sound like you, and the comment first LinkedIn approach. Documenting your journey, never promoting yourself.</p>
+      <div class="kit-acts">
+        <span class="status draft">Drafted, not yet tested</span>
+        <a class="btn ghost" href="files/voice-and-tone.md" download>Download SKILL.md</a>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-head"><h3>warm-circle</h3><span class="part">Connect</span></div>
+      <p>Remembers people properly: who they are, what they care about, what they are working on, what you last talked about. Then, once a week when you sit down and ask, it tells you who you have been quiet with and drafts a message you rewrite in your own words and send yourself. Nothing pings you and nothing sends for you, on purpose. Most people only reach out when they need something. That is exactly why it does not work.</p>
+      <div class="kit-acts">
+        <span class="status draft">Drafted, not yet tested</span>
+        <a class="btn ghost" href="files/warm-circle.md" download>Download SKILL.md</a>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-head"><h3>interviewer-profiler</h3><span class="part">Interviews</span></div>
+      <p>You give it the job description and who is interviewing you. It gives you a read on that person: what they are looking for, how they judge, which of your stories to tell, what they will likely ask, and what to ask back. A round is one conversation in a hiring process, and there are usually four or five. Each one wants something different.</p>
+      <div class="kit-acts">
+        <span class="status draft">Drafted, not yet tested</span>
+        <a class="btn ghost" href="files/interviewer-profiler.md" download>Download SKILL.md</a>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-head"><h3>offer-coach</h3><span class="part">Bonus, after the offer</span></div>
+      <p>For when the offer arrives, weeks after the course. Reads the whole package, suggests an anchor and a counter, drafts your reply, and rehearses the call with you. An anchor is the first number said out loud, which sets the middle of everything after it. The first number is rarely the last.</p>
+      <p style="font-size:14px;">It prepares and rehearses, and that is the whole job. It is never legal, tax, or financial advice, and it will not tell you what the market pays. You bring the research. For a contract question, pay a lawyer for an hour.</p>
+      <div class="kit-acts">
+        <span class="status draft">Drafted, not yet tested</span>
+        <a class="btn ghost" href="files/offer-coach.md" download>Download SKILL.md</a>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-head"><h3>Second brain starter &amp; mentions ledger</h3><span class="part">Get Found</span></div>
+      <p>These are folders and files you make, not kits you install. The second brain is one folder that holds everything: people, projects, writing, proof. The mentions ledger is one file where you write down every mention, quote, photo and screenshot of your work as it happens. Proof only adds up if you catch it. Most people lose theirs.</p>
+      <div class="kit-acts"><span class="status soon">Built by hand in the room</span></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2>How to install a kit</h2>
+    <p>A kit is a folder with a <code>SKILL.md</code> file inside it. Claude Code looks in one place for these:</p>
+    <div class="cmd">
+      <button class="copy" data-copy=".claude/skills/&lt;kit-name&gt;/SKILL.md">Copy</button>
+      <pre><code>.claude/skills/&lt;kit-name&gt;/SKILL.md</code></pre>
+    </div>
+    <p>So the warm circle kit ends up at <code>.claude/skills/warm-circle/SKILL.md</code>.</p>
+
+    <h3>Steps</h3>
+    <ol>
+      <li>Open Terminal. On a Mac, press Command and Space, type <code>terminal</code>, press Enter.</li>
+      <li>Go to the folder where you keep your job search work:
+        <div class="cmd" style="margin-top:10px;">
+          <button class="copy" data-copy="cd ~/job-search">Copy</button>
+          <pre><code>cd ~/job-search</code></pre>
+        </div>
+      </li>
+      <li>Make the folders for the kit:
+        <div class="cmd" style="margin-top:10px;">
+          <button class="copy" data-copy="mkdir -p .claude/skills/warm-circle">Copy</button>
+          <pre><code>mkdir -p .claude/skills/warm-circle</code></pre>
+        </div>
+      </li>
+      <li>Put the <code>SKILL.md</code> file inside that new folder. You can drag it there in Finder. Press Command, Shift and the full stop key in Finder to see hidden folders like <code>.claude</code>.</li>
+      <li>Start Claude Code by typing <code>claude</code> and pressing Enter.</li>
+      <li>Check it worked. Type <code>/skills</code> and press Enter. You should see the kit in the list.</li>
+    </ol>
+
+    <div class="note">
+      <span class="k">The thing that trips everyone up</span>
+      <p style="margin:0;">Kits installed in <code>.claude/skills/</code> only work inside that folder. If you want a kit everywhere, put it in <code>~/.claude/skills/</code> instead, with the <code>~</code> at the front. That is your home folder, and Claude reads it no matter where you are working.</p>
+    </div>
+
+    <p><b>To use a kit,</b> just describe what you want in normal words: "add Priya to my warm circle" or "draft a LinkedIn post about the booking flow". Claude picks the right kit on its own. You do not need to remember a command.</p>
+  </section>
+
+  <section id="terminal">
+    <h2>If you have never used a terminal</h2>
+    <p>That is completely normal. Most people in this course have not.</p>
+    <p>The Terminal is a window where you type instructions instead of clicking. It looks unfriendly. It is not dangerous when you are only making folders and running Claude.</p>
+    <ol>
+      <li><b>You cannot break your computer with the commands on this page.</b> <code>cd</code> moves you into a folder. <code>mkdir</code> makes a folder. <code>ls</code> lists what is there. None of them delete anything.</li>
+      <li><b>Claude can talk you through it.</b> Once Claude Code is running, type "I do not understand what folder I am in, help me" in plain English. It will explain and it will not judge you.</li>
+      <li><b>Copy and paste.</b> You do not need to type commands by hand. Use the copy buttons on this page. In Terminal, paste with Command and V.</li>
+    </ol>
+
+    <table>
+      <tr><th>Command</th><th>What it does</th></tr>
+      <tr><td><code>pwd</code></td><td>Tells you which folder you are currently in</td></tr>
+      <tr><td><code>ls</code></td><td>Lists what is in this folder</td></tr>
+      <tr><td><code>ls -a</code></td><td>Lists everything, including hidden folders like <code>.claude</code></td></tr>
+      <tr><td><code>cd ~</code></td><td>Go back to your home folder</td></tr>
+      <tr><td><code>mkdir -p a/b/c</code></td><td>Make folders, including any missing ones in between</td></tr>
+      <tr><td><code>claude</code></td><td>Start Claude Code</td></tr>
+    </table>
+
+    <div class="note">
+      <span class="k">Before the full day</span>
+      <p>Please install Claude Code and check it runs. If thirty people install it at 10am, the morning is gone. There is a setup email and a short video the week before, plus an optional setup call. Use them. If something fails, tell me before the day, not on it.</p>
+      <p style="margin:0;">If your laptop breaks on the day, there are paper worksheets for every block. You will not sit and watch.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What kits do not do</h2>
+    <p>A kit is instructions, not software. It cannot remember anything between sessions unless you keep the files. It cannot browse the web unless you ask it to. It cannot send an email, message anyone, or do anything while you are not there.</p>
+    <p>Claude also gets facts wrong, confidently. Every kit here tells you where to check its work yourself. Do that part. It is the difference between a system and a mess.</p>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Build with Jose &middot; Made in El Salvador. Built in Canada.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var done = function () {
+        var old = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {});
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

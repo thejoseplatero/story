@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tonight's session · Build with Jose</title>
+<meta name="description" content="The live page for the Build with Jose online intro. The exercise, the prompts, and what to do after.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11' shape-rendering='crispEdges'%3E%3Cg fill='%2315171c'%3E%3Crect x='1' y='1' width='2' height='2'/%3E%3Crect x='3' y='1' width='2' height='2'/%3E%3Crect x='5' y='1' width='2' height='2'/%3E%3Crect x='1' y='3' width='2' height='2'/%3E%3Crect x='7' y='3' width='2' height='2'/%3E%3Crect x='1' y='5' width='2' height='2'/%3E%3Crect x='3' y='5' width='2' height='2'/%3E%3Crect x='5' y='5' width='2' height='2'/%3E%3Crect x='1' y='7' width='2' height='2'/%3E%3Crect x='7' y='7' width='2' height='2'/%3E%3C/g%3E%3Crect x='7' y='1' width='2' height='2' fill='%23ff4a1c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700;7..72,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --surface:#fcf9f6; --surface-low:#f6f3f0; --ink:#15171c; --ink-soft:#3d3a36;
+    --ink-mute:#6c655e; --ink-10:rgba(21,23,28,.10); --orange:#ff4a1c; --orange-deep:#d6310a;
+    --orange-soft:#ffe4dc; --char:#1c1c1a;
+    --serif:"Literata",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace; --max:820px;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--surface); color:var(--ink); font-family:var(--sans);
+         font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  ::selection { background:var(--orange); color:#fff; }
+  a:focus-visible, button:focus-visible { outline:3px solid var(--orange); outline-offset:3px; }
+  .wrap { max-width:var(--max); margin:0 auto; padding:0 22px; }
+
+  header.top { border-bottom:1px solid var(--ink-10); background:var(--surface);
+               position:sticky; top:0; z-index:20; }
+  .top-row { display:flex; align-items:center; justify-content:space-between; height:60px; gap:14px; }
+  .brand { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-weight:700;
+           font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; }
+  .brand-mark { width:30px; height:30px; display:grid; place-items:center;
+                border:1.5px solid var(--ink); flex:none; }
+  .jump { display:flex; gap:14px; }
+  .jump a { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+            color:var(--ink-mute); text-decoration:none; }
+  .jump a:hover { color:var(--orange); }
+  @media (max-width:620px) { .jump { display:none; } }
+
+  .hero { padding:46px 0 30px; }
+  .eyebrow { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px;
+             font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-deep);
+             margin-bottom:14px; }
+  .eyebrow::before { content:""; width:7px; height:7px; background:currentColor; }
+  h1 { font-family:var(--serif); font-weight:800; font-size:clamp(32px,6vw,50px); line-height:1.05;
+       letter-spacing:-.02em; margin:0 0 16px; text-wrap:balance; }
+  .lede { font-size:17px; color:var(--ink-soft); margin:0 0 6px; max-width:60ch; }
+
+  section { padding:32px 0; border-top:1px solid var(--ink-10); }
+  h2 { font-family:var(--serif); font-weight:700; font-size:clamp(23px,3.6vw,30px); line-height:1.2;
+       letter-spacing:-.01em; margin:0 0 6px; text-wrap:balance; }
+  h3 { font-family:var(--serif); font-weight:700; font-size:18px; margin:24px 0 8px; }
+  p { margin:0 0 14px; } p, li { color:var(--ink-soft); } b, strong { color:var(--ink); }
+
+  .round-head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:4px; }
+  .mins { font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.14em;
+          text-transform:uppercase; color:#fff; background:var(--orange); padding:5px 10px; }
+  .sub { font-size:15px; color:var(--ink-mute); margin:0 0 18px; }
+
+  .note { background:var(--orange-soft); border:1.5px solid var(--ink); box-shadow:5px 5px 0 var(--ink);
+          padding:18px 20px; margin:22px 0; }
+  .note p:last-child { margin:0; }
+  .note .k { display:block; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.16em;
+             text-transform:uppercase; color:var(--orange-deep); margin-bottom:8px; }
+  .note.quiet { background:var(--surface-low); box-shadow:5px 5px 0 var(--ink-10); border-color:var(--ink-10); }
+  .note.quiet .k { color:var(--ink-mute); }
+
+  .cmd { position:relative; margin:0 0 18px; }
+  pre { background:var(--char); color:#f6f3ee; padding:44px 18px 18px; overflow-x:auto; margin:0;
+        font-family:var(--mono); font-size:13px; line-height:1.65; border:1.5px solid var(--ink);
+        white-space:pre-wrap; word-break:break-word; }
+  code { font-family:var(--mono); font-size:.92em; background:var(--surface-low); padding:2px 5px; }
+  pre code { background:none; padding:0; color:inherit; font-size:inherit; }
+  .copy { position:absolute; top:9px; right:9px; font-family:var(--mono); font-size:10px; font-weight:700;
+          letter-spacing:.12em; text-transform:uppercase; background:var(--orange); color:#fff;
+          border:0; padding:9px 14px; cursor:pointer; min-height:36px; }
+  .copy:hover { background:#ff5f36; }
+  .copy.done { background:#2f8a4f; }
+
+  ol, ul { padding-left:22px; margin:0 0 16px; } li { margin-bottom:9px; }
+  .check { list-style:none; padding:0; }
+  .check li { padding-left:26px; position:relative; }
+  .check li::before { content:""; position:absolute; left:0; top:8px; width:9px; height:9px;
+                      background:var(--orange); }
+
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:13px 19px; background:var(--orange);
+         color:#fff; border:1.5px solid var(--ink); font-family:var(--mono); font-size:11px; font-weight:700;
+         letter-spacing:.12em; text-transform:uppercase; text-decoration:none;
+         box-shadow:4px 4px 0 var(--ink); transition:transform .12s, box-shadow .12s; }
+  .btn:hover { transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+  .btn.ghost { background:transparent; color:var(--ink); }
+  .acts { display:flex; gap:12px; flex-wrap:wrap; margin:18px 0 0; }
+
+  details { border-top:1px solid var(--ink-10); padding:14px 0; }
+  summary { cursor:pointer; font-family:var(--serif); font-weight:700; font-size:17px; list-style:none; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; float:right; color:var(--orange); font-family:var(--mono); }
+  details[open] summary::after { content:"–"; }
+  details .body { padding-top:12px; }
+
+  footer { border-top:1px solid var(--ink-10); padding:28px 0 44px; margin-top:16px; }
+  footer p { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+             color:var(--ink-mute); margin:0; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="/build/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="19" height="19" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-hidden="true">
+          <g fill="#15171c">
+            <rect x="1" y="1" width="2" height="2"/><rect x="3" y="1" width="2" height="2"/>
+            <rect x="5" y="1" width="2" height="2"/><rect x="1" y="3" width="2" height="2"/>
+            <rect x="7" y="3" width="2" height="2"/><rect x="1" y="5" width="2" height="2"/>
+            <rect x="3" y="5" width="2" height="2"/><rect x="5" y="5" width="2" height="2"/>
+            <rect x="1" y="7" width="2" height="2"/><rect x="7" y="7" width="2" height="2"/>
+          </g>
+          <rect x="7" y="1" width="2" height="2" fill="#ff4a1c"/>
+        </svg>
+      </span>
+      Build with Jose
+    </a>
+    <nav class="jump">
+      <a href="#r1">Round 1</a>
+      <a href="#r2">Round 2</a>
+      <a href="#r3">Round 3</a>
+      <a href="#paper">Paper</a>
+      <a href="#after">After</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">Tonight's session</span>
+    <h1>Your first target list.</h1>
+    <p class="lede">Keep this page open. Every prompt you need is here with a copy button, so you never have to type one out or wait for me to read it aloud. If you fall behind, everything is still here. Nothing on this page disappears after tonight.</p>
+  </div>
+
+  <section>
+    <div class="note">
+      <span class="k">Before you start</span>
+      <p><b>You need one thing: a Claude account.</b> Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> and make sure you can log in. A free account is enough for tonight. You do not need Claude Code and you do not need to pay for anything.</p>
+      <p style="margin:0;">Keep a blank document open too. At the end you will paste your list somewhere you can find it again.</p>
+    </div>
+    <p><b>How this works.</b> Three rounds, about 30 minutes. You paste a prompt, answer questions in normal words, then paste the next one. Do not skip ahead. Round 2 does not work if round 1 was rushed.</p>
+    <p><b>English does not need to be perfect.</b> The prompt tells Claude to keep everything in short, simple sentences. Answer however you would speak.</p>
+  </section>
+
+  <section id="r1">
+    <div class="round-head"><h2>Round 1. Tell Claude who you are</h2><span class="mins">8 min</span></div>
+    <p class="sub">Six questions, one at a time. Then a summary you check before anything else happens.</p>
+
+    <div class="cmd">
+      <button class="copy" data-target="p1">Copy prompt</button>
+      <pre><code id="p1">You are helping me build my first target list of companies to aim my job search at.
+I am a product builder who trained and worked outside North America, and I am
+looking for work in North America now. English may not be my first language, so
+keep your questions and answers in short, simple sentences.
+
+Work in three rounds. Do not skip ahead, and do not give me a list until round two.
+
+ROUND ONE. Ask me these six questions, one at a time, and wait for my answer
+before asking the next one. Do not comment on my answers, just ask the next question.
+
+1. What is your job title now or in your most recent job, and how many years have
+   you done that kind of work?
+2. Name one thing you built or shipped that you are genuinely proud of. One or
+   two sentences. What was it, and what happened because of it?
+3. What kind of product or industry do you actually find interesting? Not what
+   you think is safest. What you would read about on a weekend.
+4. What size of company do you want, and why: a startup under 50 people, a mid
+   size company, or a large company?
+5. Which city or region are you targeting, and are you open to fully remote?
+6. What is the one thing about your background you are most worried a North
+   American hiring team will not understand?
+
+After my six answers, write me a short summary of three things, and nothing else:
+- MY EXPERTISE: what I am actually good at, in plain words, not job titles
+- MY INTERESTS: the kind of work and product I want to be near
+- MY CONSTRAINTS: location, company size, and anything else that is fixed
+
+Show me that summary and ask me if it is right before you go on. If I say it is
+wrong, fix it and show me again.
+
+ROUND TWO comes after I confirm the summary. Wait for me.
+
+Rules for the whole conversation:
+- Simple English. Short sentences. No jargon unless you explain it right away.
+- Never invent facts about me. If you do not know something, ask.
+- Do not flatter me. I need this to be useful, not encouraging.
+- Immigration, visa and work permit questions are out of scope. Do not guess about
+  them. If it comes up, tell me to check with a real immigration professional.</code></pre>
+    </div>
+
+    <div class="note quiet">
+      <span class="k">Done looks like</span>
+      <p style="margin:0;">A three line summary that sounds like you, not like a job description. If EXPERTISE reads like your old job title, tell Claude it is wrong and make it try again. This is the part everything else is built on.</p>
+    </div>
+  </section>
+
+  <section id="r2">
+    <div class="round-head"><h2>Round 2. Get the list, then cut it</h2><span class="mins">9 min</span></div>
+    <p class="sub">Twelve companies. Then you throw most of them away, which is the actual work.</p>
+
+    <div class="cmd">
+      <button class="copy" data-target="p2">Copy prompt</button>
+      <pre><code id="p2">The summary is right. Go to ROUND TWO.
+
+Give me twelve companies to aim at, based on my expertise, my interests and my
+constraints. Real companies that exist right now, in my target region or hiring
+remotely into it.
+
+Give me a mix on purpose:
+- 4 obvious fits, where my background maps clearly onto what they do
+- 4 stretch fits, where I would be reaching but the reason is real
+- 4 companies I probably have not thought of, where my specific background is
+  unusually useful
+
+For each company give me exactly this, and nothing more:
+- Company name and one line on what they actually do
+- Which bucket it is in: obvious, stretch, or overlooked
+- WHY YOU: one sentence connecting my real experience to their real problem
+- One thing I should go and check for myself before I trust this
+
+Put it in a table. Keep every line short.
+
+Important: you may be wrong or out of date about any of these companies. Say so
+plainly at the top. I am going to verify every one of them myself.</code></pre>
+    </div>
+
+    <div class="note">
+      <span class="k">Now the real work</span>
+      <p>Cut twelve down to eight. Delete anything where the WHY YOU line does not sound true when you read it out loud. Delete anything you would be embarrassed to explain to a friend.</p>
+      <p style="margin:0;"><b>Claude gets company facts wrong.</b> It does not know who is hiring today. Every company on this list is a guess until you open their real website yourself. That is your homework this week, not tonight.</p>
+    </div>
+  </section>
+
+  <section id="r3">
+    <div class="round-head"><h2>Round 3. Your top three</h2><span class="mins">4 min</span></div>
+    <p class="sub">One sentence you could actually say to a human being.</p>
+
+    <div class="cmd">
+      <button class="copy" data-target="p3">Copy prompt</button>
+      <pre><code id="p3">Go to ROUND THREE.
+
+I am picking my top three from the list: [write the three names].
+
+For each one, help me write ONE line I could actually say to a person. The shape is:
+
+"I want to work at [company] because [something specific and true about them],
+and I would be useful there because [something specific and true about me]."
+
+Use only things I told you. Do not invent anything about me or about them.
+If you do not have enough from me to fill in a blank, ask me a question instead
+of guessing.
+
+Then give me the whole thing back as a clean markdown table I can save:
+company, bucket, why you, what to check, and my one line for the top three.</code></pre>
+    </div>
+
+    <div class="note quiet">
+      <span class="k">Save it</span>
+      <p style="margin:0;">Paste that final table somewhere you will find it again. That file is your target list. It is the first thing you built tonight and everything else in the system points back at it.</p>
+    </div>
+  </section>
+
+  <section id="paper">
+    <h2>No laptop, or the tool is not cooperating</h2>
+    <p class="sub">Same 30 minutes, same result. Write these on paper.</p>
+    <p><b>Round 1, 8 minutes.</b> Write your answers to the six questions above. Then write three headings and fill them in: MY EXPERTISE, MY INTERESTS, MY CONSTRAINTS.</p>
+    <p><b>Round 2, 9 minutes.</b> Draw three columns: obvious, stretch, overlooked. Write as many company names as you can think of under each, then stop and cut to eight total. Beside each survivor write one line: why you.</p>
+    <p><b>Round 3, 4 minutes.</b> Circle three. Write the one line for each, in this shape:</p>
+    <div class="note quiet">
+      <p style="margin:0; font-family:var(--serif); font-size:17px; font-style:italic; color:var(--ink);">"I want to work at ______ because ______, and I would be useful there because ______."</p>
+    </div>
+    <p style="margin:0;">That is the same exercise. The tool makes it faster and gives you companies you had not thought of. It does not do the deciding, and neither round 2 nor round 3 gets any easier because a machine is helping.</p>
+  </section>
+
+  <section id="after">
+    <h2>This week, about 20 minutes a day</h2>
+    <p class="sub">Tonight was a first draft. Here is what makes it real.</p>
+    <ul class="check">
+      <li><b>Cut your list to five.</b> Five real companies beats twenty maybes. A list you can hold in your head is a list you will actually use.</li>
+      <li><b>Check every one yourself.</b> Open their real website. Are they real as described, are they hiring, do they hire at your level? Delete anything that fails.</li>
+      <li><b>Find one human at each.</b> Not to ask them for anything. Just find out who does the work you want to do, and read what they have written or built.</li>
+    </ul>
+    <p>That third step is the whole of Connect, the fourth part of the system, and it is the one that changes searches.</p>
+
+    <div class="note">
+      <span class="k">The honest part</span>
+      <p>Tonight was one block of one part out of five. It is a real start and it is not a system yet. The five parts are Aim, Get Found, Get Answered, Connect, and Interviews. Tonight was Aim.</p>
+      <p style="margin:0;">I cannot promise you a job. What I can do is give you a system, and be honest that the job comes from running it, week after week, after the class ends.</p>
+    </div>
+
+    <div class="acts">
+      <a class="btn ghost" href="/build/kits/">Get the kits</a>
+      <a class="btn" href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">The full day, Nov 7</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Questions that come up</h2>
+    <details>
+      <summary>Claude gave me companies that do not exist</summary>
+      <div class="body"><p style="margin:0;">It does that. It is guessing from patterns, not looking anything up. Delete them and keep going. This is exactly why round 2 asks it to tell you what to verify, and why checking every company yourself is the homework.</p></div>
+    </details>
+    <details>
+      <summary>My summary in round 1 sounds generic</summary>
+      <div class="body"><p style="margin:0;">Tell it so, in those words: "this sounds generic, it could be anyone, use the specific things I told you." Then answer question 2 again with more detail about what actually happened because of the thing you built.</p></div>
+    </details>
+    <details>
+      <summary>I only got through round 1 tonight</summary>
+      <div class="body"><p style="margin:0;">That is fine and it is common. Round 1 is the part that matters most. Finish rounds 2 and 3 this week using this page. It does not go anywhere.</p></div>
+    </details>
+    <details>
+      <summary>Do I need to pay for Claude to do this?</summary>
+      <div class="body"><p style="margin:0;">Not for tonight. A free account is enough for the exercise. The kits are a different thing: they run in Claude Code and need a paid plan, about $20 USD a month. That is explained on the <a href="/build/kits/">kits page</a> before you download anything.</p></div>
+    </details>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Build with Jose &middot; Made in El Salvador. Built in Canada.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-target'));
+      if (!el) return;
+      var text = el.textContent;
+      var done = function () {
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = 'Copy prompt'; btn.classList.remove('done'); }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {});
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
