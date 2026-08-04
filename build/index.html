@@ -484,8 +484,22 @@
     box-shadow: 5px 5px 0 var(--ink);
   }
   .pillar:hover .num { color: var(--orange); }
-  .pillar .pixicon { transition: transform .18s ease; }
+  .pillar .pixicon { transition: transform .18s ease; transform-origin: 50% 60%; }
   .pillar:hover .pixicon { transform: translateY(-3px); }
+  .pixicon g { transform-origin: 50% 50%; }
+  .pillar:hover .ic-target { animation: icPulse 1s ease-in-out infinite; transform-origin: 79% 25%; }
+  .pillar:hover .ic-wave { animation: icWave 1.1s ease-in-out infinite; transform-origin: 60% 52%; }
+  .pillar:hover .ic-mail { animation: icDrop .9s ease-in-out infinite; transform-origin: 75% 25%; }
+  .pillar:hover .fist-l { animation: icBumpL .7s ease-in-out infinite; }
+  .pillar:hover .fist-r { animation: icBumpR .7s ease-in-out infinite; }
+  .pixicon .spark { opacity: 0; }
+  .pillar:hover .spark { animation: icSpark .7s ease-in-out infinite; }
+  @keyframes icPulse { 50% { transform: scale(1.16); } }
+  @keyframes icWave { 0%,100% { opacity: .45; transform: translateX(-1px); } 50% { opacity: 1; transform: translateX(2px); } }
+  @keyframes icDrop { 0%,100% { transform: translateY(0) rotate(0deg); } 45% { transform: translateY(-3px) rotate(-5deg); } }
+  @keyframes icBumpL { 0%,100% { transform: translateX(0); } 55% { transform: translateX(3px); } }
+  @keyframes icBumpR { 0%,100% { transform: translateX(0); } 55% { transform: translateX(-3px); } }
+  @keyframes icSpark { 0%,40% { opacity: 0; transform: scale(.5); } 60% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0; transform: scale(1.3); } }
   .pillar::before {
     content: "";
     position: absolute; left: 0; right: 0; top: 0;
@@ -505,7 +519,7 @@
     line-height: 1.25;
   }
   .pillar p { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
-  .pillar .pixicon { width: 56px; height: 56px; }
+  .pillar .pixicon { width: 60px; height: 60px; }
 
   /* ——————————————————— dark resources ——————————————————— */
   .dark-section {
@@ -944,6 +958,7 @@
     padding: 72px 0;
     text-align: center;
   }
+  .void-mascot { width: 118px; height: 82px; margin: 0 auto 18px; display: block; }
   .void-band h2 {
     font-family: var(--serif);
     font-weight: 800;
@@ -1024,7 +1039,8 @@
   .tier .amt small { font-size: 15px; color: var(--ink-mute); font-family: var(--sans); font-weight: 400; }
   .tier .amt-note { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin: 0 0 18px; }
   .tier p.desc { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 16px; }
-  .tier ul { list-style: none; margin: 0 0 24px; padding: 0; flex: 1; }
+  .tier ul { list-style: none; margin: 0 0 24px; padding: 0; flex: 1 0 auto; }
+  .tier .tier-cta { margin-top: auto; }
   .tier ul li {
     font-size: 13.5px; color: var(--ink-soft);
     padding: 8px 0 8px 18px;
@@ -1076,16 +1092,43 @@
   .loop-row .move b { color: var(--ink); font-weight: 600; }
   .loop-kit {
     max-width: 920px;
-    margin: 28px auto 0;
-    background: var(--orange-soft);
+    margin: 34px auto 0;
+    background: var(--char);
     border: 1.5px solid var(--ink);
-    box-shadow: 5px 5px 0 var(--ink);
-    padding: 20px 24px;
-    font-size: 14.5px;
-    line-height: 1.6;
-    color: var(--ink-soft);
+    box-shadow: 7px 7px 0 var(--orange);
+    padding: 28px 30px 26px;
+    position: relative;
   }
-  .loop-kit b { color: var(--ink); }
+  .loop-kit .kit-tag {
+    position: absolute; top: -13px; left: 26px;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    background: var(--orange); color: #fff; padding: 5px 11px;
+  }
+  .loop-kit .kit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 32px;
+  }
+  .loop-kit .kit { display: grid; grid-template-columns: 54px 1fr; gap: 16px; align-items: start; }
+  .loop-kit .kit svg { width: 54px; height: 54px; }
+  .loop-kit .kit h4 {
+    font-family: var(--serif); font-size: 18px; font-weight: 700;
+    color: #f6f3ee; margin: 0 0 5px;
+  }
+  .loop-kit .kit p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #b9b3ac; }
+  .loop-kit .kit-foot {
+    margin: 22px 0 0; padding-top: 18px;
+    border-top: 1px solid var(--char-line);
+    font-size: 13.5px; line-height: 1.6; color: #b9b3ac;
+    display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; align-items: center;
+  }
+  .loop-kit .kit-foot b { color: #f6f3ee; }
+  .loop-kit .kit-foot a {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); white-space: nowrap;
+  }
+  @media (max-width: 720px) { .loop-kit .kit-grid { grid-template-columns: 1fr; } }
   @media (max-width: 720px) {
     .loop-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 4px; }
   }
@@ -1139,6 +1182,24 @@
     .agenda-row .out { justify-self: start; }
   }
 
+  .seat-alert {
+    margin: 0 0 14px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--orange-soft);
+    border: 1.5px solid var(--orange);
+    padding: 9px 10px;
+  }
+  .seat-alert.soft {
+    color: var(--ink-mute);
+    background: transparent;
+    border-color: var(--ink-10);
+  }
   .tier-alt {
     display: block; text-align: center; margin-top: 12px;
     font-family: var(--mono); font-size: 11px; font-weight: 500;
@@ -1232,6 +1293,14 @@
 <!-- ————————— THE PAIN, NAMED ————————— -->
 <section class="void-band" aria-label="The problem">
   <div class="wrap">
+    <svg class="void-mascot rv" viewBox="0 0 80 56" aria-hidden="true">
+      <circle cx="26" cy="34" r="15" fill="#f6f3ee" stroke="#15171c" stroke-width="2.6"/>
+      <path d="M18 31q3.2-2.6 6.4 0M27.6 31q3.2-2.6 6.4 0" fill="none" stroke="#15171c" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M22 42q4-3 8 0" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+      <rect x="48" y="8" width="28" height="20" rx="5" fill="none" stroke="#ff4a1c" stroke-width="2.6"/>
+      <path d="M52 28l.8-5.4 4.8 1z" fill="none" stroke="#ff4a1c" stroke-width="2.6" stroke-linejoin="round"/>
+      <circle cx="56" cy="18" r="1.9" fill="#ff4a1c"/><circle cx="62" cy="18" r="1.9" fill="#ff4a1c"/><circle cx="68" cy="18" r="1.9" fill="#ff4a1c"/>
+    </svg>
     <h2 class="rv">Two hundred applications.<br><b>Two replies.</b></h2>
     <p class="rv d1">If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated. That is a fixable problem.</p>
   </div>
@@ -1276,12 +1345,16 @@
 
       <article class="pillar rv d1">
         <span class="num" aria-hidden="true">01</span>
-        <svg class="pixicon" viewBox="0 0 44 44" aria-hidden="true">
-          <circle cx="16" cy="16" r="8" fill="#15171c"/>
-          <path d="M4 40a12 12 0 0 1 24 0z" fill="#15171c"/>
-          <circle cx="13" cy="15" r="1.5" fill="#fcf9f6"/><circle cx="19" cy="15" r="1.5" fill="#fcf9f6"/>
-          <circle cx="34" cy="12" r="8.5" fill="none" stroke="#ff4a1c" stroke-width="3.5"/>
-          <circle cx="34" cy="12" r="2.5" fill="#ff4a1c"/>
+        <svg class="pixicon" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="19" cy="24" r="13" fill="#ffffff" stroke="#15171c" stroke-width="2.4"/>
+          <ellipse cx="14.58" cy="22.96" rx="1.95" ry="2.73" fill="#15171c"/>
+          <ellipse cx="23.42" cy="22.96" rx="1.95" ry="2.73" fill="#15171c"/>
+          <circle cx="15.1" cy="22.18" r="0.65" fill="#ffffff"/>
+          <circle cx="23.94" cy="22.18" r="0.65" fill="#ffffff"/>
+          <path d="M16.4 28.42 q2.6 2.86 5.2 0" fill="none" stroke="#15171c" stroke-width="1.9" stroke-linecap="round"/>
+          <g class="ic-target"><circle cx="38" cy="12" r="8" fill="#ffffff" stroke="#ff4a1c" stroke-width="2.6"/>
+          <circle cx="38" cy="12" r="3.4" fill="#ff4a1c"/></g>
+          <path d="M8 9l1.4 3.2L12.6 13.6 9.4 15 8 18.2 6.6 15 3.4 13.6 6.6 12.2z" fill="#ff4a1c"/>
         </svg>
         <h4>Aim</h4>
         <p>Find the roles that actually fit you: your expertise &times; your interests &times; where the market is. You leave with a short, sharp target list. The opposite of spray-and-pray.</p>
@@ -1289,12 +1362,15 @@
 
       <article class="pillar rv d2">
         <span class="num" aria-hidden="true">02</span>
-        <svg class="pixicon" viewBox="0 0 44 44" aria-hidden="true">
-          <circle cx="17" cy="16" r="8" fill="#15171c"/>
-          <path d="M5 40a12 12 0 0 1 24 0z" fill="#15171c"/>
-          <circle cx="14" cy="15" r="1.5" fill="#fcf9f6"/><circle cx="20" cy="15" r="1.5" fill="#fcf9f6"/>
-          <path d="M30 22a9 9 0 0 0 0-13" fill="none" stroke="#ff4a1c" stroke-width="3.4" stroke-linecap="round"/>
-          <path d="M36 27a16 16 0 0 0 0-23" fill="none" stroke="#ff4a1c" stroke-width="3.4" stroke-linecap="round"/>
+        <svg class="pixicon" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="21" cy="25" r="13" fill="#ffffff" stroke="#15171c" stroke-width="2.4"/>
+          <ellipse cx="16.58" cy="23.96" rx="1.95" ry="2.73" fill="#15171c"/>
+          <ellipse cx="25.42" cy="23.96" rx="1.95" ry="2.73" fill="#15171c"/>
+          <circle cx="17.1" cy="23.18" r="0.65" fill="#ffffff"/>
+          <circle cx="25.94" cy="23.18" r="0.65" fill="#ffffff"/>
+          <path d="M18.4 29.42 q2.6 2.86 5.2 0" fill="none" stroke="#15171c" stroke-width="1.9" stroke-linecap="round"/>
+          <g class="ic-wave"><path d="M36 32a11 11 0 0 0 0-15" fill="none" stroke="#ff4a1c" stroke-width="3" stroke-linecap="round"/><path d="M42 37a19 19 0 0 0 0-25" fill="none" stroke="#ff4a1c" stroke-width="3" stroke-linecap="round"/></g>
+          <path d="M9 6l1.5 3.4 3.4 1.5-3.4 1.5L9 15.8l-1.5-3.4L4.1 10.9l3.4-1.5z" fill="#ff4a1c"/>
         </svg>
         <h4>Get Found</h4>
         <p>Document your journey in public and pull the right people to you. Your posts, your voice, your proof, all captured in one system, so opportunities start finding <em>you</em>.</p>
@@ -1302,13 +1378,16 @@
 
       <article class="pillar rv d3">
         <span class="num" aria-hidden="true">03</span>
-        <svg class="pixicon" viewBox="0 0 44 44" aria-hidden="true">
-          <circle cx="15" cy="18" r="8" fill="#15171c"/>
-          <path d="M3 42a12 12 0 0 1 24 0z" fill="#15171c"/>
-          <circle cx="12" cy="17" r="1.5" fill="#fcf9f6"/><circle cx="18" cy="17" r="1.5" fill="#fcf9f6"/>
-          <rect x="24" y="2" width="19" height="15" rx="4" fill="#ff4a1c"/>
-          <path d="M27 17l1-5 5 1z" fill="#ff4a1c"/>
-          <path d="M29 9.5l2.8 3L38 6.5" fill="none" stroke="#fcf9f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="pixicon" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="18" cy="26" r="13" fill="#ffffff" stroke="#15171c" stroke-width="2.4"/>
+          <ellipse cx="13.58" cy="24.96" rx="1.95" ry="2.73" fill="#15171c"/>
+          <ellipse cx="22.42" cy="24.96" rx="1.95" ry="2.73" fill="#15171c"/>
+          <circle cx="14.1" cy="24.18" r="0.65" fill="#ffffff"/>
+          <circle cx="22.94" cy="24.18" r="0.65" fill="#ffffff"/>
+          <path d="M15.4 30.42 q2.6 2.86 5.2 0" fill="none" stroke="#15171c" stroke-width="1.9" stroke-linecap="round"/>
+          <g class="ic-mail"><rect x="26" y="4" width="20" height="15" rx="4.5" fill="#ff4a1c" stroke="#15171c" stroke-width="2.2"/>
+          <path d="M29 19.5l.6-4.5 4 .8z" fill="#ff4a1c" stroke="#15171c" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M31 11.5l2.8 3 5.4-5.6" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></g>
         </svg>
         <h4>Get Answered</h4>
         <p>Resumes and portfolios targeted to your list. Built to translate your experience into what North American hiring teams recognize, and to land the interview.</p>
@@ -1316,15 +1395,20 @@
 
       <article class="pillar rv d4">
         <span class="num" aria-hidden="true">04</span>
-        <svg class="pixicon" viewBox="0 0 44 44" aria-hidden="true">
-          <circle cx="14" cy="16" r="7.5" fill="#15171c"/>
-          <path d="M3 40a11 11 0 0 1 22 0z" fill="#15171c"/>
-          <circle cx="11.4" cy="15" r="1.4" fill="#fcf9f6"/><circle cx="16.6" cy="15" r="1.4" fill="#fcf9f6"/>
-          <circle cx="30" cy="16" r="9.2" fill="#fcf9f6"/>
-          <path d="M17 41a13 13 0 0 1 26 0z" fill="#fcf9f6"/>
-          <circle cx="30" cy="16" r="7.5" fill="#ff4a1c"/>
-          <path d="M19 40a11 11 0 0 1 22 0z" fill="#ff4a1c"/>
-          <circle cx="27.4" cy="15" r="1.4" fill="#fcf9f6"/><circle cx="32.6" cy="15" r="1.4" fill="#fcf9f6"/>
+        <svg class="pixicon connect-ic" viewBox="0 0 48 48" aria-hidden="true">
+          <g class="fist-l">
+            <rect x="2" y="16" width="19" height="18" rx="7.5" fill="#ffffff" stroke="#15171c" stroke-width="2.4"/>
+            <path d="M7 16.5q3.5-4.5 8-1.5" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M14.5 20.5h4.5M14.5 25h4.5M14.5 29.5h4.5" stroke="#15171c" stroke-width="1.7" stroke-linecap="round"/>
+          </g>
+          <g class="fist-r">
+            <rect x="27" y="16" width="19" height="18" rx="7.5" fill="#ff4a1c" stroke="#15171c" stroke-width="2.4"/>
+            <path d="M41 16.5q-3.5-4.5-8-1.5" fill="none" stroke="#15171c" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M29 20.5h4.5M29 25h4.5M29 29.5h4.5" stroke="#15171c" stroke-width="1.7" stroke-linecap="round"/>
+          </g>
+          <g class="spark">
+            <path d="M24 12V4M15 14l-3.5-6M33 14l3.5-6M24 38v6M15 36l-3.5 5M33 36l3.5 5" stroke="#ff4a1c" stroke-width="2.6" stroke-linecap="round"/>
+          </g>
         </svg>
         <h4>Connect</h4>
         <p>The real way to network: relationships over transactions. Build a network that grows in value for years, not one-off asks that go nowhere.</p>
@@ -1382,8 +1466,50 @@
 
     </div>
     <div class="loop-kit rv">
-      You do not guess your way through this. This is the <b>2:50 block on Nov 7</b>: you build your <b>Interviewer Profiler</b>, which turns a job posting and a name into their persona and your prep sheet. The <b>Offer Coach kit</b> goes home with you for the last row, the day the offer comes. I have sat on the hiring side of many offers. The first number is rarely the last.
-      <a class="tier-alt" href="#agenda" style="margin-top:14px;">See the full day ↓</a>
+      <span class="kit-tag">Comes with the course</span>
+      <div class="kit-grid">
+
+        <div class="kit">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="19" cy="26" r="12" fill="#ffffff" stroke="#15171c" stroke-width="2.4"/>
+            <ellipse cx="14.92" cy="25.04" rx="1.7999999999999998" ry="2.52" fill="#15171c"/>
+            <ellipse cx="23.08" cy="25.04" rx="1.7999999999999998" ry="2.52" fill="#15171c"/>
+            <circle cx="15.4" cy="24.32" r="0.6000000000000001" fill="#ffffff"/>
+            <circle cx="23.560000000000002" cy="24.32" r="0.6000000000000001" fill="#ffffff"/>
+            <path d="M16.6 30.08 q2.4000000000000004 2.64 4.800000000000001 0" fill="none" stroke="#15171c" stroke-width="1.9" stroke-linecap="round"/>
+            <circle cx="35" cy="14" r="9" fill="none" stroke="#ff4a1c" stroke-width="2.8"/>
+            <line x1="41.5" y1="20.5" x2="46" y2="25" stroke="#ff4a1c" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="35" cy="14" r="3" fill="#ff4a1c"/>
+          </svg>
+          <div>
+            <h4>Interviewer Profiler</h4>
+            <p>Paste a job posting and a name. Get their persona and your prep sheet for that exact room. You build it in the 2:50 block.</p>
+          </div>
+        </div>
+
+        <div class="kit">
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="17" cy="27" r="12" fill="#ffffff" stroke="#15171c" stroke-width="2.4"/>
+            <ellipse cx="12.92" cy="26.04" rx="1.7999999999999998" ry="2.52" fill="#15171c"/>
+            <ellipse cx="21.08" cy="26.04" rx="1.7999999999999998" ry="2.52" fill="#15171c"/>
+            <circle cx="13.4" cy="25.32" r="0.6000000000000001" fill="#ffffff"/>
+            <circle cx="21.560000000000002" cy="25.32" r="0.6000000000000001" fill="#ffffff"/>
+            <path d="M14.6 31.08 q2.4000000000000004 2.64 4.800000000000001 0" fill="none" stroke="#15171c" stroke-width="1.9" stroke-linecap="round"/>
+            <path d="M30 30V16M30 16l-5 5M30 16l5 5" fill="none" stroke="#ff4a1c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="24" y="30" width="12" height="4" rx="2" fill="#ff4a1c"/>
+            <path d="M41 6l1.1 2.6L44.7 9.7l-2.6 1.1L41 13.4l-1.1-2.6L37.3 9.7l2.6-1.1z" fill="#ff4a1c"/>
+          </svg>
+          <div>
+            <h4>Offer Coach</h4>
+            <p>For the day the offer lands. Read the package, set your anchor, write the counter, and rehearse the call before you make it.</p>
+          </div>
+        </div>
+
+      </div>
+      <p class="kit-foot">
+        <span>I have sat on the hiring side of many offers. <b>The first number is rarely the last.</b></span>
+        <a href="#agenda">See the full day ↓</a>
+      </p>
     </div>
   </div>
 </section>
@@ -1422,23 +1548,23 @@
   <div class="wrap">
     <div class="section-head rv">
       <span class="eyebrow">Proof</span>
-      <h3>What Mentees &amp; Students Say</h3>
+      <h3>What Students Say</h3>
     </div>
     <div class="results-grid">
       <article class="result rv d1">
         <div class="mark" aria-hidden="true">"</div>
         <blockquote>He helped me throughout my job search journey, and I have secured interviews from FAANG. He not only helped me with Product management preparation, but also constantly motivated me throughout the process.</blockquote>
-        <cite><b>Hasikaa</b>Mentee</cite>
+        <cite><b>Hasikaa</b>Product Operations Manager</cite>
       </article>
       <article class="result rv d2">
         <div class="mark" aria-hidden="true">"</div>
         <blockquote>Networking is about relationships, not transactions: the ROI shows up later, not immediately. Treat interviews as practice, not pass/fail: every round teaches you something. Jose, talking with you was genuinely helpful, thank you for the perspective!</blockquote>
-        <cite><b>Leah Kim</b>Product Designer</cite>
+        <cite><b>Leah</b>Product Designer</cite>
       </article>
       <article class="result rv d3">
         <div class="mark" aria-hidden="true">"</div>
         <blockquote>Over the past few months I went from commercial PM to building Flowwise, a live AI-powered fintech app, from scratch. From user research and product strategy to a live interactive prototype, this program pushed me to think differently. A huge thank you to my instructor Jose Platero for his guidance, feedback, and genuine investment in our growth.</blockquote>
-        <cite><b>Chelsea Pascual</b>Product Manager</cite>
+        <cite><b>Chelsea</b>Product Manager</cite>
       </article>
     </div>
   </div>
@@ -1450,7 +1576,7 @@
     <div class="section-head rv">
       <span class="eyebrow">The Full Day</span>
       <h3>Nov 7, Hour by Hour</h3>
-      <p>Six hours, four builds, one working system. Every block starts from a pre-made kit, so the time goes into making it yours, not starting from zero.</p>
+      <p>Six hours, four builds, one working system. Every block starts from a kit I spent months building, so your time goes into making it yours, not starting from zero.</p>
     </div>
     <div class="agenda-grid">
 
@@ -1466,10 +1592,10 @@
       <div class="agenda-row rv">
         <span class="t">11:00</span>
         <div>
-          <h4>Get Answered: translate your experience</h4>
-          <p>Resume and portfolio, rebuilt through a hiring director's eyes. Then we wire your application engine so every future application tailors itself to its target.</p>
+          <h4>Get Found: build your presence</h4>
+          <p>Your second brain, set up to document your journey: a profile aimed at your targets, posts drafted in your own voice, and a LinkedIn strategy built on real conversations, not broadcasting.</p>
         </div>
-        <span class="out">You build: application engine</span>
+        <span class="out">You build: presence machine</span>
       </div>
 
       <div class="agenda-row break-row rv">
@@ -1480,10 +1606,10 @@
       <div class="agenda-row rv">
         <span class="t">1:00</span>
         <div>
-          <h4>Get Found: build your presence</h4>
-          <p>Your second brain, set up to document your journey: a profile aimed at your targets, posts drafted in your own voice, and a LinkedIn strategy built on real conversations, not broadcasting.</p>
+          <h4>Get Answered: translate your experience</h4>
+          <p>Resume and portfolio, rebuilt through a hiring director's eyes. Then we wire your application engine so every future application tailors itself to its target.</p>
         </div>
-        <span class="out">You build: presence machine</span>
+        <span class="out">You build: application engine</span>
       </div>
 
       <div class="agenda-row rv">
@@ -1521,9 +1647,9 @@
 <section class="price-section" id="price">
   <div class="wrap">
     <div class="section-head rv">
-      <span class="eyebrow">Sessions &amp; Pricing</span>
-      <h3>Two Ways In</h3>
-      <p>Start online for $25. Build the whole system in one day on Nov 7.</p>
+      <span class="eyebrow">Pick Your Way In</span>
+      <h3>Start small, or build the whole thing</h3>
+      <p>Try the system for $25 online, or come to Toronto on Nov 7 and leave with the whole thing running. Same system, different depth.</p>
     </div>
     <div class="tier-grid">
 
@@ -1533,14 +1659,15 @@
         <p class="when">Aug 27 or Oct 29 · 6pm ET · 90 min · Live online</p>
         <div class="amt">$25 <small>CAD</small></div>
         <p class="amt-note">Same session on both dates</p>
-        <p class="desc">Not a preview. Your first class. You leave with your first target list drafted and the tools to keep going that night.</p>
+        <p class="desc">Not a preview. Your first class. You leave with real work done and the kits to keep going that night.</p>
         <ul>
           <li>The full system, explained: why cold applications get no reply and what works instead</li>
-          <li><b>Your takeaway: your first target list, drafted live in the session</b></li>
-          <li>Live demo: a real resume and a real job posting become a company-branded pitch page, in minutes</li>
-          <li>Starter kits to take home: the same Claude skills Jose uses, free</li>
+          <li><b>Take home 1: your first target list, drafted live in the session</b></li>
+          <li><b>Take home 2: the Targeting Kit and resume skill, the same ones Jose uses, free</b></li>
+          <li>Live demo: watch a real resume and a real job posting become a company-branded pitch page, in minutes</li>
         </ul>
-        <a class="btn block" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register · Aug 27</a>
+        <p class="seat-alert soft">Runs twice · Aug 27 and Oct 29</p>
+        <a class="btn block ghost" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register · Aug 27</a>
         <a class="tier-alt" href="https://luma.com/rslv1skh" target="_blank" rel="noopener">Or join the Oct 29 session</a>
       </article>
 
@@ -1549,7 +1676,7 @@
         <h4>Full Course: One Day</h4>
         <p class="when">Nov 7 · 10am–4pm · In person · 30 seats only</p>
         <div class="amt">$299 <small>CAD</small></div>
-        <p class="amt-note">Bring a laptop. No coding needed.</p>
+        <p class="amt-note">Or two payments of $150 · Bring a laptop</p>
         <p class="desc">Build your entire job-search system in Claude Code, with Jose in the room. Walk out with it running.</p>
         <ul>
           <li>Know exactly which roles to go after, and why you</li>
@@ -1560,6 +1687,7 @@
           <li>Bonus: the Offer Coach kit, for the day the offer comes</li>
           <li>Stay connected with your cohort after the day</li>
         </ul>
+        <p class="seat-alert">30 seats only · Registration closes Nov 3</p>
         <a class="btn block" href="https://luma.com/zno2hqvh" target="_blank" rel="noopener">Save Your Seat · Nov 7</a>
         <a class="tier-alt" href="#agenda">See the day, hour by hour</a>
       </article>
@@ -1581,6 +1709,10 @@
       <details class="qa">
         <summary>Do I need to know how to code or use Claude Code?</summary>
         <div class="ans">No. We set everything up together in the full course. If you can write an email, you can build your system. You will need a laptop and a Claude account with a paid plan (about $20 USD per month). We set up Claude Code together on the day.</div>
+      </details>
+      <details class="qa">
+        <summary>Can I pay in two parts?</summary>
+        <div class="ans">Yes. The full course is $299, or two payments of $150. Choose the plan at checkout. Registration closes Nov 3 so I can confirm the room and get everyone set up before the day.</div>
       </details>
       <details class="qa">
         <summary>Is this immigration or visa advice?</summary>
