@@ -1,0 +1,8 @@
+# HTML must revalidate so phones stop serving a stale copy of this page.
+# Images and the share card can cache for a week.
+<FilesMatch "\.(html)$">
+  Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+</FilesMatch>
+<FilesMatch "\.(jpg|jpeg|png|webp|svg)$">
+  Header set Cache-Control "public, max-age=604800"
+</FilesMatch>

@@ -153,15 +153,15 @@
   .rv.d3 { transition-delay: .21s; }
   .rv.d4 { transition-delay: .28s; }
 
+  /* Reduced motion means no MOVEMENT, not no life. Fades and gentle
+     pulses stay; slides, travel, and scroll jumps go. */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
-    }
-    .rv { opacity: 1; transform: none; }
+    .rv { opacity: 1; transform: none; transition: none; }
+    .pillar:hover .pixicon, .pillar.tapped .pixicon { transform: none; }
+    .btn:hover, .btn:active, .pillar:hover, .result:hover, .res-card:hover { transform: none; }
+    .bs-card, .egg-card { animation: none; }
+    #catch { transition: none; }
   }
 
   /* ——————————————————— shared ——————————————————— */
@@ -931,6 +931,8 @@
     transition: transform .45s cubic-bezier(.22,.61,.36,1);
   }
   #catch.on { transform: translateY(0); }
+  body.catch-open { padding-bottom: 108px; }
+  @media (max-width: 720px) { body.catch-open { padding-bottom: 150px; } }
   #catch .in {
     max-width: var(--max);
     margin: 0 auto;
@@ -958,6 +960,20 @@
   }
   #catch .no:hover { color: #f6f3ee; }
   @media (max-width: 720px) { #catch .in { padding: 16px 20px; } #catch p { font-size: 13.5px; } }
+
+  /* touch targets: nothing tappable smaller than a fingertip */
+  @media (hover: none) {
+    .tier-alt, .xlate > a, .loop-kit .kit-foot a, .next-up > a {
+      padding: 13px 4px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .xlate .xlate-note button { padding: 12px 6px; min-height: 44px; }
+    details.qa summary { padding: 10px 0; }
+    #catch .no { padding: 14px 10px; min-height: 44px; }
+  }
 
   /* konami easter egg: lesson zero */
   #egg {
@@ -1745,7 +1761,7 @@
         <h4>Full Course: One Day</h4>
         <p class="when">Nov 7 · 10am–4pm · In person · 30 seats only</p>
         <div class="amt">$299 <small>CAD</small></div>
-        <p class="amt-note">Or two payments of $150 · Bring a laptop</p>
+        <p class="amt-note">Bring a laptop · No coding needed</p>
         <p class="desc">Build your entire job-search system in Claude Code, with Jose in the room. Walk out with it running.</p>
         <ul>
           <li>Know exactly which roles to go after, and why you</li>
@@ -1778,10 +1794,6 @@
       <details class="qa">
         <summary>Do I need to know how to code or use Claude Code?</summary>
         <div class="ans">No. We set everything up together in the full course. If you can write an email, you can build your system. You will need a laptop and a Claude account with a paid plan (about $20 USD per month). We set up Claude Code together on the day.</div>
-      </details>
-      <details class="qa">
-        <summary>Can I pay in two parts?</summary>
-        <div class="ans">Yes. The full course is $299, or two payments of $150. Choose the plan at checkout. Registration closes Nov 3 so I can confirm the room and get everyone set up before the day.</div>
       </details>
       <details class="qa">
         <summary>Is this immigration or visa advice?</summary>
@@ -1889,18 +1901,38 @@
     }
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        // iOS Safari can leave SMIL idle in a subtree that was never painted.
+        // Nudge any icon inside this element once it is actually on screen.
+        e.target.querySelectorAll('svg').forEach(svg => {
+          if (typeof svg.unpauseAnimations === 'function') {
+            try { svg.unpauseAnimations(); svg.setCurrentTime(0); } catch (err) {}
+          }
+        });
+        io.unobserve(e.target);
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.rv').forEach(el => io.observe(el));
   })();
 
-  // SMIL ignores prefers-reduced-motion, so stop it explicitly
+  // Coming back to the tab should not leave the icons frozen
+  (() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) return;
+      document.querySelectorAll('svg').forEach(svg => {
+        if (typeof svg.unpauseAnimations === 'function') {
+          try { svg.unpauseAnimations(); } catch (err) {}
+        }
+      });
+    });
+  })();
+
+  // Reduced motion: stop things that travel, keep things that fade or pulse
   (() => {
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    document.querySelectorAll('svg').forEach(svg => {
-      if (typeof svg.pauseAnimations === 'function') svg.pauseAnimations();
-    });
+    document.querySelectorAll('animateTransform').forEach(a => a.remove());
   })();
 
   // Touch has no hover, so a tap plays the exaggerated icon motion
@@ -2005,17 +2037,22 @@
       if (done) return;
       done = true;
       bar.classList.add('on');
+      document.body.classList.add('catch-open');
       cleanup();
     };
     const dismiss = () => {
       bar.classList.remove('on');
+      document.body.classList.remove('catch-open');
       try { localStorage.setItem('bwj-catch', '1'); } catch (e) {}
     };
-    const onLeave = (e) => { if (e.clientY <= 0) show(); };
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      if (max > 0 && scrollY / max > 0.82) show();
+    // only after the whole pricing section has scrolled off the top
+    const price = document.getElementById('price');
+    const passedOffers = () => {
+      if (!price) return true;
+      return price.getBoundingClientRect().bottom < 0;
     };
+    const onLeave = (e) => { if (e.clientY <= 0 && passedOffers()) show(); };
+    const onScroll = () => { if (passedOffers()) show(); };
     function cleanup() {
       document.removeEventListener('mouseout', onLeave);
       removeEventListener('scroll', onScroll);
