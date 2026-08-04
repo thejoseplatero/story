@@ -828,6 +828,115 @@
     box-shadow: 6px 6px 0 var(--ink);
     padding: 28px 30px;
   }
+
+  /* hero set piece: one resume line, translated live */
+  .xlate {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 26px 28px 24px;
+  }
+  .xlate .xlate-row {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 12px 0;
+  }
+  .xlate .xlate-row + .xlate-row { border-top: 1px dashed var(--ink-10); }
+  .xlate .xl {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    border: 1px solid var(--ink-10);
+    padding: 3px 0;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .xlate .xl.on { color: #fff; background: var(--orange); border-color: var(--orange); }
+  .xlate .xbefore {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-mute);
+    text-decoration: line-through;
+    text-decoration-color: rgba(214,49,10,.45);
+    text-decoration-thickness: 1.5px;
+  }
+  .xlate .xafter {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    min-height: 3.1em;
+  }
+  .xlate .xafter::after {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 14px;
+    background: var(--orange);
+    margin-left: 3px;
+    vertical-align: -2px;
+    animation: caret 1s steps(2, end) infinite;
+  }
+  .xlate .xafter.done::after { display: none; }
+  @keyframes caret { 50% { opacity: 0; } }
+  .xlate .xlate-note {
+    margin: 10px 0 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+  }
+  .xlate ul { list-style: none; margin: 0 0 14px; padding: 0; border-top: 1.5px solid var(--ink); }
+  .xlate li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--ink-10);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .xlate li b { font-family: var(--serif); font-size: 15.5px; font-weight: 700; color: var(--ink); }
+  .xlate li span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); }
+  .xlate > a {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  /* the pain, named */
+  .void-band {
+    background: var(--char);
+    color: #f6f3ee;
+    padding: 72px 0;
+    text-align: center;
+  }
+  .void-band h2 {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(30px, 4.6vw, 54px);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin: 0 0 14px;
+  }
+  .void-band h2 b { color: var(--orange); font-weight: 800; }
+  .void-band p {
+    margin: 0 auto;
+    max-width: 52ch;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #b9b3ac;
+  }
   .next-up-tag {
     display: inline-block;
     font-family: var(--mono);
@@ -1019,8 +1128,17 @@
       </div>
     </div>
     <div>
-      <aside class="next-up rv d2" aria-label="Upcoming sessions">
-        <span class="next-up-tag">Next up</span>
+      <aside class="xlate rv d2" aria-label="A resume line, translated">
+        <span class="next-up-tag">Translation, live</span>
+        <div class="xlate-row">
+          <span class="xl">Before</span>
+          <p class="xbefore">Responsible for management of digital banking products at leading bank for 8 years.</p>
+        </div>
+        <div class="xlate-row">
+          <span class="xl on">After</span>
+          <p class="xafter" id="xafter"><noscript>Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.</noscript></p>
+        </div>
+        <p class="xlate-note">Same person. Same 8 years. Translated.</p>
         <ul>
           <li><b>Online Intro</b><span>Aug 27 &amp; Oct 29 · 6pm ET · $25</span></li>
           <li><b>Full Course</b><span>Nov 7 · 10am–4pm · 30 seats only</span></li>
@@ -1031,14 +1149,15 @@
   </div>
 </section>
 
-<!-- ————————— STATS STRIP ————————— -->
-<section class="strip" aria-label="Key statistics">
-  <div class="wrap strip-inner">
-    <div class="stat"><b>100s</b>&nbsp;of Product Builders Taught</div>
-    <div class="stat"><b>45+</b>&nbsp;Person Product Org Led Today</div>
-    <div class="stat"><b>5★</b>&nbsp;Rated Mentor</div>
+<!-- ————————— THE PAIN, NAMED ————————— -->
+<section class="void-band" aria-label="The problem">
+  <div class="wrap">
+    <h2 class="rv">Two hundred applications.<br><b>Two replies.</b></h2>
+    <p class="rv d1">If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated. That is a fixable problem.</p>
   </div>
 </section>
+
+
 
 <!-- ————————— FOUNDER ————————— -->
 <section class="founder" id="founder">
@@ -1061,6 +1180,15 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ————————— STATS STRIP ————————— -->
+<section class="strip" aria-label="Key statistics">
+  <div class="wrap strip-inner">
+    <div class="stat"><b>100s</b>&nbsp;of Product Builders Taught</div>
+    <div class="stat"><b>45+</b>&nbsp;Person Product Org Led Today</div>
+    <div class="stat"><b>5★</b>&nbsp;Rated Mentor</div>
   </div>
 </section>
 
@@ -1179,6 +1307,33 @@
   </div>
 </section>
 
+<!-- ————————— RESULTS ————————— -->
+<section class="results">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="eyebrow">Proof</span>
+      <h3>What Mentees &amp; Students Say</h3>
+    </div>
+    <div class="results-grid">
+      <article class="result rv d1">
+        <div class="mark" aria-hidden="true">"</div>
+        <blockquote>He helped me throughout my job search journey, and I have secured interviews from FAANG. He not only helped me with Product management preparation, but also constantly motivated me throughout the process.</blockquote>
+        <cite><b>Hasikaa</b>Mentee</cite>
+      </article>
+      <article class="result rv d2">
+        <div class="mark" aria-hidden="true">"</div>
+        <blockquote>Networking is about relationships, not transactions: the ROI shows up later, not immediately. Treat interviews as practice, not pass/fail: every round teaches you something. Jose, talking with you was genuinely helpful, thank you for the perspective!</blockquote>
+        <cite><b>Leah Kim</b>Product Designer</cite>
+      </article>
+      <article class="result rv d3">
+        <div class="mark" aria-hidden="true">"</div>
+        <blockquote>Over the past few months I went from commercial PM to building Flowwise, a live AI-powered fintech app, from scratch. From user research and product strategy to a live interactive prototype, this program pushed me to think differently. A huge thank you to my instructor Jose Platero for his guidance, feedback, and genuine investment in our growth.</blockquote>
+        <cite><b>Chelsea Pascual</b>Product Manager</cite>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ————————— DAY AGENDA ————————— -->
 <section class="agenda" id="agenda">
   <div class="wrap">
@@ -1291,32 +1446,6 @@
   </div>
 </section>
 
-<!-- ————————— RESULTS ————————— -->
-<section class="results">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Proof</span>
-      <h3>What Mentees &amp; Students Say</h3>
-    </div>
-    <div class="results-grid">
-      <article class="result rv d1">
-        <div class="mark" aria-hidden="true">"</div>
-        <blockquote>He helped me throughout my job search journey, and I have secured interviews from FAANG. He not only helped me with Product management preparation, but also constantly motivated me throughout the process.</blockquote>
-        <cite><b>Hasikaa</b>Mentee</cite>
-      </article>
-      <article class="result rv d2">
-        <div class="mark" aria-hidden="true">"</div>
-        <blockquote>Networking is about relationships, not transactions: the ROI shows up later, not immediately. Treat interviews as practice, not pass/fail: every round teaches you something. Jose, talking with you was genuinely helpful, thank you for the perspective!</blockquote>
-        <cite><b>Leah Kim</b>Product Designer</cite>
-      </article>
-      <article class="result rv d3">
-        <div class="mark" aria-hidden="true">"</div>
-        <blockquote>Over the past few months I went from commercial PM to building Flowwise, a live AI-powered fintech app, from scratch. From user research and product strategy to a live interactive prototype, this program pushed me to think differently. A huge thank you to my instructor Jose Platero for his guidance, feedback, and genuine investment in our growth.</blockquote>
-        <cite><b>Chelsea Pascual</b>Product Manager</cite>
-      </article>
-    </div>
-  </div>
-</section>
 
 <!-- ————————— FAQ ————————— -->
 <section class="faq" id="faq">
@@ -1426,6 +1555,28 @@
       });
     }, { threshold: 0.4 });
     io.observe(strip);
+  })();
+
+  // Hero translation: the after-line types itself
+  (() => {
+    const el = document.getElementById('xafter');
+    if (!el) return;
+    const line = 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.';
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = line;
+      el.classList.add('done');
+      return;
+    }
+    let i = 0;
+    const type = () => {
+      if (i <= line.length) {
+        el.textContent = line.slice(0, i++);
+        setTimeout(type, 26 + Math.random() * 34);
+      } else {
+        setTimeout(() => el.classList.add('done'), 1200);
+      }
+    };
+    setTimeout(type, 900);
   })();
 
   // Portrait renders from pixelated to sharp: untranslated to translated
