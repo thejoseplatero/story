@@ -856,7 +856,8 @@
     content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--orange);
   }
   .xrail button.done::after { width: 100%; background: var(--ink-10); }
-  .xrail button.on::after { width: 100%; transition: width .18s linear; }
+  /* the active tab stays empty while it types, then fills once over the pause */
+  .xrail button.on::after { width: 0; }
   .xrail button.on.waiting::after { animation: xfill var(--wait, 1500ms) linear forwards; }
   @keyframes xfill { from { width: 0; } to { width: 100%; } }
   .xrail button:hover { background: var(--surface-low); color: var(--ink); }
