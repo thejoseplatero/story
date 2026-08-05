@@ -853,11 +853,14 @@
   }
   .xrail button:last-child { border-right: 0; }
   .xrail button::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent;
+    content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--orange);
   }
+  .xrail button.done::after { width: 100%; background: var(--ink-10); }
+  .xrail button.on::after { width: 100%; transition: width .18s linear; }
+  .xrail button.on.waiting::after { animation: xfill var(--wait, 1500ms) linear forwards; }
+  @keyframes xfill { from { width: 0; } to { width: 100%; } }
   .xrail button:hover { background: var(--surface-low); color: var(--ink); }
   .xrail button.on { background: var(--paper); color: var(--ink); }
-  .xrail button.on::after { background: var(--orange); }
   .xrail button.done { color: var(--ink-soft); }
 
   .xstage { padding: 20px 22px 6px; }
@@ -878,7 +881,9 @@
     background: var(--char); color: #cfc9c2; border: 1.5px solid var(--ink);
     padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.55;
     display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    min-height: calc(1.55em * 2 + 28px);
   }
+  .xin p { margin: 0; }
   .xin span { color: var(--orange); font-weight: 700; }
 
   /* the transformation beat */
@@ -892,12 +897,19 @@
     display: grid; place-items: center; color: #fff; font-size: 12px; font-weight: 700;
     font-family: var(--sans); line-height: 1;
   }
+  .xarrow.run i { animation: xdrop .7s ease-in-out infinite; }
+  @keyframes xdrop { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(2px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .xarrow.run i, .xrail button.on.waiting::after { animation: none; }
+  }
 
   /* output: a finished artifact */
   .xout {
     background: var(--paper); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
-    padding: 16px 18px; min-height: 5.4em;
+    padding: 16px 18px;
   }
+  .xout.hit { animation: xhit .28s ease-out; }
+  @keyframes xhit { 0% { box-shadow: 4px 4px 0 var(--ink); } 40% { box-shadow: 7px 7px 0 var(--orange); } }
   .xout .lab {
     display: block; font-family: var(--mono); font-size: 9px; font-weight: 700;
     letter-spacing: .16em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 8px;
@@ -905,7 +917,9 @@
   .xout p {
     margin: 0; font-family: var(--serif); font-size: 15.5px; font-weight: 600;
     line-height: 1.45; color: var(--ink);
+    min-height: calc(1.45em * 3);
   }
+  @media (max-width: 900px) { .xout p { min-height: calc(1.45em * 4); } }
   .xout p::after {
     content: ""; display: inline-block; width: 7px; height: 15px; background: var(--orange);
     margin-left: 3px; vertical-align: -2px; animation: caret 1s steps(2, end) infinite;
@@ -915,7 +929,7 @@
 
   .xsay {
     font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--orange-deep); margin: 12px 0 0; padding: 0 22px;
+    color: var(--orange-deep); margin: 12px 0 0; padding: 0 22px; min-height: 1.4em;
   }
 
   .xcta {
@@ -1998,6 +2012,9 @@
     ];
 
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const PAUSE = 1500;
+    const arrow = document.querySelector('.xarrow');
+    const outCard = document.querySelector('.xout');
     let idx = 0, run = 0, timer = null, auto = true;
 
     PARTS.forEach((pt, i) => {
@@ -2012,15 +2029,29 @@
 
     const type = (line, r) => {
       let i = 0;
+      if (arrow) arrow.classList.add('run');
       const step = () => {
         if (r !== run) return;
         if (i <= line.length) {
-          el.textContent = line.slice(0, i++);
-          setTimeout(step, calm ? 8 : 17 + Math.random() * 22);
-        } else {
-          el.classList.add('done');
-          if (auto) timer = setTimeout(() => show(idx + 1), 3200);
+          // type in small bursts so it reads fast without looking fake
+          i = Math.min(line.length, i + 2);
+          el.textContent = line.slice(0, i);
+          if (i >= line.length) { finish(r); return; }
+          setTimeout(step, calm ? 4 : 9 + Math.random() * 9);
         }
+      };
+      const finish = (r2) => {
+        if (r2 !== run) return;
+        el.classList.add('done');
+        if (arrow) arrow.classList.remove('run');
+        if (outCard) {
+          outCard.classList.remove('hit');
+          void outCard.offsetWidth;
+          outCard.classList.add('hit');
+        }
+        const tab = tabs[idx];
+        if (tab && auto) { tab.style.setProperty('--wait', PAUSE + 'ms'); tab.classList.add('waiting'); }
+        if (auto) timer = setTimeout(() => show(idx + 1), PAUSE);
       };
       step();
     };
@@ -2037,6 +2068,7 @@
       if (lab) lab.textContent = p.out;
       if (num) num.textContent = String(idx + 1);
       tabs.forEach((t, n) => {
+        t.classList.remove('waiting');
         t.classList.toggle('on', n === idx);
         t.classList.toggle('done', n < idx);
         t.setAttribute('aria-selected', n === idx ? 'true' : 'false');
@@ -2048,8 +2080,13 @@
 
     const card = el.closest('.xlate');
     if (card) {
-      card.addEventListener('mouseenter', () => { auto = false; clearTimeout(timer); });
-      card.addEventListener('focusin', () => { auto = false; clearTimeout(timer); });
+      const stop = () => {
+        auto = false;
+        clearTimeout(timer);
+        tabs.forEach(t => t.classList.remove('waiting'));
+      };
+      card.addEventListener('mouseenter', stop);
+      card.addEventListener('focusin', stop);
     }
 
     let started = false;
