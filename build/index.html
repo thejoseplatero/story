@@ -885,10 +885,17 @@
   }
   .xlate-count b { color: var(--orange); }
   .xlate-role {
-    font-family: var(--mono); font-size: 10px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-mute); margin: 14px 0 2px;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    margin: 14px 0 2px;
   }
+  .xlate-role b {
+    font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--ink);
+  }
+  .xlate-role span {
+    font-family: var(--mono); font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; color: var(--ink-mute);
+  }
+  .xlate .xbefore { text-decoration: none; color: var(--ink-mute); }
   .xlate .xlate-note {
     margin: 12px 0 16px;
     font-family: var(--mono);
@@ -931,7 +938,8 @@
     gap: 10px;
     flex-wrap: wrap;
   }
-  .xlate li b { font-family: var(--serif); font-size: 15.5px; font-weight: 700; color: var(--ink); }
+  .xlate li { flex-direction: column; align-items: flex-start; gap: 3px; }
+  .xlate li b { font-family: var(--serif); font-size: 15.5px; font-weight: 700; color: var(--ink); line-height: 1.3; }
   .xlate li span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); }
   .xlate > a {
     font-family: var(--mono);
@@ -1515,27 +1523,27 @@
     <div>
       <aside class="xlate rv d2" aria-label="Real resume lines, translated">
         <div class="xlate-top">
-          <span class="next-up-tag">Translating&hellip;</span>
+          <span class="next-up-tag">The system, running</span>
           <span class="xlate-count"><b id="xnum">1</b>/5</span>
         </div>
-        <p class="xlate-role" id="xrole">Product manager, banking</p>
+        <p class="xlate-role" id="xrole"><b id="xpart">Aim</b><span id="xkit">targeting-kit</span></p>
         <div class="xlate-row">
-          <span class="xl">Before</span>
-          <p class="xbefore" id="xbefore">Responsible for management of digital banking products for 8 years.</p>
+          <span class="xl">You give it</span>
+          <p class="xbefore" id="xbefore">8 years in banking product. I like fintech. Toronto or remote.</p>
         </div>
         <div class="xlate-row">
-          <span class="xl on">After</span>
-          <p class="xafter" id="xafter"><noscript>Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.</noscript></p>
+          <span class="xl on">You get</span>
+          <p class="xafter" id="xafter"><noscript>8 companies worth your energy, ranked, with a written reason for each one.</noscript></p>
         </div>
         <div class="xlate-note">
-          <span>Same person. Same experience. Translated.</span>
-          <span class="xdots" id="xdots" role="tablist" aria-label="Choose an example"></span>
+          <span id="xsay">One of five parts you build.</span>
+          <span class="xdots" id="xdots" role="tablist" aria-label="Choose a part"></span>
         </div>
         <ul>
-          <li><b>Online Intro</b><span>Aug 27 &amp; Oct 29 · 6pm ET · $25</span></li>
-          <li><b>Full Course</b><span>Nov 7 · 10am–4pm · 30 seats only</span></li>
+          <li><b>Leave with your target list drafted</b><span>90 min online · Aug 27 or Oct 29 · $25</span></li>
+          <li><b>Walk out with the whole system running</b><span>One Saturday in Toronto · Nov 7 · $299</span></li>
         </ul>
-        <a href="#price">Details &amp; sign-up ↓</a>
+        <a href="#price">See both sessions ↓</a>
       </aside>
     </div>
   </div>
@@ -2220,40 +2228,47 @@
     io.observe(strip);
   })();
 
-  // Hero translation: five real lines, translated one after another
+  // Hero demo: the whole value stack, one part at a time
   (() => {
     const el = document.getElementById('xafter');
     const before = document.getElementById('xbefore');
-    const role = document.getElementById('xrole');
+    const part = document.getElementById('xpart');
+    const kit = document.getElementById('xkit');
+    const say = document.getElementById('xsay');
     const num = document.getElementById('xnum');
     const dots = document.getElementById('xdots');
-    if (!el || !before || !role || !dots) return;
+    if (!el || !before || !part || !dots) return;
 
-    const EXAMPLES = [
-      { role: 'Product manager, banking',
+    const PARTS = [
+      { part: 'Aim', kit: 'targeting-kit',
+        b: '8 years in banking product. I like fintech. Toronto or remote.',
+        a: '8 companies worth your energy, ranked, with a written reason for each one.',
+        say: 'Stop applying to everything.' },
+      { part: 'Get Found', kit: 'voice-and-tone',
+        b: 'What you actually worked on this week, in two lines.',
+        a: 'A post that sounds like you, not like a robot, ready for you to edit and send.',
+        say: 'Be findable without self promotion.' },
+      { part: 'Get Answered', kit: 'resume-formats',
         b: 'Responsible for management of digital banking products for 8 years.',
-        a: 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.' },
-      { role: 'Product designer',
-        b: 'Was part of the team that redesigned the company checkout.',
-        a: 'Ran the research and design for checkout. The team cut drop-off from 34 to 19 percent.' },
-      { role: 'Delivery lead',
-        b: 'Helped coordinate between engineering and business teams.',
-        a: 'Ran planning for four squads. Time from idea to launch went from 11 weeks to 6.' },
-      { role: 'Marketing',
-        b: 'Responsible for social media and content marketing activities.',
-        a: 'Grew the newsletter from 2,000 to 45,000 readers in 18 months. Wrote most of it myself.' },
-      { role: 'Data analyst',
-        b: 'Assisted with data analysis and reporting for senior management.',
-        a: 'Built the dashboard leadership used every week. Replaced three days of manual reporting.' }
+        a: 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.',
+        say: 'Same experience, finally readable.' },
+      { part: 'Connect', kit: 'warm-circle',
+        b: 'Met Priya at a meetup. She is rebuilding payments and hates vendor lock-in.',
+        a: 'Priya shipped last month and you have been quiet for six weeks. Here is a note worth sending.',
+        say: 'Be useful before you need anything.' },
+      { part: 'Interviews', kit: 'interviewer-profiler',
+        b: 'The job posting, and you are meeting the engineering manager on Thursday.',
+        a: 'What she is judged on, which two of your stories are for her, and what to ask her back.',
+        say: 'Read the room before the room.' }
     ];
 
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let idx = 0, run = 0, timer = null, auto = true;
 
-    EXAMPLES.forEach((_, i) => {
+    PARTS.forEach((pt, i) => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('aria-label', 'Example ' + (i + 1));
+      b.setAttribute('aria-label', pt.part);
       b.innerHTML = '<i></i>';
       b.addEventListener('click', () => { auto = false; show(i); });
       dots.appendChild(b);
@@ -2266,10 +2281,10 @@
         if (r !== run) return;
         if (i <= line.length) {
           el.textContent = line.slice(0, i++);
-          setTimeout(step, calm ? 8 : 20 + Math.random() * 26);
+          setTimeout(step, calm ? 8 : 18 + Math.random() * 24);
         } else {
           el.classList.add('done');
-          if (auto) timer = setTimeout(() => show(idx + 1), 3200);
+          if (auto) timer = setTimeout(() => show(idx + 1), 3400);
         }
       };
       step();
@@ -2278,18 +2293,19 @@
     function show(i) {
       clearTimeout(timer);
       run++;
-      idx = ((i % EXAMPLES.length) + EXAMPLES.length) % EXAMPLES.length;
-      const ex = EXAMPLES[idx];
-      role.textContent = ex.role;
-      before.textContent = ex.b;
-      num.textContent = String(idx + 1);
+      idx = ((i % PARTS.length) + PARTS.length) % PARTS.length;
+      const p = PARTS[idx];
+      part.textContent = p.part;
+      kit.textContent = p.kit;
+      before.textContent = p.b;
+      if (say) say.textContent = p.say;
+      if (num) num.textContent = String(idx + 1);
       marks.forEach((m, n) => m.classList.toggle('on', n === idx));
       el.textContent = '';
       el.classList.remove('done');
-      type(ex.a, run);
+      type(p.a, run);
     }
 
-    // pause the carousel while someone is reading it
     const card = el.closest('.xlate');
     if (card) {
       card.addEventListener('mouseenter', () => { auto = false; clearTimeout(timer); });
