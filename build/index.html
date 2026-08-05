@@ -878,14 +878,37 @@
   }
   .xlate .xafter.done::after { display: none; }
   @keyframes caret { 50% { opacity: 0; } }
+  .xlate-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .xlate-count {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--ink-mute);
+  }
+  .xlate-count b { color: var(--orange); }
+  .xlate-role {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-mute); margin: 14px 0 2px;
+  }
   .xlate .xlate-note {
-    margin: 10px 0 16px;
+    margin: 12px 0 16px;
     font-family: var(--mono);
     font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--orange-deep);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
   }
+  .xdots { display: flex; gap: 6px; flex: none; }
+  .xdots button {
+    width: 22px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer;
+    display: grid; place-items: center;
+  }
+  .xdots button i {
+    display: block; width: 7px; height: 7px; background: var(--ink-10);
+    transition: background .2s, transform .2s;
+  }
+  .xdots button:hover i { background: var(--ink-mute); }
+  .xdots button.on i { background: var(--orange); transform: scale(1.35); }
   .xlate .xlate-note button {
     font: inherit;
     color: var(--ink-mute);
@@ -1490,17 +1513,24 @@
       </div>
     </div>
     <div>
-      <aside class="xlate rv d2" aria-label="A resume line, translated">
-        <span class="next-up-tag">Translation, live</span>
+      <aside class="xlate rv d2" aria-label="Real resume lines, translated">
+        <div class="xlate-top">
+          <span class="next-up-tag">Translating&hellip;</span>
+          <span class="xlate-count"><b id="xnum">1</b>/5</span>
+        </div>
+        <p class="xlate-role" id="xrole">Product manager, banking</p>
         <div class="xlate-row">
           <span class="xl">Before</span>
-          <p class="xbefore">Responsible for management of digital banking products at leading bank for 8 years.</p>
+          <p class="xbefore" id="xbefore">Responsible for management of digital banking products for 8 years.</p>
         </div>
         <div class="xlate-row">
           <span class="xl on">After</span>
           <p class="xafter" id="xafter"><noscript>Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.</noscript></p>
         </div>
-        <p class="xlate-note">Same person. Same 8 years. Translated. <button type="button" id="xreplay">Run it again ↻</button></p>
+        <div class="xlate-note">
+          <span>Same person. Same experience. Translated.</span>
+          <span class="xdots" id="xdots" role="tablist" aria-label="Choose an example"></span>
+        </div>
         <ul>
           <li><b>Online Intro</b><span>Aug 27 &amp; Oct 29 · 6pm ET · $25</span></li>
           <li><b>Full Course</b><span>Nov 7 · 10am–4pm · 30 seats only</span></li>
@@ -2190,131 +2220,91 @@
     io.observe(strip);
   })();
 
-  // Hero translation: the after-line types itself
+  // Hero translation: five real lines, translated one after another
   (() => {
     const el = document.getElementById('xafter');
-    if (!el) return;
-    el.textContent = '';
-    const line = 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.';
+    const before = document.getElementById('xbefore');
+    const role = document.getElementById('xrole');
+    const num = document.getElementById('xnum');
+    const dots = document.getElementById('xdots');
+    if (!el || !before || !role || !dots) return;
+
+    const EXAMPLES = [
+      { role: 'Product manager, banking',
+        b: 'Responsible for management of digital banking products for 8 years.',
+        a: 'Owned a banking app used by 2M people. Shipped 14 releases a year with a team of six.' },
+      { role: 'Product designer',
+        b: 'Was part of the team that redesigned the company checkout.',
+        a: 'Ran the research and design for checkout. The team cut drop-off from 34 to 19 percent.' },
+      { role: 'Delivery lead',
+        b: 'Helped coordinate between engineering and business teams.',
+        a: 'Ran planning for four squads. Time from idea to launch went from 11 weeks to 6.' },
+      { role: 'Marketing',
+        b: 'Responsible for social media and content marketing activities.',
+        a: 'Grew the newsletter from 2,000 to 45,000 readers in 18 months. Wrote most of it myself.' },
+      { role: 'Data analyst',
+        b: 'Assisted with data analysis and reporting for senior management.',
+        a: 'Built the dashboard leadership used every week. Replaced three days of manual reporting.' }
+    ];
+
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let i = 0, run = 0;
-    const type = (r) => {
-      if (r !== run) return;
-      if (i <= line.length) {
-        el.textContent = line.slice(0, i++);
-        setTimeout(() => type(r), calm ? 12 : 26 + Math.random() * 34);
-      } else {
-        setTimeout(() => { if (r === run) el.classList.add('done'); }, 1200);
-      }
-    };
-    let started = false;
-    const begin = () => {
-      if (started) return;
-      started = true;
-      setTimeout(() => type(run), 400);
-    };
-    const target = el.closest('.xlate') || el;
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) { io.disconnect(); begin(); }
-      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
-      io.observe(target);
-    }
-    // fallback: never leave the line blank if the observer misses
-    setTimeout(begin, 2600);
-    const replay = document.getElementById('xreplay');
-    if (replay) {
-      const again = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        run++;
-        i = 0;
-        el.textContent = '';
-        el.classList.remove('done');
-        type(run);
-      };
-      replay.addEventListener('click', again);
-      replay.addEventListener('touchend', again, { passive: false });
-    }
-  })();
+    let idx = 0, run = 0, timer = null, auto = true;
 
-  // One quiet catch on the way out: exit intent on desktop, deep scroll on touch
-  (() => {
-    const bar = document.getElementById('catch');
-    if (!bar) return;
-    let done = false;
-    try { done = localStorage.getItem('bwj-catch') === '1'; } catch (e) {}
-    if (done) return;
-
-    const show = () => {
-      if (done) return;
-      done = true;
-      bar.classList.add('on');
-      document.body.classList.add('catch-open');
-      cleanup();
-    };
-    const dismiss = () => {
-      bar.classList.remove('on');
-      document.body.classList.remove('catch-open');
-      try { localStorage.setItem('bwj-catch', '1'); } catch (e) {}
-    };
-    // only after the whole pricing section has scrolled off the top
-    const price = document.getElementById('price');
-    const passedOffers = () => {
-      if (!price) return true;
-      return price.getBoundingClientRect().bottom < 0;
-    };
-    const onLeave = (e) => { if (e.clientY <= 0 && passedOffers()) show(); };
-    const onScroll = () => { if (passedOffers()) show(); };
-    function cleanup() {
-      document.removeEventListener('mouseout', onLeave);
-      removeEventListener('scroll', onScroll);
-    }
-
-    if (matchMedia('(hover: hover)').matches) document.addEventListener('mouseout', onLeave);
-    addEventListener('scroll', onScroll, { passive: true });
-    document.getElementById('catchNo').addEventListener('click', dismiss);
-    bar.querySelector('.go').addEventListener('click', dismiss);
-  })();
-
-  // Konami code unlocks lesson zero
-  (() => {
-    const egg = document.getElementById('egg');
-    if (!egg) return;
-    const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    let pos = 0;
-    addEventListener('keydown', (e) => {
-      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-      pos = (k === code[pos]) ? pos + 1 : (k === code[0] ? 1 : 0);
-      if (pos === code.length) { pos = 0; open(); }
+    EXAMPLES.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Example ' + (i + 1));
+      b.innerHTML = '<i></i>';
+      b.addEventListener('click', () => { auto = false; show(i); });
+      dots.appendChild(b);
     });
-    const close = () => { egg.hidden = true; };
-    const open = () => { egg.hidden = false; };
-    document.getElementById('eggX').addEventListener('click', close);
-    document.querySelectorAll('#eggOpen, #coin').forEach(el => el.addEventListener('click', open));
+    const marks = [...dots.children];
 
-    // the coin appears once you are past the hero, so it never clutters the opening
-    const coin = document.getElementById('coin');
-    if (coin) {
-      const reveal = () => {
-        if (scrollY > innerHeight * 0.6) {
-          coin.classList.add('on');
-          removeEventListener('scroll', reveal);
+    const type = (line, r) => {
+      let i = 0;
+      const step = () => {
+        if (r !== run) return;
+        if (i <= line.length) {
+          el.textContent = line.slice(0, i++);
+          setTimeout(step, calm ? 8 : 20 + Math.random() * 26);
+        } else {
+          el.classList.add('done');
+          if (auto) timer = setTimeout(() => show(idx + 1), 3200);
         }
       };
-      addEventListener('scroll', reveal, { passive: true });
-      reveal();
-    }
-    egg.addEventListener('click', (e) => { if (e.target === egg) close(); });
-    addEventListener('keydown', (e) => { if (e.key === 'Escape' && !egg.hidden) close(); });
-  })();
+      step();
+    };
 
-  // Tab title says goodbye politely
-  (() => {
-    const original = document.title;
-    document.addEventListener('visibilitychange', () => {
-      document.title = document.hidden ? 'See you soon · Build with Jose' : original;
-    });
+    function show(i) {
+      clearTimeout(timer);
+      run++;
+      idx = ((i % EXAMPLES.length) + EXAMPLES.length) % EXAMPLES.length;
+      const ex = EXAMPLES[idx];
+      role.textContent = ex.role;
+      before.textContent = ex.b;
+      num.textContent = String(idx + 1);
+      marks.forEach((m, n) => m.classList.toggle('on', n === idx));
+      el.textContent = '';
+      el.classList.remove('done');
+      type(ex.a, run);
+    }
+
+    // pause the carousel while someone is reading it
+    const card = el.closest('.xlate');
+    if (card) {
+      card.addEventListener('mouseenter', () => { auto = false; clearTimeout(timer); });
+      card.addEventListener('focusin', () => { auto = false; clearTimeout(timer); });
+    }
+
+    let started = false;
+    const begin = () => { if (!started) { started = true; show(0); } };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((e) => {
+        if (e[0].isIntersecting) { io.disconnect(); begin(); }
+      }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+      io.observe(card || el);
+    }
+    setTimeout(begin, 2200);
   })();
 
   // Portrait renders from pixelated to sharp: untranslated to translated
