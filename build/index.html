@@ -856,25 +856,22 @@
     content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--orange);
   }
   .xrail button.done::after { width: 100%; background: var(--ink-10); }
-  /* the active tab stays empty while it types, then fills once over the pause */
-  .xrail button.on::after { width: 0; }
-  .xrail button.on.waiting::after { animation: xfill var(--wait, 1500ms) linear forwards; }
+  /* one bar, one clock: it fills for exactly as long as the part is shown */
+  .xrail button.on::after { width: 0; animation: xfill var(--dwell, 3200ms) linear forwards; }
   @keyframes xfill { from { width: 0; } to { width: 100%; } }
   .xrail button:hover { background: var(--surface-low); color: var(--ink); }
   .xrail button.on { background: var(--paper); color: var(--ink); }
   .xrail button.done { color: var(--ink-soft); }
 
   .xstage { padding: 20px 22px 6px; }
+  .xswap { animation: xin .26s cubic-bezier(.22,.61,.36,1) both; }
+  @keyframes xin { from { opacity: 0; transform: translateY(5px); } }
   .xkitline {
     display: flex; align-items: center; gap: 9px; margin-bottom: 14px;
     font-family: var(--mono); font-size: 10px; font-weight: 700;
     letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute);
   }
-  .xkitline i {
-    width: 7px; height: 7px; background: var(--orange); flex: none;
-    animation: xpulse 1.1s steps(2, end) infinite;
-  }
-  @keyframes xpulse { 50% { opacity: .25; } }
+  .xkitline i { width: 7px; height: 7px; background: var(--orange); flex: none; }
   .xkitline b { color: var(--ink); font-weight: 700; }
 
   /* input: raw material, dark and machine set */
@@ -898,10 +895,9 @@
     display: grid; place-items: center; color: #fff; font-size: 12px; font-weight: 700;
     font-family: var(--sans); line-height: 1;
   }
-  .xarrow.run i { animation: xdrop .7s ease-in-out infinite; }
-  @keyframes xdrop { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(2px); } }
   @media (prefers-reduced-motion: reduce) {
-    .xarrow.run i, .xrail button.on.waiting::after { animation: none; }
+    .xrail button.on::after { animation: none; width: 100%; }
+    .xswap { animation: none !important; }
   }
 
   /* output: a finished artifact */
@@ -909,8 +905,6 @@
     background: var(--paper); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
     padding: 16px 18px;
   }
-  .xout.hit { animation: xhit .28s ease-out; }
-  @keyframes xhit { 0% { box-shadow: 4px 4px 0 var(--ink); } 40% { box-shadow: 7px 7px 0 var(--orange); } }
   .xout .lab {
     display: block; font-family: var(--mono); font-size: 9px; font-weight: 700;
     letter-spacing: .16em; text-transform: uppercase; color: var(--orange-deep); margin-bottom: 8px;
@@ -921,12 +915,6 @@
     min-height: calc(1.45em * 3);
   }
   @media (max-width: 900px) { .xout p { min-height: calc(1.45em * 4); } }
-  .xout p::after {
-    content: ""; display: inline-block; width: 7px; height: 15px; background: var(--orange);
-    margin-left: 3px; vertical-align: -2px; animation: caret 1s steps(2, end) infinite;
-  }
-  .xout p.done::after { display: none; }
-  @keyframes caret { 50% { opacity: 0; } }
 
   .xsay {
     font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
@@ -1977,7 +1965,8 @@
     io.observe(strip);
   })();
 
-  // Hero demo: the whole value stack, one part at a time
+  // Hero demo: the whole value stack, one part at a time.
+  // One timer drives everything, so nothing can drift out of sync.
   (() => {
     const el = document.getElementById('xafter');
     const before = document.getElementById('xbefore');
@@ -1987,7 +1976,10 @@
     const lab = document.getElementById('xlab');
     const num = document.getElementById('xnum');
     const rail = document.getElementById('xrail');
+    const stage = document.querySelector('.xstage');
     if (!el || !before || !part || !rail) return;
+
+    const DWELL = 3200;
 
     const PARTS = [
       { part: 'Aim', kit: 'targeting-kit', out: 'Your target list',
@@ -2012,11 +2004,7 @@
         say: 'Read the room before the room.' }
     ];
 
-    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const PAUSE = 1500;
-    const arrow = document.querySelector('.xarrow');
-    const outCard = document.querySelector('.xout');
-    let idx = 0, run = 0, timer = null, auto = true;
+    let idx = 0, timer = null, auto = true;
 
     PARTS.forEach((pt, i) => {
       const b = document.createElement('button');
@@ -2028,64 +2016,44 @@
     });
     const tabs = [...rail.children];
 
-    const type = (line, r) => {
-      let i = 0;
-      if (arrow) arrow.classList.add('run');
-      const step = () => {
-        if (r !== run) return;
-        if (i <= line.length) {
-          // type in small bursts so it reads fast without looking fake
-          i = Math.min(line.length, i + 2);
-          el.textContent = line.slice(0, i);
-          if (i >= line.length) { finish(r); return; }
-          setTimeout(step, calm ? 4 : 9 + Math.random() * 9);
-        }
-      };
-      const finish = (r2) => {
-        if (r2 !== run) return;
-        el.classList.add('done');
-        if (arrow) arrow.classList.remove('run');
-        if (outCard) {
-          outCard.classList.remove('hit');
-          void outCard.offsetWidth;
-          outCard.classList.add('hit');
-        }
-        const tab = tabs[idx];
-        if (tab && auto) { tab.style.setProperty('--wait', PAUSE + 'ms'); tab.classList.add('waiting'); }
-        if (auto) timer = setTimeout(() => show(idx + 1), PAUSE);
-      };
-      step();
-    };
-
     function show(i) {
       clearTimeout(timer);
-      run++;
       idx = ((i % PARTS.length) + PARTS.length) % PARTS.length;
       const p = PARTS[idx];
+
       part.textContent = p.part;
       kit.textContent = p.kit;
       before.textContent = p.b;
-      if (say) say.textContent = p.say;
+      el.textContent = p.a;
       if (lab) lab.textContent = p.out;
+      if (say) say.textContent = p.say;
       if (num) num.textContent = String(idx + 1);
+
+      // one quiet swap on the whole stage, so every element moves together
+      if (stage) {
+        stage.classList.remove('xswap');
+        void stage.offsetWidth;
+        stage.classList.add('xswap');
+      }
+
       tabs.forEach((t, n) => {
-        t.classList.remove('waiting');
-        t.classList.toggle('on', n === idx);
+        t.classList.remove('on');
         t.classList.toggle('done', n < idx);
         t.setAttribute('aria-selected', n === idx ? 'true' : 'false');
       });
-      el.textContent = '';
-      el.classList.remove('done');
-      type(p.a, run);
+      const tab = tabs[idx];
+      if (tab) {
+        void tab.offsetWidth;
+        tab.style.setProperty('--dwell', DWELL + 'ms');
+        tab.classList.add('on');
+      }
+
+      if (auto) timer = setTimeout(() => show(idx + 1), DWELL);
     }
 
     const card = el.closest('.xlate');
     if (card) {
-      const stop = () => {
-        auto = false;
-        clearTimeout(timer);
-        tabs.forEach(t => t.classList.remove('waiting'));
-      };
+      const stop = () => { auto = false; clearTimeout(timer); };
       card.addEventListener('mouseenter', stop);
       card.addEventListener('focusin', stop);
     }
@@ -2098,7 +2066,7 @@
       }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
       io.observe(card || el);
     }
-    setTimeout(begin, 2000);
+    setTimeout(begin, 1200);
   })();
 
   // Portrait renders from pixelated to sharp: untranslated to translated
