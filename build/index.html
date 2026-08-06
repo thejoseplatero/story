@@ -914,6 +914,11 @@
     line-height: 1.45; color: var(--ink);
     min-height: calc(1.45em * 3);
   }
+  .xout p.typing::after {
+    content: ""; display: inline-block; width: 7px; height: 15px; background: var(--orange);
+    margin-left: 3px; vertical-align: -2px;
+  }
+  @media (prefers-reduced-motion: reduce) { .xout p.typing::after { display: none; } }
   @media (max-width: 900px) { .xout p { min-height: calc(1.45em * 4); } }
 
   .xsay {
@@ -940,6 +945,184 @@
   @media (prefers-reduced-motion: reduce) {
     .xkitline i, .xout p::after { animation: none; }
   }
+
+  /* leaving without buying: one quiet catch, dismissible forever */
+  #catch {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 70;
+    background: var(--ink);
+    color: #f6f3ee;
+    border-top: 3px solid var(--orange);
+    transform: translateY(100%);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
+  }
+  #catch.on { transform: translateY(0); }
+  body.catch-open { padding-bottom: 108px; }
+  @media (max-width: 720px) { body.catch-open { padding-bottom: 150px; } }
+  #catch .in {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  #catch p { margin: 0; font-size: 14.5px; line-height: 1.5; max-width: 58ch; }
+  #catch p b { color: #fff; }
+  #catch .acts { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  #catch .go {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--orange); color: #fff; padding: 12px 18px;
+    border: 1.5px solid var(--orange); white-space: nowrap;
+  }
+  #catch .go:hover { background: #ff5f36; }
+  #catch .no {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8b857e;
+    background: none; border: 0; cursor: pointer; padding: 8px;
+  }
+  #catch .no:hover { color: #f6f3ee; }
+  @media (max-width: 720px) { #catch .in { padding: 16px 20px; } #catch p { font-size: 13.5px; } }
+
+  /* touch targets: nothing tappable smaller than a fingertip */
+  @media (hover: none) {
+    .tier-alt, .xlate > a, .loop-kit .kit-foot a, .next-up > a {
+      padding: 13px 4px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .xlate .xlate-note button { padding: 12px 6px; min-height: 44px; }
+    details.qa summary { padding: 10px 0; }
+    #catch .no { padding: 14px 10px; min-height: 44px; }
+  }
+
+  .egg-hint {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 12px 8px;
+    min-height: 44px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .egg-hint:hover { color: var(--ink); }
+  @media (prefers-reduced-motion: reduce) {
+  }
+
+  /* konami easter egg: lesson zero, an arcade unlock */
+  #egg {
+    position: fixed; inset: 0; z-index: 80;
+    display: grid; place-items: center;
+    padding: 20px;
+    background: rgba(10,11,15,.72);
+    backdrop-filter: blur(5px);
+    animation: eggFade .25s ease both;
+  }
+  #egg[hidden] { display: none; }
+  @keyframes eggFade { from { opacity: 0; } }
+
+  .egg-card {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    background: var(--char);
+    border: 2px solid var(--orange);
+    box-shadow: 10px 10px 0 rgba(255,74,28,.28), 0 30px 70px rgba(0,0,0,.6);
+    padding: 34px 34px 26px;
+    animation: eggIn .5s cubic-bezier(.34,1.4,.5,1) both;
+    overflow: hidden;
+  }
+  @keyframes eggIn {
+    from { opacity: 0; transform: translateY(26px) scale(.94); }
+  }
+  /* pixel confetti burst behind the card content */
+  .egg-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(rgba(255,74,28,.30) 1.5px, transparent 1.5px),
+      radial-gradient(rgba(255,255,255,.10) 1.5px, transparent 1.5px);
+    background-size: 22px 22px, 34px 34px;
+    background-position: 0 0, 11px 17px;
+    mask-image: radial-gradient(circle at 82% 0%, #000 0%, transparent 62%);
+    -webkit-mask-image: radial-gradient(circle at 82% 0%, #000 0%, transparent 62%);
+    pointer-events: none;
+  }
+  .egg-card > * { position: relative; z-index: 1; }
+
+  .egg-top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .egg-top svg { width: 46px; height: 46px; flex: none; }
+  .egg-card .egg-tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--orange); color: #fff;
+    padding: 6px 11px;
+    animation: eggBlink 1.1s steps(2, end) 3;
+  }
+  @keyframes eggBlink { 50% { opacity: .35; } }
+
+  .egg-card h4 {
+    font-family: var(--serif); font-size: 27px; font-weight: 800;
+    line-height: 1.15; letter-spacing: -.015em;
+    color: #fff; margin: 0 0 8px;
+  }
+  .egg-card .egg-lede { font-size: 14px; line-height: 1.55; color: #b9b3ac; margin: 0 0 22px; }
+
+  .egg-rows { display: grid; gap: 14px; margin-bottom: 20px; }
+  .egg-row {
+    border-left: 3px solid rgba(255,74,28,.5);
+    padding: 2px 0 2px 14px;
+    animation: rowIn .45s cubic-bezier(.22,.61,.36,1) both;
+  }
+  .egg-row:nth-child(1) { animation-delay: .18s; }
+  .egg-row:nth-child(2) { animation-delay: .32s; }
+  .egg-row:nth-child(3) { animation-delay: .46s; }
+  @keyframes rowIn { from { opacity: 0; transform: translateX(-10px); } }
+  .egg-row .k {
+    display: block;
+    font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 7px;
+  }
+  .egg-row .b, .egg-row .a { display: block; font-size: 13.5px; line-height: 1.45; }
+  .egg-row .b {
+    color: #857f78;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,74,28,.55);
+    margin-bottom: 4px;
+  }
+  .egg-row .a { color: #fff; font-weight: 600; }
+  .egg-row .a::before { content: "→ "; color: var(--orange); }
+
+  .egg-card .egg-note {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #857f78; margin: 0;
+    border-top: 1px solid var(--char-line); padding-top: 16px;
+  }
+  .egg-card .egg-note a { color: var(--orange); text-decoration: underline; text-underline-offset: 3px; }
+  .egg-card .egg-x {
+    position: absolute; top: 12px; right: 12px;
+    width: 32px; height: 32px; z-index: 2;
+    border: 1.5px solid rgba(255,255,255,.25); background: transparent;
+    color: #fff; font-family: var(--mono); font-size: 15px; line-height: 1;
+    cursor: pointer;
+  }
+  .egg-card .egg-x:hover { background: var(--orange); border-color: var(--orange); }
+  @media (max-width: 560px) { .egg-card { padding: 28px 22px 22px; } .egg-card h4 { font-size: 23px; } }
 
   /* the pain, named */
   .void-band {
@@ -1979,7 +2162,8 @@
     const stage = document.querySelector('.xstage');
     if (!el || !before || !part || !rail) return;
 
-    const DWELL = 3200;
+    const DWELL = 3600;
+    const TYPE_MS = 1100;   // every line finishes writing in the same time
 
     const PARTS = [
       { part: 'Aim', kit: 'targeting-kit', out: 'Your target list',
@@ -2024,7 +2208,6 @@
       part.textContent = p.part;
       kit.textContent = p.kit;
       before.textContent = p.b;
-      el.textContent = p.a;
       if (lab) lab.textContent = p.out;
       if (say) say.textContent = p.say;
       if (num) num.textContent = String(idx + 1);
@@ -2048,7 +2231,29 @@
         tab.classList.add('on');
       }
 
+      write(p.a);
       if (auto) timer = setTimeout(() => show(idx + 1), DWELL);
+    }
+
+    // Writes the line over a fixed duration, so a long line and a short
+    // line both finish at the same moment and stay on the one clock.
+    let raf = null;
+    function write(line) {
+      cancelAnimationFrame(raf);
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = line;
+        el.classList.remove('typing');
+        return;
+      }
+      el.classList.add('typing');
+      const t0 = performance.now();
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / TYPE_MS);
+        el.textContent = line.slice(0, Math.round(line.length * k));
+        if (k < 1) { raf = requestAnimationFrame(step); }
+        else { el.classList.remove('typing'); }
+      };
+      raf = requestAnimationFrame(step);
     }
 
     const card = el.closest('.xlate');
@@ -2112,6 +2317,76 @@
     };
     if (img.complete && img.naturalWidth) start();
     else img.addEventListener('load', start);
+  })();
+
+  // One quiet catch on the way out, only after the offer has been seen
+  (() => {
+    const bar = document.getElementById('catch');
+    if (!bar) return;
+    let done = false;
+    try { done = localStorage.getItem('bwj-catch') === '1'; } catch (e) {}
+    if (done) return;
+
+    const show = () => {
+      if (done) return;
+      done = true;
+      bar.classList.add('on');
+      document.body.classList.add('catch-open');
+      cleanup();
+    };
+    const dismiss = () => {
+      bar.classList.remove('on');
+      document.body.classList.remove('catch-open');
+      try { localStorage.setItem('bwj-catch', '1'); } catch (e) {}
+    };
+    // only after the whole pricing section has scrolled off the top
+    const price = document.getElementById('price');
+    const passedOffers = () => {
+      if (!price) return true;
+      return price.getBoundingClientRect().bottom < 0;
+    };
+    const onLeave = (e) => { if (e.clientY <= 0 && passedOffers()) show(); };
+    const onScroll = () => { if (passedOffers()) show(); };
+    function cleanup() {
+      document.removeEventListener('mouseout', onLeave);
+      removeEventListener('scroll', onScroll);
+    }
+
+    if (matchMedia('(hover: hover)').matches) document.addEventListener('mouseout', onLeave);
+    addEventListener('scroll', onScroll, { passive: true });
+    document.getElementById('catchNo').addEventListener('click', dismiss);
+    bar.querySelector('.go').addEventListener('click', dismiss);
+  })();
+
+  (() => {
+    const egg = document.getElementById('egg');
+    if (!egg) return;
+    const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let pos = 0;
+    addEventListener('keydown', (e) => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      pos = (k === code[pos]) ? pos + 1 : (k === code[0] ? 1 : 0);
+      if (pos === code.length) { pos = 0; open(); }
+    });
+    const close = () => { egg.hidden = true; };
+    const open = () => { egg.hidden = false; };
+    document.getElementById('eggX').addEventListener('click', close);
+    document.querySelectorAll('#eggOpen, #coin').forEach(el => el.addEventListener('click', open));
+
+    // the coin appears once you are past the hero, so it never clutters the opening
+    const coin = document.getElementById('coin');
+    if (coin) {
+      const reveal = () => {
+        if (scrollY > innerHeight * 0.6) {
+          coin.classList.add('on');
+          removeEventListener('scroll', reveal);
+        }
+      };
+      addEventListener('scroll', reveal, { passive: true });
+      reveal();
+    }
+    egg.addEventListener('click', (e) => { if (e.target === egg) close(); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && !egg.hidden) close(); });
   })();
 
   // Reading progress bar + header shadow once scrolling starts
