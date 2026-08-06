@@ -214,6 +214,44 @@ That is five months and four short messages. It works because none of them were 
 
 Be honest with yourself about the timeline. It usually takes months, not weeks. Some people never come back to you, and that is normal.
 
+## The room catalogue (optional, for people who go to events)
+
+Most people meet others in rooms: meetups, panels, workshops, community groups. Then they forget
+which rooms were worth it, and go back to the wrong ones.
+
+If the person wants this, keep one file at `rooms.md` beside the person files. One line per event
+they attend.
+
+```markdown
+| Date | Event | Type | Who was there | Who I met | Again? |
+|---|---|---|---|---|---|
+| 2026-09-14 | Toronto Product Meetup | Practitioner | Mid level PMs, two hiring managers | Priya (payments), Dan (organiser) | Yes |
+| 2026-09-22 | Fintech panel night | Industry | Senior, lots of recruiters | Nobody, arrived late | Not alone |
+```
+
+The four types, so the Type column means something:
+
+- **Practitioner.** Peers doing the job. Best for honest answers about what local teams are really like.
+- **Industry.** Panels and industry nights. Hiring managers turn up. Higher value, lower warmth.
+- **Workshop or class.** You are seen working, which is worth more than being seen networking.
+- **Community.** Newcomer and affinity groups. Warm, high trust, most overlooked.
+
+Rules for this file:
+
+1. **Fill it the same night, in two minutes.** A catalogue written a week later is fiction.
+2. **Anyone worth remembering gets a person file too.** The catalogue records the room. The person
+   files record the people. Do not let names live only in this table.
+3. **The Again column is the whole point.** After three months they can see which kinds of room
+   actually produce conversations for them, and stop attending the ones that do not.
+
+When asked to find events, be honest: you cannot browse listings reliably, and any list you produce
+from memory will be out of date or invented. Instead, help them work out which platforms their
+industry uses locally, and suggest they follow 3 to 5 organisers rather than chasing individual
+events, because organisers keep producing rooms. Never invent an event name, a date, or a venue.
+
+**Say this once, plainly:** going to events is not networking. It is how you meet people. This kit is
+what stops those meetings evaporating by Friday.
+
 ## What this kit is not
 
 - **Not a sales pipeline, in any form.** No stages, no leads, no conversion, no follow up cadence, no counting. If you find yourself counting replies as wins and silence as losses, you have turned people into numbers. Stop and reread the ground rules. Claude must never write about these people in sales language either, not in a file and not in a summary.
