@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Platero → Air Canada · applying to my own role</title>
+<meta name="description" content="A demo of the target-employer kit, run on the one role its author can be perfectly honest about: his own.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23d8292f'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='800' font-size='17' fill='%23fff'%3EJ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* measured from aircanada.com, 2026-08 */
+    --red:#d8292f; --red-bright:#ff333a; --red-dark:#851109;
+    --navy:#002345; --blue-mid:#003d78; --blue-link:#1460aa;
+    --grey-bg:#f9f9f9; --grey-panel:#eff0f2; --grey-line:#c9cacc; --grey-text:#6d6d6f;
+    --board:#101216; --board-line:#23262c;
+    --sans:"Open Sans",-apple-system,system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --max:1060px;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:#fff; color:var(--navy); font-family:var(--sans);
+         font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:var(--blue-link); }
+  ::selection { background:var(--red); color:#fff; }
+  a:focus-visible, button:focus-visible { outline:3px solid var(--red); outline-offset:3px; }
+  h1,h2,h3 { text-wrap:balance; }
+  .wrap { max-width:var(--max); margin:0 auto; padding:0 24px; }
+
+  header.top { border-bottom:1px solid var(--grey-line); background:#fff;
+               position:sticky; top:0; z-index:30; }
+  .top-row { display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px; }
+  .brand { display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--navy); }
+  .roundel { width:36px; height:36px; flex:none; }
+  .brand b { font-weight:800; font-size:17px; letter-spacing:.02em; }
+  .brand span { color:var(--grey-text); font-weight:600; font-size:13px; }
+  .top-note { font-size:12px; color:var(--grey-text); text-align:right; line-height:1.4; }
+  .top-note a { color:var(--blue-link); }
+  @media (max-width:640px){ .top-note { display:none; } }
+
+  /* hero: the departures board */
+  .hero { background:var(--board); color:#fff; padding:58px 0 64px; }
+  .board { max-width:var(--max); }
+  .board-cap { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.22em;
+               text-transform:uppercase; color:#8b9099; margin-bottom:18px;
+               display:flex; align-items:center; gap:10px; }
+  .board-cap i { width:9px; height:9px; border-radius:50%; background:var(--red-bright);
+                 animation: blink 1.6s steps(2,end) infinite; }
+  @keyframes blink { 50% { opacity:.25; } }
+  .brow { display:grid; grid-template-columns:110px 1fr 150px; gap:14px;
+          padding:13px 4px; border-bottom:1px solid var(--board-line);
+          font-family:var(--mono); font-size:clamp(13px,1.8vw,17px); font-weight:600;
+          letter-spacing:.06em; text-transform:uppercase; align-items:baseline; }
+  .brow .t { color:#8b9099; font-size:.8em; }
+  .brow .d { color:#fff; }
+  .brow .s { text-align:right; font-weight:700; }
+  .brow .s.landed { color:#3ddc84; }
+  .brow .s.inflight { color:#ffc24b; }
+  .brow.rv { opacity:0; transform:translateY(8px);
+             transition:opacity .5s ease, transform .5s ease; }
+  .brow.rv.in { opacity:1; transform:none; }
+  .hero h1 { font-size:clamp(30px,5.4vw,52px); font-weight:800; line-height:1.06;
+             letter-spacing:-.02em; margin:40px 0 14px; color:#fff; }
+  .hero h1 em { font-style:normal; color:var(--red-bright); }
+  .hero .dek { max-width:62ch; color:#aab0b9; margin:0; font-size:17px; }
+  .hero .dek b { color:#fff; }
+
+  /* the explainer strip */
+  .explain { background:var(--grey-panel); border-bottom:1px solid var(--grey-line); }
+  .explain .wrap { display:flex; gap:14px; align-items:center; padding-top:16px; padding-bottom:16px; flex-wrap:wrap; }
+  .explain .chip { background:var(--navy); color:#fff; font-size:11.5px; font-weight:700;
+                   letter-spacing:.08em; text-transform:uppercase; padding:6px 12px; border-radius:99px; }
+  .explain p { margin:0; font-size:14.5px; color:var(--navy); }
+  .explain p a { font-weight:700; }
+
+  section { padding:60px 0; }
+  section + section { border-top:1px solid var(--grey-line); }
+  .kick { display:inline-block; font-size:12px; font-weight:800; letter-spacing:.14em;
+          text-transform:uppercase; color:var(--red); margin-bottom:12px; }
+  h2 { font-size:clamp(24px,3.6vw,34px); font-weight:800; letter-spacing:-.015em;
+       line-height:1.15; margin:0 0 14px; }
+  p { margin:0 0 14px; color:#33475e; }
+  b, strong { color:var(--navy); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start; }
+  @media (max-width:820px){ .cols { grid-template-columns:1fr; gap:26px; } }
+
+  /* boarding pass */
+  .pass { max-width:560px; border:1px solid var(--grey-line); border-radius:14px;
+          overflow:hidden; box-shadow:0 18px 44px rgba(0,35,69,.14); background:#fff; }
+  .pass-top { background:var(--red); color:#fff; padding:16px 22px;
+              display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .pass-top b { font-weight:800; font-size:15px; letter-spacing:.04em; }
+  .pass-top span { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.14em; }
+  .pass-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px 22px; padding:22px; }
+  .pf b { display:block; font-size:10.5px; font-weight:800; letter-spacing:.14em;
+          text-transform:uppercase; color:var(--grey-text); margin-bottom:4px; }
+  .pf span { font-family:var(--mono); font-size:15px; font-weight:600; color:var(--navy); }
+  .pf.wide { grid-column:1 / -1; }
+  .pass-rip { border-top:2px dashed var(--grey-line); margin:0 22px; position:relative; }
+  .pass-rip::before, .pass-rip::after { content:""; position:absolute; top:-11px; width:22px; height:22px;
+      border-radius:50%; background:var(--grey-bg); border:1px solid var(--grey-line); }
+  .pass-rip::before { left:-33px; } .pass-rip::after { right:-33px; }
+  .pass-bot { display:flex; justify-content:space-between; align-items:center; padding:18px 22px; gap:16px; }
+  .barcode { height:44px; flex:1; max-width:220px;
+             background:repeating-linear-gradient(90deg,#101216 0 2px,transparent 2px 5px,#101216 5px 6px,transparent 6px 10px); }
+  .pass-bot span { font-family:var(--mono); font-size:11px; color:var(--grey-text); letter-spacing:.1em; }
+
+  /* scan table */
+  .scan { border:1px solid var(--grey-line); border-radius:12px; overflow:hidden; }
+  .scan-head { background:var(--grey-panel); padding:12px 18px; font-size:12px; font-weight:800;
+               letter-spacing:.12em; text-transform:uppercase; color:var(--grey-text); }
+  .scan table { width:100%; border-collapse:collapse; font-size:14px; }
+  .scan td { padding:11px 18px; border-top:1px solid var(--grey-line); vertical-align:middle; }
+  .scan td:first-child { font-family:var(--mono); font-weight:600; color:var(--navy); white-space:nowrap; }
+  .scan td:last-child { color:var(--grey-text); }
+  .sw { display:inline-block; width:15px; height:15px; border-radius:4px; margin-right:9px;
+        vertical-align:-2px; border:1px solid rgba(0,35,69,.15); }
+
+  /* seat map */
+  .seats { display:inline-grid; grid-template-columns:repeat(7, 34px); gap:7px; }
+  .seat { width:34px; height:30px; border-radius:6px 6px 3px 3px; background:var(--grey-panel);
+          border:1px solid var(--grey-line); }
+  .seat.aisle { visibility:hidden; }
+  .seat.me { background:var(--red); border-color:var(--red-dark); position:relative; }
+  .seat.me::after { content:"JP"; position:absolute; inset:0; display:grid; place-items:center;
+                    color:#fff; font-family:var(--mono); font-size:11px; font-weight:700; }
+  .seat-cap { margin-top:14px; font-size:13.5px; color:var(--grey-text); }
+
+  /* turbulence */
+  .turb { background:var(--grey-bg); }
+  .turb blockquote { margin:18px 0 10px; padding:0 0 0 20px; border-left:4px solid var(--red);
+       font-size:22px; font-weight:700; color:var(--navy); line-height:1.4; max-width:26ch; }
+  .turb cite { display:block; font-style:normal; font-size:13px; color:var(--grey-text); }
+
+  /* close */
+  .close { background:var(--navy); color:#fff; }
+  .close h2 { color:#fff; }
+  .close p { color:#b9c6d4; max-width:60ch; }
+  .btn { display:inline-flex; align-items:center; gap:9px; background:var(--red); color:#fff;
+         font-weight:800; font-size:14.5px; letter-spacing:.02em; text-decoration:none;
+         padding:15px 26px; border-radius:99px; transition:background .15s; }
+  .btn:hover { background:var(--red-bright); }
+  .btn.ghost { background:transparent; border:2px solid rgba(255,255,255,.45); }
+  .btn.ghost:hover { background:rgba(255,255,255,.08); }
+  .acts { display:flex; gap:14px; flex-wrap:wrap; margin-top:22px; }
+
+  footer { padding:28px 0 44px; border-top:1px solid var(--grey-line); }
+  footer p { font-size:12px; color:var(--grey-text); max-width:76ch; margin:0 0 8px; }
+
+  @media (prefers-reduced-motion:reduce) {
+    html { scroll-behavior:auto; }
+    .board-cap i { animation:none; }
+    .brow.rv { opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#">
+      <svg class="roundel" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#d8292f"/>
+        <path d="M20 8l2.4 5.6 5.6-1.6-1.6 5.6L32 20l-5.6 2.4 1.6 5.6-5.6-1.6L20 32l-2.4-5.6-5.6 1.6 1.6-5.6L8 20l5.6-2.4-1.6-5.6 5.6 1.6z" fill="#fff"/>
+      </svg>
+      <span><b>PLATERO</b> <span>&middot; internal transfer request</span></span>
+    </a>
+    <p class="top-note">A personal demo. Not an official Air Canada page.<br>
+      <a href="#what">What is this?</a></p>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap board">
+    <p class="board-cap"><i></i>Departures &middot; every shipped thing is a flight</p>
+    <div class="brow rv"><span class="t">AC-9M</span><span class="d">Aeroplan relaunch &middot; active membership doubled to 9M+</span><span class="s landed">Landed</span></div>
+    <div class="brow rv"><span class="t">AC-WBY</span><span class="d">Aeroplan homepage redesign &middot; Webby honoree</span><span class="s landed">Landed</span></div>
+    <div class="brow rv"><span class="t">AC-CMP</span><span class="d">Compass design system &middot; AI integrated</span><span class="s landed">Landed</span></div>
+    <div class="brow rv"><span class="t">AC-MKT</span><span class="d">Martech and adtech function &middot; built from zero</span><span class="s landed">Landed</span></div>
+    <div class="brow rv"><span class="t">AC-3D</span><span class="d">New hire onboarding &middot; three months to three days</span><span class="s landed">Landed</span></div>
+    <div class="brow rv"><span class="t">AC-45</span><span class="d">45+ person product, design and martech org</span><span class="s inflight">In flight</span></div>
+
+    <h1>I am applying to <em>my own role</em>.</h1>
+    <p class="dek">This page pitches me for the job I already have: Director of Product, Design and MarTech at Air Canada, on the Aeroplan side. Why? Because it is the one role I can be <b>completely honest</b> about. Everything on this board is real, and I can prove every row.</p>
+  </div>
+</section>
+
+<div class="explain" id="what">
+  <div class="wrap">
+    <span class="chip">What this is</span>
+    <p>A demo of the <a href="https://joseplatero.com/build/kits/">target-employer kit</a>: you give it a job posting, a resume, and a company, and it builds a pitch page in that company's own visual language. I ran it on myself. The colours on this page were measured from aircanada.com, not guessed.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap cols">
+    <div>
+      <span class="kick">Boarding pass</span>
+      <h2>One passenger. Same seat.</h2>
+      <p>The kit reads the role's real scope and the candidate's real record, then it writes the pitch. In this case both sides of the table are me, which makes the honesty section very easy to check.</p>
+      <p>For a company you do not work at, this is the part that matters: the page speaks their visual language, uses their product's own mechanics, and answers their posting specifically. A recruiter can tell it was built for them in about four seconds.</p>
+    </div>
+    <div class="pass" role="img" aria-label="A boarding pass for Jose Platero">
+      <div class="pass-top"><b>PLATERO / JOSE</b><span>AC&middot;JP15</span></div>
+      <div class="pass-grid">
+        <div class="pf"><b>From</b><span>The hiring side</span></div>
+        <div class="pf"><b>To</b><span>The same seat</span></div>
+        <div class="pf"><b>Class</b><span>Judgment</span></div>
+        <div class="pf"><b>Gate</b><span>45+ people</span></div>
+        <div class="pf wide"><b>Role</b><span>Director, Product &middot; Design &middot; MarTech</span></div>
+      </div>
+      <div class="pass-rip"></div>
+      <div class="pass-bot">
+        <div class="barcode" aria-hidden="true"></div>
+        <span>STATUS: ON BOARD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap cols">
+    <div>
+      <span class="kick">The brand scan</span>
+      <h2>Measured, not guessed.</h2>
+      <p>The kit's first step is a scan of the company's real site. These values came from aircanada.com. If a pitch page gets the brand wrong, it reads as a costume. Getting it right is what makes a recruiter feel the page was built for them.</p>
+      <div class="scan">
+        <div class="scan-head">aircanada.com &middot; measured 2026-08</div>
+        <table>
+          <tr><td><span class="sw" style="background:#d8292f"></span>#d8292f</td><td>Rondelle red, primary actions</td></tr>
+          <tr><td><span class="sw" style="background:#002345"></span>#002345</td><td>Deep navy, headings</td></tr>
+          <tr><td><span class="sw" style="background:#1460aa"></span>#1460aa</td><td>Link blue</td></tr>
+          <tr><td><span class="sw" style="background:#eff0f2"></span>#eff0f2</td><td>Panel grey</td></tr>
+          <tr><td>Open Sans</td><td>The declared fallback for AC Nord, their custom face</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <span class="kick">Seat map</span>
+      <h2>This seat is taken.</h2>
+      <p>By me. Which is the joke, and also the proof: the strongest pitch page in the world does not create a vacancy. The kit gets you read properly for roles that are actually open. The targeting kit, a different part of the same system, is what keeps you from pitching occupied seats.</p>
+      <div class="seats" role="img" aria-label="A seat map with one red seat marked JP">
+        <span class="seat"></span><span class="seat"></span><span class="seat aisle"></span><span class="seat"></span><span class="seat"></span><span class="seat aisle"></span><span class="seat"></span>
+        <span class="seat"></span><span class="seat"></span><span class="seat aisle"></span><span class="seat me"></span><span class="seat"></span><span class="seat aisle"></span><span class="seat"></span>
+        <span class="seat"></span><span class="seat"></span><span class="seat aisle"></span><span class="seat"></span><span class="seat"></span><span class="seat aisle"></span><span class="seat"></span>
+      </div>
+      <p class="seat-cap">Row 2, seat D. Occupied since before this page existed.</p>
+    </div>
+  </div>
+</section>
+
+<section class="turb">
+  <div class="wrap">
+    <span class="kick">Turbulence report</span>
+    <h2>The honesty section, which every page built by this kit must carry.</h2>
+    <p>A pitch page that only brags is an ad, and recruiters skip ads. The kit requires a real gap, stated plainly. Here is mine:</p>
+    <blockquote>"I am not 100 percent successful. Maybe 30."
+      <cite>Self-reported hit rate, said out loud in my own materials</cite>
+    </blockquote>
+    <p>Most of what I try does not work. The point of building systems is that the failures stay cheap and the wins compound. That is also the honest pitch for hiring me, and I would know: I read the applications.</p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <span class="kick" style="color:#ff8a8e">The point</span>
+    <h2>Want one for a company you do not already work at?</h2>
+    <p>This page took the kit about half an hour: brand scan, concept, build, checks. It is one of the five things you build in Build with Jose, a one day course for product builders trained outside North America. The kit is free either way.</p>
+    <div class="acts">
+      <a class="btn" href="https://joseplatero.com/build/">See the course</a>
+      <a class="btn ghost" href="https://joseplatero.com/build/kits/">Get the kit free</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Disclaimer.</b> This is a personal demonstration page by Jose Platero and is not an official Air Canada page. Air Canada, Aeroplan, and the rondelle are trademarks of Air Canada, used here only to demonstrate a design exercise by one of its employees, about his own public record. Everything stated on this page is public information.</p>
+    <p>Built with the target-employer kit &middot; <a href="https://joseplatero.com">joseplatero.com</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var rows = document.querySelectorAll('.brow.rv');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      rows.forEach(function (r) { r.classList.add('in'); });
+      return;
+    }
+    rows.forEach(function (r, i) {
+      setTimeout(function () { r.classList.add('in'); }, 250 + i * 180);
+    });
+  })();
+</script>
+
+</body>
+</html>
