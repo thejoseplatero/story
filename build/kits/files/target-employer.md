@@ -31,7 +31,11 @@ Wherever this file says `<CANDIDATE_NAME>`, `<RESUME_SOURCE>`, etc., substitute 
 
 ## Phase 0 — Full brand scan (browser, not curl)
 
-Curl-scraping color tokens is the floor, not the scan. Open the company's real site in a browser and walk all of it:
+**This is the core of the skill and it is not optional.** If you are about to skip the browser and "just grab the colors," stop: you are no longer running this skill. Open the company's real site in a real browser, walk it, and MEASURE computed styles. Scan the pages closest to the product the role touches (for a loyalty role, the loyalty pages; for checkout, the store), not just the homepage.
+
+**Real case for why:** an Air Canada page built from a curl scan came out with red, square primary buttons. The browser scan of the same site showed a black nav, blue pill CTAs (#1460aa, 24px radius), and the real heading face with its declared fallback. Curl reads the brand's accent; the browser reads how the brand actually behaves. If no browser tool is available, say so plainly and treat any curl fallback as a draft that must be re-verified, never as done.
+
+Walk all of it:
 
 - Scroll the entire homepage capturing every section: hero formula, scroll motion (sticky stacks, parallax, reveals), signature components (their checkout module, feed, search, cards — whatever their product's actual UI is built from)
 - Open 1-2 secondary pages (a product or category page, a "how it works" page) and any mega-menu

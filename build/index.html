@@ -307,21 +307,25 @@
   .hero h1 .rot {
     display: inline-block;
     white-space: nowrap;
-    border-bottom: 4px solid var(--orange);
-    line-height: 1.0;
-    transition: width .35s cubic-bezier(.22,.61,.36,1);
-    overflow: hidden;
-    vertical-align: bottom;
+    perspective: 600px;
   }
   .hero h1 .rot .w {
     display: inline-block;
+    position: relative;
+    transform-origin: 50% 100%;
   }
-  .hero h1 .rot .w.out { animation: rotOut .28s ease-in both; }
-  .hero h1 .rot .w.in { animation: rotIn .3s cubic-bezier(.22,.61,.36,1) both; }
-  @keyframes rotOut { to { opacity: 0; transform: translateY(-72%); } }
-  @keyframes rotIn { from { opacity: 0; transform: translateY(72%); } }
+  .hero h1 .rot .w::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 4px;
+    background: var(--orange);
+  }
+  .hero h1 .rot .w.out { animation: flapOut .2s ease-in both; }
+  .hero h1 .rot .w.in { animation: flapIn .24s ease-out both; }
+  @keyframes flapOut { to { transform: rotateX(88deg); opacity: .2; } }
+  @keyframes flapIn { from { transform: rotateX(-88deg); opacity: .2; } }
   @media (prefers-reduced-motion: reduce) {
-    .hero h1 .rot { transition: none; }
     .hero h1 .rot .w.out, .hero h1 .rot .w.in { animation: none; }
   }
   .hero h1 .accent::before {
@@ -389,7 +393,7 @@
     text-transform: uppercase;
     color: var(--ink-mute);
     line-height: 2;
-    max-width: 480px;
+    max-width: 520px;
   }
   .leavewith b { color: var(--ink); font-weight: 700; }
 
@@ -1591,14 +1595,14 @@
         <img src="jose.jpg" alt="" width="44" height="44">
         <div>
           <b>Taught by Jose Platero</b>
-          <span>Director of Product, Design &amp; MarTech, Air Canada | Aeroplan &middot; BrainStation instructor</span>
+          <span>Director of Product, Design &amp; MarTech, Air Canada | Aeroplan<br>BrainStation instructor &middot; Queen&rsquo;s Smith School advisor &middot; Keynote speaker</span>
         </div>
       </div>
       <div class="cta-row rv d3">
         <a class="btn lg" href="#price">See the Sessions</a>
         <a class="btn lg ghost" href="#founder">Meet Jose</a>
       </div>
-      <p class="leavewith rv d4">You leave with: <b>a target list</b> &middot; <b>a presence</b> &middot; <b>a translated resume</b> &middot; <b>a warm circle</b> &middot; <b>interview prep</b></p>
+      <p class="leavewith rv d4">You leave with: <b>the 8 roles worth your energy</b> &middot; <b>a name the right people find</b> &middot; <b>a resume that gets replies</b> &middot; <b>a network that stays warm</b> &middot; <b>a plan for every interview room</b></p>
     </div>
     <div>
       <aside class="xlate rv d2" aria-label="The system, running">
@@ -2473,26 +2477,26 @@
     const WORDS = ['product', 'design', 'engineering', 'data'];
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // measure each word once so the slot animates width instead of jumping
-    const widths = {};
+    // fixed slot sized to the widest word: a flap board cell, never a resize
     const probe = document.createElement('span');
     probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;';
     probe.className = 'w';
     slot.appendChild(probe);
-    const measure = () => {
-      WORDS.forEach(w => { probe.textContent = w; widths[w] = probe.getBoundingClientRect().width; });
+    const size = () => {
+      let max = 0;
+      WORDS.forEach(w => { probe.textContent = w; max = Math.max(max, probe.getBoundingClientRect().width); });
       probe.textContent = '';
+      slot.style.width = Math.ceil(max) + 'px';
     };
-    measure();
-    addEventListener('resize', measure);
+    size();
+    addEventListener('resize', size);
 
-    slot.textContent = '';
+    slot.insertBefore(document.createTextNode(''), probe);
     const word = document.createElement('span');
     word.className = 'w';
     word.textContent = WORDS[0];
-    slot.appendChild(word);
-    slot.appendChild(probe);
-    slot.style.width = widths[WORDS[0]] + 'px';
+    slot.insertBefore(word, probe);
+    slot.childNodes[0].remove();
 
     let i = 0;
     setInterval(() => {
@@ -2500,13 +2504,12 @@
       const next = WORDS[i];
       word.classList.remove('in');
       word.classList.add('out');
-      slot.style.width = widths[next] + 'px';
       setTimeout(() => {
         word.textContent = next;
         word.classList.remove('out');
         word.classList.add('in');
-      }, 280);
-    }, 2400);
+      }, 210);
+    }, 2600);
   })();
 
   // Portrait renders from pixelated to sharp: untranslated to translated
