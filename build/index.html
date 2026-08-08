@@ -344,12 +344,42 @@
     line-height: 1.55;
     color: var(--ink-soft);
     max-width: 480px;
-    margin: 0 0 28px;
+    margin: 0 0 20px;
   }
   .hero .cta-row {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+  }
+  .cred {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin: 0 0 26px;
+  }
+  .cred img {
+    width: 44px; height: 44px;
+    object-fit: cover;
+    border: 1.5px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    flex: none;
+  }
+  .cred b {
+    display: block;
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .cred span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-mute);
+    margin-top: 3px;
+    line-height: 1.5;
   }
   .leavewith {
     margin: 22px 0 0;
@@ -1557,6 +1587,13 @@
       <span class="pill-tag rv">For International Product Builders</span>
       <h1 class="rv d1">Land your first <span class="accent">North&nbsp;American</span> <span class="rot" id="rotword">product</span> role.</h1>
       <p class="lede rv d2">Your experience is not worth less here. It is just untranslated. Build the system that translates it, with AI, and keep it. For builders trained outside North America.</p>
+      <div class="cred rv d2">
+        <img src="jose.jpg" alt="" width="44" height="44">
+        <div>
+          <b>Taught by Jose Platero</b>
+          <span>Director of Product, Design &amp; MarTech, Air Canada | Aeroplan &middot; BrainStation instructor</span>
+        </div>
+      </div>
       <div class="cta-row rv d3">
         <a class="btn lg" href="#price">See the Sessions</a>
         <a class="btn lg ghost" href="#founder">Meet Jose</a>
