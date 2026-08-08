@@ -14,7 +14,7 @@ You can run this in about 20 minutes. It is meant to be run with a real person a
 ## What this kit is not
 
 - It is not visa or immigration advice. Work eligibility is out of scope here. Ask a lawyer or the official government site, not a language model.
-- It is not a list of companies that are definitely hiring you. It is a list of places worth your energy.
+- It is not a list of companies that are definitely hiring you. It is a list of places worth your time.
 - It is not permanent. Run it again every 4 to 6 weeks as you learn things.
 
 ## What this kit cannot do
