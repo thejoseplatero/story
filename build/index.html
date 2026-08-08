@@ -308,7 +308,6 @@
   .hero h1 .rot {
     display: inline-block;
     white-space: nowrap;
-    perspective: 600px;
   }
   .hero h1 .rot .w {
     display: inline-block;
@@ -318,14 +317,14 @@
   .hero h1 .rot .w::after {
     content: "";
     position: absolute;
-    left: 0; right: 0; bottom: -6px;
+    left: 0; right: 0.32em; bottom: -6px;
     height: 4px;
     background: var(--orange);
   }
-  .hero h1 .rot .w.out { animation: flapOut .2s ease-in both; }
-  .hero h1 .rot .w.in { animation: flapIn .24s ease-out both; }
-  @keyframes flapOut { to { transform: rotateX(88deg); opacity: .2; } }
-  @keyframes flapIn { from { transform: rotateX(-88deg); opacity: .2; } }
+  .hero h1 .rot .w.out { animation: wordOut .2s ease-in both; }
+  .hero h1 .rot .w.in { animation: wordIn .3s ease-out both; }
+  @keyframes wordOut { to { transform: translateY(-10px); opacity: 0; } }
+  @keyframes wordIn { from { transform: translateY(12px); opacity: 0; } }
   @media (prefers-reduced-motion: reduce) {
     .hero h1 .rot .w.out, .hero h1 .rot .w.in { animation: none; }
   }
@@ -390,8 +389,7 @@
     background: var(--paper);
     box-shadow: 4px 4px 0 var(--ink);
     padding: 16px 20px 14px;
-    margin: 0 0 24px;
-    max-width: 520px;
+    margin: 18px 0 0;
   }
   .leave-k {
     display: inline-block;
@@ -1106,25 +1104,9 @@
 
   .xsay {
     font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--orange-deep); margin: 12px 0 0; padding: 0 22px; min-height: 1.4em;
+    color: var(--orange-deep); margin: 12px 0 0; padding: 0 22px 18px; min-height: 1.4em;
   }
 
-  .xcta {
-    display: block; margin-top: 14px; padding: 15px 22px 17px;
-    background: var(--ink); transition: background .18s;
-  }
-  .xcta b {
-    display: flex; align-items: center; gap: 9px;
-    font-family: var(--serif); font-size: 16px; font-weight: 700; color: #fff; line-height: 1.25;
-  }
-  .xcta b::before { content: "\2713"; font-family: var(--sans); color: var(--orange); }
-  .xcta span {
-    display: block; margin-top: 5px;
-    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
-    text-transform: uppercase; color: #8b857e;
-  }
-  .xcta span a { color: #fff; text-decoration: none; border-bottom: 1px solid var(--orange); }
-  .xcta span a:hover { color: var(--orange); }
   @media (prefers-reduced-motion: reduce) {
     .xkitline i, .xout p::after { animation: none; }
   }
@@ -1625,7 +1607,7 @@
     <div>
       <span class="pill-tag rv">For International Product Builders</span>
       <h1 class="rv d1">Land your first <span class="accent"><span class="nb"><i class="hsq" aria-hidden="true"></i>North</span> American</span> job in <span class="rot" id="rotword">product</span></h1>
-      <p class="lede rv d2">Your experience is not worth less here. It is just untranslated. Build the system that translates it, with AI, and keep it. For builders trained outside North America.</p>
+      <p class="lede rv d2"><b>Two hundred applications. Two replies.</b> If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated. That is a fixable problem, and you build the fix with AI in one day.</p>
       <div class="cred rv d2">
         <img src="jose.jpg" alt="" width="44" height="44">
         <div>
@@ -1633,17 +1615,7 @@
           <span>Director of Product, Design &amp; MarTech, Air Canada | Aeroplan<br>BrainStation instructor &middot; Queen&rsquo;s Smith School advisor &middot; Keynote speaker</span>
         </div>
       </div>
-      <div class="leave rv d3">
-        <span class="leave-k">You leave with</span>
-        <ul>
-          <li>The 8 roles worth your time</li>
-          <li>A name people can find</li>
-          <li>A resume that gets replies</li>
-          <li>A network that stays warm</li>
-          <li>A plan for every interview</li>
-        </ul>
-      </div>
-      <div class="cta-row rv d4">
+      <div class="cta-row rv d3">
         <a class="btn lg" href="#price">See the Sessions</a>
         <a class="btn lg ghost" href="#founder">Meet Jose</a>
       </div>
@@ -1675,11 +1647,17 @@
 
         <p class="xsay" id="xsay">Stop applying to everything.</p>
 
-        <div class="xcta">
-          <b>Built with these kits, for real</b>
-          <span><a href="/aircanada" target="_blank" rel="noopener">/aircanada</a> &middot; <a href="/affirm" target="_blank" rel="noopener">/affirm</a> &middot; <a href="/thomsonreuters" target="_blank" rel="noopener">/thomsonreuters</a> &middot; the first one pitches Jose for his own job</span>
-        </div>
       </aside>
+      <div class="leave rv d4">
+        <span class="leave-k">You leave with</span>
+        <ul>
+          <li>The 8 roles worth your time</li>
+          <li>A name people can find</li>
+          <li>A resume that gets replies</li>
+          <li>A network that stays warm</li>
+          <li>A plan for every interview</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1695,8 +1673,8 @@
       <path d="M52 28l.8-5.4 4.8 1z" fill="none" stroke="#ff4a1c" stroke-width="2.6" stroke-linejoin="round"/>
       <circle cx="56" cy="18" r="1.9" fill="#ff4a1c"/><circle cx="62" cy="18" r="1.9" fill="#ff4a1c"/><circle cx="68" cy="18" r="1.9" fill="#ff4a1c"/>
     </svg>
-    <h2 class="rv">Two hundred applications.<br><b>Two replies.</b></h2>
-    <p class="rv d1">If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated. That is a fixable problem.</p>
+    <h2 class="rv">Your experience is not worth less here.<br><b>It is just untranslated.</b></h2>
+    <p class="rv d1">Not a smaller resume. Not starting over. A translation layer: the same career, made readable to the people hiring here.</p>
   </div>
 </section>
 
@@ -2528,7 +2506,7 @@
     slot.appendChild(probe);
     const size = () => {
       let max = 0;
-      WORDS.forEach(w => { probe.textContent = w; max = Math.max(max, probe.getBoundingClientRect().width); });
+      WORDS.forEach(w => { probe.textContent = w + '.'; max = Math.max(max, probe.getBoundingClientRect().width); });
       probe.textContent = '';
       const room = slot.parentElement ? slot.parentElement.clientWidth : max;
       slot.style.width = Math.min(Math.ceil(max), Math.floor(room)) + 'px';
@@ -2539,7 +2517,7 @@
     slot.insertBefore(document.createTextNode(''), probe);
     const word = document.createElement('span');
     word.className = 'w';
-    word.textContent = WORDS[0];
+    word.textContent = WORDS[0] + '.';
     slot.insertBefore(word, probe);
     slot.childNodes[0].remove();
 
@@ -2550,7 +2528,7 @@
       word.classList.remove('in');
       word.classList.add('out');
       setTimeout(() => {
-        word.textContent = next;
+        word.textContent = next + '.';
         word.classList.remove('out');
         word.classList.add('in');
       }, 210);
