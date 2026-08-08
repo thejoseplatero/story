@@ -9,6 +9,8 @@ A warm circle is the small group of people who know you, like you, and would say
 
 Most people only reach out when they need something. That is exactly why it does not work. The person on the other side can feel it. They have not heard from you in two years and now there is a favour attached.
 
+A coffee chat does not get you a job, and that was never the point. The research on how people actually find work backs this up: most offers come through acquaintances people saw rarely, not close friends, because weak ties carry new information. A wide circle that remembers you beats a small circle you exhaust.
+
 This kit fixes the memory problem, not the asking problem. You remember people properly. You stay useful. The job, the intro, the referral: those are side effects of the relationship, never the purpose of it.
 
 **The notes are a means. Remembering people is the point.** If you ever feel like you are working a list instead of thinking about a person, stop and close the file.
