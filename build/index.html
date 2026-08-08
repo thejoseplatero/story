@@ -351,9 +351,6 @@
     animation: caretBlink 1s steps(1, end) infinite;
   }
   @keyframes caretBlink { 50% { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) {
-    .hero h1 .rot .caret { display: none; }
-  }
 
   .hero p.lede {
     font-size: 17px;
@@ -1137,7 +1134,6 @@
     content: ""; display: inline-block; width: 7px; height: 15px; background: var(--orange);
     margin-left: 3px; vertical-align: -2px;
   }
-  @media (prefers-reduced-motion: reduce) { .xout p.typing::after { display: none; } }
   @media (max-width: 900px) { .xout p { min-height: calc(1.45em * 4); } }
 
   .xsay {
@@ -2515,11 +2511,6 @@
     let raf = null;
     function write(line) {
       cancelAnimationFrame(raf);
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        el.textContent = line;
-        el.classList.remove('typing');
-        return;
-      }
       el.classList.add('typing');
       const t0 = performance.now();
       const step = (now) => {
@@ -2554,7 +2545,7 @@
     const slot = document.getElementById('rotword');
     if (!slot) return;
     const WORDS = ['tech', 'product', 'design', 'engineering', 'data', 'QA', 'AI'];
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // typing is life, not movement: the slot is fixed, so this runs under reduced motion too
 
     // fixed slot sized to the widest word, so nothing around it ever moves
     const probe = document.createElement('span');
