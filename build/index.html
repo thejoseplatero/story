@@ -556,10 +556,24 @@
     display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; align-items: baseline;
   }
   .m-note b { color: var(--ink); }
-  .m-note .links { font-family: var(--mono); font-size: 11.5px; font-weight: 700;
-    letter-spacing: .08em; text-transform: uppercase; }
-  .m-note .links a { white-space: nowrap; }
-  .m-note .links a { color: var(--orange); text-decoration: underline; text-underline-offset: 3px; }
+  .receipts {
+    max-width: 900px; margin: 16px auto 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  @media (max-width: 700px) { .receipts { grid-template-columns: 1fr; max-width: 420px; } }
+  .rcpt {
+    display: block; text-decoration: none;
+    border: 1.5px solid var(--ink); background: var(--paper);
+    box-shadow: 4px 4px 0 var(--ink);
+    padding: 14px 18px 13px;
+    transition: transform .14s ease, box-shadow .14s ease;
+  }
+  .rcpt:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+  .rcpt b {
+    display: block; font-family: var(--mono); font-size: 13.5px; font-weight: 700;
+    letter-spacing: .04em; color: var(--orange-deep); margin-bottom: 3px;
+  }
+  .rcpt span { font-family: var(--serif); font-size: 13px; color: var(--ink-soft); }
   @media (prefers-reduced-motion: reduce) {
     .m-chip.c1, .m-chip.c2, .m-chip.c3 { animation: none; opacity: 1; }
     .m-el { animation: none; opacity: 1; transform: none; }
@@ -1729,10 +1743,23 @@
       </div>
     </div>
 
-    <p class="m-note rv">
+    <p class="m-note rv" style="justify-content:center;">
       <span><b>These are real, built with the same kit.</b> Open them and judge for yourself.</span>
-      <span class="links"><a href="/pointclickcare" target="_blank" rel="noopener">/pointclickcare</a> &middot; <a href="/affirm" target="_blank" rel="noopener">/affirm</a> &middot; <a href="/thomsonreuters" target="_blank" rel="noopener">/thomsonreuters</a></span>
     </p>
+    <div class="receipts rv">
+      <a class="rcpt" href="/pointclickcare" target="_blank" rel="noopener">
+        <b>/pointclickcare</b>
+        <span>Healthcare tech &middot; open the page &#8594;</span>
+      </a>
+      <a class="rcpt" href="/affirm" target="_blank" rel="noopener">
+        <b>/affirm</b>
+        <span>Fintech &middot; open the page &#8594;</span>
+      </a>
+      <a class="rcpt" href="/thomsonreuters" target="_blank" rel="noopener">
+        <b>/thomsonreuters</b>
+        <span>Legal and news tech &middot; open the page &#8594;</span>
+      </a>
+    </div>
   </div>
 </section>
 
