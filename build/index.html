@@ -2727,13 +2727,15 @@
     else img.addEventListener('load', start);
   })();
 
-  // Early $25 offer bar: appears once you scroll into the problem section,
-  // steps aside once the real pricing section comes into view
+  // Early $25 offer bar: appears once you scroll into the founder section
+  // (pain has been named, some credibility earned), steps aside once the
+  // real pricing section comes into view. Remembered per-session only, so
+  // it gets a fresh chance on every new visit instead of being silenced forever.
   (() => {
     const bar = document.getElementById('offer25');
     if (!bar) return;
     let done = false;
-    try { done = localStorage.getItem('bwj-offer25') === '1'; } catch (e) {}
+    try { done = sessionStorage.getItem('bwj-offer25') === '1'; } catch (e) {}
     if (done) return;
 
     const show = () => {
@@ -2745,18 +2747,18 @@
       done = true;
       bar.classList.remove('on');
       document.body.classList.remove('offer25-open');
-      try { localStorage.setItem('bwj-offer25', '1'); } catch (e) {}
+      try { sessionStorage.setItem('bwj-offer25', '1'); } catch (e) {}
       trigger.disconnect();
       if (priceObs) priceObs.disconnect();
     };
 
-    const problem = document.querySelector('.void-band');
+    const founder = document.getElementById('founder');
     const price = document.getElementById('price');
 
     const trigger = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) { show(); trigger.disconnect(); }
     }, { threshold: 0.2 });
-    if (problem) trigger.observe(problem);
+    if (founder) trigger.observe(founder);
 
     let priceObs;
     if (price) {
