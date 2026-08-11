@@ -986,39 +986,54 @@
     color: #ffd2c5;
   }
 
-  /* ——————————————————— early $25 module ——————————————————— */
-  .early-cta {
-    padding: 28px 0 40px;
+  /* ——————————————————— early $25 offer bar ——————————————————— */
+  #offer25 {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 70;
+    background: var(--ink);
+    color: #f6f3ee;
+    border-top: 3px solid var(--orange);
+    transform: translateY(100%);
+    transition: transform .45s cubic-bezier(.22,.61,.36,1);
   }
-  .early-cta-inner {
-    max-width: 640px;
+  #offer25.on { transform: translateY(0); }
+  body.offer25-open { padding-bottom: 108px; }
+  @media (max-width: 720px) { body.offer25-open { padding-bottom: 150px; } }
+  #offer25 .in {
+    max-width: var(--max);
     margin: 0 auto;
-    border: 1px solid var(--ink-10);
-    border-radius: 14px;
-    padding: 22px 26px;
+    padding: 18px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
     flex-wrap: wrap;
   }
-  .early-cta-text p {
-    margin: 0;
-    font-size: 15px;
-    color: var(--ink-soft);
+  #offer25 .flag {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--orange); color: #fff; padding: 4px 8px;
+    display: inline-block; margin: 0 0 6px;
   }
-  .early-cta-text p b { color: var(--ink); }
-  .early-cta-text .sub {
-    margin-top: 4px;
-    font-size: 12.5px;
-    color: var(--ink-mute);
+  #offer25 p { margin: 0; font-size: 14.5px; line-height: 1.5; max-width: 58ch; }
+  #offer25 p b { color: #fff; }
+  #offer25 .acts { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  #offer25 .go {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--orange); color: #fff; padding: 12px 18px;
+    border: 1.5px solid var(--orange); white-space: nowrap;
   }
-  .early-cta .btn {
-    white-space: nowrap;
+  #offer25 .go:hover { background: #ff5f36; }
+  #offer25 .no {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8b857e;
+    background: none; border: 0; cursor: pointer; padding: 8px;
   }
-  @media (max-width: 560px) {
-    .early-cta-inner { flex-direction: column; align-items: stretch; text-align: center; }
-  }
+  #offer25 .no:hover { color: #f6f3ee; }
+  @media (max-width: 720px) { #offer25 .in { padding: 16px 20px; } #offer25 p { font-size: 13.5px; } }
+  @media (hover: none) { #offer25 .no { padding: 14px 10px; min-height: 44px; } }
 
 
   /* ——————————————————— footer ——————————————————— */
@@ -1739,19 +1754,6 @@
   </div>
 </section>
 
-<!-- ————————— EARLY $25 OPTION ————————— -->
-<section class="early-cta" aria-label="Start with the $25 intro">
-  <div class="wrap">
-    <div class="early-cta-inner">
-      <div class="early-cta-text">
-        <p>Not ready for the full day? <b>Try it for $25 first.</b></p>
-        <p class="sub">90 minutes online, Aug 27 or Oct 29. Leave with your first target list, drafted live.</p>
-      </div>
-      <a class="btn" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register · $25</a>
-    </div>
-  </div>
-</section>
-
 <!-- ————————— THE PAIN, NAMED ————————— -->
 <section class="void-band" aria-label="The problem">
   <div class="wrap">
@@ -2312,6 +2314,20 @@
 <!-- ————————— THE COIN ————————— -->
 
 
+<!-- ————————— EARLY $25 OFFER BAR ————————— -->
+<aside id="offer25" aria-label="Try the $25 intro">
+  <div class="in">
+    <div>
+      <span class="flag">Not ready for the full day?</span>
+      <p>Try it for <b>$25 online</b>. 90 minutes, Aug 27 or Oct 29. Leave with your first target list, drafted live.</p>
+    </div>
+    <span class="acts">
+      <a class="go" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register &middot; $25</a>
+      <button class="no" id="offer25No" type="button">No thanks</button>
+    </span>
+  </div>
+</aside>
+
 <!-- ————————— LEAVING WITHOUT BUYING ————————— -->
 <aside id="catch" aria-label="Newsletter">
   <div class="in">
@@ -2709,6 +2725,49 @@
     };
     if (img.complete && img.naturalWidth) start();
     else img.addEventListener('load', start);
+  })();
+
+  // Early $25 offer bar: appears once you scroll into the problem section,
+  // steps aside once the real pricing section comes into view
+  (() => {
+    const bar = document.getElementById('offer25');
+    if (!bar) return;
+    let done = false;
+    try { done = localStorage.getItem('bwj-offer25') === '1'; } catch (e) {}
+    if (done) return;
+
+    const show = () => {
+      if (done) return;
+      bar.classList.add('on');
+      document.body.classList.add('offer25-open');
+    };
+    const dismiss = () => {
+      done = true;
+      bar.classList.remove('on');
+      document.body.classList.remove('offer25-open');
+      try { localStorage.setItem('bwj-offer25', '1'); } catch (e) {}
+      trigger.disconnect();
+      if (priceObs) priceObs.disconnect();
+    };
+
+    const problem = document.querySelector('.void-band');
+    const price = document.getElementById('price');
+
+    const trigger = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { show(); trigger.disconnect(); }
+    }, { threshold: 0.2 });
+    if (problem) trigger.observe(problem);
+
+    let priceObs;
+    if (price) {
+      priceObs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) dismiss();
+      }, { threshold: 0 });
+      priceObs.observe(price);
+    }
+
+    document.getElementById('offer25No').addEventListener('click', dismiss);
+    bar.querySelector('.go').addEventListener('click', dismiss);
   })();
 
   // One quiet catch on the way out, only after the offer has been seen
