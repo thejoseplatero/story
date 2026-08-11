@@ -986,6 +986,40 @@
     color: #ffd2c5;
   }
 
+  /* ——————————————————— early $25 module ——————————————————— */
+  .early-cta {
+    padding: 28px 0 40px;
+  }
+  .early-cta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    border: 1px solid var(--ink-10);
+    border-radius: 14px;
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .early-cta-text p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .early-cta-text p b { color: var(--ink); }
+  .early-cta-text .sub {
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: var(--ink-mute);
+  }
+  .early-cta .btn {
+    white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .early-cta-inner { flex-direction: column; align-items: stretch; text-align: center; }
+  }
+
 
   /* ——————————————————— footer ——————————————————— */
   footer.bot {
@@ -1701,6 +1735,19 @@
           <li>The AI system that runs it all</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ————————— EARLY $25 OPTION ————————— -->
+<section class="early-cta" aria-label="Start with the $25 intro">
+  <div class="wrap">
+    <div class="early-cta-inner">
+      <div class="early-cta-text">
+        <p>Not ready for the full day? <b>Try it for $25 first.</b></p>
+        <p class="sub">90 minutes online, Aug 27 or Oct 29. Leave with your first target list, drafted live.</p>
+      </div>
+      <a class="btn" href="https://luma.com/8zjiutyd" target="_blank" rel="noopener">Register · $25</a>
     </div>
   </div>
 </section>
