@@ -198,6 +198,18 @@
     letter-spacing: 0.16em;
     text-transform: uppercase;
   }
+  .pill-tag .rot-audience {
+    display: flex;
+    align-items: center;
+    min-height: 2.8em;
+    line-height: 1.4;
+  }
+  .pill-tag .rot-audience .w {
+    transition: opacity .35s ease;
+  }
+  .pill-tag .rot-audience .w.fade {
+    opacity: 0;
+  }
   .pill-tag::before {
     content: "";
     width: 10px; height: 10px;
@@ -1696,7 +1708,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill-tag rv">For Builders: Trained Outside North America, Switching Careers, Or Starting Out</span>
+      <span class="pill-tag rv">For Builders: <span class="rot-audience" id="rotaudience"><span class="w">Trained Outside North America</span></span></span>
       <h1 class="rv d1">Land your first <span class="accent">North American</span> job in <span class="rot" id="rotword">tech</span></h1>
       <p class="lede rv d2"><span class="hit">Two hundred applications. <em>Two replies.</em></span> If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated. That is a fixable problem, and you build the fix with AI in one day.</p>
       <div class="cred rv d2">
@@ -2684,6 +2696,41 @@
       erase(() => { i = (i + 1) % WORDS.length; type(WORDS[i], cycle); });
     }, 2800);
     cycle();
+  })();
+
+  // Rotating audience phrase in the hero pill: fixed box, crossfade, no jank
+  (() => {
+    const slot = document.getElementById('rotaudience');
+    if (!slot) return;
+    const PHRASES = ['Trained Outside North America', 'Switching Careers', 'New To Tech'];
+    const word = slot.querySelector('.w');
+
+    // lock the box to the widest phrase's natural width, capped for mobile,
+    // so it never grows or shrinks between phrases
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;';
+    probe.className = 'w';
+    document.body.appendChild(probe);
+    const size = () => {
+      let max = 0;
+      PHRASES.forEach(p => { probe.textContent = p; max = Math.max(max, probe.getBoundingClientRect().width); });
+      const room = slot.parentElement ? slot.parentElement.clientWidth : max;
+      const cap = Math.min(Math.ceil(max), 260, Math.floor(room) || 260);
+      slot.style.width = cap + 'px';
+    };
+    size();
+    addEventListener('resize', size);
+
+    let i = 0;
+    const swap = () => {
+      word.classList.add('fade');
+      setTimeout(() => {
+        i = (i + 1) % PHRASES.length;
+        word.textContent = PHRASES[i];
+        word.classList.remove('fade');
+      }, 350);
+    };
+    setInterval(swap, 3200);
   })();
 
   // Portrait renders from pixelated to sharp: untranslated to translated
