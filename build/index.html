@@ -361,6 +361,24 @@
   }
   @keyframes caretBlink { 50% { opacity: 0; } }
 
+  .pill-tag .rot { display: inline-block; }
+  .pill-tag .rot .w { display: inline-block; position: relative; }
+  .pill-tag .rot .w::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -3px;
+    height: 2px;
+    background: var(--orange);
+  }
+  .pill-tag .rot .caret {
+    display: inline-block;
+    width: 0.4ch; height: 0.85em;
+    background: var(--orange);
+    margin-left: 2px;
+    vertical-align: -0.1em;
+    animation: caretBlink 1s steps(1, end) infinite;
+  }
+
   .hero p.lede {
     font-size: 17px;
     line-height: 1.55;
@@ -1696,7 +1714,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill-tag rv">For Builders Trained Outside North America</span>
+      <span class="pill-tag rv">For Builders <span class="rot" id="rotaudience">Trained Outside North America</span></span>
       <h1 class="rv d1">Land your first <span class="accent">North American</span> job in <span class="rot" id="rotword">tech</span></h1>
       <p class="lede rv d2"><span class="hit">Two hundred applications. <em>Two replies.</em></span> If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated. That is a fixable problem, and you build the fix with AI in one day.</p>
       <div class="cred rv d2">
@@ -2682,6 +2700,42 @@
     };
     const cycle = () => setTimeout(() => {
       erase(() => { i = (i + 1) % WORDS.length; type(WORDS[i], cycle); });
+    }, 2800);
+    cycle();
+  })();
+
+  // Rotating audience phrase in the hero pill: same problem, different starting point
+  (() => {
+    const slot = document.getElementById('rotaudience');
+    if (!slot) return;
+    const PHRASES = ['Trained Outside North America', 'Switching Careers', 'New To Tech'];
+
+    slot.textContent = '';
+    const word = document.createElement('span');
+    word.className = 'w';
+    word.textContent = PHRASES[0];
+    const caret = document.createElement('i');
+    caret.className = 'caret';
+    slot.appendChild(word);
+    slot.appendChild(caret);
+
+    let i = 0;
+    const erase = (done) => {
+      const t = setInterval(() => {
+        word.textContent = word.textContent.slice(0, -1);
+        if (!word.textContent) { clearInterval(t); done(); }
+      }, 20);
+    };
+    const type = (w, done) => {
+      let j = 0;
+      const t = setInterval(() => {
+        j++;
+        word.textContent = w.slice(0, j);
+        if (j >= w.length) { clearInterval(t); done(); }
+      }, 35);
+    };
+    const cycle = () => setTimeout(() => {
+      erase(() => { i = (i + 1) % PHRASES.length; type(PHRASES[i], cycle); });
     }, 2800);
     cycle();
   })();
