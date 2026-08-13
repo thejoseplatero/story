@@ -590,11 +590,19 @@
   .rcpt {
     display: block; text-decoration: none;
     border: 1.5px solid var(--ink); background: var(--paper);
-    box-shadow: 4px 4px 0 var(--ink);
+    box-shadow: 4px 4px 0 var(--orange);
     padding: 14px 18px 13px;
+    position: relative;
     transition: transform .14s ease, box-shadow .14s ease;
   }
-  .rcpt:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+  .rcpt:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--orange); }
+  .rcpt .live {
+    position: absolute; top: -10px; right: 12px;
+    font-family: var(--mono); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    background: var(--orange); color: #fff;
+    padding: 3px 8px;
+  }
   .rcpt b {
     display: block; font-family: var(--mono); font-size: 13.5px; font-weight: 700;
     letter-spacing: .04em; color: var(--orange-deep); margin-bottom: 3px;
@@ -1892,14 +1900,17 @@
     </p>
     <div class="receipts rv">
       <a class="rcpt" href="/pointclickcare" target="_blank" rel="noopener">
+        <span class="live">Live</span>
         <b>/pointclickcare</b>
         <span>Healthcare tech &middot; see it live &#8594;</span>
       </a>
       <a class="rcpt" href="/affirm" target="_blank" rel="noopener">
+        <span class="live">Live</span>
         <b>/affirm</b>
         <span>Fintech &middot; see it live &#8594;</span>
       </a>
       <a class="rcpt" href="/thomsonreuters" target="_blank" rel="noopener">
+        <span class="live">Live</span>
         <b>/thomsonreuters</b>
         <span>Legal and news tech &middot; see it live &#8594;</span>
       </a>
