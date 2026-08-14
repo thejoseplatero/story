@@ -608,6 +608,29 @@
     letter-spacing: .04em; color: var(--orange-deep); margin-bottom: 3px;
   }
   .rcpt span { font-family: var(--serif); font-size: 13px; color: var(--ink-soft); }
+  .use-strip { max-width: 860px; margin: 30px auto 0; text-align: center; }
+  .use-strip .use-k {
+    display: block; margin-bottom: 12px;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange);
+  }
+  .use-steps {
+    list-style: none; display: flex; margin: 0; padding: 0;
+    counter-reset: u; border: 1px solid var(--ink-10); background: var(--paper);
+  }
+  .use-steps li {
+    flex: 1; padding: 16px 12px 14px; counter-increment: u;
+    border-left: 1px solid var(--ink-10);
+  }
+  .use-steps li:first-child { border-left: 0; }
+  .use-steps li::before {
+    content: counter(u);
+    display: block; margin-bottom: 6px;
+    font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--orange);
+  }
+  .use-steps b { display: block; font-family: var(--sans); font-size: 13.5px; color: var(--ink); margin-bottom: 3px; }
+  .use-steps span { font-family: var(--serif); font-size: 12.5px; color: var(--ink-mute); line-height: 1.4; }
+  @media (max-width: 640px) { .use-steps { flex-wrap: wrap; } .use-steps li { flex: 1 1 50%; border-top: 1px solid var(--ink-10); } .use-steps li:nth-child(-n+2) { border-top: 0; } .use-steps li:nth-child(3) { border-left: 0; } }
   @media (prefers-reduced-motion: reduce) {
     .m-chip.c1, .m-chip.c2, .m-chip.c3 { animation: none; opacity: 1; }
     .m-el { animation: none; opacity: 1; transform: none; }
@@ -1914,6 +1937,16 @@
         <b>/thomsonreuters</b>
         <span>Legal and news tech &middot; see it live &#8594;</span>
       </a>
+    </div>
+
+    <div class="use-strip rv">
+      <span class="use-k">Where it goes</span>
+      <ol class="use-steps">
+        <li><b>Your resume</b><span>the link goes at the top</span></li>
+        <li><b>After you apply</b><span>a short note to the hiring manager</span></li>
+        <li><b>Your outreach</b><span>any message to anyone at the company</span></li>
+        <li><b>The interview</b><span>the thing you walk them through</span></li>
+      </ol>
     </div>
   </div>
 </section>
