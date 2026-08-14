@@ -3042,6 +3042,25 @@
     addEventListener('scroll', paint, { passive: true });
     paint();
   })();
+
+  /* CTA click tracking: one delegated listener, one GA4 event per button. */
+  (() => {
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('a.btn, .rcpt, .tier-alt, .go, .no, #coin, .egg-hint');
+      if (!el || typeof gtag !== 'function') return;
+      const name = el.id || (el.textContent || '').trim().toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'unnamed';
+      let dest = 'internal';
+      if (el.tagName === 'A' && el.host && el.host !== location.host) dest = el.host;
+      else if (el.tagName === 'A' && el.getAttribute('href')) dest = el.getAttribute('href');
+      const sec = el.closest('section[id], footer, header, .pop');
+      gtag('event', 'cta_click', {
+        cta: name,
+        destination: dest,
+        section: sec ? (sec.id || sec.tagName.toLowerCase()) : 'page'
+      });
+    }, { capture: true });
+  })();
 </script>
 
 </body>
