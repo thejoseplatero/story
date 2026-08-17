@@ -88,6 +88,22 @@ wrong there, but any page that embeds them blind will ship a broken element.
 | AI for Builders and Executives · AIAI Toronto | `/assets/talks/aiai-toronto.mp4` | 404, never uploaded |
 | Panel on AI systems for the digital customer experience · Elevate, Toronto | `/assets/talks/elevate.mp4` | 404, never uploaded |
 
+## Where the subject sits in the frame
+
+Cropping a landscape photo into a portrait well drops about half its width, and a
+default centre crop then cuts the subject out. Recorded here so no build has to
+rediscover it:
+
+| Asset | Subject position | Safe crop |
+|---|---|---|
+| `photos/panel-mic.jpg` | **Right of frame.** Jose is the third person, nearest the camera | `object-position: 78% 50%`. A centre crop removes his face entirely |
+| `photos/pipeline-talk.jpg` | Jose right, his pipeline diagram fills the left | Centre is fine, including in a wide 2.5:1 band |
+| `photos/studio.jpg` | No person in frame, it is the desk rig | Centre is fine |
+| `photos/armchair.jpg` | Centred, already portrait | Centre is fine |
+
+Always state the crop position explicitly rather than relying on the default, so
+"centre is correct here" is a decision someone made and not an accident.
+
 ## Mixed orientations
 
 Talks are 16:9, reels are 9:16, photos are mixed. Never lay these out at natural
