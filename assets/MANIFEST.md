@@ -27,9 +27,21 @@ Verified live 2026-08-17.
 
 | Label | URL | Poster | Size |
 |---|---|---|---|
-| Design System Workshop | `/assets/behind-the-scenes/bts-1.mp4` | `/assets/posters/workshop.jpg` | 25MB |
+| Design System Workshop ⚠️ | `/assets/behind-the-scenes/bts-1.mp4` | `/assets/posters/workshop.jpg` | 25MB |
 | Teaching Product Leadership | `/assets/behind-the-scenes/bts-2.mp4` | `/assets/posters/teaching.jpg` | 2.7MB |
 | Pitching Ideas | `/assets/behind-the-scenes/bts-3.mp4` | `/assets/posters/pitching.jpg` | 33MB |
+
+### ⚠️ In-frame branding: check before reusing
+
+**"Design System Workshop" (`bts-1.mp4` + `posters/workshop.jpg`) shows a
+Thoughtworks-branded bag on the table and a whiteboard reading "Reserved for AIR
+CANADA".** Fine on joseplatero.com. **Not fine on any page sent to an external
+consultancy or a competitor**, which is most pitch pages. It was caught by eye
+during the Konrad build and is banned by filename in that repo's `qa.mjs`.
+
+The general rule: a text scan cannot see a logo inside a photograph. **Open every
+image and look at it** before putting it on a page that goes to a third party.
+Check tables, whiteboards, lanyards, screens, and slide decks in the background.
 
 ## Reels (9:16 portrait)
 
