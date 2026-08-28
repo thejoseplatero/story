@@ -37,14 +37,6 @@
       radial-gradient(rgba(23,24,22,.08) 1.2px, transparent 1.2px) 0 0/26px 26px,
       var(--orange); color:var(--ink); }
 
-  /* ticker */
-  .ticker { position:absolute; left:0; right:0; overflow:hidden; white-space:nowrap;
-            border-top:2px solid currentColor; border-bottom:2px solid currentColor;
-            padding:.55vh 0; font-family:"JetBrains Mono",monospace; font-weight:700;
-            font-size:clamp(11px,1vw,15px); letter-spacing:.22em; }
-  .ticker > div { display:inline-block; animation:tick 22s linear infinite; }
-  @keyframes tick { from { transform:translateX(0);} to { transform:translateX(-50%);} }
-
   /* ghost numeral / glyph */
   .ghost { position:absolute; font-family:"Literata",serif; font-weight:900;
            font-size:58vh; line-height:1; color:transparent;
@@ -149,7 +141,6 @@ const CONFIG = {
 
 <!-- 1 · TITLE -->
 <section class="slide paper">
-  <div class="ticker" style="top:6px; color:var(--ink)"><div></div></div>
   <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
     <div class="kick">Build with Jose · a working session</div>
     <h1 class="h-mega" style="margin-top:2vh">Two hundred<br>applications.<br><span class="o">Two replies.</span></h1>
@@ -247,7 +238,6 @@ const CONFIG = {
     <h1 class="h-mega" style="margin-top:2vh">The worst part is not the no.<br><span class="o">It is the nothing.</span></h1>
     <p class="sub" style="margin-top:4vh; font-size:clamp(20px,2.2vw,36px)"><b>Nothing is wrong with you.</b></p>
   </div>
-  <div class="ticker" style="bottom:0; color:#5a5b55"><div data-text="NOTHING · AGAIN · NOTHING · AGAIN · NOTHING · AGAIN · "></div></div>
 </section>
 
 <!-- 8 · FIVE PLACES STUCK -->
@@ -268,7 +258,6 @@ const CONFIG = {
 
 <!-- 9 · THE SOLVE -->
 <section class="slide hot">
-  <div class="ticker" style="top:6px"><div data-text="THE SOLVE · THE SOLVE · THE SOLVE · THE SOLVE · THE SOLVE · THE SOLVE · "></div></div>
   <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
     <h1 class="h-mega">Your job search,<br><span class="o">running as a system.</span></h1>
     <div style="display:flex; flex-wrap:wrap; gap:1.2vw; margin-top:5vh">
@@ -403,16 +392,9 @@ const CONFIG = {
       </div>
     </div>
   </div>
-  <div class="ticker" style="bottom:0; color:#5a5b55"><div data-text="JOSEPLATERO.COM/BUILD · SEP 3 · NOV 7 · "></div></div>
 </section>
 
 <script>
-  // tickers: duplicate content for a seamless loop
-  document.querySelectorAll('.ticker > div').forEach(d => {
-    const t = d.dataset.text || 'TWO HUNDRED APPLICATIONS · TWO REPLIES · A WORKING SESSION · BUILD WITH JOSE · ';
-    d.textContent = t.repeat(6) + t.repeat(6);
-  });
-
   (function () {
     const s = document.getElementById('sponsor-slide');
     if (!CONFIG.sponsor) { s.remove(); return; }
