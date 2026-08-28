@@ -19,21 +19,34 @@
   h1 { font-family:"Literata",serif; font-weight:900; font-size:clamp(40px,8vw,64px);
        line-height:1.05; margin:14px 0 10px; }
   h1 span { color:var(--orange); }
-  .sub { font-size:18px; max-width:52ch; }
-  .kits { display:flex; flex-direction:column; gap:16px; margin:36px 0 44px; }
-  a.kit { display:flex; align-items:center; justify-content:space-between; gap:16px;
-          text-decoration:none; color:inherit; background:#fff; border:3px solid var(--ink);
-          box-shadow:8px 8px 0 var(--ink); padding:20px 24px; }
-  a.kit:active { transform:translate(3px,3px); box-shadow:4px 4px 0 var(--ink); }
-  .kit h2 { font-family:"Literata",serif; font-weight:900; font-size:24px; }
-  .kit p { font-size:14.5px; color:#3A3B37; margin-top:2px; }
-  .kit .dl { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
-             letter-spacing:.1em; background:var(--orange); color:#fff; padding:10px 16px;
-             white-space:nowrap; }
+  .sub { font-size:18px; max-width:56ch; }
+  h2 { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:14px;
+       letter-spacing:.16em; text-transform:uppercase; color:var(--orange); margin:44px 0 16px; }
+  .box { background:#fff; border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:22px 24px; }
+  .box ul { list-style:none; }
+  .box li { padding:6px 0 6px 26px; position:relative; font-size:16px; }
+  .box li::before { content:""; position:absolute; left:0; top:15px; width:11px; height:11px; background:var(--orange); }
+  .box li b { font-weight:700; }
+  .kits { display:flex; flex-direction:column; gap:18px; }
+  .kit { background:#fff; border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:22px 24px; }
+  .kit .top { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .kit h3 { font-family:"Literata",serif; font-weight:900; font-size:26px; }
+  .kit .lead { font-size:15px; color:#3A3B37; margin-top:2px; }
+  a.dl { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px; text-decoration:none;
+         letter-spacing:.1em; background:var(--orange); color:#fff; padding:11px 18px; white-space:nowrap; }
+  .spec { display:grid; grid-template-columns:110px 1fr; gap:6px 14px; margin-top:16px;
+          border-top:2px solid var(--wash); padding-top:14px; font-size:14.5px; }
+  .spec b { font-family:"JetBrains Mono",monospace; font-size:11.5px; letter-spacing:.1em;
+            color:var(--orange); font-weight:700; padding-top:2px; }
+  details { margin-top:12px; }
+  summary { cursor:pointer; font-family:"JetBrains Mono",monospace; font-size:12.5px;
+            letter-spacing:.08em; color:var(--dim); }
+  details pre { background:var(--wash); padding:14px 16px; margin-top:10px; white-space:pre-wrap;
+                font-family:"JetBrains Mono",monospace; font-size:12.5px; line-height:1.6; }
   .steps { font-size:17px; line-height:2.1; }
   .steps span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700; margin-right:10px; }
   .steps code { font-family:"JetBrains Mono",monospace; background:var(--wash); padding:2px 8px; }
-  .note { margin-top:36px; font-size:14px; color:var(--dim); }
+  .note { margin-top:34px; font-size:14.5px; color:var(--dim); max-width:60ch; }
   .note a { color:var(--orange); }
 </style>
 </head>
@@ -41,30 +54,78 @@
 <div class="wrap">
   <div class="kick">Build with Jose · the workshop</div>
   <h1>Three kits. <span>Yours.</span></h1>
-  <p class="sub">Plain text files. No code. Each one installs itself when you hand it to Claude.</p>
+  <p class="sub">Plain text files. No code. Each one installs itself when you hand it to Claude, then runs as a conversation.</p>
 
-  <div class="kits">
-    <a class="kit" href="../workshop/downloads/scout.md" download="scout.md">
-      <div><h2>Scout</h2><p>Builds your target list by interview, then watches it every morning.</p></div>
-      <div class="dl">DOWNLOAD</div>
-    </a>
-    <a class="kit" href="../workshop/downloads/audit.md" download="audit.md">
-      <div><h2>Audit</h2><p>Reads your resume the way a hiring manager reads it. Ten seconds, then deep.</p></div>
-      <div class="dl">DOWNLOAD</div>
-    </a>
-    <a class="kit" href="../workshop/downloads/pitch.md" download="pitch.md">
-      <div><h2>Pitch</h2><p>The page built for one company, in their brand, with one honest gap.</p></div>
-      <div class="dl">DOWNLOAD</div>
-    </a>
-  </div>
+  <h2>Before you start</h2>
+  <div class="box"><ul>
+    <li><b>A laptop.</b> On your phone right now? Email yourself this link and do this tonight.</li>
+    <li><b>Claude Code</b>, from <b>claude.com/claude-code</b>. It needs a paid Claude plan (from about $20 USD a month). It opens in a terminal, which looks scary for ten seconds and then is just chat.</li>
+    <li><b>Your resume as a file</b> (PDF is fine), and 30 quiet minutes.</li>
+  </ul></div>
 
+  <h2>Install, once</h2>
   <div class="steps">
-    <div><span>1</span>Get Claude Code: <code>claude.com/claude-code</code></div>
-    <div><span>2</span>Drag a file into Claude and say: <code>install this</code></div>
-    <div><span>3</span>The kit installs itself. Call it by name.</div>
+    <div><span>1</span>Make an empty folder, like <code>my-job-search</code>, and open Claude Code in it.</div>
+    <div><span>2</span>Download a kit below, drag the file into Claude, and say: <code>install this</code></div>
+    <div><span>3</span>Claude installs it and tells you the one thing to try. That is everything.</div>
   </div>
 
-  <p class="note">Want the whole system, built with Jose in the room? <a href="https://joseplatero.com/build/?utm_source=workshop&utm_medium=event&utm_campaign=build-start">The course: one day in Toronto, Nov 7.</a></p>
+  <h2>The kits, in the order to run them</h2>
+  <div class="kits">
+
+    <div class="kit">
+      <div class="top"><div><h3>1 · Scout</h3><p class="lead">Builds your target company list by interview, then watches it every morning.</p></div>
+      <a class="dl" href="../workshop/downloads/scout.md" download="scout.md">DOWNLOAD</a></div>
+      <div class="spec">
+        <b>SAY</b><div>"build my target list"</div>
+        <b>IT ASKS</b><div>Four questions, one at a time: the role, where, what you care about, your edge.</div>
+        <b>YOU GET</b><div>10-12 proposed companies in three buckets. You cut to 8. Saved to a file it watches from then on: say "scout" any morning for news and new roles.</div>
+        <b>TIME</b><div>About 20 minutes first run, 2 minutes every morning after.</div>
+      </div>
+      <details><summary>WHAT A MORNING RUN LOOKS LIKE (SAMPLE)</summary><pre>NEW  Senior Product Designer at Wealthsimple, posted yesterday. Link in the brief.
+Shopify: no design roles matching your query today.
+KOHO: quiet week. Nothing worth your time. That is a valid finding.</pre></details>
+    </div>
+
+    <div class="kit">
+      <div class="top"><div><h3>2 · Audit</h3><p class="lead">Reads your resume the way a hiring manager reads it. Ten seconds, then deep.</p></div>
+      <a class="dl" href="../workshop/downloads/audit.md" download="audit.md">DOWNLOAD</a></div>
+      <div class="spec">
+        <b>SAY</b><div>/audit your-resume.pdf &nbsp;(drag the file in, or paste the text)</div>
+        <b>IT ASKS</b><div>Only your target role, if you have not said it.</div>
+        <b>YOU GET</b><div>The honest ten second call (read or skip), then the three fixes that matter most, each with a rewrite built only from facts already on your page. Nothing invented.</div>
+        <b>TIME</b><div>About 5 minutes. Fixing what it finds: an evening.</div>
+      </div>
+      <details><summary>WHAT THE OUTPUT LOOKS LIKE (SAMPLE)</summary><pre>The ten second read. A template sidebar, "passionate problem solver",
+then your real title. My call: skip. Here is why, and the fix.
+
+Fix 1. Your headline says adjectives. Say what you are: role, years, scope.
+Fix 2. "Helped with the redesign" hides you. What did you actually do?
+Fix 3. Your strongest work is on the last line of the page. Move it up.</pre></details>
+    </div>
+
+    <div class="kit">
+      <div class="top"><div><h3>3 · Pitch</h3><p class="lead">When a real posting appears: a page that pitches you, in that company's own brand.</p></div>
+      <a class="dl" href="../workshop/downloads/pitch.md" download="pitch.md">DOWNLOAD</a></div>
+      <div class="spec">
+        <b>SAY</b><div>"build my pitch page" plus the job posting link</div>
+        <b>IT ASKS</b><div>For your resume, the posting, and anything it will not guess. It scans the company's real site for their brand before writing a line.</div>
+        <b>YOU GET</b><div>A finished page in their look, mapping your experience to their posting, naming one honest gap on purpose. Works on your laptop immediately; publishing to a link is a separate ten-minute step with a free GitHub account.</div>
+        <b>TIME</b><div>An hour or two. This is the deep one: run it when a role is real.</div>
+      </div>
+      <details><summary>SEE A FINISHED ONE (LIVE)</summary><pre>joseplatero.com/qatom — built live at this workshop.
+Also: joseplatero.com/affirm and /pointclickcare.</pre></details>
+    </div>
+
+  </div>
+
+  <h2>When something breaks</h2>
+  <div class="box"><ul>
+    <li>Paste the error into Claude and say: <b>fix it</b>. That is not a joke. That is how this whole way of working goes.</li>
+    <li>Files it creates live in a <b>memory/</b> folder next to your kits, in plain text you can read and edit.</li>
+  </ul></div>
+
+  <p class="note">Want the whole system, with Jose in the room while you build it? <a href="https://joseplatero.com/build/?utm_source=workshop&utm_medium=event&utm_campaign=build-start">The course: one day in Toronto, Nov 7.</a></p>
 </div>
 </body>
 </html>
