@@ -144,6 +144,22 @@
   .sysmap span { padding:.6vh .8vw; border:2px solid #4A4B45; color:#7A7B75; }
   .sysmap span.here { border-color:var(--orange); background:var(--orange); color:#fff; }
 
+  /* dimensions radar: spotlight cycle */
+  #dimsvg .dim text.lbl { font-family:"JetBrains Mono",monospace; font-weight:700;
+    font-size:17px; fill:#171816; transition:fill .35s ease, font-size .35s ease, opacity .35s ease; }
+  #dimsvg .dim text.sub { font-family:"Hanken Grotesk",sans-serif; font-size:13px;
+    fill:#6E6F69; opacity:.45; transition:opacity .35s ease, fill .35s ease; }
+  #dimsvg .dim circle.node { fill:var(--orange); transition:transform .35s ease;
+    transform-box:fill-box; transform-origin:center; }
+  #dimsvg .dim.dimmed text.lbl { opacity:.35; }
+  #dimsvg .dim.act text.lbl { fill:var(--orange); font-size:22px; opacity:1; }
+  #dimsvg .dim.act text.sub { opacity:1; fill:#171816; }
+  #dimsvg .dim.act circle.node { transform:scale(2); }
+  #dimsvg .dim circle.halo { fill:none; stroke:var(--orange); stroke-width:2; opacity:0;
+    transform-box:fill-box; transform-origin:center; }
+  #dimsvg .dim.act circle.halo { animation:dimhalo 1.4s ease-out infinite; }
+  @keyframes dimhalo { 0% { opacity:.7; transform:scale(1);} 100% { opacity:0; transform:scale(3);} }
+
   a.dl { text-decoration:none; color:inherit; display:block; }
   .card { background:var(--card); border:3px solid var(--ink); box-shadow:10px 10px 0 var(--ink);
           padding:2.6vh 1.6vw; }
@@ -258,8 +274,7 @@ const CONFIG = {
       <p class="sub" style="max-width:44ch; font-size:clamp(16px,1.6vw,25px)">The gray shape is what a resume can show me. The orange shape is who gets hired.</p>
       <p class="sub" style="max-width:44ch; margin-top:2vh; font-size:clamp(16px,1.6vw,25px)"><b>Everything we build today exists to make your orange shape visible.</b></p>
     </div>
-    <svg viewBox="0 0 560 520" style="width:100%; max-height:76vh" aria-label="Five hiring dimensions">
-      <!-- axes -->
+    <svg id="dimsvg" viewBox="0 0 560 520" style="width:100%; max-height:76vh" aria-label="Five hiring dimensions">
       <g stroke="#D8D2C6" stroke-width="1.5">
         <line x1="280" y1="250" x2="280" y2="60"/>
         <line x1="280" y1="250" x2="470" y2="192"/>
@@ -267,25 +282,37 @@ const CONFIG = {
         <line x1="280" y1="250" x2="160" y2="420"/>
         <line x1="280" y1="250" x2="90" y2="192"/>
       </g>
-      <!-- what a resume sees: flat -->
       <polygon points="280,205 328,236 305,290 252,290 235,236" fill="rgba(23,24,22,.14)" stroke="#9A9B95" stroke-width="2"/>
-      <!-- the person -->
       <polygon points="280,70 455,197 388,404 176,412 102,200" fill="rgba(232,80,47,.16)" stroke="#E8502F" stroke-width="4" stroke-linejoin="round"/>
-      <g fill="#E8502F"><circle cx="280" cy="70" r="7"/><circle cx="455" cy="197" r="7"/><circle cx="388" cy="404" r="7"/><circle cx="176" cy="412" r="7"/><circle cx="102" cy="200" r="7"/></g>
-      <!-- labels -->
-      <g font-family="JetBrains Mono, monospace" font-weight="700" font-size="15" fill="#171816">
-        <text x="280" y="40" text-anchor="middle">INTRINSIC MOTIVATION</text>
-        <text x="472" y="172" text-anchor="middle">SYSTEMS THINKING</text>
-        <text x="405" y="445" text-anchor="middle">GOES DEEP</text>
-        <text x="150" y="450" text-anchor="middle">BREAKS THE NORM</text>
-        <text x="84" y="172" text-anchor="middle">THE 200%</text>
+      <g class="dim">
+        <circle class="halo" cx="280" cy="70" r="9"/>
+        <circle class="node" cx="280" cy="70" r="7"/>
+        <text class="lbl" x="280" y="40" text-anchor="middle">INTRINSIC MOTIVATION</text>
+        <text class="sub" x="280" y="57" text-anchor="middle">nobody assigned it. built it anyway.</text>
       </g>
-      <g font-family="Hanken Grotesk, sans-serif" font-size="12.5" fill="#6E6F69">
-        <text x="280" y="57" text-anchor="middle">nobody assigned it. built it anyway.</text>
-        <text x="472" y="189" text-anchor="middle">sees the loop, not the task</text>
-        <text x="405" y="462" text-anchor="middle">the fastball. craft you cannot fake.</text>
-        <text x="150" y="467" text-anchor="middle">asks: what do I really have?</text>
-        <text x="84" y="189" text-anchor="middle">the extra never in the job description</text>
+      <g class="dim">
+        <circle class="halo" cx="455" cy="197" r="9"/>
+        <circle class="node" cx="455" cy="197" r="7"/>
+        <text class="lbl" x="468" y="172" text-anchor="middle">SYSTEMS THINKING</text>
+        <text class="sub" x="468" y="190" text-anchor="middle">sees the loop, not the task</text>
+      </g>
+      <g class="dim">
+        <circle class="halo" cx="388" cy="404" r="9"/>
+        <circle class="node" cx="388" cy="404" r="7"/>
+        <text class="lbl" x="405" y="447" text-anchor="middle">GOES DEEP</text>
+        <text class="sub" x="405" y="465" text-anchor="middle">the fastball. craft you cannot fake.</text>
+      </g>
+      <g class="dim">
+        <circle class="halo" cx="176" cy="412" r="9"/>
+        <circle class="node" cx="176" cy="412" r="7"/>
+        <text class="lbl" x="150" y="452" text-anchor="middle">BREAKS THE NORM</text>
+        <text class="sub" x="150" y="470" text-anchor="middle">asks: what do I really have?</text>
+      </g>
+      <g class="dim">
+        <circle class="halo" cx="102" cy="200" r="9"/>
+        <circle class="node" cx="102" cy="200" r="7"/>
+        <text class="lbl" x="88" y="172" text-anchor="middle">THE 200%</text>
+        <text class="sub" x="88" y="190" text-anchor="middle">the extra never in the job description</text>
       </g>
       <text x="300" y="262" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#6E6F69">what the resume shows</text>
     </svg>
@@ -562,6 +589,25 @@ const CONFIG = {
     location.hash = i + 1;
     const t = slides[i].querySelector('.term-body');
     if (t) typeInto(t, scripts[t.dataset.type]);
+    clearInterval(window.dimTick);
+    const dsvg = slides[i].querySelector('#dimsvg');
+    if (dsvg) {
+      const groups = dsvg.querySelectorAll('.dim');
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        groups.forEach(g => g.querySelector('.sub') && (g.querySelector('.sub').style.opacity = 1));
+      } else {
+        let d = -1;
+        const step = () => {
+          d = (d + 1) % groups.length;
+          groups.forEach((g, k) => {
+            g.classList.toggle('act', k === d);
+            g.classList.toggle('dimmed', k !== d);
+          });
+        };
+        step();
+        window.dimTick = setInterval(step, 2400);
+      }
+    }
   }
 
   let tTick = null;
