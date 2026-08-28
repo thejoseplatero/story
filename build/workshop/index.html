@@ -146,13 +146,16 @@
 
   /* dimensions radar: spotlight cycle */
   #dimsvg .dim text.lbl { font-family:"JetBrains Mono",monospace; font-weight:700;
-    font-size:17px; fill:#171816; transition:fill .35s ease, font-size .35s ease, opacity .35s ease; }
-  #dimsvg .dim text.sub { font-family:"Hanken Grotesk",sans-serif; font-size:13px;
-    fill:#6E6F69; opacity:.45; transition:opacity .35s ease, fill .35s ease; }
+    font-size:18px; fill:#171816; transition:fill .35s ease, font-size .35s ease, opacity .35s ease;
+    paint-order:stroke; stroke:var(--paper); stroke-width:7px; stroke-linejoin:round; }
+  #dimsvg .dim text.sub { font-family:"Hanken Grotesk",sans-serif; font-size:15px; font-weight:600;
+    fill:#3A3B37; opacity:.7; transition:opacity .35s ease, fill .35s ease;
+    paint-order:stroke; stroke:var(--paper); stroke-width:6px; stroke-linejoin:round; }
   #dimsvg .dim circle.node { fill:var(--orange); transition:transform .35s ease;
     transform-box:fill-box; transform-origin:center; }
-  #dimsvg .dim.dimmed text.lbl { opacity:.35; }
-  #dimsvg .dim.act text.lbl { fill:var(--orange); font-size:22px; opacity:1; }
+  #dimsvg .dim.dimmed text.lbl { opacity:.5; }
+  #dimsvg .dim.dimmed text.sub { opacity:.5; }
+  #dimsvg .dim.act text.lbl { fill:var(--orange); font-size:23px; opacity:1; }
   #dimsvg .dim.act text.sub { opacity:1; fill:#171816; }
   #dimsvg .dim.act circle.node { transform:scale(2); }
   #dimsvg .dim circle.halo { fill:none; stroke:var(--orange); stroke-width:2; opacity:0;
@@ -312,9 +315,9 @@ const CONFIG = {
         <circle class="halo" cx="102" cy="200" r="9"/>
         <circle class="node" cx="102" cy="200" r="7"/>
         <text class="lbl" x="88" y="172" text-anchor="middle">THE 200%</text>
-        <text class="sub" x="88" y="190" text-anchor="middle">the extra never in the job description</text>
+        <text class="sub" x="104" y="190" text-anchor="middle">beyond the job description</text>
       </g>
-      <text x="300" y="262" font-family="JetBrains Mono, monospace" font-size="11.5" fill="#6E6F69">what the resume shows</text>
+      <text x="300" y="262" font-family="JetBrains Mono, monospace" font-size="12.5" fill="#4A4B45" style="paint-order:stroke; stroke:#FBF6EF; stroke-width:5px; stroke-linejoin:round">what the resume shows</text>
     </svg>
   </div>
 </section>
