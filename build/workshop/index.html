@@ -394,19 +394,40 @@ const CONFIG = {
   <p style="position:absolute; right:5vw; top:31vh; max-width:24vw; font-family:Literata,serif; font-weight:700; font-size:clamp(17px,1.8vw,30px); line-height:1.25; text-align:right">It names one honest gap,<br>on purpose.</p>
 </section>
 
-<!-- 13.5 · RECAP: where you now stand -->
+<!-- 13.5 · RECAP: the system map -->
 <section class="slide paper">
-  <div class="pad">
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
     <div class="kick">Before we close</div>
-    <h1 class="h-mid" style="margin:1.5vh 0 4vh">What you built today. <span class="o">What is left.</span></h1>
-    <div class="bigl" style="gap:2.2vh">
-      <div><span class="num" style="-webkit-text-stroke-color:var(--orange)">&#10003;</span><div><b>AIM: you have a target list, and Scout watches it every morning.</b></div></div>
-      <div><span class="num" style="-webkit-text-stroke-color:var(--orange)">&#10003;</span><div><b>GET ANSWERED: the Audit reads your resume like I do, and Pitch builds the page for one company.</b></div></div>
-      <div><span class="num">&#8594;</span><div><b>GET FOUND: your presence, so they find something when they search you.</b></div></div>
-      <div><span class="num">&#8594;</span><div><b>CONNECT: the warm circle, so you are known before you apply.</b></div></div>
-      <div><span class="num">&#8594;</span><div><b>INTERVIEWS: read the room before the room, then the offer.</b></div></div>
+    <h1 class="h-mid" style="margin:1.5vh 0 5vh">What you built today. <span class="o">What is left.</span></h1>
+    <div style="position:relative; display:grid; grid-template-columns:repeat(5,1fr); gap:1.4vw; align-items:stretch">
+      <div style="position:absolute; top:50%; left:2%; right:2%; height:3px; background:var(--ink); opacity:.15; z-index:0"></div>
+      <div style="z-index:1; background:var(--orange); color:#fff; border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:2.6vh 1.2vw; transform:rotate(-1.2deg)">
+        <div class="mono" style="font-size:clamp(15px,1.5vw,22px); font-weight:700; letter-spacing:.08em">AIM &#10003;</div>
+        <div class="mono" style="margin-top:1.6vh; font-size:clamp(11px,1vw,14px); line-height:2"><span style="background:#fff; color:var(--ink); padding:2px 8px">TARGET LIST</span><br><span style="background:#fff; color:var(--ink); padding:2px 8px">SCOUT</span></div>
+        <div style="margin-top:1.8vh; font-size:clamp(12px,1.05vw,15px)">Watched every morning.</div>
+      </div>
+      <div style="z-index:1; background:var(--paper); border:3px dashed #9A9B95; padding:2.6vh 1.2vw; transform:rotate(.8deg)">
+        <div class="mono" style="font-size:clamp(15px,1.5vw,22px); font-weight:700; letter-spacing:.08em; color:#6E6F69">GET FOUND</div>
+        <div style="margin-top:1.6vh; font-size:clamp(12px,1.05vw,15px); color:#6E6F69">Your presence, so a search finds something.</div>
+        <div class="mono" style="margin-top:1.8vh; font-size:clamp(11px,.95vw,13px); font-weight:700; color:var(--orange)">NOV 7</div>
+      </div>
+      <div style="z-index:1; background:var(--orange); color:#fff; border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:2.6vh 1.2vw; transform:rotate(1deg)">
+        <div class="mono" style="font-size:clamp(15px,1.5vw,22px); font-weight:700; letter-spacing:.08em">GET ANSWERED &#10003;</div>
+        <div class="mono" style="margin-top:1.6vh; font-size:clamp(11px,1vw,14px); line-height:2"><span style="background:#fff; color:var(--ink); padding:2px 8px">AUDIT</span><br><span style="background:#fff; color:var(--ink); padding:2px 8px">PITCH</span></div>
+        <div style="margin-top:1.8vh; font-size:clamp(12px,1.05vw,15px)">Read like I read. Built for one company.</div>
+      </div>
+      <div style="z-index:1; background:var(--paper); border:3px dashed #9A9B95; padding:2.6vh 1.2vw; transform:rotate(-.8deg)">
+        <div class="mono" style="font-size:clamp(15px,1.5vw,22px); font-weight:700; letter-spacing:.08em; color:#6E6F69">CONNECT</div>
+        <div style="margin-top:1.6vh; font-size:clamp(12px,1.05vw,15px); color:#6E6F69">The warm circle, so you are known before you apply.</div>
+        <div class="mono" style="margin-top:1.8vh; font-size:clamp(11px,.95vw,13px); font-weight:700; color:var(--orange)">NOV 7</div>
+      </div>
+      <div style="z-index:1; background:var(--paper); border:3px dashed #9A9B95; padding:2.6vh 1.2vw; transform:rotate(1.4deg)">
+        <div class="mono" style="font-size:clamp(15px,1.5vw,22px); font-weight:700; letter-spacing:.08em; color:#6E6F69">INTERVIEWS</div>
+        <div style="margin-top:1.6vh; font-size:clamp(12px,1.05vw,15px); color:#6E6F69">Read the room before the room. Then the offer.</div>
+        <div class="mono" style="margin-top:1.8vh; font-size:clamp(11px,.95vw,13px); font-weight:700; color:var(--orange)">NOV 7</div>
+      </div>
     </div>
-    <p class="sub" style="margin-top:3.5vh; font-size:clamp(17px,1.7vw,27px)">Three kits are yours tonight. <b>The other two parts, and the system that runs them together, is what we build Nov 7.</b></p>
+    <p class="sub" style="margin-top:5vh; font-size:clamp(17px,1.8vw,28px)">Three kits are yours tonight. <b>The rest of the map, and the system that runs it together: Nov 7.</b></p>
   </div>
 </section>
 
