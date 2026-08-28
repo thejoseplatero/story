@@ -136,8 +136,14 @@
 <script>
 const CONFIG = {
   // Set sponsor to null to hide the sponsor slide entirely.
-  // To show one: sponsor: { name: "Acme Co", line: "They keep this workshop free.", url: "acme.com" }
-  sponsor: null,
+  // logo is optional; with a logo the name renders as artwork, not text.
+  // Brand note (Qatom): ink lockup on its ground #F7F6F2 only. Do not recolor.
+  sponsor: {
+    name: "Qatom",
+    logo: "assets/qatom-lockup-ink.svg",
+    line: "Digital bearer assets for agents. Thank you for making today possible.",
+    url: "qatom.ai",
+  },
 };
 </script>
 
@@ -166,9 +172,10 @@ const CONFIG = {
   </div>
 </section>
 
-<!-- SPONSOR (conditional) -->
-<section class="slide" id="sponsor-slide">
-  <div class="kick">Thank you</div>
+<!-- SPONSOR (conditional). Flat plate background per sponsor brand rules. -->
+<section class="slide" id="sponsor-slide" style="background:#F7F6F2">
+  <div class="kick">Today's sponsor</div>
+  <img id="sponsor-logo" alt="" style="display:none; width:min(520px,44vw); margin:5vh 0 2vh">
   <h1 id="sponsor-name"></h1>
   <p class="sub" id="sponsor-line"></p>
   <p class="sub mono dimtx" id="sponsor-url"></p>
@@ -390,7 +397,12 @@ const CONFIG = {
   (function () {
     const s = document.getElementById('sponsor-slide');
     if (!CONFIG.sponsor) { s.remove(); return; }
-    document.getElementById('sponsor-name').textContent = CONFIG.sponsor.name;
+    if (CONFIG.sponsor.logo) {
+      const im = document.getElementById('sponsor-logo');
+      im.src = CONFIG.sponsor.logo; im.alt = CONFIG.sponsor.name; im.style.display = 'block';
+    } else {
+      document.getElementById('sponsor-name').textContent = CONFIG.sponsor.name;
+    }
     document.getElementById('sponsor-line').textContent = CONFIG.sponsor.line || '';
     document.getElementById('sponsor-url').textContent = CONFIG.sponsor.url || '';
   })();
