@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Workshop · Build with Jose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,700;7..72,900&family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#FBF6EF; --ink:#1A1B19; --orange:#E8502F; --dim:#6E6F69;
+    --line:#DED7CC; --card:#FFFFFF; --term:#161613; --termtx:#E9EAE5;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body { background:var(--paper); color:var(--ink);
+         font-family:"Hanken Grotesk",system-ui,sans-serif; overflow:hidden; }
+  .mono { font-family:"JetBrains Mono",monospace; }
+
+  #bar { position:fixed; top:0; left:0; height:5px; background:var(--orange);
+         width:0; z-index:10; transition:width .25s ease; }
+  #count { position:fixed; bottom:18px; right:22px; z-index:10;
+           font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--dim); }
+  #hint { position:fixed; bottom:18px; left:22px; z-index:10;
+          font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--dim); }
+
+  .slide { position:absolute; inset:0; display:none; padding:7vh 8vw;
+           flex-direction:column; justify-content:center; overflow-y:auto; }
+  .slide.on { display:flex; animation:in .35s ease; }
+  @keyframes in { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:none;} }
+
+  .kick { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:15px;
+          letter-spacing:.18em; text-transform:uppercase; color:var(--orange);
+          display:flex; align-items:center; gap:12px; margin-bottom:3vh; }
+  .kick::before { content:""; width:12px; height:12px; background:var(--orange); }
+  h1 { font-family:"Literata",serif; font-weight:900; font-size:clamp(40px,6.4vw,88px);
+       line-height:1.06; letter-spacing:-.01em; max-width:20ch; }
+  h1 .o { color:var(--orange); }
+  .sub { font-size:clamp(17px,1.6vw,23px); line-height:1.6; color:var(--ink);
+         max-width:60ch; margin-top:3vh; }
+  .sub b { font-weight:700; }
+  .dimtx { color:var(--dim); }
+
+  .cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+          gap:22px; margin-top:4vh; }
+  .card { background:var(--card); border:2px solid var(--ink);
+          box-shadow:8px 8px 0 var(--ink); padding:24px; }
+  .card h3 { font-family:"Literata",serif; font-weight:700; font-size:21px; margin-bottom:8px; }
+  .card p { font-size:16px; line-height:1.55; color:#3A3B37; }
+  .card .n { font-family:"JetBrains Mono",monospace; color:var(--orange);
+             font-weight:700; font-size:14px; letter-spacing:.1em; margin-bottom:10px; }
+
+  .prin { margin-top:4vh; display:flex; flex-direction:column; gap:18px; max-width:72ch; }
+  .prin div { display:flex; gap:16px; align-items:baseline; font-size:clamp(18px,1.9vw,26px);
+              font-family:"Literata",serif; font-weight:700; line-height:1.35; }
+  .prin span { font-family:"JetBrains Mono",monospace; font-size:15px; color:var(--orange);
+               font-weight:700; flex:none; }
+  .prin small { display:block; font-family:"Hanken Grotesk",sans-serif; font-weight:400;
+                font-size:15px; color:var(--dim); margin-top:2px; }
+
+  .shots { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:4vh; }
+  .shot { border:2px solid var(--ink); background:var(--card); box-shadow:8px 8px 0 var(--ink); }
+  .shot img { width:100%; aspect-ratio:16/11; object-fit:cover; object-position:top; display:block; }
+  .shot .ph { width:100%; aspect-ratio:16/11; display:none; align-items:center; justify-content:center;
+              border-bottom:0; background:repeating-linear-gradient(45deg,#F1EAE0,#F1EAE0 12px,#FBF6EF 12px,#FBF6EF 24px);
+              color:var(--dim); font-family:"JetBrains Mono",monospace; font-size:13px; text-align:center; padding:10px; }
+  .shot figcaption { padding:12px 14px; font-family:"JetBrains Mono",monospace;
+                     font-size:13px; letter-spacing:.06em; border-top:2px solid var(--ink); }
+
+  .chips { display:flex; flex-wrap:wrap; gap:14px; margin-top:4vh; }
+  .chip { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:clamp(14px,1.4vw,19px);
+          letter-spacing:.1em; border:2px solid var(--ink); background:var(--card);
+          box-shadow:6px 6px 0 var(--ink); padding:14px 20px; }
+  .chip i { color:var(--orange); font-style:normal; margin-right:8px; }
+
+  .term-w { margin-top:4vh; background:var(--term); border-radius:12px; border:2px solid var(--ink);
+            box-shadow:8px 8px 0 var(--ink); max-width:880px; }
+  .term-bar { display:flex; gap:8px; padding:12px 16px; border-bottom:1px solid #2C2D28; }
+  .term-bar b { width:11px; height:11px; border-radius:50%; display:block; }
+  .term-body { padding:18px 22px 24px; font-family:"JetBrains Mono",monospace;
+               font-size:clamp(13px,1.25vw,16px); line-height:1.75; color:var(--termtx);
+               min-height:200px; white-space:pre-wrap; }
+  .term-body .p { color:#8A8B85; } .term-body .o { color:var(--orange); }
+  .term-body .g { color:#7CC08D; }
+  .cursor { display:inline-block; width:8px; height:16px; background:var(--termtx);
+            vertical-align:-2px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+
+  .follow { margin-top:3vh; border-left:5px solid var(--orange); padding:10px 0 10px 20px;
+            max-width:70ch; }
+  .follow b { font-family:"JetBrains Mono",monospace; font-size:13px; letter-spacing:.14em;
+              color:var(--orange); display:block; margin-bottom:6px; }
+  .follow p { font-size:16px; line-height:1.6; }
+  .follow code { font-family:"JetBrains Mono",monospace; background:#EFE8DC; padding:2px 7px; }
+
+  .qrs { display:flex; gap:5vw; margin-top:4vh; flex-wrap:wrap; }
+  .qr { text-align:center; }
+  .qr img { width:min(230px,24vw); border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); display:block; }
+  .qr p { margin-top:14px; font-family:"JetBrains Mono",monospace; font-size:14px; }
+  .qr p b { display:block; font-size:16px; margin-bottom:3px; }
+  .qr p span { color:var(--orange); }
+
+  .face { display:flex; gap:4vw; align-items:center; margin-top:4vh; flex-wrap:wrap; }
+  .face img { width:min(210px,22vw); border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); }
+
+  a.dl { display:block; text-decoration:none; color:inherit; }
+  .steps { margin-top:3.5vh; font-size:17px; line-height:2; max-width:64ch; }
+  .steps span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700; margin-right:10px; }
+  .steps code { font-family:"JetBrains Mono",monospace; background:#EFE8DC; padding:2px 7px; }
+</style>
+</head>
+<body>
+
+<script>
+const CONFIG = {
+  audience: "UofT grads · in person",
+  // Set sponsor to null to hide the sponsor slide entirely.
+  // To show one: sponsor: { name: "Acme Co", line: "They keep this workshop free.", url: "acme.com" }
+  sponsor: null,
+};
+</script>
+
+<div id="bar"></div>
+<div id="hint" class="mono">arrows or click to advance</div>
+<div id="count" class="mono"></div>
+
+<!-- 1 · TITLE -->
+<section class="slide">
+  <div class="kick">Build with Jose</div>
+  <h1>Your job search, <span class="o">running as a system.</span></h1>
+  <p class="sub mono dimtx" id="aud"></p>
+  <p class="sub"><b>Jose Platero</b> · Director, Product &amp; Design. Part of his job is hiring.</p>
+</section>
+
+<!-- 2 · WHO I AM -->
+<section class="slide">
+  <div class="kick">Who is talking</div>
+  <h1>I read the pile.</h1>
+  <div class="face">
+    <img src="../jose.jpg" alt="Jose Platero" onerror="this.style.display='none'">
+    <div class="sub" style="margin-top:0">
+      <p>I lead product, design, and marketing technology teams. Hundreds of applications cross my screen every hiring cycle, ten seconds each.</p>
+      <p style="margin-top:14px">I teach AI at BrainStation. And on nights and weekends I build products with AI. Everything you will see today is real and running.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · SPONSOR (conditional) -->
+<section class="slide" id="sponsor-slide">
+  <div class="kick">Thank you</div>
+  <h1 id="sponsor-name"></h1>
+  <p class="sub" id="sponsor-line"></p>
+  <p class="sub mono dimtx" id="sponsor-url"></p>
+</section>
+
+<!-- 4 · THE WORK -->
+<section class="slide">
+  <div class="kick">The day job</div>
+  <h1>Big product, real constraints.</h1>
+  <div class="shots">
+    <figure class="shot">
+      <img src="assets/ac-homepage.png" alt="Homepage" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="ph">drop image:<br>assets/ac-homepage.png</div>
+      <figcaption>THE HOMEPAGE RETHINK</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="assets/ac-crew.png" alt="Crew apps" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="ph">drop image:<br>assets/ac-crew.png</div>
+      <figcaption>THE CREW APPS</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="assets/ac-aeroplan.png" alt="Aeroplan" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="ph">drop image:<br>assets/ac-aeroplan.png</div>
+      <figcaption>AEROPLAN DIGITAL</figcaption>
+    </figure>
+  </div>
+  <p class="sub dimtx">Teams that ship to millions of travellers. This seat is where everything today comes from.</p>
+</section>
+
+<!-- 5 · WHO I HIRE -->
+<section class="slide">
+  <div class="kick">Who I hire</div>
+  <h1>What I actually look for.</h1>
+  <div class="prin">
+    <div><span>01</span><div>The first ten seconds decide the next ten minutes.<small>Your resume gets scanned before it gets read. Most never survive the scan.</small></div></div>
+    <div><span>02</span><div>Specificity, never inflation.<small>"Helped with the redesign" hides you. What did you actually do?</small></div></div>
+    <div><span>03</span><div>Decisions, not tasks.<small>I already know the job description. Show me a call you made and what happened.</small></div></div>
+    <div><span>04</span><div>Translated experience.<small>Your experience is not worth less here. It is arriving untranslated.</small></div></div>
+    <div><span>05</span><div>You need systems.<small>Motivation runs out. A system does not.</small></div></div>
+  </div>
+</section>
+
+<!-- 6 · THE PROBLEM -->
+<section class="slide">
+  <div class="kick">What I am testing now</div>
+  <h1>Two hundred applications. <span class="o">Two replies.</span></h1>
+  <p class="sub">If that is your inbox, nothing is wrong with you. Your experience is arriving untranslated, and the process never tells you why.</p>
+  <p class="sub">So I am building the fix in public. It is called <b>Build with Jose</b>: a system you build with AI, in one day, that runs your whole search. Today you get the working core of it, free.</p>
+</section>
+
+<!-- 7 · THE SYSTEM -->
+<section class="slide">
+  <div class="kick">The system</div>
+  <h1>Five parts. One folder.</h1>
+  <div class="chips">
+    <div class="chip"><i>01</i>AIM</div>
+    <div class="chip"><i>02</i>GET FOUND</div>
+    <div class="chip"><i>03</i>GET ANSWERED</div>
+    <div class="chip"><i>04</i>CONNECT</div>
+    <div class="chip"><i>05</i>INTERVIEWS</div>
+  </div>
+  <p class="sub">Each part is a kit: a file you drop into a folder, and Claude runs it with you. The folder remembers you. You never answer the same question twice, and you never start from a blank screen.</p>
+  <p class="sub"><b>Today we build three of them, live.</b></p>
+</section>
+
+<!-- 8 · LIVE 1: TARGET SCOUT -->
+<section class="slide">
+  <div class="kick">Live build · 1 of 3</div>
+  <h1>The Target Scout.</h1>
+  <div class="term-w">
+    <div class="term-bar"><b style="background:#FF5F57"></b><b style="background:#FEBC2E"></b><b style="background:#28C840"></b></div>
+    <div class="term-body" data-type="scout"></div>
+  </div>
+  <div class="follow">
+    <b>BUILD ALONG</b>
+    <p>It interviews you: the role, the places, what you care about, your edge. Then it proposes companies in three buckets: anchors, growers, wildcards. You cut the list to ten. Every morning after, one word: <code>scout</code>. It checks all ten and flags what is new.</p>
+  </div>
+</section>
+
+<!-- 9 · LIVE 2: RESUME AUDIT -->
+<section class="slide">
+  <div class="kick">Live build · 2 of 3</div>
+  <h1>The Resume Audit.</h1>
+  <div class="term-w">
+    <div class="term-bar"><b style="background:#FF5F57"></b><b style="background:#FEBC2E"></b><b style="background:#28C840"></b></div>
+    <div class="term-body" data-type="audit"></div>
+  </div>
+  <div class="follow">
+    <b>BUILD ALONG</b>
+    <p>It reads your resume the way I read one. The ten second scan first, with an honest call: read or skip. Then the deep pass: the three fixes that matter most, each with a rewrite built only from facts already on your page. Nothing invented, ever.</p>
+  </div>
+</section>
+
+<!-- 10 · LIVE 3: TARGET EMPLOYER -->
+<section class="slide">
+  <div class="kick">Live build · 3 of 3</div>
+  <h1>The page built for <span class="o">one company.</span></h1>
+  <p class="sub">When the right role appears, you do not send the same resume as everyone else. You build a page that pitches you for that company, in their brand, speaking their language. Real examples, live right now:</p>
+  <div class="chips">
+    <div class="chip">joseplatero.com/affirm</div>
+    <div class="chip">joseplatero.com/thomsonreuters</div>
+    <div class="chip">joseplatero.com/pointclickcare</div>
+  </div>
+  <div class="follow">
+    <b>BUILD ALONG</b>
+    <p>The kit scans the company's real site for its brand, reads the posting, maps your experience to what they ask for, and builds the page. It names one honest gap on purpose. Honesty reads better than polish, every time.</p>
+  </div>
+</section>
+
+<!-- 11 · TAKE IT HOME -->
+<section class="slide">
+  <div class="kick">Take it home</div>
+  <h1>Three files. Yours.</h1>
+  <div class="cols">
+    <a class="dl" href="downloads/target-scout.md" download><div class="card"><div class="n">DOWNLOAD 01</div><h3>Target Scout</h3><p>The interview, the list, the morning watch. The agent we just built.</p></div></a>
+    <a class="dl" href="downloads/resume-audit.md" download><div class="card"><div class="n">DOWNLOAD 02</div><h3>Resume Audit</h3><p>The ten second scan and the deep read, with the honesty rules built in.</p></div></a>
+    <a class="dl" href="downloads/target-employer.md" download><div class="card"><div class="n">DOWNLOAD 03</div><h3>Target Employer</h3><p>The company-branded pitch page, from posting to published.</p></div></a>
+  </div>
+  <div class="steps">
+    <div><span>1</span>Get Claude Code: <code>claude.com/claude-code</code></div>
+    <div><span>2</span>Make a folder. Put a file in <code>.claude/commands/</code> (or <code>.claude/agents/</code> for the Scout).</div>
+    <div><span>3</span>Open the folder in Claude Code and call it by name. That is the whole install.</div>
+  </div>
+</section>
+
+<!-- 12 · CLOSE -->
+<section class="slide">
+  <div class="kick">Keep going</div>
+  <h1>The system compounds. <span class="o">Start today.</span></h1>
+  <div class="qrs">
+    <div class="qr">
+      <img src="assets/qr-substack.png" alt="QR: Loops and Letters">
+      <p><b>The newsletter</b><span>loopsandletters.substack.com</span></p>
+    </div>
+    <div class="qr">
+      <img src="assets/qr-course.png" alt="QR: the course">
+      <p><b>The course · Sep 3 &amp; Nov 7</b><span>joseplatero.com/build</span></p>
+    </div>
+  </div>
+  <p class="sub dimtx mono">jose@ · thank you, and good hunting.</p>
+</section>
+
+<script>
+  document.getElementById('aud').textContent = CONFIG.audience;
+
+  // sponsor slide: config-driven
+  (function () {
+    const s = document.getElementById('sponsor-slide');
+    if (!CONFIG.sponsor) { s.remove(); return; }
+    document.getElementById('sponsor-name').textContent = CONFIG.sponsor.name;
+    document.getElementById('sponsor-line').textContent = CONFIG.sponsor.line || '';
+    document.getElementById('sponsor-url').textContent = CONFIG.sponsor.url || '';
+  })();
+
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let i = 0;
+  const scripts = {
+    scout: [
+      ['p','$ '],['','claude\n'],
+      ['p','> '],['','build my target list\n\n'],
+      ['o','Scout: '],['','What role are you going after, written the way postings write it?\n'],
+      ['p','> '],['','Product Designer, new grad\n\n'],
+      ['o','Scout: '],['','Proposing 12 companies. Anchors, growers, wildcards. Cut it to 10.\n'],
+      ['g','wrote memory/target-list.md\n\n'],
+      ['p','tomorrow morning:\n'],
+      ['p','> '],['','scout\n'],
+      ['g','NEW  '],['','Product Designer II at Wealthsimple, posted yesterday. Link in the brief.\n']
+    ],
+    audit: [
+      ['p','$ '],['','claude\n'],
+      ['p','> '],['','/audit my-resume.pdf\n\n'],
+      ['o','The ten second read. '],['','Name, a template sidebar, "passionate problem solver", then your real title. My call: skip. Here is why, and here is the fix.\n\n'],
+      ['o','Fix 1. '],['','Your headline says adjectives. Say what you are: role, years, scope.\n'],
+      ['o','Fix 2. '],['','"Helped with the redesign" hides you. What did you actually do?\n'],
+      ['o','Fix 3. '],['','Your strongest work is on the last line of the page. Move it up.\n']
+    ]
+  };
+
+  function typeInto(el, script) {
+    el.innerHTML = '';
+    const cur = document.createElement('span'); cur.className = 'cursor';
+    el.appendChild(cur);
+    let si = 0, ci = 0;
+    function tick() {
+      if (si >= script.length) { return; }
+      const [cls, text] = script[si];
+      if (ci === 0 && cls) { el.insertBefore(Object.assign(document.createElement('span'),{className:cls}), cur); }
+      const target = cls ? cur.previousSibling : el;
+      if (ci < text.length) {
+        if (cls) { target.textContent += text[ci]; }
+        else { el.insertBefore(document.createTextNode(text[ci]), cur); }
+        ci++;
+        setTimeout(tick, text[ci-1] === '\n' ? 140 : 18);
+      } else { si++; ci = 0; setTimeout(tick, 60); }
+    }
+    tick();
+  }
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    document.getElementById('bar').style.width = ((i + 1) / slides.length * 100) + '%';
+    document.getElementById('count').textContent = (i + 1) + ' / ' + slides.length;
+    location.hash = i + 1;
+    const t = slides[i].querySelector('.term-body');
+    if (t) typeInto(t, scripts[t.dataset.type]);
+  }
+
+  addEventListener('keydown', (e) => {
+    if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
+  });
+  addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    show(e.clientX > innerWidth / 3 ? i + 1 : i - 1);
+  });
+
+  show(parseInt(location.hash.slice(1), 10) - 1 || 0);
+</script>
+</body>
+</html>
