@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Start here · Build with Jose</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,700;7..72,900&family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#FBF6EF; --ink:#1A1B19; --orange:#E8502F; --dim:#6E6F69; --wash:#EFE8DC; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:radial-gradient(rgba(232,80,47,.10) 1.2px, transparent 1.2px) 0 0/26px 26px, var(--paper);
+         color:var(--ink); font-family:"Hanken Grotesk",system-ui,sans-serif; line-height:1.6; }
+  .wrap { max-width:760px; margin:0 auto; padding:56px 24px 80px; }
+  .kick { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
+          letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
+          display:flex; align-items:center; gap:10px; }
+  .kick::before { content:""; width:11px; height:11px; background:var(--orange); }
+  h1 { font-family:"Literata",serif; font-weight:900; font-size:clamp(40px,8vw,64px);
+       line-height:1.05; margin:14px 0 10px; }
+  h1 span { color:var(--orange); }
+  .sub { font-size:18px; max-width:52ch; }
+  .kits { display:flex; flex-direction:column; gap:16px; margin:36px 0 44px; }
+  a.kit { display:flex; align-items:center; justify-content:space-between; gap:16px;
+          text-decoration:none; color:inherit; background:#fff; border:3px solid var(--ink);
+          box-shadow:8px 8px 0 var(--ink); padding:20px 24px; }
+  a.kit:active { transform:translate(3px,3px); box-shadow:4px 4px 0 var(--ink); }
+  .kit h2 { font-family:"Literata",serif; font-weight:900; font-size:24px; }
+  .kit p { font-size:14.5px; color:#3A3B37; margin-top:2px; }
+  .kit .dl { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
+             letter-spacing:.1em; background:var(--orange); color:#fff; padding:10px 16px;
+             white-space:nowrap; }
+  .steps { font-size:17px; line-height:2.1; }
+  .steps span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700; margin-right:10px; }
+  .steps code { font-family:"JetBrains Mono",monospace; background:var(--wash); padding:2px 8px; }
+  .note { margin-top:36px; font-size:14px; color:var(--dim); }
+  .note a { color:var(--orange); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Build with Jose · the workshop</div>
+  <h1>Three kits. <span>Yours.</span></h1>
+  <p class="sub">Plain text files. No code. Each one installs itself when you hand it to Claude.</p>
+
+  <div class="kits">
+    <a class="kit" href="../workshop/downloads/scout.md" download="scout.md">
+      <div><h2>Scout</h2><p>Builds your target list by interview, then watches it every morning.</p></div>
+      <div class="dl">DOWNLOAD</div>
+    </a>
+    <a class="kit" href="../workshop/downloads/audit.md" download="audit.md">
+      <div><h2>Audit</h2><p>Reads your resume the way a hiring manager reads it. Ten seconds, then deep.</p></div>
+      <div class="dl">DOWNLOAD</div>
+    </a>
+    <a class="kit" href="../workshop/downloads/pitch.md" download="pitch.md">
+      <div><h2>Pitch</h2><p>The page built for one company, in their brand, with one honest gap.</p></div>
+      <div class="dl">DOWNLOAD</div>
+    </a>
+  </div>
+
+  <div class="steps">
+    <div><span>1</span>Get Claude Code: <code>claude.com/claude-code</code></div>
+    <div><span>2</span>Drag a file into Claude and say: <code>install this</code></div>
+    <div><span>3</span>The kit installs itself. Call it by name.</div>
+  </div>
+
+  <p class="note">Want the whole system, built with Jose in the room? <a href="https://joseplatero.com/build/?utm_source=workshop&utm_medium=event&utm_campaign=build-start">The course: Sep 3 online, Nov 7 in Toronto.</a></p>
+</div>
+</body>
+</html>
