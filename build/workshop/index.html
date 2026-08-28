@@ -16,7 +16,7 @@
     --card:#FFFFFF; --term:#161613; --termtx:#E9EAE5; --wash:#EFE8DC;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { height:100%; overflow:hidden; background:var(--ink); }
+  html,body { height:100%; overflow:hidden; background:var(--paper); }
   body { font-family:"Hanken Grotesk",system-ui,sans-serif; color:var(--ink); }
   .mono { font-family:"JetBrains Mono",monospace; }
 
@@ -33,6 +33,21 @@
   .slide { position:absolute; inset:0; padding:64px 64px 64px; display:none; }
   .slide.on { display:block; animation:in .35s ease; }
   @keyframes in { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+
+  /* slide moods: paper (default), ink, orange */
+  .slide.ink { background:var(--ink); color:var(--paper); }
+  .slide.ink .dimtx { color:#9C9D97; }
+  .slide.ink .prin small { color:#9C9D97; }
+  .slide.ink .follow p { color:var(--paper); }
+  .slide.ink .follow code { background:#2E2F2B; color:var(--termtx); }
+  .slide.ink .term-w { box-shadow:7px 7px 0 #000; }
+  .slide.ink .shot { box-shadow:7px 7px 0 #000; }
+  .slide.hot { background:var(--orange); color:var(--ink); }
+  .slide.hot .kick { color:var(--ink); }
+  .slide.hot .kick::before { background:var(--ink); }
+  .slide.hot h1 .o { color:#FBF6EF; }
+  .slide.hot .chip { box-shadow:5px 5px 0 var(--ink); }
+  .slide.hot .chip i { color:var(--orange); }
 
   .kick { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
           letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
@@ -180,6 +195,18 @@ const CONFIG = {
   </div>
 </section>
 
+<!-- 1b · SHOW OF HANDS: the room talks first -->
+<section class="slide ink t-xl">
+  <div class="s-state">
+    <div class="kick">Show of hands</div>
+    <h1>How many applications have you sent <span class="o">since January?</span></h1>
+    <div class="after">
+      <p class="meta" style="font-size:22px; letter-spacing:.04em">TEN &nbsp;·&nbsp; FIFTY &nbsp;·&nbsp; A HUNDRED &nbsp;·&nbsp; <span style="color:var(--orange)">STOPPED COUNTING</span></p>
+      <p class="sub dimtx">Keep your hand up if you heard back from fewer than one in ten.</p>
+    </div>
+  </div>
+</section>
+
 <!-- 2 · WHO IS TALKING -->
 <section class="slide">
   <div class="s-split">
@@ -246,7 +273,7 @@ const CONFIG = {
 </section>
 
 <!-- 6 · THE PROBLEM -->
-<section class="slide">
+<section class="slide ink">
   <div class="s-state">
     <div class="kick">The problem</div>
     <h1>The worst part is not the no. <span class="o">It is the nothing.</span></h1>
@@ -276,7 +303,7 @@ const CONFIG = {
 </section>
 
 <!-- 8 · THE SOLVE -->
-<section class="slide">
+<section class="slide hot">
   <div class="s-band">
     <div class="kick">The solve</div>
     <h1>Your job search, <span class="o">running as a system.</span></h1>
@@ -310,7 +337,7 @@ const CONFIG = {
 </section>
 
 <!-- 10 · LIVE 1: TARGET SCOUT -->
-<section class="slide">
+<section class="slide ink">
   <div class="s-band">
     <div class="kick">Live build · 1 of 3 · AIM</div>
     <h1>The Target Scout.</h1>
@@ -328,7 +355,7 @@ const CONFIG = {
 </section>
 
 <!-- 11 · LIVE 2: RESUME AUDIT -->
-<section class="slide">
+<section class="slide ink">
   <div class="s-band">
     <div class="kick">Live build · 2 of 3 · GET ANSWERED</div>
     <h1>The Resume Audit.</h1>
@@ -346,7 +373,7 @@ const CONFIG = {
 </section>
 
 <!-- 12 · LIVE 3: TARGET EMPLOYER -->
-<section class="slide">
+<section class="slide ink">
   <div class="s-band">
     <div class="kick">Live build · 3 of 3 · GET ANSWERED</div>
     <h1>The page built for <span class="o">one company.</span></h1>
@@ -417,7 +444,7 @@ const CONFIG = {
 </section>
 
 <!-- 15 · CLOSE -->
-<section class="slide">
+<section class="slide ink">
   <div class="s-band">
     <div class="kick">Keep going</div>
     <h1>The system compounds. <span class="o">Start today.</span></h1>
