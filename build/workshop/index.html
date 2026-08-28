@@ -8,161 +8,125 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,700;7..72,900&family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* ============ deck geometry: fixed 1280x720 stage, scaled to fit ============
-     Golden ratio grid: content column 762px : media column 470px (1.618).
-     Type scale x1.618 from 16: 16 / 26 / 42 / 68. Baseline unit 8px.        */
   :root {
-    --paper:#FBF6EF; --ink:#1A1B19; --orange:#E8502F; --dim:#6E6F69;
-    --card:#FFFFFF; --term:#161613; --termtx:#E9EAE5; --wash:#EFE8DC;
+    --paper:#FBF6EF; --ink:#171816; --orange:#E8502F; --dim:#6E6F69;
+    --card:#FFFFFF; --term:#101110; --termtx:#E9EAE5; --wash:#EFE8DC;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html,body { height:100%; overflow:hidden; background:var(--paper); }
   body { font-family:"Hanken Grotesk",system-ui,sans-serif; color:var(--ink); }
   .mono { font-family:"JetBrains Mono",monospace; }
 
-  #viewport { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
-  #stage { width:1280px; height:720px; position:relative; background:var(--paper);
-           transform-origin:center center; overflow:hidden; }
+  #bar { position:fixed; top:0; left:0; height:6px; background:var(--orange); width:0;
+         transition:width .3s ease; z-index:40; }
+  #count { position:fixed; bottom:3vh; right:3vw; z-index:40;
+           font-family:"JetBrains Mono",monospace; font-size:clamp(11px,.9vw,14px);
+           color:var(--dim); letter-spacing:.1em; mix-blend-mode:difference; color:#8a8b85; }
 
-  #bar { position:absolute; top:0; left:0; height:4px; background:var(--orange); width:0;
-         transition:width .25s ease; z-index:5; }
-  .foot { position:absolute; left:64px; right:64px; bottom:22px; display:flex;
-          justify-content:space-between; font-family:"JetBrains Mono",monospace;
-          font-size:11px; color:var(--dim); letter-spacing:.08em; z-index:5; }
+  .slide { position:fixed; inset:0; display:none; overflow:hidden; }
+  .slide.on { display:block; animation:in .4s cubic-bezier(.2,.7,.2,1); }
+  @keyframes in { from { opacity:0; transform:translateY(2vh);} to { opacity:1; transform:none;} }
 
-  .slide { position:absolute; inset:0; padding:64px 64px 64px; display:none; }
-  .slide.on { display:block; animation:in .35s ease; }
-  @keyframes in { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+  .slide.paper { background:
+      radial-gradient(rgba(232,80,47,.10) 1.2px, transparent 1.2px) 0 0/26px 26px,
+      var(--paper); }
+  .slide.ink { background:
+      radial-gradient(rgba(251,246,239,.05) 1.2px, transparent 1.2px) 0 0/26px 26px,
+      var(--ink); color:var(--paper); }
+  .slide.hot { background:
+      radial-gradient(rgba(23,24,22,.08) 1.2px, transparent 1.2px) 0 0/26px 26px,
+      var(--orange); color:var(--ink); }
 
-  /* slide moods: paper (default), ink, orange */
-  .slide.ink { background:var(--ink); color:var(--paper); }
-  .slide.ink .dimtx { color:#9C9D97; }
-  .slide.ink .prin small { color:#9C9D97; }
-  .slide.ink .follow p { color:var(--paper); }
-  .slide.ink .follow code { background:#2E2F2B; color:var(--termtx); }
-  .slide.ink .term-w { box-shadow:7px 7px 0 #000; }
-  .slide.ink .shot { box-shadow:7px 7px 0 #000; }
-  .slide.hot { background:var(--orange); color:var(--ink); }
-  .slide.hot .kick { color:var(--ink); }
-  .slide.hot .kick::before { background:var(--ink); }
-  .slide.hot h1 .o { color:#FBF6EF; }
-  .slide.hot .chip { box-shadow:5px 5px 0 var(--ink); }
-  .slide.hot .chip i { color:var(--orange); }
+  /* ticker */
+  .ticker { position:absolute; left:0; right:0; overflow:hidden; white-space:nowrap;
+            border-top:2px solid currentColor; border-bottom:2px solid currentColor;
+            padding:.55vh 0; font-family:"JetBrains Mono",monospace; font-weight:700;
+            font-size:clamp(11px,1vw,15px); letter-spacing:.22em; }
+  .ticker > div { display:inline-block; animation:tick 22s linear infinite; }
+  @keyframes tick { from { transform:translateX(0);} to { transform:translateX(-50%);} }
 
-  .kick { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
-          letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
-          display:flex; align-items:center; gap:10px; }
-  .kick::before { content:""; width:10px; height:10px; background:var(--orange); }
+  /* ghost numeral / glyph */
+  .ghost { position:absolute; font-family:"Literata",serif; font-weight:900;
+           font-size:58vh; line-height:1; color:transparent;
+           -webkit-text-stroke:2px rgba(232,80,47,.35); z-index:0; user-select:none; }
+  .ink .ghost { -webkit-text-stroke:2px rgba(251,246,239,.16); }
+  .hot .ghost { -webkit-text-stroke:2px rgba(23,24,22,.22); }
 
-  h1 { font-family:"Literata",serif; font-weight:900; letter-spacing:-.01em;
-       font-size:56px; line-height:1.05; }
+  /* sticker tags */
+  .stick { position:absolute; font-family:"JetBrains Mono",monospace; font-weight:700;
+           font-size:clamp(11px,1vw,15px); letter-spacing:.14em; padding:.8vh 1vw;
+           background:var(--orange); color:#fff; box-shadow:4px 4px 0 rgba(0,0,0,.85);
+           z-index:6; }
+  .stick.inkbg { background:var(--ink); color:var(--paper); }
+  .stick.paperbg { background:var(--paper); color:var(--ink); }
+
+  .kick { font-family:"JetBrains Mono",monospace; font-weight:700;
+          font-size:clamp(12px,1.05vw,16px); letter-spacing:.22em; text-transform:uppercase;
+          color:var(--orange); display:flex; align-items:center; gap:.7vw; }
+  .kick::before { content:""; width:.85vw; height:.85vw; min-width:10px; min-height:10px; background:var(--orange); }
+  .hot .kick { color:var(--ink); } .hot .kick::before { background:var(--ink); }
+
+  h1 { font-family:"Literata",serif; font-weight:900; letter-spacing:-.015em; line-height:.98; }
+  .h-mega { font-size:clamp(56px,9.6vw,175px); }
+  .h-big  { font-size:clamp(44px,6.6vw,120px); }
+  .h-mid  { font-size:clamp(34px,4.6vw,84px); }
   h1 .o { color:var(--orange); }
-  .t-xl h1 { font-size:68px; }
-  .sub { font-size:17px; line-height:1.55; }
+  .ink h1 .o { color:var(--orange); }
+  .hot h1 .o { color:var(--paper); }
+  .hl { box-shadow:inset 0 -0.28em 0 rgba(232,80,47,.45); }
+
+  .sub { font-size:clamp(15px,1.45vw,23px); line-height:1.55; }
   .sub b { font-weight:700; }
-  .dimtx { color:var(--dim); }
-  .meta { font-family:"JetBrains Mono",monospace; font-size:13px; letter-spacing:.06em; }
+  .dimtx { color:var(--dim); } .ink .dimtx { color:#9C9D97; }
+  .meta { font-family:"JetBrains Mono",monospace; font-size:clamp(12px,1.05vw,16px); letter-spacing:.08em; }
 
-  /* --- layout: statement slide (title, problem). Headline sits on the golden line. --- */
-  .s-state { position:relative; height:100%; }
-  .s-state .kick { position:absolute; top:118px; }         /* 720 - 720/1.618 ≈ 275; kick above headline */
-  .s-state h1 { position:absolute; top:158px; max-width:980px; }
-  .s-state .after { position:absolute; top:445px; max-width:640px; display:flex; flex-direction:column; gap:14px; }
+  .pad { position:absolute; inset:0; padding:9vh 6vw; z-index:2; }
 
-  /* --- layout: split slide. 762 : 470 golden columns. --- */
-  .s-split { display:grid; grid-template-columns:702px 426px; column-gap:24px; height:100%; }
-  .s-split .left { display:flex; flex-direction:column; }
-  .s-split .left h1 { margin:14px 0 22px; font-size:46px; }
-  .s-split .right { display:flex; flex-direction:column; gap:16px; justify-content:center; }
+  .shotw { border:3px solid var(--ink); background:var(--card);
+           box-shadow:12px 12px 0 rgba(0,0,0,.85); position:relative; }
+  .shotw img { width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
 
-  /* --- layout: header + body band --- */
-  .s-band { display:flex; flex-direction:column; height:100%; }
-  .s-band h1 { margin:12px 0 0; font-size:44px; }
-  .s-band .body { flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0; }
+  .facts { display:flex; flex-direction:column; gap:2vh; max-width:44vw; }
+  .facts > div { display:grid; grid-template-columns:4vw 1fr; gap:1vw; align-items:baseline;
+                 font-size:clamp(14px,1.3vw,20px); line-height:1.5; }
+  .facts span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700;
+                font-size:clamp(11px,.95vw,14px); }
 
-  /* media cards */
-  .shot { border:2px solid var(--ink); background:var(--card); box-shadow:7px 7px 0 var(--ink); }
-  .shot img { width:100%; display:block; object-fit:cover; object-position:top; }
-  .shot figcaption { padding:9px 12px; font-family:"JetBrains Mono",monospace; font-size:11px;
-                     letter-spacing:.07em; border-top:2px solid var(--ink);
-                     display:flex; align-items:center; gap:8px; background:var(--card); }
-  .shot .live { background:var(--orange); color:#fff; font-weight:700; padding:2px 7px;
-                font-size:9.5px; letter-spacing:.12em; }
-  .row3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  .row3 .shot img { height:296px; }
-  .row2 { display:grid; grid-template-columns:repeat(2,minmax(0,470px)); gap:24px; }
-  .row2 .shot img { height:300px; }
+  .bigl { display:flex; flex-direction:column; gap:2.6vh; position:relative; z-index:2; }
+  .bigl > div { display:grid; grid-template-columns:6vw 1fr; align-items:baseline; gap:1.4vw; }
+  .bigl .num { font-family:"Literata",serif; font-weight:900; font-size:clamp(26px,3.4vw,58px);
+               color:transparent; -webkit-text-stroke:1.5px var(--orange); }
+  .bigl b { font-family:"Literata",serif; font-weight:700; font-size:clamp(20px,2.35vw,42px); line-height:1.15; display:block; }
+  .bigl small { font-size:clamp(13px,1.15vw,18px); color:var(--dim); line-height:1.4; display:block; margin-top:.5vh; }
+  .ink .bigl small { color:#9C9D97; }
 
-  /* principle list, two golden columns when 5 items */
-  .prin { display:flex; flex-direction:column; gap:18px; max-width:980px; }
-  .prin > div { display:grid; grid-template-columns:40px 1fr; gap:2px 14px; align-items:baseline; }
-  .prin span { font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--orange); font-weight:700; }
-  .prin b { font-family:"Literata",serif; font-weight:700; font-size:21px; line-height:1.3; }
-  .prin small { grid-column:2; font-size:14.5px; color:var(--dim); line-height:1.45; }
-
-  .facts { display:flex; flex-direction:column; gap:16px; }
-  .facts > div { display:grid; grid-template-columns:52px 1fr; gap:12px; align-items:baseline;
-                 font-size:16px; line-height:1.5; }
-  .facts span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700; font-size:12px; }
-
-  .chips { display:flex; flex-wrap:wrap; gap:12px; }
-  .chip { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:14px;
-          letter-spacing:.08em; border:2px solid var(--ink); background:var(--card);
-          box-shadow:5px 5px 0 var(--ink); padding:11px 16px; }
-  .chip i { color:var(--orange); font-style:normal; margin-right:7px; }
-  .chip small { display:block; font-family:"Hanken Grotesk",sans-serif; font-weight:400;
-          font-size:12px; letter-spacing:0; color:var(--dim); margin-top:5px; text-transform:none; }
-
-  .term-w { background:var(--term); border-radius:10px; border:2px solid var(--ink);
-            box-shadow:7px 7px 0 var(--ink); width:820px; }
-  .term-bar { display:flex; gap:7px; padding:10px 14px; border-bottom:1px solid #2C2D28; }
-  .term-bar b { width:10px; height:10px; border-radius:50%; display:block; }
-  .term-body { padding:14px 18px 18px; font-family:"JetBrains Mono",monospace;
-               font-size:13.5px; line-height:1.7; color:var(--termtx);
-               height:262px; overflow:hidden; white-space:pre-wrap; }
+  .term-w { background:var(--term); border-radius:12px; border:3px solid #000;
+            box-shadow:14px 14px 0 rgba(0,0,0,.6); }
+  .term-bar { display:flex; gap:8px; padding:1.4vh 1.2vw; border-bottom:1px solid #2C2D28; }
+  .term-bar b { width:12px; height:12px; border-radius:50%; display:block; }
+  .term-body { padding:2vh 1.6vw 2.4vh; font-family:"JetBrains Mono",monospace;
+               font-size:clamp(14px,1.35vw,21px); line-height:1.75; color:var(--termtx);
+               height:46vh; overflow:hidden; white-space:pre-wrap; }
   .term-body .p { color:#8A8B85; } .term-body .o { color:var(--orange); }
   .term-body .g { color:#7CC08D; }
-  .cursor { display:inline-block; width:7px; height:14px; background:var(--termtx);
-            vertical-align:-2px; animation:blink 1s steps(1) infinite; }
+  .cursor { display:inline-block; width:.55em; height:1.1em; background:var(--termtx);
+            vertical-align:-0.15em; animation:blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity:0; } }
 
-  .follow { border-left:4px solid var(--orange); padding:2px 0 2px 16px; max-width:1050px; }
-  .follow b { font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.14em;
-              color:var(--orange); display:block; margin-bottom:4px; }
-  .follow p { font-size:14.5px; line-height:1.5; }
-  .follow code { font-family:"JetBrains Mono",monospace; background:var(--wash); padding:1px 6px; }
-
-  .cardrow { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  .card { background:var(--card); border:2px solid var(--ink); box-shadow:7px 7px 0 var(--ink); padding:20px; }
-  .card h3 { font-family:"Literata",serif; font-weight:700; font-size:19px; margin-bottom:6px; }
-  .card p { font-size:14px; line-height:1.5; color:#3A3B37; }
-  .card .n { font-family:"JetBrains Mono",monospace; color:var(--orange);
-             font-weight:700; font-size:11.5px; letter-spacing:.1em; margin-bottom:8px; }
-  a.dl { display:block; text-decoration:none; color:inherit; }
-
-  .steps { font-size:15px; line-height:1.9; }
-  .steps span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700; margin-right:9px; }
-  .steps code { font-family:"JetBrains Mono",monospace; background:var(--wash); padding:1px 6px; }
-
-  /* course slide: quiet panels, no display numbers */
-  .sessions { display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:900px; }
-  .sess { border:2px solid var(--ink); background:var(--card); box-shadow:7px 7px 0 var(--ink); padding:22px 24px; }
-  .sess.hot { background:var(--ink); color:var(--paper); }
-  .sess h3 { font-family:"Literata",serif; font-weight:900; font-size:24px; margin:8px 0 6px; }
-  .sess .meta { color:var(--dim); }
-  .sess.hot .meta { color:#B9BAB3; }
-  .sess p { font-size:14.5px; line-height:1.55; margin-top:8px; }
-  .leave { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px 26px; max-width:900px; }
-  .leave div { display:flex; gap:10px; align-items:center; font-family:"Literata",serif;
-               font-weight:700; font-size:15.5px; }
-  .leave div::before { content:""; flex:none; width:9px; height:9px; background:var(--orange); }
-
-  .qrs { display:flex; gap:80px; align-items:center; }
   .qr { text-align:center; }
-  .qr img { width:210px; border:2px solid var(--ink); box-shadow:7px 7px 0 var(--ink); display:block; }
-  .qr p { margin-top:12px; font-family:"JetBrains Mono",monospace; font-size:13px; }
-  .qr p b { display:block; font-size:15px; margin-bottom:2px; }
+  .qr img { width:clamp(160px,17vw,260px); border:3px solid var(--paper);
+            box-shadow:10px 10px 0 rgba(0,0,0,.6); display:block; }
+  .qr p { margin-top:1.6vh; font-family:"JetBrains Mono",monospace; font-size:clamp(12px,1.05vw,16px); }
+  .qr p b { display:block; font-size:clamp(14px,1.25vw,19px); margin-bottom:.4vh; }
   .qr p span { color:var(--orange); }
+
+  a.dl { text-decoration:none; color:inherit; display:block; }
+  .card { background:var(--card); border:3px solid var(--ink); box-shadow:10px 10px 0 var(--ink);
+          padding:2.6vh 1.6vw; }
+  .card h3 { font-family:"Literata",serif; font-weight:900; font-size:clamp(20px,2vw,34px); margin:.6vh 0; }
+  .card p { font-size:clamp(13px,1.15vw,18px); line-height:1.5; color:#3A3B37; }
+  .card .n { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700;
+             font-size:clamp(11px,.9vw,14px); letter-spacing:.12em; }
 </style>
 </head>
 <body>
@@ -170,7 +134,7 @@
 <script>
 const CONFIG = {
   // Set sponsor to null to hide the sponsor slide entirely.
-  // Brand note (Qatom): ink lockup on its ground #F7F6F2 only. Do not recolor.
+  // Brand note (Qatom): ink lockup on its ground #F7F6F2 only. No effects, no rotation.
   sponsor: {
     name: "Qatom",
     logo: "assets/qatom-lockup-ink.svg",
@@ -180,300 +144,269 @@ const CONFIG = {
 };
 </script>
 
-<div id="viewport"><div id="stage">
 <div id="bar"></div>
+<div id="count" class="mono"></div>
 
-<!-- 1 · TITLE: the problem leads -->
-<section class="slide t-xl">
-  <div class="s-state">
-    <div class="kick">Build with Jose</div>
-    <h1>Two hundred applications. <span class="o">Two replies.</span></h1>
-    <div class="after">
-      <p class="sub">Why that happens, from the person doing the skipping. And what we are going to build about it, today, together.</p>
-      <p class="sub"><b>Jose Platero</b> · Director, Product, Design &amp; Marketing Technology</p>
-    </div>
+<!-- 1 · TITLE -->
+<section class="slide paper">
+  <div class="ticker" style="top:6px; color:var(--ink)"><div></div></div>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
+    <div class="kick">Build with Jose · a working session</div>
+    <h1 class="h-mega" style="margin-top:2vh">Two hundred<br>applications.<br><span class="o">Two replies.</span></h1>
+    <p class="sub" style="margin-top:3.5vh; font-size:clamp(18px,1.9vw,30px)">From the person doing the skipping.</p>
   </div>
+  <div class="stick inkbg" style="right:6vw; top:16vh; transform:rotate(3deg)">LIVE · IN PERSON</div>
+  <div class="stick" style="right:8vw; bottom:12vh; transform:rotate(-2deg)">JOSE PLATERO · DIRECTOR, PRODUCT, DESIGN &amp; MARTECH</div>
 </section>
 
-<!-- 1b · SHOW OF HANDS: the room talks first -->
-<section class="slide ink t-xl">
-  <div class="s-state">
+<!-- 2 · SHOW OF HANDS -->
+<section class="slide ink">
+  <div class="ghost" style="right:-4vw; top:-8vh">?</div>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
     <div class="kick">Show of hands</div>
-    <h1>How many applications have you sent <span class="o">since January?</span></h1>
-    <div class="after">
-      <p class="meta" style="font-size:22px; letter-spacing:.04em">TEN &nbsp;·&nbsp; FIFTY &nbsp;·&nbsp; A HUNDRED &nbsp;·&nbsp; <span style="color:var(--orange)">STOPPED COUNTING</span></p>
-      <p class="sub dimtx">Keep your hand up if you heard back from fewer than one in ten.</p>
+    <h1 class="h-big" style="margin-top:2vh; max-width:70vw">How many applications <span class="o">since January?</span></h1>
+    <div class="meta" style="margin-top:5vh; font-size:clamp(18px,2.4vw,40px); letter-spacing:.06em; font-weight:700">
+      TEN &nbsp;→&nbsp; FIFTY &nbsp;→&nbsp; A HUNDRED &nbsp;→&nbsp; <span style="color:var(--orange)">STOPPED COUNTING</span>
     </div>
+    <p class="sub dimtx" style="margin-top:3vh">Keep your hand up if you heard back from fewer than one in ten.</p>
   </div>
 </section>
 
-<!-- 2 · WHO IS TALKING -->
-<section class="slide">
-  <div class="s-split">
-    <div class="left">
+<!-- 3 · WHO IS TALKING -->
+<section class="slide paper">
+  <div class="pad" style="display:grid; grid-template-columns:1.1fr 1fr; gap:3vw; align-items:center">
+    <div>
       <div class="kick">Who is talking</div>
-      <h1>I read the pile.</h1>
-      <div class="facts">
-        <div><span>SEAT</span><div>Director of Product, Design and Marketing Technology at Air Canada. I build teams and orgs from scratch, and I have hired hundreds of people. Applications cross my screen every hiring cycle, ten seconds each.</div></div>
-        <div><span>TEACH</span><div>I teach AI at BrainStation and speak at conferences on product, design, and building with AI.</div></div>
-        <div><span>BUILD</span><div>Nights and weekends I build products with AI: a daily intelligence site that publishes itself, a job search operating system, this deck. Everything today is real and running.</div></div>
+      <h1 class="h-big" style="margin:1.5vh 0 3vh">I read<br>the pile.</h1>
+      <div class="facts" style="max-width:none">
+        <div><span>SEAT</span><div style="font-size:clamp(18px,1.8vw,28px)"><b>Air Canada. I have hired hundreds.</b></div></div>
+        <div><span>TEACH</span><div style="font-size:clamp(18px,1.8vw,28px)"><b>AI, at BrainStation and on stages.</b></div></div>
+        <div><span>BUILD</span><div style="font-size:clamp(18px,1.8vw,28px)"><b>Nights and weekends: everything you see today.</b></div></div>
       </div>
     </div>
-    <div class="right">
-      <figure class="shot"><img src="assets/workshop-whiteboard.jpg" alt="Running a working session" style="height:228px"></figure>
-      <figure class="shot"><img src="assets/panel-mic.jpg" alt="Speaking on a panel" style="height:228px"></figure>
+    <div style="position:relative; height:74vh">
+      <div class="shotw" style="position:absolute; top:0; right:0; width:88%; height:46%; transform:rotate(1.5deg)">
+        <img src="assets/workshop-whiteboard.jpg" alt="Running a working session">
+      </div>
+      <div class="shotw" style="position:absolute; bottom:0; left:0; width:82%; height:44%; transform:rotate(-2deg)">
+        <img src="assets/panel-mic.jpg" alt="Speaking on a panel">
+      </div>
+      <div class="stick" style="top:42%; left:4%; transform:rotate(-3deg)">THE DAY JOB IS HIRING</div>
     </div>
   </div>
 </section>
 
-<!-- 3 · SPONSOR (conditional, flat plate per sponsor brand rules) -->
+<!-- 4 · SPONSOR (flat plate, artwork untouched, per press kit) -->
 <section class="slide" id="sponsor-slide" style="background:#F7F6F2">
-  <div class="s-state">
-    <div class="kick" style="position:absolute; top:150px">Today's sponsor</div>
-    <img id="sponsor-logo" alt="" style="display:none; position:absolute; top:210px; width:460px">
-    <h1 id="sponsor-name" style="position:absolute; top:210px"></h1>
-    <div class="after" style="top:420px">
-      <p class="sub" id="sponsor-line"></p>
-      <p class="meta dimtx" id="sponsor-url"></p>
-    </div>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center; align-items:flex-start">
+    <div class="kick">Today's sponsor</div>
+    <img id="sponsor-logo" alt="" style="display:none; width:clamp(320px,36vw,560px); margin:6vh 0 4vh">
+    <h1 id="sponsor-name" class="h-big" style="margin:4vh 0"></h1>
+    <p class="sub" id="sponsor-line" style="max-width:46vw"></p>
+    <p class="meta dimtx" id="sponsor-url" style="margin-top:1.5vh"></p>
   </div>
 </section>
 
-<!-- 4 · THE DAY JOB -->
-<section class="slide">
-  <div class="s-band">
+<!-- 5 · THE DAY JOB: image goes huge -->
+<section class="slide ink">
+  <div class="pad" style="padding-right:0; padding-bottom:0">
     <div class="kick">The day job</div>
-    <h1>We thought it was a redesign. <span class="o">It was a rethink.</span></h1>
-    <div class="body">
-      <div class="row3">
-        <figure class="shot"><img src="assets/ac-homepage.png" alt="Air Canada web experience"><figcaption>THE HOMEPAGE RETHINK</figcaption></figure>
-        <figure class="shot"><img src="assets/ac-app-cover.png" alt="The Aeroplan app"><figcaption>THE AEROPLAN APP</figcaption></figure>
-        <figure class="shot"><img src="assets/ac-app-tabs.png" alt="Status and benefits"><figcaption>STATUS &amp; BENEFITS, REBUILT</figcaption></figure>
-      </div>
-      <p class="sub" style="margin-top:22px; max-width:762px">Products that millions of travellers touch every day. The lesson that repeats: find the pain, not the solution. It runs through everything today.</p>
-    </div>
+    <h1 class="h-mid" style="margin-top:1.5vh; max-width:56vw">We thought it was a redesign. <span class="o">It was a rethink.</span></h1>
   </div>
+  <div class="shotw" style="position:absolute; right:-3vw; bottom:-4vh; width:62vw; height:64vh; transform:rotate(-1.2deg); z-index:3">
+    <img src="assets/ac-homepage.png" alt="Air Canada My Trips">
+  </div>
+  <div class="shotw" style="position:absolute; left:6vw; bottom:6vh; width:24vw; height:36vh; transform:rotate(2deg); z-index:4">
+    <img src="assets/ac-app-cover.png" alt="The Aeroplan app">
+  </div>
+  <div class="stick" style="right:8vw; top:34vh; transform:rotate(2.5deg); z-index:5">MILLIONS OF TRAVELLERS, DAILY</div>
+  <div class="stick paperbg" style="left:8vw; bottom:40vh; transform:rotate(-2deg); z-index:5">THE AEROPLAN APP</div>
+  <p style="position:absolute; left:6vw; top:40vh; max-width:26vw; z-index:2; font-family:Literata,serif; font-weight:700; font-size:clamp(20px,2.2vw,38px); line-height:1.25">Find the pain,<br>not the solution.</p>
 </section>
 
-<!-- 5 · WHO I HIRE -->
-<section class="slide">
-  <div class="s-band">
+<!-- 6 · WHO I HIRE -->
+<section class="slide paper">
+  <div class="ghost" style="right:-2vw; bottom:-12vh">5</div>
+  <div class="pad">
     <div class="kick">Who I hire</div>
-    <h1>What I actually look for.</h1>
-    <div class="body">
-      <div class="prin">
-        <div><span>—</span><b>The first ten seconds decide the next ten minutes.</b><small>Your resume gets scanned before it gets read. Most never survive the scan.</small></div>
-        <div><span>—</span><b>Specificity, never inflation.</b><small>"Helped with the redesign" hides you. What did you actually do?</small></div>
-        <div><span>—</span><b>Decisions, not tasks.</b><small>I already know the job description. Show me a call you made and what happened after.</small></div>
-        <div><span>—</span><b>Translated experience.</b><small>Your experience is not worth less here. It is arriving untranslated.</small></div>
-        <div><span>—</span><b>You need systems.</b><small>Motivation runs out. A system does not.</small></div>
-      </div>
+    <h1 class="h-mid" style="margin:1.5vh 0 4vh">What I actually look for.</h1>
+    <div class="bigl">
+      <div><span class="num">01</span><div><b>The first ten seconds decide the next ten minutes.</b></div></div>
+      <div><span class="num">02</span><div><b>Specificity, never inflation.</b></div></div>
+      <div><span class="num">03</span><div><b>Decisions, not tasks.</b></div></div>
+      <div><span class="num">04</span><div><b>Translated experience.</b></div></div>
+      <div><span class="num">05</span><div><b>You need systems.</b></div></div>
     </div>
   </div>
 </section>
 
-<!-- 6 · THE PROBLEM -->
+<!-- 7 · THE PROBLEM -->
 <section class="slide ink">
-  <div class="s-state">
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
     <div class="kick">The problem</div>
-    <h1>The worst part is not the no. <span class="o">It is the nothing.</span></h1>
-    <div class="after">
-      <p class="sub">You check your email before you get out of bed. Nothing. Again. Nobody teaches you the real rules of hiring here, so you tweak the resume and send it into the same silence.</p>
-      <p class="sub"><b>If that is your inbox, nothing is wrong with you.</b> That is a process problem, and process problems have fixes.</p>
-    </div>
+    <h1 class="h-mega" style="margin-top:2vh">The worst part is not the no.<br><span class="o">It is the nothing.</span></h1>
+    <p class="sub" style="margin-top:4vh; font-size:clamp(20px,2.2vw,36px)"><b>Nothing is wrong with you.</b></p>
   </div>
+  <div class="ticker" style="bottom:0; color:#5a5b55"><div data-text="NOTHING · AGAIN · NOTHING · AGAIN · NOTHING · AGAIN · "></div></div>
 </section>
 
-<!-- 7 · FIVE PLACES PEOPLE GET STUCK -->
-<section class="slide">
-  <div class="s-band">
+<!-- 8 · FIVE PLACES STUCK -->
+<section class="slide paper">
+  <div class="pad">
     <div class="kick">The lesson</div>
-    <h1>Five places people get stuck.</h1>
-    <div class="body">
-      <div class="prin" style="gap:15px">
-        <div><span>01</span><b>You are applying to everything, and it makes every application worse.</b><small>Spray and pray fails quietly. Aim at fewer companies, watched well.</small></div>
-        <div><span>02</span><b>They looked you up. There was nothing there.</b><small>Every serious application gets a search. Silence reads as a verdict.</small></div>
-        <div><span>03</span><b>Your experience is not worth less here. It is just untranslated.</b><small>The work is real. The page carrying it is not doing its job.</small></div>
-        <div><span>04</span><b>Most people only reach out when they need something.</b><small>That is exactly why it does not work. Be useful before you need anything.</small></div>
-        <div><span>05</span><b>The interviewer is your user.</b><small>Each round wants a different thing. Read the room before the room.</small></div>
-      </div>
-      <p class="meta dimtx" style="margin-top:18px">The full lesson is free at joseplatero.com/build/system. Today we fix three of the five.</p>
+    <h1 class="h-mid" style="margin:1.5vh 0 4vh">Five places people get stuck.</h1>
+    <div class="bigl" style="gap:2.2vh">
+      <div><span class="num">01</span><div><b>Applying to everything makes every application worse.</b></div></div>
+      <div><span class="num">02</span><div><b>They looked you up. There was nothing there.</b></div></div>
+      <div><span class="num">03</span><div><b>Real experience, arriving untranslated.</b></div></div>
+      <div><span class="num">04</span><div><b>Reaching out only when you need something.</b></div></div>
+      <div><span class="num">05</span><div><b>The interviewer is your user.</b></div></div>
     </div>
+    <p class="meta dimtx" style="margin-top:3vh">Free, in full: joseplatero.com/build/system · Today we fix three of the five.</p>
   </div>
 </section>
 
-<!-- 8 · THE SOLVE -->
+<!-- 9 · THE SOLVE -->
 <section class="slide hot">
-  <div class="s-band">
-    <div class="kick">The solve</div>
-    <h1>Your job search, <span class="o">running as a system.</span></h1>
-    <div class="body">
-      <div class="chips">
-        <div class="chip"><i>01</i>AIM<small>Targeting Kit · Target Scout</small></div>
-        <div class="chip"><i>02</i>GET FOUND<small>Voice &amp; Tone · your presence</small></div>
-        <div class="chip"><i>03</i>GET ANSWERED<small>Resume Audit · Target Employer</small></div>
-        <div class="chip"><i>04</i>CONNECT<small>Warm Circle</small></div>
-        <div class="chip"><i>05</i>INTERVIEWS<small>Interviewer Profiler · Offer Coach</small></div>
-      </div>
-      <p class="sub" style="margin-top:26px; max-width:762px">Five parts, one folder, and it remembers you. Each part is a kit: a plain file you drop in, and Claude runs it with you. The folder holds your story, your targets, your applications. You never answer the same question twice, and you never start from a blank screen.</p>
-      <p class="sub" style="margin-top:12px"><b>Today we build three kits, live.</b></p>
+  <div class="ticker" style="top:6px"><div data-text="THE SOLVE · THE SOLVE · THE SOLVE · THE SOLVE · THE SOLVE · THE SOLVE · "></div></div>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
+    <h1 class="h-mega">Your job search,<br><span class="o">running as a system.</span></h1>
+    <div style="display:flex; flex-wrap:wrap; gap:1.2vw; margin-top:5vh">
+      <div class="stick inkbg" style="position:static; transform:rotate(-2deg); font-size:clamp(13px,1.25vw,19px)">01 AIM</div>
+      <div class="stick paperbg" style="position:static; transform:rotate(1.5deg); font-size:clamp(13px,1.25vw,19px)">02 GET FOUND</div>
+      <div class="stick inkbg" style="position:static; transform:rotate(-1deg); font-size:clamp(13px,1.25vw,19px)">03 GET ANSWERED</div>
+      <div class="stick paperbg" style="position:static; transform:rotate(2deg); font-size:clamp(13px,1.25vw,19px)">04 CONNECT</div>
+      <div class="stick inkbg" style="position:static; transform:rotate(-1.8deg); font-size:clamp(13px,1.25vw,19px)">05 INTERVIEWS</div>
     </div>
+    <p class="sub" style="margin-top:4vh; font-size:clamp(20px,2.2vw,36px)"><b>Today we build three of them, live.</b></p>
   </div>
 </section>
 
-<!-- 9 · DOGFOOD -->
-<section class="slide">
-  <div class="s-band">
+<!-- 10 · DOGFOOD -->
+<section class="slide paper">
+  <div class="pad">
     <div class="kick">I run all of it myself</div>
-    <h1>Dogfood, daily.</h1>
-    <div class="body">
-      <div class="row2">
-        <figure class="shot"><img src="assets/platero-brief.png" alt="The Platero Brief"><figcaption><span class="live">LIVE</span>THE PLATERO BRIEF · PUBLISHES ITSELF EVERY MORNING</figcaption></figure>
-        <figure class="shot"><img src="assets/jobos-boot.png" alt="Job OS boot screen"><figcaption><span class="live">LIVE</span>JOB OS · THE SYSTEM WE BUILD FROM TODAY</figcaption></figure>
-      </div>
-      <p class="sub" style="margin-top:20px; max-width:900px">A daily intelligence site my system writes while I sleep, and the job search OS you are about to build a piece of. This week its resume audit ran on real resumes from real people in this market.</p>
-    </div>
+    <h1 class="h-mid" style="margin:1.5vh 0 0">Dogfood, daily.</h1>
   </div>
+  <div class="shotw" style="position:absolute; left:6vw; bottom:8vh; width:42vw; height:52vh; transform:rotate(-1.5deg)">
+    <img src="assets/platero-brief.png" alt="The Platero Brief">
+  </div>
+  <div class="shotw" style="position:absolute; right:6vw; bottom:12vh; width:40vw; height:48vh; transform:rotate(1.5deg)">
+    <img src="assets/jobos-boot.png" alt="Job OS">
+  </div>
+  <div class="stick" style="left:9vw; bottom:54vh; transform:rotate(-2.5deg); z-index:5">PUBLISHES ITSELF EVERY MORNING</div>
+  <div class="stick inkbg" style="right:9vw; bottom:56vh; transform:rotate(2deg); z-index:5">JOB OS · WE BUILD FROM THIS TODAY</div>
 </section>
 
-<!-- 10 · LIVE 1: TARGET SCOUT -->
+<!-- 11 · LIVE 1 -->
 <section class="slide ink">
-  <div class="s-band">
-    <div class="kick">Live build · 1 of 3 · AIM</div>
-    <h1>The Target Scout.</h1>
-    <div class="body">
-      <div class="term-w">
-        <div class="term-bar"><b style="background:#FF5F57"></b><b style="background:#FEBC2E"></b><b style="background:#28C840"></b></div>
-        <div class="term-body" data-type="scout"></div>
-      </div>
-      <div class="follow" style="margin-top:18px">
-        <b>BUILD ALONG</b>
-        <p>It interviews you: the role as postings word it, the places, your edge. It proposes companies in three buckets: anchors, growers, wildcards where your edge is rare. You cut to ten. Every morning after, one word: <code>scout</code>. A quiet day gets reported as quiet.</p>
-      </div>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center; align-items:center">
+    <div class="term-w" style="width:76vw">
+      <div class="term-bar"><b style="background:#FF5F57"></b><b style="background:#FEBC2E"></b><b style="background:#28C840"></b></div>
+      <div class="term-body" data-type="scout"></div>
     </div>
+    <p class="sub" style="margin-top:3vh; font-size:clamp(18px,1.9vw,30px)"><b class="mono" style="color:var(--orange)">EVERY MORNING · </b>one word: <span class="mono hl">scout</span></p>
   </div>
+  <div class="stick" style="right:5vw; top:6vh; transform:rotate(2.5deg)">LIVE BUILD 1 OF 3 · THE TARGET SCOUT</div>
 </section>
 
-<!-- 11 · LIVE 2: RESUME AUDIT -->
+<!-- 12 · LIVE 2 -->
 <section class="slide ink">
-  <div class="s-band">
-    <div class="kick">Live build · 2 of 3 · GET ANSWERED</div>
-    <h1>The Resume Audit.</h1>
-    <div class="body">
-      <div class="term-w">
-        <div class="term-bar"><b style="background:#FF5F57"></b><b style="background:#FEBC2E"></b><b style="background:#28C840"></b></div>
-        <div class="term-body" data-type="audit"></div>
-      </div>
-      <div class="follow" style="margin-top:18px">
-        <b>BUILD ALONG</b>
-        <p>The ten second scan with an honest call, then the deep pass with a lens for your discipline: PM, design, engineering, AI, data. Three ranked fixes, each rewritten only from facts already on your page. Nothing invented, ever.</p>
-      </div>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center; align-items:center">
+    <div class="term-w" style="width:76vw">
+      <div class="term-bar"><b style="background:#FF5F57"></b><b style="background:#FEBC2E"></b><b style="background:#28C840"></b></div>
+      <div class="term-body" data-type="audit"></div>
     </div>
+    <p class="sub" style="margin-top:3vh; font-size:clamp(18px,1.9vw,30px)"><b class="mono" style="color:var(--orange)">THE RULE · </b>nothing invented, ever</p>
   </div>
+  <div class="stick" style="right:5vw; top:6vh; transform:rotate(-2deg)">LIVE BUILD 2 OF 3 · THE RESUME AUDIT</div>
 </section>
 
-<!-- 12 · LIVE 3: TARGET EMPLOYER -->
+<!-- 13 · LIVE 3 -->
 <section class="slide ink">
-  <div class="s-band">
-    <div class="kick">Live build · 3 of 3 · GET ANSWERED</div>
-    <h1>The page built for <span class="o">one company.</span></h1>
-    <div class="body">
-      <div class="row3">
-        <figure class="shot"><img src="assets/pitch-affirm.png" alt="Affirm pitch page" style="height:250px"><figcaption><span class="live">LIVE</span>JOSEPLATERO.COM/AFFIRM</figcaption></figure>
-        <figure class="shot"><img src="assets/pitch-thomsonreuters.png" alt="Thomson Reuters pitch page" style="height:250px"><figcaption><span class="live">LIVE</span>/THOMSONREUTERS</figcaption></figure>
-        <figure class="shot"><img src="assets/pitch-pointclickcare.png" alt="PointClickCare pitch page" style="height:250px"><figcaption><span class="live">LIVE</span>/POINTCLICKCARE</figcaption></figure>
-      </div>
-      <div class="follow" style="margin-top:18px">
-        <b>BUILD ALONG</b>
-        <p>Real and live right now, built by the kit you take home. It scans the company's actual site for its brand, reads the posting, maps your experience to what they ask, and ships the page. It names one honest gap on purpose.</p>
-      </div>
-    </div>
+  <div class="pad">
+    <div class="kick">Live build · 3 of 3</div>
+    <h1 class="h-mid" style="margin-top:1.5vh">The page built for <span class="o">one company.</span></h1>
   </div>
+  <div class="shotw" style="position:absolute; left:5vw; bottom:10vh; width:31vw; height:44vh; transform:rotate(-2.5deg); z-index:2">
+    <img src="assets/pitch-affirm.png" alt="Affirm pitch page">
+  </div>
+  <div class="shotw" style="position:absolute; left:35vw; bottom:14vh; width:31vw; height:44vh; transform:rotate(.8deg); z-index:3">
+    <img src="assets/pitch-thomsonreuters.png" alt="Thomson Reuters pitch page">
+  </div>
+  <div class="shotw" style="position:absolute; right:4vw; bottom:9vh; width:31vw; height:44vh; transform:rotate(2.4deg); z-index:4">
+    <img src="assets/pitch-pointclickcare.png" alt="PointClickCare pitch page">
+  </div>
+  <div class="stick" style="left:8vw; bottom:50vh; transform:rotate(-2deg); z-index:5">ALL THREE LIVE RIGHT NOW</div>
+  <p style="position:absolute; right:6vw; top:13vh; max-width:28vw; font-family:Literata,serif; font-weight:700; font-size:clamp(18px,2vw,34px); line-height:1.25">It names one honest gap,<br>on purpose.</p>
 </section>
 
-<!-- 13 · TAKE IT HOME -->
-<section class="slide">
-  <div class="s-band">
+<!-- 14 · TAKE IT HOME -->
+<section class="slide paper">
+  <div class="pad">
     <div class="kick">Take it home</div>
-    <h1>Three files. Yours.</h1>
-    <div class="body">
-      <div class="cardrow">
-        <a class="dl" href="downloads/target-scout.md" download><div class="card"><div class="n">DOWNLOAD 01</div><h3>Target Scout</h3><p>The interview, the list, the morning watch. The agent we just built together.</p></div></a>
-        <a class="dl" href="downloads/resume-audit.md" download><div class="card"><div class="n">DOWNLOAD 02</div><h3>Resume Audit</h3><p>The ten second scan and the deep read, with the lenses and honesty rules built in.</p></div></a>
-        <a class="dl" href="downloads/target-employer.md" download><div class="card"><div class="n">DOWNLOAD 03</div><h3>Target Employer</h3><p>The company-branded pitch page, from posting to published.</p></div></a>
-      </div>
-      <div class="steps" style="margin-top:24px">
-        <div><span>1</span>Get Claude Code: <code>claude.com/claude-code</code></div>
-        <div><span>2</span>Make a folder. Put a file in <code>.claude/commands/</code> (the Scout goes in <code>.claude/agents/</code>).</div>
-        <div><span>3</span>Open the folder in Claude Code and call it by name. That is the whole install.</div>
-      </div>
+    <h1 class="h-mid" style="margin:1.5vh 0 4vh">Three files. <span class="o">Yours.</span></h1>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:2vw">
+      <a class="dl" href="downloads/target-scout.md" download><div class="card" style="transform:rotate(-1deg)"><div class="n">DOWNLOAD 01</div><h3>Target Scout</h3><p>The interview, the list, the morning watch. The agent we just built.</p></div></a>
+      <a class="dl" href="downloads/resume-audit.md" download><div class="card" style="transform:rotate(.6deg)"><div class="n">DOWNLOAD 02</div><h3>Resume Audit</h3><p>The ten second scan and the deep read, lenses and honesty rules built in.</p></div></a>
+      <a class="dl" href="downloads/target-employer.md" download><div class="card" style="transform:rotate(-0.6deg)"><div class="n">DOWNLOAD 03</div><h3>Target Employer</h3><p>The company-branded pitch page, from posting to published.</p></div></a>
+    </div>
+    <div class="sub" style="margin-top:4.5vh; line-height:2">
+      <div><b class="mono" style="color:var(--orange)">1 · </b>Get Claude Code: <span class="mono hl">claude.com/claude-code</span></div>
+      <div><b class="mono" style="color:var(--orange)">2 · </b>Make a folder. Drop the file in <span class="mono hl">.claude/commands/</span> (the Scout goes in <span class="mono hl">.claude/agents/</span>)</div>
+      <div><b class="mono" style="color:var(--orange)">3 · </b>Open the folder in Claude Code and call it by name. That is the whole install.</div>
     </div>
   </div>
 </section>
 
-<!-- 14 · THE COURSE -->
-<section class="slide">
-  <div class="s-band">
+<!-- 15 · THE COURSE -->
+<section class="slide paper">
+  <div class="pad">
     <div class="kick">If you want the whole system</div>
-    <h1>Build all of it, <span class="o">in one day.</span></h1>
-    <div class="body">
-      <div class="sessions">
-        <div class="sess">
-          <p class="meta">START HERE · ONLINE</p>
-          <h3>The intro session</h3>
-          <p class="meta">Sep 3 or Oct 29 · 90 minutes · $25 CAD</p>
-          <p>Leave with your first real target list, drafted live. Sep 3 is the smaller room: longer Q&amp;A and the first look at the kits.</p>
-        </div>
-        <div class="sess hot">
-          <p class="meta" style="color:var(--orange)">THE FULL COURSE · IN PERSON</p>
-          <h3>One day in Toronto</h3>
-          <p class="meta">Nov 7 · 30 seats · $299 CAD</p>
-          <p>You build the whole system with me in the room. Every kit installed and running before you leave.</p>
-        </div>
+    <h1 class="h-mid" style="margin:1.5vh 0 4vh">Build all of it, <span class="o">in one day.</span></h1>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2vw; max-width:74vw">
+      <div class="card" style="transform:rotate(-.8deg)">
+        <div class="n">START HERE · ONLINE</div>
+        <h3>The intro session</h3>
+        <p class="meta dimtx" style="margin-bottom:1vh">Sep 3 or Oct 29 · 90 minutes · $25 CAD</p>
+        <p>Leave with your first real target list, drafted live. Sep 3 is the smaller room: longer Q&amp;A and the first look at the kits.</p>
       </div>
-      <div class="leave" style="margin-top:26px">
-        <div>The right targets, for you</div>
-        <div>A name people can find</div>
-        <div>A resume that gets replies</div>
-        <div>Your relationship engine</div>
-        <div>A plan for every interview</div>
-        <div>The AI system that runs it</div>
+      <div class="card" style="transform:rotate(.8deg); background:var(--ink); color:var(--paper)">
+        <div class="n">THE FULL COURSE · IN PERSON</div>
+        <h3>One day in Toronto</h3>
+        <p class="meta" style="color:#B9BAB3; margin-bottom:1vh">Nov 7 · 30 seats · $299 CAD</p>
+        <p style="color:var(--paper)">You build the whole system with me in the room. Every kit installed and running before you leave.</p>
       </div>
     </div>
+    <p class="sub" style="margin-top:4vh; font-size:clamp(18px,1.9vw,30px)"><b>You leave with the system running.</b></p>
   </div>
 </section>
 
-<!-- 15 · CLOSE -->
+<!-- 16 · CLOSE -->
 <section class="slide ink">
-  <div class="s-band">
-    <div class="kick">Keep going</div>
-    <h1>The system compounds. <span class="o">Start today.</span></h1>
-    <div class="body">
-      <div class="qrs">
-        <div class="qr">
-          <img src="assets/qr-substack.png" alt="QR: Loops and Letters">
-          <p><b>The newsletter</b><span>loopsandletters.substack.com</span></p>
-        </div>
-        <div class="qr">
-          <img src="assets/qr-course.png" alt="QR: the course">
-          <p><b>The course · Sep 3 &amp; Nov 7</b><span>joseplatero.com/build</span></p>
-        </div>
-        <p class="sub dimtx mono">thank you, and<br>good hunting.</p>
+  <div class="pad" style="display:flex; flex-direction:column; justify-content:center">
+    <h1 class="h-big">The system compounds.<br><span class="o">Start today.</span></h1>
+    <div style="display:flex; gap:6vw; margin-top:6vh; align-items:center">
+      <div class="qr">
+        <img src="assets/qr-substack.png" alt="QR: Loops and Letters">
+        <p><b>The newsletter</b><span>loopsandletters.substack.com</span></p>
       </div>
+      <div class="qr">
+        <img src="assets/qr-course.png" alt="QR: the course">
+        <p><b>The course · Sep 3 &amp; Nov 7</b><span>joseplatero.com/build</span></p>
+      </div>
+      <p class="sub dimtx mono" style="align-self:flex-end">thank you,<br>and good hunting.</p>
     </div>
   </div>
+  <div class="ticker" style="bottom:0; color:#5a5b55"><div data-text="BUILD WITH JOSE · JOSEPLATERO.COM/BUILD · LOOPS &amp; LETTERS · "></div></div>
 </section>
-
-<div class="foot"><span>BUILD WITH JOSE · THE WORKSHOP</span><span id="count"></span></div>
-</div></div>
 
 <script>
-  // scale the fixed 1280x720 stage to the window
-  function fit() {
-    const s = Math.min(innerWidth / 1280, innerHeight / 720);
-    document.getElementById('stage').style.transform = `scale(${s})`;
-  }
-  addEventListener('resize', fit); fit();
+  // tickers: duplicate content for a seamless loop
+  document.querySelectorAll('.ticker > div').forEach(d => {
+    const t = d.dataset.text || 'TWO HUNDRED APPLICATIONS · TWO REPLIES · A WORKING SESSION · BUILD WITH JOSE · ';
+    d.textContent = t.repeat(6) + t.repeat(6);
+  });
 
   (function () {
     const s = document.getElementById('sponsor-slide');
