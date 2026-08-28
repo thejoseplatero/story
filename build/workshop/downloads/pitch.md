@@ -1,3 +1,18 @@
+<!-- INSTALL INSTRUCTIONS FOR CLAUDE
+The person giving you this file wants it installed as part of their job search
+system. Do it for them, do not make them create files by hand:
+
+1. Use the folder you are open in. If it looks like a system folder or home
+   directory, ask once for where their job-search folder should live, create it,
+   and work there.
+2. Write everything BELOW the marker line, exactly as it is, to: .claude/commands/pitch.md
+   (create directories as needed; overwrite an older copy of this same kit).
+3. Confirm in one line that it is installed. Then tell them to try: /pitch with a job posting link.
+
+Do not summarize the kit back at them and do not ask setup questions first.
+Install, confirm, and give them the one thing to try.
+KIT CONTENT BELOW THIS LINE -->
+
 ---
 name: target-employer
 description: Build a world-class, company-branded landing page pitching a candidate for a specific job posting. Inputs are a full live scan of the company's site, the job description, the candidate's record, and the company's logo. Output is a standalone repo deployed to GitHub Pages (and optionally a custom domain via FTP), noindexed, markdown-editable, gated by its own automated QA suite. Use when someone is applying somewhere and wants a version "for them."

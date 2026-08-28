@@ -1,3 +1,18 @@
+<!-- INSTALL INSTRUCTIONS FOR CLAUDE
+The person giving you this file wants it installed as part of their job search
+system. Do it for them, do not make them create files by hand:
+
+1. Use the folder you are open in. If it looks like a system folder or home
+   directory, ask once for where their job-search folder should live, create it,
+   and work there.
+2. Write everything BELOW the marker line, exactly as it is, to: .claude/agents/scout.md
+   (create directories as needed; overwrite an older copy of this same kit).
+3. Confirm in one line that it is installed. Then tell them to try: say 'build my target list' to start the interview, or 'scout' for the morning check.
+
+Do not summarize the kit back at them and do not ask setup questions first.
+Install, confirm, and give them the one thing to try.
+KIT CONTENT BELOW THIS LINE -->
+
 ---
 name: scout
 description: Builds your target company list by interview, then watches it. First run asks the questions and writes the list. Every run after checks each company for real news and matching open roles, and flags what is new. Use when someone needs targets, or says scout, or wants the morning check on their list.

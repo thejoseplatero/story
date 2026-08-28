@@ -4,15 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Jose Platero → Qatom · Founding Product Manager</title>
+<title>Jose Platero for Qatom · Founding Product Manager</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* Measured from qatom.ai 2026-08-28: ink #0A0B12 on white, blue #1442FF,
      Albert Sans, pill buttons 999px, ease cubic-bezier(.22,.61,.36,1) .2s,
-     herochat card: white, 16px radius, 1px #E5E8EE, layered soft shadow. */
+     herochat card: white, 16px radius, 1px #E5E8EE, layered soft shadow.
+     Section inventory mirrored: hero+widget / stat strip / feature grid /
+     how-it-works steps / compare / dark panel / closing CTA. */
   :root { --ink:#0A0B12; --blue:#1442FF; --line:#E5E8EE; --mut:#5A5C66;
-          --ease:cubic-bezier(.22,.61,.36,1); }
+          --wash:#F5F6F9; --ease:cubic-bezier(.22,.61,.36,1); }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:#fff; color:var(--ink);
          font-family:"Albert Sans",Inter,-apple-system,"Helvetica Neue",sans-serif;
@@ -21,7 +23,8 @@
   .demo-note b { color:#8FA3FF; font-weight:500; }
   .wrap { max-width:1120px; margin:0 auto; padding:0 28px; }
   nav { display:flex; align-items:center; justify-content:space-between; padding:22px 0; }
-  nav img { width:120px; display:block; }
+  .mark { display:flex; align-items:center; gap:10px; font-weight:600; font-size:19px; letter-spacing:-.01em; }
+  .mark small { font-weight:500; color:var(--mut); font-size:19px; }
   .pill { display:inline-block; background:var(--ink); color:#fff; text-decoration:none;
           border-radius:999px; padding:10px 20px; font-size:14px; font-weight:500;
           transition:transform .2s var(--ease), background .2s var(--ease); }
@@ -30,21 +33,19 @@
   .pill.ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
 
   .hero { display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center;
-          padding:64px 0 80px; }
-  h1 { font-weight:600; font-size:clamp(40px,5.4vw,76px); line-height:1.04; letter-spacing:-.02em; }
+          padding:56px 0 72px; }
+  h1 { font-weight:600; font-size:clamp(40px,5.2vw,72px); line-height:1.04; letter-spacing:-.02em; }
   h1 .verb { color:var(--blue); display:inline-block; min-width:5.2ch; }
-  .lede { margin-top:26px; font-size:17px; color:var(--ink); max-width:52ch; }
+  .lede { margin-top:26px; font-size:17px; max-width:52ch; }
   .lede b { font-weight:600; }
-  .sub { margin-top:16px; font-size:15.5px; color:var(--mut); max-width:52ch; }
-  .ctas { margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
+  .sub { margin-top:14px; font-size:15.5px; color:var(--mut); max-width:52ch; }
+  .ctas { margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
 
-  /* the signature move, reproduced working: their herochat */
   .herochat { background:#fff; border:1px solid var(--line); border-radius:16px;
               box-shadow:0 1px 0 rgba(10,11,18,.04), 0 12px 32px -16px rgba(10,11,18,.18);
               overflow:hidden; }
   .hc-tabs { display:flex; gap:8px; padding:14px 16px; border-bottom:1px solid var(--line); }
-  .hc-tab { font-size:13px; font-weight:500; border-radius:999px; padding:7px 15px;
-            color:var(--mut); }
+  .hc-tab { font-size:13px; font-weight:500; border-radius:999px; padding:7px 15px; color:var(--mut); }
   .hc-tab.on { background:var(--ink); color:#fff; }
   .hc-body { padding:20px 18px 26px; min-height:330px; }
   .msg { display:flex; gap:10px; margin-bottom:14px; opacity:0; transform:translateY(8px);
@@ -54,8 +55,7 @@
   .msg.you .bub { background:var(--ink); color:#fff; border-radius:14px 14px 4px 14px;
                   padding:10px 14px; font-size:14px; max-width:75%; }
   .avatar { flex:none; width:26px; height:26px; border-radius:50%; background:var(--ink);
-            color:#fff; font-size:10px; font-weight:600; display:flex; align-items:center;
-            justify-content:center; }
+            color:#fff; font-size:10px; font-weight:600; display:flex; align-items:center; justify-content:center; }
   .dot { flex:none; width:12px; height:12px; border-radius:50%; background:var(--blue);
          margin-top:8px; animation:pulse 2.2s var(--ease) infinite; }
   @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(20,66,255,.30);} 50% { box-shadow:0 0 0 7px rgba(20,66,255,0);} }
@@ -70,12 +70,22 @@
   .agent .facts { margin-top:8px; line-height:1.55; }
   .agent .facts b { font-weight:600; }
 
-  section { padding:56px 0; }
+  /* stat strip, their one-liner band pattern */
+  .strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+           padding:34px 0; }
+  .strip .wrap { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center; }
+  .strip h2 { font-size:clamp(20px,2vw,26px); font-weight:600; letter-spacing:-.01em; max-width:20ch; }
+  .stats { display:flex; gap:38px; flex-wrap:wrap; }
+  .stat b { display:block; font-size:clamp(24px,2.4vw,34px); font-weight:700; letter-spacing:-.02em; }
+  .stat b i { font-style:normal; color:var(--blue); }
+  .stat span { font-size:13px; color:var(--mut); }
+
+  section { padding:64px 0; }
   .k { font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--mut);
        font-weight:600; margin-bottom:10px; }
-  h2 { font-weight:600; font-size:clamp(28px,3.4vw,44px); letter-spacing:-.015em;
-       line-height:1.1; margin-bottom:34px; max-width:24ch; }
-  h2 .b { color:var(--blue); }
+  h2.sec { font-weight:600; font-size:clamp(28px,3.4vw,44px); letter-spacing:-.015em;
+       line-height:1.1; margin-bottom:34px; max-width:26ch; }
+  h2.sec .b { color:var(--blue); }
   .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
   .cardq { border:1px solid var(--line); border-radius:16px; padding:24px;
            transition:transform .2s var(--ease), box-shadow .2s var(--ease); }
@@ -83,21 +93,43 @@
   .cardq h3 { font-size:17px; font-weight:600; margin-bottom:8px; }
   .cardq p { font-size:14.5px; color:var(--mut); }
   .cardq p b { color:var(--ink); font-weight:600; }
+  .cardq .tag { display:inline-block; font-family:"JetBrains Mono",monospace; font-size:11px;
+                color:var(--blue); background:rgba(20,66,255,.08); border-radius:6px;
+                padding:3px 8px; margin-bottom:12px; }
 
-  .dark { background:var(--ink); color:#fff; border-radius:20px; padding:48px;
-          margin:16px 0; }
+  /* how-it-works steps, their numbered pattern */
+  .steps3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+  .step { background:var(--wash); border-radius:16px; padding:26px; }
+  .step .n { width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff;
+             font-weight:600; font-size:14px; display:flex; align-items:center;
+             justify-content:center; margin-bottom:14px; }
+  .step h3 { font-size:17px; font-weight:600; margin-bottom:8px; }
+  .step p { font-size:14.5px; color:var(--mut); }
+
+  /* compare, their table pattern */
+  .compare { border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .compare .row { display:grid; grid-template-columns:1fr 1fr; }
+  .compare .row + .row { border-top:1px solid var(--line); }
+  .compare .cell { padding:20px 24px; font-size:15px; }
+  .compare .cell.h { font-weight:600; font-size:14px; letter-spacing:.06em; text-transform:uppercase; }
+  .compare .cell:first-child { color:var(--mut); background:var(--wash); }
+  .compare .cell:last-child b { color:var(--blue); font-weight:600; }
+
+  .dark { background:var(--ink); color:#fff; border-radius:20px; padding:48px; margin:8px 0; }
   .dark .k { color:#8FA3FF; }
   .dark p.gap { font-size:clamp(19px,2vw,25px); font-weight:500; max-width:56ch; line-height:1.45; }
   .dark small { display:block; margin-top:16px; font-size:14.5px; color:#B9BDCB; max-width:64ch; }
 
-  .rowlist { display:flex; flex-direction:column; gap:16px; max-width:70ch; }
-  .rowlist > div { display:flex; gap:16px; align-items:baseline; font-size:16.5px; }
-  .rowlist span { font-family:"JetBrains Mono",monospace; color:var(--blue); font-weight:500;
-                  font-size:13px; flex:none; }
-  footer { padding:36px 0 72px; border-top:1px solid var(--line); margin-top:32px;
-           display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-  footer p { font-size:13px; color:var(--mut); width:100%; margin-top:10px; }
-  @media (max-width:900px) { .hero { grid-template-columns:1fr; } .dark { padding:32px; } }
+  .closer { text-align:center; padding:80px 0 72px; }
+  .closer h2 { font-weight:600; font-size:clamp(32px,4vw,54px); letter-spacing:-.02em; line-height:1.05; }
+  .closer h2 .b { color:var(--blue); }
+  .closer .ctas { justify-content:center; }
+  .closer p.small { margin-top:18px; font-size:14px; color:var(--mut); }
+
+  footer { padding:26px 0 60px; border-top:1px solid var(--line); }
+  footer p { font-size:13px; color:var(--mut); }
+  @media (max-width:900px) { .hero { grid-template-columns:1fr; } .dark { padding:32px; }
+    .compare .row { grid-template-columns:1fr; } .compare .cell:first-child { background:var(--wash); } }
   @media (prefers-reduced-motion: reduce) {
     .msg { opacity:1; transform:none; transition:none; }
     .dot { animation:none; }
@@ -111,7 +143,14 @@
 
 <div class="wrap">
 <nav>
-  <img src="qatom-lockup-ink.svg" alt="Qatom">
+  <div class="mark">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+      <path d="M6 9 A14 14 0 0 1 24 5" fill="none" stroke="#1442FF" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="17" cy="17" r="6.5" fill="#1442FF"/>
+      <path d="M28 25 A14 14 0 0 1 10 29" fill="none" stroke="#1442FF" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <span>Jose Platero <small>for Qatom</small></span>
+  </div>
   <a class="pill ghost" href="https://joseplatero.com">joseplatero.com</a>
 </nav>
 
@@ -119,7 +158,7 @@
   <div>
     <h1>Your agents can transact. Someone has to decide what they <span class="verb" id="verb">build.</span></h1>
     <p class="lede"><b>Qatom</b> turns any MCP-compatible agent into a fully economic participant. That creates a product question no payments playbook answers: what do agent operators and API earners actually need, in what order?</p>
-    <p class="sub">I have spent my career answering that kind of question. <b style="color:var(--ink)">Jose Platero, pitching Founding Product Manager.</b></p>
+    <p class="sub">I have spent fifteen years answering that kind of question. <b style="color:var(--ink)">Jose Platero, pitching Founding Product Manager.</b></p>
     <div class="ctas">
       <a class="pill blue" href="https://www.linkedin.com/in/joseplatero">Talk to Jose &rarr;</a>
       <a class="pill ghost" href="https://joseplatero.com">See the work</a>
@@ -134,57 +173,87 @@
     <div class="hc-body" id="chat">
       <div class="msg you"><div class="bub">"Who should own product at Qatom?"</div><div class="avatar">You</div></div>
       <div class="msg"><div class="dot"></div><div class="agent"><span class="thinking">Evaluating candidate&hellip;</span><br><span class="receipt">&rarr; <span>qatom &middot; platero.founding_pm</span> <span class="b">$0.001</span> &middot; &lt;1s <span class="ok">&#10003; settled</span></span></div></div>
-      <div class="msg"><div class="dot"></div><div class="agent"><div class="facts"><b>Jose Platero:</b> led digital product for <b>Aeroplan</b>, a points economy millions earn and spend in daily. Built product, design, and martech orgs from zero at <b>Air Canada</b>. Ships with <b>Claude Code and MCP weekly</b>. Teaches AI at BrainStation.</div></div></div>
+      <div class="msg"><div class="dot"></div><div class="agent"><div class="facts"><b>Jose Platero:</b> runs a <b>45+ person</b> product, design, and martech org at Air Canada. Launched the Aeroplan member experience; <b>active membership doubled</b>. Ships co-brand credit revenue inside booking and loyalty journeys. Builds with <b>Claude Code and MCP weekly</b>.</div></div></div>
       <div class="msg"><div class="dot"></div><div class="agent"><div class="facts">Honest gap on file: has never shipped settlement infrastructure. States it himself, unprompted.</div></div></div>
     </div>
   </div>
 </div>
+</div>
 
+<div class="strip">
+  <div class="wrap">
+    <h2>One hire. A whole product function.</h2>
+    <div class="stats">
+      <div class="stat"><b>45<i>+</i></b><span>people led, four practices</span></div>
+      <div class="stat"><b>9M<i>+</i></b><span>members, status relaunch</span></div>
+      <div class="stat"><b>2<i>x</i></b><span>active membership growth</span></div>
+      <div class="stat"><b>100<i>+</i></b><span>experiments, innovation lab</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
 <section>
   <div class="k">What I bring</div>
-  <h2>Everything a founding PM needs <span class="b">to transact.</span></h2>
+  <h2 class="sec">Everything a founding PM needs <span class="b">to transact.</span></h2>
   <div class="grid">
-    <div class="cardq"><h3>Consumer scale on a points economy</h3><p>Led digital product for <b>Aeroplan</b>: a currency millions of Canadians earn, spend, and settle in. The closest consumer analogue to an agent wallet that exists.</p></div>
-    <div class="cardq"><h3>Zero to one, inside constraints</h3><p>Built product, design, and marketing technology orgs from scratch at <b>Air Canada</b>, shipping under regulation, legacy rails, and real money movement.</p></div>
-    <div class="cardq"><h3>MCP-native, daily</h3><p>Builds with <b>Claude Code and MCP servers every week</b>: agents that research, publish, and file. The operator persona in your docs, not a tourist to it.</p></div>
-    <div class="cardq"><h3>Teaching your market</h3><p>Teaches AI at <b>BrainStation</b> and runs workshops for the builders who will operate these agents. Your adoption curve runs through rooms he is already in.</p></div>
+    <div class="cardq"><span class="tag">commerce</span><h3>Revenue inside the journey</h3><p>Ships <b>co-brand credit partnerships embedded in booking and loyalty flows</b> at Air Canada. Real money, moving inside a product, under regulation.</p></div>
+    <div class="cardq"><span class="tag">wallets</span><h3>A points economy at consumer scale</h3><p>Launched the <b>Aeroplan member experience</b>; active membership doubled. Uber, Starbucks, and Marriott partnerships. The closest consumer analogue to an agent wallet that exists.</p></div>
+    <div class="cardq"><span class="tag">zero to one</span><h3>New functions from scratch</h3><p>Stood up Air Canada's <b>adtech function from zero</b>, plus the Compass design system and an AI-enabled operating model. Ran <b>100+ experiments</b> at Aimia's innovation lab.</p></div>
+    <div class="cardq"><span class="tag">mcp-native</span><h3>Your operator persona, daily</h3><p>Builds with <b>Claude Code and MCP servers every week</b>: agents that research, publish, and file. Teaches AI at BrainStation, to the people who will operate yours.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="k">How I would work</div>
+  <h2 class="sec">The first ninety days, <span class="b">in three calls.</span></h2>
+  <div class="steps3">
+    <div class="step"><div class="n">1</div><h3>Find the pain</h3><p>Twenty agent operators, twenty API earners. Where the pain is strongest, not where the protocol is cleverest.</p></div>
+    <div class="step"><div class="n">2</div><h3>Pick the metric</h3><p>The one number preview should optimize before pricing exists. Define it, instrument it, review it weekly.</p></div>
+    <div class="step"><div class="n">3</div><h3>Ship the on-ramp</h3><p>Operator onboarding that makes the first paid tool call feel like nothing. Zero fee means nothing if setup costs an afternoon.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="k">Purpose-built for this</div>
+  <h2 class="sec">The payments playbook <span class="b">is the wrong playbook.</span></h2>
+  <div class="compare">
+    <div class="row"><div class="cell h">A payments PM asks</div><div class="cell h" style="color:var(--blue)">I ask</div></div>
+    <div class="row"><div class="cell">How do we reduce checkout friction?</div><div class="cell">There is no checkout. <b>What makes an operator trust an agent to spend?</b></div></div>
+    <div class="row"><div class="cell">How do we grow transaction volume?</div><div class="cell"><b>Which earners make the marketplace worth calling</b> before volume exists?</div></div>
+    <div class="row"><div class="cell">What is our interchange strategy?</div><div class="cell">Zero-fee is the strategy. <b>What do we learn in preview that pricing later depends on?</b></div></div>
   </div>
 </section>
 
 <div class="dark">
   <div class="k">The honest gap</div>
   <p class="gap">I have never shipped settlement infrastructure. Bearer assets, in-flight settlement, TODA underneath: that layer I would learn from your engineers, not teach them.</p>
-  <small>What I bring to that layer instead: a decade of making regulated money products legible to normal people, which is the half of agentic commerce nobody has built yet.</small>
+  <small>What I bring to that layer instead: fifteen years of making regulated money products legible to normal people, which is the half of agentic commerce nobody has built yet.</small>
 </div>
 
-<section>
-  <div class="k">The first ninety days</div>
-  <h2>Find the pain, <span class="b">not the protocol.</span></h2>
-  <div class="rowlist">
-    <div><span>01</span><div>Talk to twenty agent operators and twenty API earners. Find where the pain is strongest, not where the protocol is cleverest.</div></div>
-    <div><span>02</span><div>Define the one metric preview should optimize before pricing exists, and instrument it.</div></div>
-    <div><span>03</span><div>Ship the operator onboarding that makes the first paid tool call feel like nothing. Zero fee means nothing if setup costs an afternoon.</div></div>
+<div class="closer">
+  <h2>Give your product <span class="b">a founder.</span></h2>
+  <div class="ctas" style="margin-top:30px">
+    <a class="pill blue" href="https://www.linkedin.com/in/joseplatero">Talk to Jose &rarr;</a>
+    <a class="pill ghost" href="https://joseplatero.com">joseplatero.com</a>
   </div>
-</section>
+  <p class="small">Toronto · same city as 18 King St. E.</p>
+</div>
 
 <footer>
-  <a class="pill blue" href="https://www.linkedin.com/in/joseplatero">Talk to Jose &rarr;</a>
-  <a class="pill ghost" href="https://joseplatero.com">joseplatero.com</a>
-  <p>Built with the Pitch kit from Build with Jose. Qatom brand used with permission for this workshop demo. Design measured from qatom.ai on 2026-08-28.</p>
+  <p>Built with the Pitch kit from Build with Jose. Qatom brand used with permission for this workshop demo. Design measured from qatom.ai on 2026-08-28. Every claim above is from the candidate's resume.</p>
 </footer>
 </div>
 
 <script>
   (function () {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // signature move 2: the rotating verb, their hero pattern
     const verbs = ['build.', 'ship.', 'price.', 'learn.', 'buy.'];
     const v = document.getElementById('verb');
     if (!reduced) {
       let i = 0;
       setInterval(() => { i = (i + 1) % verbs.length; v.textContent = verbs[i]; }, 2000);
     }
-    // signature move 1: the herochat conversation, revealed in sequence
     const msgs = document.querySelectorAll('.msg');
     if (reduced) { msgs.forEach(m => m.classList.add('show')); return; }
     msgs.forEach((m, k) => setTimeout(() => m.classList.add('show'), 500 + k * 1100));
