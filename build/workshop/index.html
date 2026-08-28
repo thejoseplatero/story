@@ -112,6 +112,32 @@
   .qr p b { display:block; font-size:clamp(14px,1.25vw,19px); margin-bottom:.4vh; }
   .qr p span { color:var(--orange); }
 
+  /* the ten second timer: press T */
+  #timer { position:fixed; inset:0; z-index:60; display:none; background:var(--ink);
+           align-items:center; justify-content:center; flex-direction:column; color:var(--paper); }
+  #timer.on { display:flex; }
+  #timer .n { font-family:"Literata",serif; font-weight:900; font-size:56vh; line-height:1; }
+  #timer .l { font-family:"JetBrains Mono",monospace; font-size:clamp(14px,1.4vw,22px);
+              letter-spacing:.2em; color:#9C9D97; margin-top:2vh; }
+  #timer .skip { display:none; font-family:"Literata",serif; font-weight:900;
+                 font-size:clamp(90px,17vw,300px); color:var(--orange);
+                 transform:rotate(-7deg); border:1vh solid var(--orange);
+                 padding:1vh 4vw; }
+  #timer.done .n, #timer.done .l { display:none; }
+  #timer.done .skip { display:block; animation:stamp .18s cubic-bezier(.2,2,.4,1); }
+  @keyframes stamp { from { transform:rotate(-7deg) scale(2.4); opacity:0; } to { transform:rotate(-7deg) scale(1); opacity:1; } }
+
+  /* pixel jose walks the close slide */
+  #pixeljose { position:absolute; bottom:2vh; left:-160px; width:110px; z-index:8;
+               image-rendering:pixelated; animation:stroll 26s linear infinite; }
+  @keyframes stroll {
+    0%   { transform:translateX(0) scaleX(1); }
+    48%  { transform:translateX(calc(100vw + 180px)) scaleX(1); }
+    50%  { transform:translateX(calc(100vw + 180px)) scaleX(-1); }
+    98%  { transform:translateX(0) scaleX(-1); }
+    100% { transform:translateX(0) scaleX(1); }
+  }
+
   a.dl { text-decoration:none; color:inherit; display:block; }
   .card { background:var(--card); border:3px solid var(--ink); box-shadow:10px 10px 0 var(--ink);
           padding:2.6vh 1.6vw; }
@@ -137,6 +163,7 @@ const CONFIG = {
 </script>
 
 <div id="bar"></div>
+<div id="timer"><div class="n">10</div><div class="l">THIS IS HOW LONG YOUR RESUME GETS</div><div class="skip">SKIP.</div></div>
 <div id="count" class="mono"></div>
 
 <!-- 0 · SPONSOR, while the room settles (flat plate, artwork untouched, per press kit) -->
@@ -179,7 +206,7 @@ const CONFIG = {
   <div class="pad" style="display:grid; grid-template-columns:1.1fr 1fr; gap:3vw; align-items:center">
     <div>
       <div class="kick">Who is talking</div>
-      <h1 class="h-big" style="margin:1.5vh 0 3vh">I read<br>the pile.</h1>
+      <h1 class="h-mid" style="margin:1.5vh 0 3vh">I'm the person who <span class="o">never wrote back.</span></h1>
       <div class="facts" style="max-width:none">
         <div><span>SEAT</span><div style="font-size:clamp(18px,1.8vw,28px)"><b>Air Canada. I have hired hundreds.</b></div></div>
         <div><span>TEACH</span><div style="font-size:clamp(18px,1.8vw,28px)"><b>AI, at BrainStation and on stages.</b></div></div>
@@ -374,6 +401,7 @@ const CONFIG = {
 
 <!-- 16 · CLOSE -->
 <section class="slide ink">
+  <img id="pixeljose" src="assets/pixel-jose.png" alt="">
   <div class="pad" style="display:grid; grid-template-columns:1.25fr 1fr; gap:5vw; align-items:center; padding-bottom:12vh">
     <div>
       <h1 class="h-mid">Three kits today.<br><span class="o">The whole system, Nov 7.</span></h1>
@@ -463,11 +491,30 @@ const CONFIG = {
     if (t) typeInto(t, scripts[t.dataset.type]);
   }
 
+  let tTick = null;
+  function timer(open) {
+    const el = document.getElementById('timer');
+    clearInterval(tTick); el.classList.remove('done');
+    if (!open) { el.classList.remove('on'); return; }
+    el.classList.add('on');
+    let n = 10;
+    const num = el.querySelector('.n'); num.textContent = n;
+    tTick = setInterval(() => {
+      n--;
+      if (n <= 0) { clearInterval(tTick); el.classList.add('done'); }
+      else num.textContent = n;
+    }, 1000);
+  }
+
   addEventListener('keydown', (e) => {
+    if (e.key === 't' || e.key === 'T') { timer(!document.getElementById('timer').classList.contains('on')); return; }
+    if (e.key === 'Escape') { timer(false); return; }
     if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); show(i + 1); }
     if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
   });
   addEventListener('click', (e) => {
+    const tm = document.getElementById('timer');
+    if (tm.classList.contains('on')) { timer(false); return; }
     if (e.target.closest('a')) return;
     show(e.clientX > innerWidth / 3 ? i + 1 : i - 1);
   });
