@@ -104,7 +104,7 @@
   .qr p span { color:var(--orange); }
 
   .face { display:flex; gap:4vw; align-items:flex-start; margin-top:3.5vh; flex-wrap:wrap; }
-  .face img { width:min(200px,20vw); border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); }
+  .face img { height:min(250px,28vh); width:auto; border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); }
   .facts { display:flex; flex-direction:column; gap:14px; max-width:62ch; }
   .facts div { display:flex; gap:14px; align-items:baseline; font-size:clamp(16px,1.5vw,21px); line-height:1.5; }
   .facts span { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700; font-size:14px; flex:none; }
@@ -151,10 +151,11 @@ const CONFIG = {
 <div id="hint" class="mono">arrows or click to advance</div>
 <div id="count" class="mono"></div>
 
-<!-- TITLE -->
+<!-- TITLE: lead with the problem -->
 <section class="slide">
   <div class="kick">Build with Jose</div>
-  <h1>Your job search, <span class="o">running as a system.</span></h1>
+  <h1>Two hundred applications. <span class="o">Two replies.</span></h1>
+  <p class="sub">Why that happens, from the person doing the skipping. And what we are going to build about it, today, together.</p>
   <p class="sub"><b>Jose Platero</b> · Director, Product, Design &amp; Marketing Technology. Part of his job is hiring.</p>
 </section>
 
@@ -164,6 +165,10 @@ const CONFIG = {
   <h1>I read the pile.</h1>
   <div class="face">
     <img src="../jose.jpg" alt="Jose Platero" onerror="this.style.display='none'">
+    <img src="assets/workshop-whiteboard.jpg" alt="Running a working session at the whiteboard" onerror="this.style.display='none'">
+    <img src="assets/panel-mic.jpg" alt="Speaking on a panel" onerror="this.style.display='none'">
+  </div>
+  <div class="face" style="margin-top:2.5vh">
     <div class="facts">
       <div><span>SEAT</span><div>Director of Product, Design and Marketing Technology at Air Canada. I build teams and orgs from scratch, and I have hired hundreds of people. Applications cross my screen every hiring cycle, ten seconds each.</div></div>
       <div><span>TEACH</span><div>I teach AI at BrainStation and speak at conferences on product, design, and building with AI.</div></div>
@@ -221,8 +226,8 @@ const CONFIG = {
 <!-- THE PROBLEM -->
 <section class="slide">
   <div class="kick">The problem</div>
-  <h1>Two hundred applications. <span class="o">Two replies.</span></h1>
-  <p class="sub">The worst part is not the no. It is the nothing. You check your email before you get out of bed, and there is nothing, again. Nobody teaches you the real rules of hiring here.</p>
+  <h1>The worst part is not the no. <span class="o">It is the nothing.</span></h1>
+  <p class="sub">You check your email before you get out of bed. Nothing. Again. Nobody teaches you the real rules of hiring here, so you tweak the resume and send it into the same silence.</p>
   <p class="sub">If that is your inbox, nothing is wrong with you. That is a process problem, and process problems have fixes.</p>
 </section>
 
@@ -240,10 +245,10 @@ const CONFIG = {
   <p class="sub dimtx">The full lesson is free at joseplatero.com/build/system. Today we build the tools that fix three of the five.</p>
 </section>
 
-<!-- THE SYSTEM -->
+<!-- THE SYSTEM: the solve, revealed after the problem -->
 <section class="slide">
-  <div class="kick">The system</div>
-  <h1>Five parts. One folder. <span class="o">It remembers you.</span></h1>
+  <div class="kick">The solve</div>
+  <h1>Your job search, <span class="o">running as a system.</span></h1>
   <div class="chips">
     <div class="chip"><i>01</i>AIM<small>Targeting Kit · Target Scout</small></div>
     <div class="chip"><i>02</i>GET FOUND<small>Voice &amp; Tone · your presence</small></div>
@@ -251,7 +256,7 @@ const CONFIG = {
     <div class="chip"><i>04</i>CONNECT<small>Warm Circle</small></div>
     <div class="chip"><i>05</i>INTERVIEWS<small>Interviewer Profiler · Offer Coach</small></div>
   </div>
-  <p class="sub">Each part is a kit: a plain file you drop into a folder, and Claude runs it with you. The folder holds your story, your targets, your applications. You never answer the same question twice, and you never start from a blank screen. <b>Today we build three kits, live.</b></p>
+  <p class="sub">Five parts, one folder, and it remembers you. Each part is a kit: a plain file you drop in, and Claude runs it with you. The folder holds your story, your targets, your applications. You never answer the same question twice, and you never start from a blank screen. <b>Today we build three kits, live.</b></p>
 </section>
 
 <!-- PROOF IT RUNS -->
