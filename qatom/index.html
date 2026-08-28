@@ -6,95 +6,189 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Jose Platero → Qatom · Founding Product Manager</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* Qatom brand, per press kit: ink #2A2B2A, ground #F7F6F2, oxide #1c4b4b,
-     patina #2c777b (light bg only), verdigris #6fc4b8 (on ink only). */
-  :root { --ink:#2A2B2A; --ground:#F7F6F2; --oxide:#1c4b4b; --patina:#2c777b; --verdigris:#6fc4b8; }
+  /* Measured from qatom.ai 2026-08-28: ink #0A0B12 on white, blue #1442FF,
+     Albert Sans, pill buttons 999px, ease cubic-bezier(.22,.61,.36,1) .2s,
+     herochat card: white, 16px radius, 1px #E5E8EE, layered soft shadow. */
+  :root { --ink:#0A0B12; --blue:#1442FF; --line:#E5E8EE; --mut:#5A5C66;
+          --ease:cubic-bezier(.22,.61,.36,1); }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--ground); color:var(--ink); font-family:"Archivo",system-ui,sans-serif;
-         font-size:17px; line-height:1.6; letter-spacing:-.01em; }
-  .demo-note { background:var(--ink); color:var(--ground); text-align:center; padding:10px 16px;
-               font-size:13.5px; }
-  .demo-note a { color:var(--verdigris); }
-  .wrap { max-width:880px; margin:0 auto; padding:0 24px; }
-  header { padding:56px 0 8px; }
-  header img { width:180px; display:block; }
-  .role { margin-top:48px; }
-  .role .k { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--patina); font-weight:700; }
-  h1 { font-size:clamp(34px,5.5vw,54px); font-weight:700; line-height:1.1; letter-spacing:-.02em; margin:10px 0 18px; }
-  .lede { font-size:20px; max-width:64ch; }
+  body { background:#fff; color:var(--ink);
+         font-family:"Albert Sans",Inter,-apple-system,"Helvetica Neue",sans-serif;
+         font-size:16px; line-height:1.6; }
+  .demo-note { background:var(--ink); color:#fff; text-align:center; padding:10px 16px; font-size:13px; }
+  .demo-note b { color:#8FA3FF; font-weight:500; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 28px; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:22px 0; }
+  nav img { width:120px; display:block; }
+  .pill { display:inline-block; background:var(--ink); color:#fff; text-decoration:none;
+          border-radius:999px; padding:10px 20px; font-size:14px; font-weight:500;
+          transition:transform .2s var(--ease), background .2s var(--ease); }
+  .pill:hover { transform:translateY(-1px); background:#1D1F2B; }
+  .pill.blue { background:var(--blue); }
+  .pill.ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
+
+  .hero { display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center;
+          padding:64px 0 80px; }
+  h1 { font-weight:600; font-size:clamp(40px,5.4vw,76px); line-height:1.04; letter-spacing:-.02em; }
+  h1 .verb { color:var(--blue); display:inline-block; min-width:5.2ch; }
+  .lede { margin-top:26px; font-size:17px; color:var(--ink); max-width:52ch; }
   .lede b { font-weight:600; }
-  section { padding:44px 0; }
-  h2 { font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--patina);
-       font-weight:700; margin-bottom:22px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
-  .cardq { background:#fff; border:1px solid #E3E1DA; border-radius:14px; padding:22px; }
+  .sub { margin-top:16px; font-size:15.5px; color:var(--mut); max-width:52ch; }
+  .ctas { margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
+
+  /* the signature move, reproduced working: their herochat */
+  .herochat { background:#fff; border:1px solid var(--line); border-radius:16px;
+              box-shadow:0 1px 0 rgba(10,11,18,.04), 0 12px 32px -16px rgba(10,11,18,.18);
+              overflow:hidden; }
+  .hc-tabs { display:flex; gap:8px; padding:14px 16px; border-bottom:1px solid var(--line); }
+  .hc-tab { font-size:13px; font-weight:500; border-radius:999px; padding:7px 15px;
+            color:var(--mut); }
+  .hc-tab.on { background:var(--ink); color:#fff; }
+  .hc-body { padding:20px 18px 26px; min-height:330px; }
+  .msg { display:flex; gap:10px; margin-bottom:14px; opacity:0; transform:translateY(8px);
+         transition:opacity .45s var(--ease), transform .45s var(--ease); }
+  .msg.show { opacity:1; transform:none; }
+  .msg.you { justify-content:flex-end; }
+  .msg.you .bub { background:var(--ink); color:#fff; border-radius:14px 14px 4px 14px;
+                  padding:10px 14px; font-size:14px; max-width:75%; }
+  .avatar { flex:none; width:26px; height:26px; border-radius:50%; background:var(--ink);
+            color:#fff; font-size:10px; font-weight:600; display:flex; align-items:center;
+            justify-content:center; }
+  .dot { flex:none; width:12px; height:12px; border-radius:50%; background:var(--blue);
+         margin-top:8px; animation:pulse 2.2s var(--ease) infinite; }
+  @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(20,66,255,.30);} 50% { box-shadow:0 0 0 7px rgba(20,66,255,0);} }
+  .agent { background:#fff; border:1px solid var(--line); border-radius:14px;
+           padding:12px 14px; font-size:14px; max-width:82%; }
+  .agent .thinking { color:var(--mut); }
+  .receipt { display:inline-flex; gap:10px; align-items:center; margin-top:9px;
+             font-family:"JetBrains Mono","SF Mono",Menlo,monospace; font-size:12px;
+             background:rgba(10,11,18,.06); border-radius:8px; padding:5px 10px; }
+  .receipt .b { color:var(--blue); }
+  .receipt .ok { color:#0B8A47; }
+  .agent .facts { margin-top:8px; line-height:1.55; }
+  .agent .facts b { font-weight:600; }
+
+  section { padding:56px 0; }
+  .k { font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--mut);
+       font-weight:600; margin-bottom:10px; }
+  h2 { font-weight:600; font-size:clamp(28px,3.4vw,44px); letter-spacing:-.015em;
+       line-height:1.1; margin-bottom:34px; max-width:24ch; }
+  h2 .b { color:var(--blue); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+  .cardq { border:1px solid var(--line); border-radius:16px; padding:24px;
+           transition:transform .2s var(--ease), box-shadow .2s var(--ease); }
+  .cardq:hover { transform:translateY(-3px); box-shadow:0 12px 32px -16px rgba(10,11,18,.18); }
   .cardq h3 { font-size:17px; font-weight:600; margin-bottom:8px; }
-  .cardq p { font-size:15px; color:#4A4B49; }
-  .cardq .m { font-weight:700; color:var(--ink); }
-  .dark { background:var(--oxide); color:var(--ground); border-radius:20px; padding:40px; margin:12px 0; }
-  .dark h2 { color:var(--verdigris); }
-  .dark p { max-width:66ch; }
-  .dark .gap { font-size:19px; font-weight:500; }
-  .dark small { display:block; margin-top:14px; font-size:14.5px; color:#C9D6D2; }
-  .rowlist { display:flex; flex-direction:column; gap:14px; max-width:70ch; }
-  .rowlist div { display:flex; gap:14px; align-items:baseline; }
-  .rowlist span { color:var(--patina); font-weight:700; font-size:14px; flex:none; width:20px; }
-  footer { padding:40px 0 64px; border-top:1px solid #E3E1DA; margin-top:24px;
-           display:flex; gap:24px; flex-wrap:wrap; align-items:center; }
-  .btn { display:inline-block; background:var(--ink); color:var(--ground); text-decoration:none;
-         padding:13px 22px; border-radius:10px; font-weight:600; font-size:15.5px; }
-  .btn.alt { background:transparent; color:var(--ink); border:1.5px solid var(--ink); }
-  footer p { font-size:14px; color:#6A6B69; width:100%; }
+  .cardq p { font-size:14.5px; color:var(--mut); }
+  .cardq p b { color:var(--ink); font-weight:600; }
+
+  .dark { background:var(--ink); color:#fff; border-radius:20px; padding:48px;
+          margin:16px 0; }
+  .dark .k { color:#8FA3FF; }
+  .dark p.gap { font-size:clamp(19px,2vw,25px); font-weight:500; max-width:56ch; line-height:1.45; }
+  .dark small { display:block; margin-top:16px; font-size:14.5px; color:#B9BDCB; max-width:64ch; }
+
+  .rowlist { display:flex; flex-direction:column; gap:16px; max-width:70ch; }
+  .rowlist > div { display:flex; gap:16px; align-items:baseline; font-size:16.5px; }
+  .rowlist span { font-family:"JetBrains Mono",monospace; color:var(--blue); font-weight:500;
+                  font-size:13px; flex:none; }
+  footer { padding:36px 0 72px; border-top:1px solid var(--line); margin-top:32px;
+           display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+  footer p { font-size:13px; color:var(--mut); width:100%; margin-top:10px; }
+  @media (max-width:900px) { .hero { grid-template-columns:1fr; } .dark { padding:32px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .msg { opacity:1; transform:none; transition:none; }
+    .dot { animation:none; }
+    .cardq, .pill { transition:none; }
+  }
 </style>
 </head>
 <body>
 
-<div class="demo-note">This page is a live demo from the Build with Jose workshop, with Qatom's permission. It shows the format students build for their own target companies. It is not a real application, and this is not a real Qatom posting.</div>
+<div class="demo-note">This page is a <b>live demo from the Build with Jose workshop</b>, with Qatom's permission. It shows the format students build for their own target companies. It is not a real application, and this is not a real Qatom posting.</div>
 
 <div class="wrap">
-<header>
+<nav>
   <img src="qatom-lockup-ink.svg" alt="Qatom">
-</header>
+  <a class="pill ghost" href="https://joseplatero.com">joseplatero.com</a>
+</nav>
 
-<div class="role">
-  <div class="k">A pitch, in your language</div>
-  <h1>Your agents can transact.<br>Someone has to decide what they buy.</h1>
-  <p class="lede">Qatom turns any MCP-compatible agent into an economic participant: buying, selling, and settling in plain conversation. That creates a product question no payments playbook answers: what do agent operators and API earners actually need, in what order? I have spent my career answering that kind of question. <b>Jose Platero, pitching Founding Product Manager.</b></p>
+<div class="hero">
+  <div>
+    <h1>Your agents can transact. Someone has to decide what they <span class="verb" id="verb">build.</span></h1>
+    <p class="lede"><b>Qatom</b> turns any MCP-compatible agent into a fully economic participant. That creates a product question no payments playbook answers: what do agent operators and API earners actually need, in what order?</p>
+    <p class="sub">I have spent my career answering that kind of question. <b style="color:var(--ink)">Jose Platero, pitching Founding Product Manager.</b></p>
+    <div class="ctas">
+      <a class="pill blue" href="https://www.linkedin.com/in/joseplatero">Talk to Jose &rarr;</a>
+      <a class="pill ghost" href="https://joseplatero.com">See the work</a>
+    </div>
+  </div>
+
+  <div class="herochat" aria-label="Demo: an agent evaluating the candidate">
+    <div class="hc-tabs">
+      <div class="hc-tab on">&rarr; Call</div><div class="hc-tab">Wallet</div>
+      <div class="hc-tab">Send</div><div class="hc-tab">Earn</div><div class="hc-tab">Hire</div>
+    </div>
+    <div class="hc-body" id="chat">
+      <div class="msg you"><div class="bub">"Who should own product at Qatom?"</div><div class="avatar">You</div></div>
+      <div class="msg"><div class="dot"></div><div class="agent"><span class="thinking">Evaluating candidate&hellip;</span><br><span class="receipt">&rarr; <span>qatom &middot; platero.founding_pm</span> <span class="b">$0.001</span> &middot; &lt;1s <span class="ok">&#10003; settled</span></span></div></div>
+      <div class="msg"><div class="dot"></div><div class="agent"><div class="facts"><b>Jose Platero:</b> led digital product for <b>Aeroplan</b>, a points economy millions earn and spend in daily. Built product, design, and martech orgs from zero at <b>Air Canada</b>. Ships with <b>Claude Code and MCP weekly</b>. Teaches AI at BrainStation.</div></div></div>
+      <div class="msg"><div class="dot"></div><div class="agent"><div class="facts">Honest gap on file: has never shipped settlement infrastructure. States it himself, unprompted.</div></div></div>
+    </div>
+  </div>
 </div>
 
 <section>
-  <h2>What I bring, in Qatom's terms</h2>
+  <div class="k">What I bring</div>
+  <h2>Everything a founding PM needs <span class="b">to transact.</span></h2>
   <div class="grid">
-    <div class="cardq"><h3>Consumer scale on a points economy</h3><p>I led digital product for <span class="m">Aeroplan</span>, a loyalty currency millions of Canadians earn, spend, and settle every day. The closest consumer analogue to an agent wallet that exists.</p></div>
-    <div class="cardq"><h3>Zero to one, inside constraints</h3><p>Built product, design, and marketing technology orgs from scratch at <span class="m">Air Canada</span>, shipping under regulation, legacy rails, and real money movement.</p></div>
-    <div class="cardq"><h3>MCP-native, daily</h3><p>I build with <span class="m">Claude Code and MCP servers every week</span>: agents that research, publish, and file. I am the operator persona in your docs, not a tourist to it.</p></div>
-    <div class="cardq"><h3>Teaching the market you need</h3><p>I teach AI at BrainStation and run workshops for the builders who will operate these agents. Your adoption curve runs through rooms I am already in.</p></div>
+    <div class="cardq"><h3>Consumer scale on a points economy</h3><p>Led digital product for <b>Aeroplan</b>: a currency millions of Canadians earn, spend, and settle in. The closest consumer analogue to an agent wallet that exists.</p></div>
+    <div class="cardq"><h3>Zero to one, inside constraints</h3><p>Built product, design, and marketing technology orgs from scratch at <b>Air Canada</b>, shipping under regulation, legacy rails, and real money movement.</p></div>
+    <div class="cardq"><h3>MCP-native, daily</h3><p>Builds with <b>Claude Code and MCP servers every week</b>: agents that research, publish, and file. The operator persona in your docs, not a tourist to it.</p></div>
+    <div class="cardq"><h3>Teaching your market</h3><p>Teaches AI at <b>BrainStation</b> and runs workshops for the builders who will operate these agents. Your adoption curve runs through rooms he is already in.</p></div>
   </div>
 </section>
 
 <div class="dark">
-  <h2>The honest gap</h2>
-  <p class="gap">I have never shipped settlement infrastructure. Bearer assets, in-flight settlement, TODA underneath: that layer I would be learning from your engineers, not teaching them.</p>
-  <small>What I do bring to that layer: a decade of making regulated money products legible to normal people, which is the half of agentic commerce nobody has built yet.</small>
+  <div class="k">The honest gap</div>
+  <p class="gap">I have never shipped settlement infrastructure. Bearer assets, in-flight settlement, TODA underneath: that layer I would learn from your engineers, not teach them.</p>
+  <small>What I bring to that layer instead: a decade of making regulated money products legible to normal people, which is the half of agentic commerce nobody has built yet.</small>
 </div>
 
 <section>
-  <h2>What I would do in the first ninety days</h2>
+  <div class="k">The first ninety days</div>
+  <h2>Find the pain, <span class="b">not the protocol.</span></h2>
   <div class="rowlist">
     <div><span>01</span><div>Talk to twenty agent operators and twenty API earners. Find where the pain is strongest, not where the protocol is cleverest.</div></div>
     <div><span>02</span><div>Define the one metric preview should optimize before pricing exists, and instrument it.</div></div>
-    <div><span>03</span><div>Ship the operator onboarding that makes the first paid tool call feel like nothing. Zero-fee means nothing if setup costs an afternoon.</div></div>
+    <div><span>03</span><div>Ship the operator onboarding that makes the first paid tool call feel like nothing. Zero fee means nothing if setup costs an afternoon.</div></div>
   </div>
 </section>
 
 <footer>
-  <a class="btn" href="https://joseplatero.com">joseplatero.com</a>
-  <a class="btn alt" href="https://www.linkedin.com/in/joseplatero">LinkedIn</a>
-  <p>Built with the Pitch kit from Build with Jose. Qatom brand assets used per their press kit, with permission, for this workshop demo.</p>
+  <a class="pill blue" href="https://www.linkedin.com/in/joseplatero">Talk to Jose &rarr;</a>
+  <a class="pill ghost" href="https://joseplatero.com">joseplatero.com</a>
+  <p>Built with the Pitch kit from Build with Jose. Qatom brand used with permission for this workshop demo. Design measured from qatom.ai on 2026-08-28.</p>
 </footer>
 </div>
 
+<script>
+  (function () {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // signature move 2: the rotating verb, their hero pattern
+    const verbs = ['build.', 'ship.', 'price.', 'learn.', 'buy.'];
+    const v = document.getElementById('verb');
+    if (!reduced) {
+      let i = 0;
+      setInterval(() => { i = (i + 1) % verbs.length; v.textContent = verbs[i]; }, 2000);
+    }
+    // signature move 1: the herochat conversation, revealed in sequence
+    const msgs = document.querySelectorAll('.msg');
+    if (reduced) { msgs.forEach(m => m.classList.add('show')); return; }
+    msgs.forEach((m, k) => setTimeout(() => m.classList.add('show'), 500 + k * 1100));
+  })();
+</script>
 </body>
 </html>

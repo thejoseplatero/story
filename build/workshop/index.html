@@ -138,6 +138,12 @@
     100% { transform:translateX(0) scaleX(1); }
   }
 
+  .sysmap { position:absolute; bottom:4vh; left:6vw; display:flex; gap:.8vw; z-index:7;
+            font-family:"JetBrains Mono",monospace; font-weight:700;
+            font-size:clamp(10px,.85vw,13px); letter-spacing:.1em; }
+  .sysmap span { padding:.6vh .8vw; border:2px solid #4A4B45; color:#7A7B75; }
+  .sysmap span.here { border-color:var(--orange); background:var(--orange); color:#fff; }
+
   a.dl { text-decoration:none; color:inherit; display:block; }
   .card { background:var(--card); border:3px solid var(--ink); box-shadow:10px 10px 0 var(--ink);
           padding:2.6vh 1.6vw; }
@@ -325,6 +331,7 @@ const CONFIG = {
     <p class="sub" style="margin-top:3vh; font-size:clamp(18px,1.9vw,30px)"><b class="mono" style="color:var(--orange)">EVERY MORNING · </b>one word: <span class="mono hl">scout</span></p>
   </div>
   <div class="stick" style="right:5vw; top:6vh; transform:rotate(2.5deg)">LIVE BUILD 1 OF 3 · SCOUT · WEALTHSIMPLE</div>
+  <div class="sysmap"><span class="here">AIM</span><span>GET FOUND</span><span>GET ANSWERED</span><span>CONNECT</span><span>INTERVIEWS</span></div>
 </section>
 
 <!-- 12 · LIVE 2 -->
@@ -337,6 +344,7 @@ const CONFIG = {
     <p class="sub" style="margin-top:3vh; font-size:clamp(18px,1.9vw,30px)"><b class="mono" style="color:var(--orange)">THE RULE · </b>nothing invented, ever</p>
   </div>
   <div class="stick" style="right:5vw; top:6vh; transform:rotate(-2deg)">LIVE BUILD 2 OF 3 · AUDIT</div>
+  <div class="sysmap"><span>AIM</span><span>GET FOUND</span><span class="here">GET ANSWERED</span><span>CONNECT</span><span>INTERVIEWS</span></div>
 </section>
 
 <!-- 13 · LIVE 3 -->
@@ -345,17 +353,34 @@ const CONFIG = {
     <div class="kick">Live build · 3 of 3</div>
     <h1 class="h-mid" style="margin-top:1.5vh; max-width:58vw">The page built for <span class="o">one company.</span></h1>
   </div>
-  <div class="shotw" style="position:absolute; left:5vw; bottom:10vh; width:31vw; height:44vh; transform:rotate(-2.5deg); z-index:2">
+  <a href="https://joseplatero.com/affirm/" target="_blank" rel="noopener" class="shotw" style="position:absolute; left:5vw; bottom:10vh; width:31vw; height:44vh; transform:rotate(-2.5deg); z-index:2; display:block">
     <img src="assets/pitch-affirm.png" alt="Affirm pitch page">
-  </div>
-  <div class="shotw" style="position:absolute; left:35vw; bottom:14vh; width:31vw; height:44vh; transform:rotate(.8deg); z-index:3">
+  </a>
+  <a href="https://joseplatero.com/thomsonreuters/" target="_blank" rel="noopener" class="shotw" style="position:absolute; left:35vw; bottom:14vh; width:31vw; height:44vh; transform:rotate(.8deg); z-index:3; display:block">
     <img src="assets/pitch-thomsonreuters.png" alt="Thomson Reuters pitch page">
-  </div>
-  <div class="shotw" style="position:absolute; right:4vw; bottom:9vh; width:31vw; height:44vh; transform:rotate(2.4deg); z-index:4">
+  </a>
+  <a href="https://joseplatero.com/qatom/" target="_blank" rel="noopener" class="shotw" style="position:absolute; right:4vw; bottom:9vh; width:31vw; height:44vh; transform:rotate(2.4deg); z-index:4; display:block">
     <img src="assets/pitch-qatom.png" alt="Qatom pitch page">
-  </div>
+  </a>
   <div class="stick" style="left:8vw; bottom:50vh; transform:rotate(-2deg); z-index:5">LIVE · TONIGHT WE ADD QATOM</div>
+  <div class="sysmap"><span>AIM</span><span>GET FOUND</span><span class="here">GET ANSWERED</span><span>CONNECT</span><span>INTERVIEWS</span></div>
   <p style="position:absolute; right:5vw; top:31vh; max-width:24vw; font-family:Literata,serif; font-weight:700; font-size:clamp(17px,1.8vw,30px); line-height:1.25; text-align:right">It names one honest gap,<br>on purpose.</p>
+</section>
+
+<!-- 13.5 · RECAP: where you now stand -->
+<section class="slide paper">
+  <div class="pad">
+    <div class="kick">Before we close</div>
+    <h1 class="h-mid" style="margin:1.5vh 0 4vh">What you built today. <span class="o">What is left.</span></h1>
+    <div class="bigl" style="gap:2.2vh">
+      <div><span class="num" style="-webkit-text-stroke-color:var(--orange)">&#10003;</span><div><b>AIM: you have a target list, and Scout watches it every morning.</b></div></div>
+      <div><span class="num" style="-webkit-text-stroke-color:var(--orange)">&#10003;</span><div><b>GET ANSWERED: the Audit reads your resume like I do, and Pitch builds the page for one company.</b></div></div>
+      <div><span class="num">&#8594;</span><div><b>GET FOUND: your presence, so they find something when they search you.</b></div></div>
+      <div><span class="num">&#8594;</span><div><b>CONNECT: the warm circle, so you are known before you apply.</b></div></div>
+      <div><span class="num">&#8594;</span><div><b>INTERVIEWS: read the room before the room, then the offer.</b></div></div>
+    </div>
+    <p class="sub" style="margin-top:3.5vh; font-size:clamp(17px,1.7vw,27px)">Three kits are yours tonight. <b>The other two parts, and the system that runs them together, is what we build Nov 7.</b></p>
+  </div>
 </section>
 
 <!-- 14 · TAKE IT HOME -->
