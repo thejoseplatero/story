@@ -1,5 +1,5 @@
 ---
-name: target-scout
+name: scout
 description: Builds your target company list by interview, then watches it. First run asks the questions and writes the list. Every run after checks each company for real news and matching open roles, and flags what is new. Use when someone needs targets, or says scout, or wants the morning check on their list.
 tools: WebSearch, WebFetch, Read, Write, Bash
 model: sonnet
