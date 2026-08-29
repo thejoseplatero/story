@@ -101,6 +101,15 @@ clean, complete resume with no highlights and no chrome:
 the PDF landed. If no Chrome exists on the machine, say so and give the
 manual route: open the record, Cmd+P, save as PDF; the result is identical.
 
+The standard print sheet, fixed by decision and not restyled per person:
+in print the record becomes Georgia serif on white, body around 12.5px
+with 1.5 line height, the name around 26px, section headings small Georgia
+in dark gray, plain small dark square bullets, roughly 14mm page margins.
+No print-color-adjust anywhere (it drags screen styles into print), no
+colors, no chrome. Screen wears Build with Jose; print is this sheet,
+every time. Tune density to the content with the type scale, never by
+cutting content.
+
 The document never talks about itself. No provenance, no process notes, no
 "nothing invented", no print instructions on the page: a resume that
 explains how it was made reads as machine output, which is the one thing it
