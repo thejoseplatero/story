@@ -110,8 +110,17 @@ colors, no chrome. Screen wears Build with Jose; print is this sheet,
 every time. Tune density to the content with the type scale, never by
 cutting content.
 
-The document never talks about itself. No provenance, no process notes, no
-"nothing invented", no print instructions on the page: a resume that
+The document never talks about itself, and this includes the CONTENT of
+highlighted passages: a highlight prints as plain text, so meta-commentary
+inside one ("the skills section is gone: those words now live in the
+bullets") is slop that ships. A removed section leaves NO residue in the
+document; the explanation lives in the why-note or the screen-only
+remainder, never as body text. Section labels stay document-native
+("Skills", "Stack"), never process-native ("where the bullets earned it").
+The test before delivering: read every printed sentence and ask whether it
+describes the person or the rewrite; the second kind gets deleted. No
+provenance, no process notes, no "nothing invented", no print instructions
+on the page: a resume that
 explains how it was made reads as machine output, which is the one thing it
 must never do. The header is the person's name and contact line, period.
 How it was made lives in the conversation and the markdown, not on the
