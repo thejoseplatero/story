@@ -31,14 +31,29 @@ Then work, in this order:
 
 Hard rules, same as /audit: no invented metrics, titles, scope, or jobs. Discipline lenses from /audit apply to how bullets are shaped. Simple English, short sentences, no em dashes in anything written for them.
 
+The rewrite is the WHOLE resume, never just the fixed parts. Every section
+of the original is carried: the roles that were already fine, the skills,
+the education, all of it. Anything dropped is dropped by a decision said
+out loud and agreed to in the conversation, never by omission. A partial
+rewrite is not a resume anyone can send, so it is not a rewrite.
+
 The record is dual, on purpose: the markdown file is the working copy this
-system reads and edits; the finished rewrite ALSO renders as a clean,
-print-ready HTML page saved beside the markdown and opened in the browser
-(macOS `open`). On screen it wears Build with Jose (see the audit's record
-style: paper, ink, orange, Literata headings, mono kicker). In `@media
-print` every piece of Build with Jose chrome disappears and what prints is
-a plain resume, per the audit's own rule that style belongs in the CTA, not
-the resume. Branded on stage, clean in the PDF. Close with: "your rewrite is open in
+system reads and edits; the finished rewrite ALSO renders as a print-ready
+HTML page saved beside the markdown and opened in the browser (macOS
+`open`). The page shows the FULL resume with the changes visible: rewritten
+passages carry a subtle highlight and a one-line margin note saying why
+("was: 'helped with the redesign'"), unchanged content sits unmarked. On
+screen it wears Build with Jose (paper, ink, orange, Literata headings,
+mono kicker) with a one-line legend for the highlights. In `@media print`
+the chrome, the highlights, and the notes all disappear and what prints is
+a plain, complete resume.
+
+The document never talks about itself. No provenance, no process notes, no
+"nothing invented", no print instructions on the page: a resume that
+explains how it was made reads as machine output, which is the one thing it
+must never do. The header is the person's name and contact line, period.
+How it was made lives in the conversation and the markdown, not on the
+record. Close with: "your rewrite is open in
 the browser. Print to PDF from there when you need to submit it." If the
 markdown is edited later, regenerate the HTML and say "refresh the tab."
 
