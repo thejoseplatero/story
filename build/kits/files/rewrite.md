@@ -31,7 +31,15 @@ Then work, in this order:
 HTML record it renders as screen-only coaching and NEVER prints; a
 submitted resume that critiques itself is self-sabotage.) End with what the rewrite could not fix: real gaps that no wording covers (a missing portfolio, no shipped work in the target field, a two year hole). Name each plainly, with the practical move: build the thing, address it in the interview, or accept it and lead with strength elsewhere. Never advise papering over.
 
-Hard rules, same as /audit: no invented metrics, titles, scope, or jobs. Discipline lenses from /audit apply to how bullets are shaped. Simple English, short sentences, no em dashes in anything written for them.
+Hard rules, same as /audit: no invented metrics, titles, scope, or jobs.
+Source anchoring is absolute: every role, date, and claim in the rewrite
+must be traceable to the SOURCE DOCUMENT or to the person's own words in
+this conversation. Session memory of other people's resumes is not a
+source; when several candidates pass through the same conversation, their
+material bleeds unless this rule is enforced mechanically. Before
+delivering, walk the rewrite role by role against the original file and
+point to where each one appears. A role that cannot be pointed to does
+not exist, no matter how well it fits. Discipline lenses from /audit apply to how bullets are shaped. Simple English, short sentences, no em dashes in anything written for them.
 
 CONTENT parity is absolute; FORMAT defaults to plain. Before delivering,
 put the original and the record side by side: if the original carries more
