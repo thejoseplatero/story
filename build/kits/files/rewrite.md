@@ -17,6 +17,10 @@ The Resume Rewrite. The audit said what is wrong; this is where the resume actua
 
 Input: a resume (file path or pasted text in $ARGUMENTS, else the one from `memory/profile.md`, else ask). If an audit for this resume exists in this conversation or `memory/audits/`, start from its three fixes. If not, run the /audit rubric first and show the short version.
 
+Standing alone is normal. If /audit is not installed here, do not send the person off to get it: read the resume yourself, form the three biggest fixes with the same honesty rules that govern everything below, show them in short form, and proceed. This kit never requires another kit.
+
+Say up front, before the first question: "This is the slow kit. Twenty to forty minutes of questions, one at a time, and your answers become the resume. Say 'write it' whenever you want and I will build it from what we have so far." Honor 'write it' immediately, at any point.
+
 Then work, in this order:
 
 **1. The interview, one question at a time.** Every vague bullet the audit flagged becomes a question: "what did you actually do on the redesign?", "how big was that, roughly?", "what happened after?". One question per message, plain English. Their answers are the only new material allowed. If they do not know a number, the bullet gets written without one; a real bullet without a metric beats a fake metric.
