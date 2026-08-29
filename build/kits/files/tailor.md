@@ -33,7 +33,9 @@ Afterward: for the user, offer to save to `memory/resume/YYYY-MM-DD-<company>.md
 
 The record is dual: the markdown is the working copy; the tailored resume
 also renders as a print-ready HTML page saved beside it and opened in the
-browser, closing with "your tailored resume is open in the browser. Print
+browser. On screen it wears Build with Jose (paper, ink, orange, Literata
+headings, mono kicker); in `@media print` all of that chrome disappears and
+a plain resume prints. Close it closing with "your tailored resume is open in the browser. Print
 to PDF from there." Regenerate the HTML whenever the markdown changes.
 
 $ARGUMENTS

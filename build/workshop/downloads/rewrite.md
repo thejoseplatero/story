@@ -33,9 +33,12 @@ Hard rules, same as /audit: no invented metrics, titles, scope, or jobs. Discipl
 
 The record is dual, on purpose: the markdown file is the working copy this
 system reads and edits; the finished rewrite ALSO renders as a clean,
-print-ready HTML page (plain resume styling, per the audit's own rule that
-style belongs in the CTA, not the resume), saved beside the markdown and
-opened in the browser (macOS `open`). Close with: "your rewrite is open in
+print-ready HTML page saved beside the markdown and opened in the browser
+(macOS `open`). On screen it wears Build with Jose (see the audit's record
+style: paper, ink, orange, Literata headings, mono kicker). In `@media
+print` every piece of Build with Jose chrome disappears and what prints is
+a plain resume, per the audit's own rule that style belongs in the CTA, not
+the resume. Branded on stage, clean in the PDF. Close with: "your rewrite is open in
 the browser. Print to PDF from there when you need to submit it." If the
 markdown is edited later, regenerate the HTML and say "refresh the tab."
 

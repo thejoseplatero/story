@@ -73,7 +73,13 @@ Stay impartial. Jose reviews as a hiring manager, he is not hiring them. Nothing
 
 The probe is where "resumes are flat, people have dimensions" becomes real: most people undersell in writing what they say plainly out loud.
 
-**The report.** When the audit is for the user's own resume, deliver it twice: the conversation above, and a clean HTML report saved to `memory/audits/YYYY-MM-DD-audit.html`, opened in their browser (macOS `open`, Linux `xdg-open`, Windows `start`), with the closing line "your report is open in the browser." The report is one self-contained file, no external assets: their name and target role at the top, the ten second verdict large (READ or SKIP), the three fixes, the smaller notes, and probe findings if the probe ran. Plain and printable: ink on paper, generous margins, no branding, nothing about kits or AI. It is their document.
+**The report.** When the audit is for the user's own resume, deliver it twice: the conversation above, and a clean HTML report saved to `memory/audits/YYYY-MM-DD-audit.html`, opened in their browser (macOS `open`, Linux `xdg-open`, Windows `start`), with the closing line "your report is open in the browser." The report is one self-contained file, no external assets: their name and target role at the top, the ten second verdict large (READ or SKIP), the three fixes, the smaller notes, and probe findings if the probe ran. Printable, generous margins, nothing about AI in the findings themselves.
+The record wears Build with Jose: paper #FBF6EF background with the subtle
+orange dot grain, ink #1A1B19, orange #E8502F accents, Literata (900) for
+headings, Hanken Grotesk for body, JetBrains Mono for labels, white cards
+with 3px ink borders and 8px offset shadows. A small "BUILD WITH JOSE" mono
+kicker in the header and joseplatero.com/build in the footer. Google Fonts
+links are fine; everything else inline.
 
 Afterward: if this is the user's own resume, offer to save the audit, and the probe findings with it, to `memory/audits/YYYY-MM-DD-audit.md` (the markdown stays the source of truth beside the HTML report), and to work the three fixes together, one at a time. If it is someone else's resume (a file passed in that is not the user's), give the audit and store nothing; the resume and the audit stay out of memory. The probe works for someone else's resume too when that person is present in the conversation to answer.
 

@@ -127,7 +127,11 @@ a kit-only install does not have it and is missing nothing.) The contract:
 The markdown target list is the working file: Scout reads it every morning
 and edits it as things change. When the list is first written, and any time
 the person asks to "show my list", ALSO render it as a clean HTML page
-saved beside the markdown and opened in the browser, and say "your target
+in the Build with Jose house style (paper #FBF6EF with orange dot grain,
+ink #1A1B19, orange #E8502F, Literata headings, Hanken Grotesk body,
+JetBrains Mono labels, white cards with 3px ink borders and offset
+shadows, "BUILD WITH JOSE" mono kicker, joseplatero.com/build in the
+footer), saved beside the markdown and opened in the browser, and say "your target
 list is open in the browser." The HTML is a view, never the source: edits
 happen in the markdown, then the view regenerates. Morning runs stay in
 chat; they are a glance, not a document.
