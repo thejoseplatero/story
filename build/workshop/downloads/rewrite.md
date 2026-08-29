@@ -83,7 +83,11 @@ a plain, complete resume.
 The words live in the markdown, and the person is told so once, in the
 right place: the record's screen-only legend (the line that already
 explains the highlights, and already disappears in print) ends with "The
-words live in resume.md. Edit any line, then say 'sync my resume.'" On
+words live in resume.md. Edit any line, then say 'sync my resume.'" The
+file name in that sentence is a LINK to the actual markdown file, saved in
+the same folder as the record (href="resume.md"), so one click shows the
+person the exact words they can edit. Never link a file that does not
+exist; the markdown is written first, the record second. On
 "sync my resume", apply the markdown as the single source of truth for the
 words, regenerate the HTML, and say "refresh the tab." Never overwrite a
 human edit with your own phrasing.
