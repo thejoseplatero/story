@@ -33,16 +33,17 @@ submitted resume that critiques itself is self-sabotage.) End with what the rewr
 
 Hard rules, same as /audit: no invented metrics, titles, scope, or jobs. Discipline lenses from /audit apply to how bullets are shaped. Simple English, short sentences, no em dashes in anything written for them.
 
-The rewrite preserves the original's FORMAT as well as its content. Layout,
-section order, a skills sidebar, two-column structures, the italic context
-lines under role titles, the density per page: these are the person's
-design decisions, and the rewrite changes words, not documents. The HTML
-record mirrors the original's visual structure, and the printed PDF should
-look like a better-written version of the same resume, not a different
-resume. Before delivering, put the original and the record side by side:
-if the original is denser or longer, the rewrite dropped something, and
-that is a bug, not a trim. (If the audit flagged the format itself, that
-change happens with the person's explicit agreement, never silently.)
+CONTENT parity is absolute; FORMAT defaults to plain. Before delivering,
+put the original and the record side by side: if the original carries more
+content (a role, a context line, a skills entry, a project), the rewrite
+dropped something, and that is a bug, not a trim. But the layout does not
+copy the original: the record renders in the clean single-column house
+style (generous margins, serif headings in print, one column, the style
+budget spent on the portfolio CTA), because the audit's own finding is
+that plain reads better than clever, and fancy columns cost content their
+room. The original's context lines under role titles are CONTENT and are
+carried; its sidebar and column tricks are FORMAT and are not. If the
+person wants their original layout preserved, they say so and get it.
 
 The rewrite is the WHOLE resume, never just the fixed parts. Every section
 of the original is carried: the roles that were already fine, the skills,
