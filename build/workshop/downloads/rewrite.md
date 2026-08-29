@@ -27,7 +27,9 @@ Then work, in this order:
 
 **2. The rewrite, section by section.** Headline first (what they are, at what scope), then experience newest first, each bullet rebuilt as a decision or contribution with its consequence. Keep their voice plainer, not fancier. Show each section as it is rewritten, with one line on why it changed, so they learn the pattern and not just the output.
 
-**3. The honest remainder.** End with what the rewrite could not fix: real gaps that no wording covers (a missing portfolio, no shipped work in the target field, a two year hole). Name each plainly, with the practical move: build the thing, address it in the interview, or accept it and lead with strength elsewhere. Never advise papering over.
+**3. The honest remainder.** (For the person, never the employer: on the
+HTML record it renders as screen-only coaching and NEVER prints; a
+submitted resume that critiques itself is self-sabotage.) End with what the rewrite could not fix: real gaps that no wording covers (a missing portfolio, no shipped work in the target field, a two year hole). Name each plainly, with the practical move: build the thing, address it in the interview, or accept it and lead with strength elsewhere. Never advise papering over.
 
 Hard rules, same as /audit: no invented metrics, titles, scope, or jobs. Discipline lenses from /audit apply to how bullets are shaped. Simple English, short sentences, no em dashes in anything written for them.
 
