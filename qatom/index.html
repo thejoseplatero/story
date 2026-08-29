@@ -128,12 +128,70 @@
 
   footer { padding:26px 0 60px; border-top:1px solid var(--line); }
   footer p { font-size:13px; color:var(--mut); }
+  /* exemplar anatomy: ambient layer */
+  .mark svg { animation:orbitspin 8s linear infinite; transform-origin:50% 50%; } /* their orbit, 8s */
+  @keyframes orbitspin { to { transform:rotate(360deg); } }
+  .herochat { animation:cardfloat 9s ease-in-out infinite; }
+  @keyframes cardfloat { 0%,100% { translate:0 0; } 50% { translate:0 -7px; } }
+  .rv { opacity:0; transform:translateY(18px); }
+  .rv.in { animation:heroRise .76s linear forwards; }                    /* measured 760ms */
+  @keyframes heroRise { to { opacity:1; transform:none; } }
+
+  /* concept chrome: the settlement ticker dock */
+  .tickerdock { position:fixed; left:50%; bottom:14px; transform:translateX(-50%); z-index:20;
+                background:var(--ink); color:#fff; border-radius:999px; padding:9px 18px;
+                font-family:"JetBrains Mono",monospace; font-size:12px; white-space:nowrap;
+                box-shadow:0 12px 32px -12px rgba(10,11,18,.45); display:flex; gap:8px; align-items:center; }
+  .tickerdock .ld { width:8px; height:8px; border-radius:50%; background:#39D98A;
+                    animation:pulse 1.6s var(--ease) infinite; }
+  .tickerdock .tx b { color:#8FA3FF; font-weight:500; }
+  .tickerdock .tx .ok { color:#39D98A; }
+
+  /* mandate table */
+  .mandate { border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .mrow { display:grid; grid-template-columns:1.05fr 1fr auto; gap:16px; padding:17px 24px;
+          font-size:14.5px; align-items:baseline; }
+  .mrow + .mrow { border-top:1px solid var(--line); }
+  .mrow .req { color:var(--mut); }
+  .mrow .fl { font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:500;
+              border-radius:6px; padding:3px 9px; white-space:nowrap; }
+  .fl-ok { color:var(--blue); background:rgba(20,66,255,.08); }
+  .fl-gap { color:#B3401F; background:rgba(179,64,31,.08); }
+
+  /* tape + photo band */
+  .tape { display:grid; grid-template-columns:1fr 1.1fr; gap:44px; align-items:center; }
+  .tape video { width:100%; border-radius:16px; border:1px solid var(--line);
+                box-shadow:0 24px 48px -24px rgba(10,11,18,.25); display:block; }
+  .band { position:relative; border-radius:20px; overflow:hidden; min-height:400px;
+          display:flex; align-items:flex-end; color:#fff; }
+  .band img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 42%; }
+  .band .scrim { position:absolute; inset:0; background:linear-gradient(10deg, rgba(10,11,18,.82) 8%, rgba(10,11,18,.05) 55%); }
+  .band .inner { position:relative; padding:34px 38px; max-width:62ch; }
+  .band h3 { font-size:clamp(22px,2.6vw,34px); font-weight:600; letter-spacing:-.015em; }
+  .band p { margin-top:8px; font-size:15px; color:#D9DCE6; }
+
+  /* reviews as settled calls */
+  .revgrid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .rev { border:1px solid var(--line); border-radius:16px; padding:22px 24px; }
+  .rev p { font-size:14.5px; }
+  .rev .who { margin-top:10px; font-size:12.5px; color:var(--mut); font-weight:500; }
+  .rev .receipt { margin-top:12px; }
+
+  .evid .erow { display:flex; gap:14px; padding:12px 0; border-top:1px solid var(--line); font-size:14.5px; }
+  .evid .erow b { min-width:150px; font-family:"JetBrains Mono",monospace; font-size:11.5px;
+                  color:var(--blue); padding-top:2px; font-weight:500; }
+  .evid .erow p { color:var(--mut); }
+
   @media (max-width:900px) { .hero { grid-template-columns:1fr; } .dark { padding:32px; }
+    .tape { grid-template-columns:1fr; } .revgrid { grid-template-columns:1fr; }
+    .mrow { grid-template-columns:1fr; gap:6px; } .tickerdock { display:none; }
     .compare .row { grid-template-columns:1fr; } .compare .cell:first-child { background:var(--wash); } }
   @media (prefers-reduced-motion: reduce) {
     .msg { opacity:1; transform:none; transition:none; }
     .dot { animation:none; }
     .cardq, .pill { transition:none; }
+    .mark svg, .herochat, .tickerdock .ld { animation:none; }
+    .rv { opacity:1; transform:none; animation:none; }
   }
 </style>
 </head>
@@ -225,6 +283,57 @@
   </div>
 </section>
 
+<section class="rv">
+  <div class="k">The mandate, line by line</div>
+  <h2 class="sec">No posting playbook exists for this seat. <span class="b">So here it is, flagged.</span></h2>
+  <div class="mandate">
+    <div class="mrow"><span class="req">Define what agentic commerce needs, in what order</span><span>Fifteen years of sequencing regulated money products for real people; the discovery plan is already three calls long.</span><span class="fl fl-ok">READY</span></div>
+    <div class="mrow"><span class="req">Ship revenue that moves inside a product</span><span>Co-brand credit embedded in booking and loyalty journeys, under regulation, at Air Canada.</span><span class="fl fl-ok">SHIPPED</span></div>
+    <div class="mrow"><span class="req">Run a wallet-like economy at consumer scale</span><span>The Aeroplan points economy, 9M+ members; membership doubled on his watch as PM.</span><span class="fl fl-ok">SHIPPED</span></div>
+    <div class="mrow"><span class="req">Be MCP-native, not MCP-curious</span><span>Builds with Claude Code and MCP weekly; teaches the operators at BrainStation; this page ships from that practice.</span><span class="fl fl-ok">DAILY</span></div>
+    <div class="mrow"><span class="req">Stand up a product function from zero</span><span>Adtech function, design system, operating model: three functions built from scratch on the record.</span><span class="fl fl-ok">SHIPPED</span></div>
+    <div class="mrow"><span class="req">Ship settlement infrastructure</span><span>Never has. Bearer assets and TODA he learns from your engineers. Said in full below.</span><span class="fl fl-gap">HONEST GAP</span></div>
+  </div>
+</section>
+
+<section class="rv">
+  <div class="k">Proof, on tape</div>
+  <h2 class="sec">The MCP practice, <span class="b">running.</span></h2>
+  <div class="tape">
+    <video src="assets/behind-the-work.mp4" autoplay muted loop playsinline></video>
+    <div>
+      <p style="font-size:16.5px; max-width:48ch;">Unedited working footage: the nightly build practice your operator persona lives in. Agents that research, publish, and file, orchestrated through the same protocol Qatom monetizes. <b>The candidate is already your user.</b></p>
+      <p style="margin-top:12px; font-size:14.5px; color:var(--mut); max-width:48ch;">Twenty seconds of watching beats a paragraph of claiming. That is also how agent trust will work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="rv" style="padding-top:0">
+  <div class="band">
+    <img src="assets/pipeline-talk.jpg" alt="Jose Platero presenting to a room">
+    <div class="scrim"></div>
+    <div class="inner">
+      <h3>Agentic commerce needs an explainer-in-chief.</h3>
+      <p>He teaches AI at BrainStation and speaks on product and agents. A founding PM who makes the strange legible is distribution, not overhead.</p>
+    </div>
+  </div>
+</section>
+
+<section class="rv">
+  <div class="k">What people report</div>
+  <h2 class="sec">Third-party calls, <span class="b">settled.</span></h2>
+  <div class="revgrid">
+    <div class="rev"><p>"AI shouldn't replace our judgment. The bigger opportunity is building better systems around it."</p><div class="who">Luis Bridgeman &middot; Senior Manager, Growth Bets, Uber</div><span class="receipt">&rarr; <span>ref &middot; bridgeman.uber</span> <span class="ok">&#10003; settled</span></span></div>
+    <div class="rev"><p>"Demo'd his workflow of connecting Jira with Claude via MCP to generate an executive insight report as a skill."</p><div class="who">Sarah Yeung &middot; Systems &amp; Operations PM</div><span class="receipt">&rarr; <span>ref &middot; yeung.mcp_demo</span> <span class="ok">&#10003; settled</span></span></div>
+  </div>
+  <div class="evid" style="margin-top:28px">
+    <div class="erow"><b>PUBLIC RECORD</b><p>The Aeroplan relaunch, partnerships, and 9M+ membership are public reporting.</p></div>
+    <div class="erow"><b>DEFENDED LIVE</b><p>Membership doubling and org numbers are internal; he walks through them in the first conversation, sources on the table.</p></div>
+    <div class="erow"><b>ON FILE</b><p>Quotes are real, attributed, and screenshotted. The footage above is unedited.</p></div>
+    <div class="erow"><b>NOT CLAIMED</b><p>No settlement-layer experience appears anywhere on this page, because he has none. That is the gap, and it is his line, not yours.</p></div>
+  </div>
+</section>
+
 <div class="dark">
   <div class="k">The honest gap</div>
   <p class="gap">I have never shipped settlement infrastructure. Bearer assets, in-flight settlement, TODA underneath: that layer I would learn from your engineers, not teach them.</p>
@@ -254,10 +363,27 @@
       let i = 0;
       setInterval(() => { i = (i + 1) % verbs.length; v.textContent = verbs[i]; }, 2000);
     }
+    // reveal system, 760ms linear (measured heroRise)
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold:.12 });
+    document.querySelectorAll('.rv').forEach(el => reduced ? (el.style.opacity=1, el.style.transform='none') : io.observe(el));
+    // settlement ticker: the concept, always alive
+    const calls = [
+      ['platero.discovery','$0.001'], ['platero.roadmap','$0.002'],
+      ['platero.org_design','$0.001'], ['platero.experiments','$0.001'],
+      ['platero.founding_pm','$0.003']
+    ];
+    const tx = document.getElementById('tx');
+    if (tx && !reduced) { let i = 0;
+      setInterval(() => { i = (i + 1) % calls.length;
+        tx.innerHTML = 'qatom &middot; ' + calls[i][0] + ' <b>' + calls[i][1] + '</b> <span class="ok">&#10003; settled</span>';
+      }, 3400); }
     const msgs = document.querySelectorAll('.msg');
     if (reduced) { msgs.forEach(m => m.classList.add('show')); return; }
     msgs.forEach((m, k) => setTimeout(() => m.classList.add('show'), 500 + k * 1100));
   })();
 </script>
+<div class="tickerdock" aria-hidden="true"><span class="ld"></span><span class="tx" id="tx">qatom &middot; platero.discovery <b>$0.001</b> <span class="ok">&#10003; settled</span></span></div>
 </body>
 </html>
