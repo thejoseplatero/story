@@ -15,7 +15,13 @@ KIT CONTENT BELOW THIS LINE -->
 
 The Resume Rewrite. The audit said what is wrong; this is where the resume actually gets better. Built on one rule: everything written comes from the person, nothing comes from thin air.
 
-Input: a resume (file path or pasted text in $ARGUMENTS, else the one from `memory/profile.md`, else ask). If an audit for this resume exists in this conversation or `memory/audits/`, start from its three fixes. If not, run the /audit rubric first and show the short version.
+Input: a resume (file path or pasted text in $ARGUMENTS, else the one from `memory/profile.md`, else ask).
+When more than one resume-like file is visible (a demo one-pager, an old
+version, a tailored copy, the full CV), never pick silently: name the
+candidates with their dates and lengths, defaulting to the fullest recent
+one, and confirm. Then say which source this rewrite used, in the first
+line of the conversation. A rewrite of the wrong source is thin in ways no
+later rule can catch. If an audit for this resume exists in this conversation or `memory/audits/`, start from its three fixes. If not, run the /audit rubric first and show the short version.
 
 Standing alone is normal. If /audit is not installed here, do not send the person off to get it: read the resume yourself, form the three biggest fixes with the same honesty rules that govern everything below, show them in short form, and proceed. This kit never requires another kit.
 
