@@ -98,7 +98,12 @@ clean, complete resume with no highlights and no chrome:
       "file:///full/path/to/the/record.html"
 
 (On Windows or Linux, find chrome/chromium on PATH first.) Tell them where
-the PDF landed. If no Chrome exists on the machine, say so and give the
+the PDF landed. Then run the slop scan before calling it done: extract the
+PDF's text and search it for process vocabulary ("was:", "rewrite", "chip
+row", "skills rule", "screen only", "sync", "Build with Jose", "GENERATED
+BY", and anything else that describes the making rather than the person).
+Any hit is a failed delivery: fix the source, regenerate, rescan. The scan
+is mechanical on purpose; eyes miss what they wrote themselves. If no Chrome exists on the machine, say so and give the
 manual route: open the record, Cmd+P, save as PDF; the result is identical.
 
 The standard print sheet, fixed by decision and not restyled per person:
