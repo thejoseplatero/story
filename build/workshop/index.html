@@ -130,7 +130,7 @@
   /* pixel jose walks the close slide */
   #pixeljose { position:absolute; bottom:2vh; left:-160px; width:110px; z-index:8;
                image-rendering:pixelated; animation:stroll 26s linear infinite; }
-  #close-slide.on #pixeljose { animation:none; transition:left 2.2s linear; }
+  #close-slide.on #pixeljose { animation:none; }
   @keyframes stroll {
     0%   { transform:translateX(0) scaleX(1); }
     48%  { transform:translateX(calc(100vw + 180px)) scaleX(1); }
@@ -181,6 +181,8 @@
 
   /* slide 17: cerebro helmets point at the follow QRs and pulse them in */
   .fqgrid .qr { position:relative; }
+  .fqgrid .qr .qimg, .course-qr { transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+  .qr-grow { transform: scale(1.07) !important; }
   .fqgrid .qr .qimg { opacity:0; }
   .slide.on .fqgrid .qr .qimg { animation: qrin .8s cubic-bezier(.34,1.56,.64,1) both; }
   .slide.on .fqgrid .qr:nth-child(1) .qimg { animation-delay:.15s; }
@@ -743,18 +745,24 @@ const CONFIG = {
         const r = t.getBoundingClientRect(), sr = slide.getBoundingClientRect();
         const x = r.left - sr.left + r.width / 2 - guy.offsetWidth / 2;
         const cur = parseFloat(guy.style.left || '-160');
+        const dist = Math.abs(x - cur);
+        const dur = Math.max(0.5, dist / 420);            // pacman: constant speed, straight line
+        guy.style.transition = 'left ' + dur + 's linear';
         guy.style.transform = x >= cur ? 'scaleX(1)' : 'scaleX(-1)';
         guy.style.left = x + 'px';
-        await new Promise(res => setTimeout(res, 2300));
+        await new Promise(res => setTimeout(res, dur * 1000 + 80));
         if (stop) break;
-        await new Promise(res => setTimeout(res, 1400));
+        t.classList.add('qr-grow');                        // arrival: the QR swells for emphasis
+        await new Promise(res => setTimeout(res, 1500));
+        t.classList.remove('qr-grow');
+        await new Promise(res => setTimeout(res, 350));
         idx++;
       }
     }
     setInterval(() => {
       const active = slide.classList.contains('on');
       if (active && stop) { stop = false; walk(); }
-      if (!active && !stop) { stop = true; guy.style.left = ''; guy.style.transform = ''; }
+      if (!active && !stop) { stop = true; guy.style.left = ''; guy.style.transform = ''; guy.style.transition = ''; document.querySelectorAll('.qr-grow').forEach(e => e.classList.remove('qr-grow')); }
     }, 400);
   })();
 </script>
