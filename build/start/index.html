@@ -29,7 +29,9 @@
   .box li b { font-weight:700; }
   .kits { display:flex; flex-direction:column; gap:18px; }
   .kit { background:#fff; border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:22px 24px; }
-  .kit .top { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .kit .top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+  .kit .top > div:first-child { flex:1; min-width:0; }
+  .kit .top a.dl { flex:none; margin-top:4px; }
   .kit h3 { font-family:"Literata",serif; font-weight:900; font-size:26px; }
   .kit .lead { font-size:15px; color:#3A3B37; margin-top:2px; }
   a.dl { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px; text-decoration:none;
