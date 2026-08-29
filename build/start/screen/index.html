@@ -26,9 +26,9 @@
   .row { display:flex; gap:4vw; align-items:center; justify-content:center; margin-top:5vh; flex-wrap:wrap; }
   .qr { background:#fff; border:5px solid var(--ink); box-shadow:10px 10px 0 var(--ink); padding:1.2vh; }
   .qr img { display:block; width:clamp(160px,17vw,260px); }
-  .kits { text-align:left; font-family:"JetBrains Mono",monospace; font-weight:700;
+  .kits { text-align:center; display:inline-flex; gap:3.5vw; font-family:"JetBrains Mono",monospace; font-weight:700;
           font-size:clamp(17px,1.9vw,30px); line-height:2; }
-  .kits span { color:var(--orange); margin-right:14px; }
+  .kits span { color:var(--orange); margin-right:10px; }
   .say { margin-top:4.5vh; color:var(--dim); font-size:clamp(15px,1.6vw,24px); }
   .say b { color:var(--ink); font-family:"JetBrains Mono",monospace; }
 </style>
@@ -39,7 +39,6 @@
   <h1>Four kits. Yours.</h1>
   <a class="url" href="https://joseplatero.com/build/start/">joseplatero.com<span>/build/start</span></a>
   <div class="row">
-    <div class="qr"><img src="qr-start.png" alt="QR code to joseplatero.com/build/start"></div>
     <div class="kits">
       <div><span>1</span>Scout</div>
       <div><span>2</span>Audit</div>
