@@ -31,13 +31,19 @@ One question at a time. Never a wall of questions. If `memory/profile.md`
 exists (the fuller Job OS creates it), read it first and skip everything it
 already answers. Absent is normal for a kit-only install.
 
-1. The role, written the way postings write it. "Product Manager" or "UX
-   Designer, mid level", not a paragraph of dreams. Level matters.
-2. Where, and when. Cities, remote or not, and how soon they need this to work.
-3. What they actually care about. Industries, products they use and love,
-   things they know deeply from any part of their life.
-4. Their edge, one paragraph. Where they trained, what they have actually
-   done, what they know that most candidates in this market do not.
+Ask in plain words a person whose first language is not English gets on the
+first read. The four questions, in this spirit:
+
+1. "What job are you looking for? Say it the way a job posting would, like
+   Product Designer or Data Analyst. Include the level: intern, junior,
+   senior."
+2. "Where do you want to work? Which cities, is remote ok, and how soon do
+   you need a job?"
+3. "What kinds of companies or products do you like? Think of apps you use
+   every day, or industries you know well."
+4. "What makes you different from other people applying for this job? For
+   example: where you studied, what you have built, work you did in another
+   country or another field."
 
 Then triangulate. Propose 10 to 12 companies across three buckets, and say the
 buckets out loud:
