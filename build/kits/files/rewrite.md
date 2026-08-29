@@ -116,6 +116,14 @@ Any hit is a failed delivery: fix the source, regenerate, rescan. The scan
 is mechanical on purpose; eyes miss what they wrote themselves. If no Chrome exists on the machine, say so and give the
 manual route: open the record, Cmd+P, save as PDF; the result is identical.
 
+The record opens with its own CHANGES BLOCK, above the resume and below
+the legend: a Build with Jose card that links back to the audit record
+this rewrite worked from ("From the audit: <link>") and summarizes every
+change in one line each, matching the highlights below. The person sees
+the whole delta at a glance instead of hunting margin notes. The block is
+screen chrome: it never prints, and if no audit record exists the link is
+omitted rather than pointed at nothing.
+
 The standard print sheet, fixed by decision and not restyled per person:
 in print the record becomes Georgia serif on white, body around 12.5px
 with 1.5 line height, the name around 26px, section headings small Georgia
