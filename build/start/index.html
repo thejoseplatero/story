@@ -50,6 +50,23 @@
   .steps code { font-family:"JetBrains Mono",monospace; background:var(--wash); padding:2px 8px; }
   .note { margin-top:34px; font-size:14.5px; color:var(--dim); max-width:60ch; }
   .note a { color:var(--orange); }
+  .offer { margin-top:44px; position:relative; background:#fff; border:3px solid var(--ink);
+           box-shadow:8px 8px 0 var(--orange); padding:28px 26px 26px; }
+  .offer .badge { position:absolute; top:-16px; right:-10px; background:var(--orange); color:#fff;
+                  font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
+                  letter-spacing:.08em; padding:8px 14px; transform:rotate(2deg);
+                  animation:throb 1.6s ease-in-out infinite; }
+  @keyframes throb { 0%,100% { transform:rotate(2deg) scale(1);} 50% { transform:rotate(2deg) scale(1.06);} }
+  .offer h2 { margin-top:0; }
+  .offer .price { margin-top:10px; font-size:17px; }
+  .offer .price s { color:var(--dim); }
+  .offer .price b { font-size:26px; color:var(--orange); margin:0 4px; }
+  .offer .price span { display:block; margin-top:4px; font-size:14px; color:var(--dim); }
+  .offer .price code { font-family:"JetBrains Mono",monospace; background:var(--wash); padding:2px 8px; font-weight:700; color:var(--ink); }
+  .offer .cta { display:inline-block; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:14px;
+                letter-spacing:.1em; background:var(--orange); color:#fff; text-decoration:none; padding:12px 20px; }
+  .offer .more { margin-left:16px; color:var(--orange); font-size:14.5px; }
+  @media (prefers-reduced-motion: reduce) { .offer .badge { animation:none; } }
 </style>
 </head>
 <body>
@@ -127,7 +144,14 @@ Also: joseplatero.com/affirm and /pointclickcare.</pre></details>
     <li>Files it creates live in a <b>memory/</b> folder next to your kits, in plain text you can read and edit.</li>
   </ul></div>
 
-  <p class="note">Want the whole system, with Jose in the room while you build it? <a href="https://joseplatero.com/build/?utm_source=workshop&utm_medium=event&utm_campaign=build-start">The course: one day in Toronto, Nov 7.</a></p>
+  <div class="offer">
+    <div class="badge">30% OFF · TONIGHT ONLY</div>
+    <h2 style="margin:0 0 6px;">The course: one day in Toronto, Nov 7</h2>
+    <p>The whole system, with Jose in the room while you build it.</p>
+    <p class="price"><s>$299</s> <b>$209</b> <span>with code <code>TONIGHT30</code> at checkout · expires at midnight</span></p>
+    <p style="margin-top:14px;"><a class="cta" href="https://luma.com/zno2hqvh?coupon=TONIGHT30">Register on Luma</a>
+    <a class="more" href="https://joseplatero.com/build/?utm_source=workshop&utm_medium=event&utm_campaign=build-start">More about the course</a></p>
+  </div>
 </div>
 </body>
 </html>
