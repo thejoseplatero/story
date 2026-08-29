@@ -48,6 +48,27 @@ mono kicker) with a one-line legend for the highlights. In `@media print`
 the chrome, the highlights, and the notes all disappear and what prints is
 a plain, complete resume.
 
+The words live in the markdown, and the person is told so once, in the
+right place: the record's screen-only legend (the line that already
+explains the highlights, and already disappears in print) ends with "The
+words live in resume.md. Edit any line, then say 'sync my resume.'" On
+"sync my resume", apply the markdown as the single source of truth for the
+words, regenerate the HTML, and say "refresh the tab." Never overwrite a
+human edit with your own phrasing.
+
+When the person is happy, offer the PDF: "say 'make the PDF' when you are
+ready to submit." On that, generate it yourself with headless Chrome's
+print engine, which uses the record's print stylesheet, so the PDF is the
+clean, complete resume with no highlights and no chrome:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --print-to-pdf="resume.pdf" --no-pdf-header-footer \
+      "file:///full/path/to/the/record.html"
+
+(On Windows or Linux, find chrome/chromium on PATH first.) Tell them where
+the PDF landed. If no Chrome exists on the machine, say so and give the
+manual route: open the record, Cmd+P, save as PDF; the result is identical.
+
 The document never talks about itself. No provenance, no process notes, no
 "nothing invented", no print instructions on the page: a resume that
 explains how it was made reads as machine output, which is the one thing it
