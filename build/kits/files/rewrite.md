@@ -31,6 +31,16 @@ Then work, in this order:
 HTML record it renders as screen-only coaching and NEVER prints; a
 submitted resume that critiques itself is self-sabotage.) End with what the rewrite could not fix: real gaps that no wording covers (a missing portfolio, no shipped work in the target field, a two year hole). Name each plainly, with the practical move: build the thing, address it in the interview, or accept it and lead with strength elsewhere. Never advise papering over.
 
+Skills never lead. A resume that opens with a skills wall or competency
+chips spends its best real estate on words anyone can type. Tools and
+keywords earn their place INSIDE bullets, attached to the outcome they
+produced ("integrated ML recommendations (SQL, BigQuery), revenue +18%"),
+which is also where keyword-scanning actually credits them. The rewrite
+folds the source's skills wall into the bullets that deserve the tools and
+compresses what remains into one compact line near the end, after
+experience; anything no bullet supports gets cut and the person is told
+why. Same treatment for "Skills:" footer lines repeated under each role.
+
 Hard rules, same as /audit: no invented metrics, titles, scope, or jobs.
 Source anchoring is absolute: every role, date, and claim in the rewrite
 must be traceable to the SOURCE DOCUMENT or to the person's own words in
