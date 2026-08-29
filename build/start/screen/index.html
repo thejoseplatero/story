@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Get the kits</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,900&family=Hanken+Grotesk:wght@400;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#FBF6EF; --ink:#1A1B19; --orange:#E8502F; --dim:#6E6F69; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:radial-gradient(rgba(232,80,47,.10) 1.2px, transparent 1.2px) 0 0/26px 26px, var(--paper);
+         color:var(--ink); font-family:"Hanken Grotesk",system-ui,sans-serif;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .stage { text-align:center; padding:4vh 4vw; width:100%; }
+  .kick { font-family:"JetBrains Mono",monospace; font-weight:700; font-size:clamp(14px,1.4vw,22px);
+          letter-spacing:.22em; text-transform:uppercase; color:var(--orange); }
+  h1 { font-family:"Literata",serif; font-weight:900; font-size:clamp(34px,4.6vw,72px);
+       margin:1.5vh 0 4vh; }
+  a.url { display:inline-block; font-family:"JetBrains Mono",monospace; font-weight:700;
+          font-size:clamp(28px,4.6vw,86px); letter-spacing:-.01em; color:var(--ink);
+          text-decoration:none; background:#fff; border:5px solid var(--ink);
+          box-shadow:14px 14px 0 var(--orange); padding:3vh 3vw; line-height:1.15;
+          word-break:break-all; }
+  a.url span { color:var(--orange); }
+  .row { display:flex; gap:4vw; align-items:center; justify-content:center; margin-top:5vh; flex-wrap:wrap; }
+  .qr { background:#fff; border:5px solid var(--ink); box-shadow:10px 10px 0 var(--ink); padding:1.2vh; }
+  .qr img { display:block; width:clamp(160px,17vw,260px); }
+  .kits { text-align:left; font-family:"JetBrains Mono",monospace; font-weight:700;
+          font-size:clamp(17px,1.9vw,30px); line-height:2; }
+  .kits span { color:var(--orange); margin-right:14px; }
+  .say { margin-top:4.5vh; color:var(--dim); font-size:clamp(15px,1.6vw,24px); }
+  .say b { color:var(--ink); font-family:"JetBrains Mono",monospace; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="kick">Free · take them home</div>
+  <h1>Four kits. Yours.</h1>
+  <a class="url" href="https://joseplatero.com/build/start/">joseplatero.com<span>/build/start</span></a>
+  <div class="row">
+    <div class="qr"><img src="qr-start.png" alt="QR code to joseplatero.com/build/start"></div>
+    <div class="kits">
+      <div><span>1</span>Scout</div>
+      <div><span>2</span>Audit</div>
+      <div><span>3</span>Rewrite</div>
+      <div><span>4</span>Pitch</div>
+    </div>
+  </div>
+  <p class="say">Drag a kit into Claude and say: <b>install this</b></p>
+</div>
+</body>
+</html>
