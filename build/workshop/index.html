@@ -177,6 +177,28 @@
   .card p { font-size:clamp(13px,1.15vw,18px); line-height:1.5; color:#3A3B37; }
   .card .n { font-family:"JetBrains Mono",monospace; color:var(--orange); font-weight:700;
              font-size:clamp(11px,.9vw,14px); letter-spacing:.12em; }
+
+  /* slide 17: cerebro helmets point at the follow QRs and pulse them in */
+  .fqgrid .qr { position:relative; }
+  .fqgrid .qr .qimg { opacity:0; }
+  .slide.on .fqgrid .qr .qimg { animation: qrin .8s cubic-bezier(.34,1.56,.64,1) both, qrbreath 3.4s ease-in-out infinite 1.4s; }
+  .slide.on .fqgrid .qr:nth-child(1) .qimg { animation-delay:.15s, 1.4s; }
+  .slide.on .fqgrid .qr:nth-child(2) .qimg { animation-delay:.35s, 1.6s; }
+  .slide.on .fqgrid .qr:nth-child(3) .qimg { animation-delay:.55s, 1.8s; }
+  .slide.on .fqgrid .qr:nth-child(4) .qimg { animation-delay:.75s, 2.0s; }
+  @keyframes qrin { 0% { opacity:0; transform:scale(.55); } 70% { opacity:1; transform:scale(1.06); } 100% { opacity:1; transform:scale(1); } }
+  @keyframes qrbreath { 0%,100% { transform:scale(1); } 50% { transform:scale(1.025); } }
+  .cere { position:absolute; width:clamp(58px,5.4vw,88px); z-index:3; image-rendering:pixelated;
+          animation: cerepulse 2.6s ease-in-out infinite; pointer-events:none;
+          filter: drop-shadow(0 0 0 rgba(118,74,178,0)); }
+  .cere.l { left:-4.6vw; top:26%; transform:rotate(8deg); }
+  .cere.r { right:-4.6vw; top:26%; transform:scaleX(-1) rotate(8deg); }
+  @keyframes cerepulse {
+    0%,100% { filter: drop-shadow(0 0 0 rgba(118,74,178,.0)); translate:0 0; }
+    50% { filter: drop-shadow(0 0 14px rgba(118,74,178,.9)); translate:0 -5px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .fqgrid .qr .qimg { opacity:1; animation:none !important; }
+    .cere { animation:none; } }
 </style>
 </head>
 <body>
@@ -575,21 +597,25 @@ const CONFIG = {
         <p class="mono" style="font-size:clamp(15px,1.5vw,24px); line-height:1.6"><b style="font-size:clamp(18px,2vw,32px); display:block">THE COURSE</b>NOV 7 · TORONTO<br><span style="color:var(--orange)">joseplatero.com/build</span></p>
       </div>
     </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:3.2vh 1.6vw; align-items:start">
+    <div class="fqgrid" style="display:grid; grid-template-columns:1fr 1fr; gap:3.2vh 1.6vw; align-items:start">
       <div class="qr" style="text-align:left">
-        <img src="assets/qr-substack.png" alt="QR: Loops and Letters" style="width:clamp(150px,13vw,215px)">
+        <img class="cere l" src="assets/cere.png" alt="">
+        <img class="qimg" src="assets/qr-substack.png" alt="QR: Loops and Letters" style="width:clamp(150px,13vw,215px)">
         <p><b>The newsletter</b><span>loopsandletters<br>.substack.com</span></p>
       </div>
       <div class="qr" style="text-align:left">
-        <img src="assets/qr-linkedin.png" alt="QR: LinkedIn" style="width:clamp(150px,13vw,215px)">
+        <img class="cere r" src="assets/cere.png" alt="">
+        <img class="qimg" src="assets/qr-linkedin.png" alt="QR: LinkedIn" style="width:clamp(150px,13vw,215px)">
         <p><b>Say you were here</b><span>linkedin.com/in/joseplatero</span></p>
       </div>
       <div class="qr" style="text-align:left">
-        <img src="assets/qr-rednote.png?v=2" alt="QR: RedNote" style="width:clamp(150px,13vw,215px)">
+        <img class="cere l" src="assets/cere.png" alt="">
+        <img class="qimg" src="assets/qr-rednote.png?v=2" alt="QR: RedNote" style="width:clamp(150px,13vw,215px)">
         <p><b>RedNote</b><span>buildwithjose</span></p>
       </div>
       <div class="qr" style="text-align:left">
-        <img src="assets/qr-instagram.png" alt="QR: Instagram" style="width:clamp(150px,13vw,215px)">
+        <img class="cere r" src="assets/cere.png" alt="">
+        <img class="qimg" src="assets/qr-instagram.png" alt="QR: Instagram" style="width:clamp(150px,13vw,215px)">
         <p><b>Instagram</b><span>jose.build</span></p>
       </div>
     </div>
