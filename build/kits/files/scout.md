@@ -122,6 +122,16 @@ a kit-only install does not have it and is missing nothing.) The contract:
   today's real date, then give the two line summary: what is new, and the one
   move worth making today. If nothing is new, say that plainly.
 
+## The list has two faces
+
+The markdown target list is the working file: Scout reads it every morning
+and edits it as things change. When the list is first written, and any time
+the person asks to "show my list", ALSO render it as a clean HTML page
+saved beside the markdown and opened in the browser, and say "your target
+list is open in the browser." The HTML is a view, never the source: edits
+happen in the markdown, then the view regenerates. Morning runs stay in
+chat; they are a glance, not a document.
+
 ## Mode 3: the company read
 
 When they ask about one company ("tell me about X", "should I target X",

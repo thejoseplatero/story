@@ -31,4 +31,9 @@ Hard rules: no invented experience, metrics, titles, or tools. Never keyword-stu
 
 Afterward: for the user, offer to save to `memory/resume/YYYY-MM-DD-<company>.md` and log the application row in `memory/applications.md` when they send it. For anyone else, output only, store nothing. If this posting is one they are serious about, the pitch page (/pitch) is the natural companion.
 
+The record is dual: the markdown is the working copy; the tailored resume
+also renders as a print-ready HTML page saved beside it and opened in the
+browser, closing with "your tailored resume is open in the browser. Print
+to PDF from there." Regenerate the HTML whenever the markdown changes.
+
 $ARGUMENTS

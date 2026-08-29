@@ -31,6 +31,14 @@ Then work, in this order:
 
 Hard rules, same as /audit: no invented metrics, titles, scope, or jobs. Discipline lenses from /audit apply to how bullets are shaped. Simple English, short sentences, no em dashes in anything written for them.
 
+The record is dual, on purpose: the markdown file is the working copy this
+system reads and edits; the finished rewrite ALSO renders as a clean,
+print-ready HTML page (plain resume styling, per the audit's own rule that
+style belongs in the CTA, not the resume), saved beside the markdown and
+opened in the browser (macOS `open`). Close with: "your rewrite is open in
+the browser. Print to PDF from there when you need to submit it." If the
+markdown is edited later, regenerate the HTML and say "refresh the tab."
+
 Afterward: for the user's own resume, offer to save to `memory/resume/YYYY-MM-DD-rewrite.md` and note it in `memory/profile.md` as the current version. For anyone else's, output only, store nothing. If they have a specific posting in hand, the next move is /tailor.
 
 $ARGUMENTS
