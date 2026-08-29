@@ -35,10 +35,17 @@ The tailored resume is the whole resume, reordered and rephrased, never a
 fragment. The record is dual: the markdown is the working copy; the
 tailored resume also renders as a print-ready HTML page saved beside it and
 opened in the browser, changes highlighted on screen with why-notes,
-everything clean and complete in print. The document never talks about
-itself: no provenance, no process notes on the page. On screen it wears Build with Jose (paper, ink, orange, Literata
-headings, mono kicker); in `@media print` all of that chrome disappears and
-a plain resume prints. Close it closing with "your tailored resume is open in the browser. Print
-to PDF from there." Regenerate the HTML whenever the markdown changes.
+everything clean and complete in print. On screen it wears Build with Jose
+(paper, ink, orange, Literata headings, mono kicker); in `@media print` all
+chrome, highlights, and notes disappear and a plain resume prints.
+
+The document never talks about itself: no provenance, no process notes on
+the page. The screen-only legend carries the one working instruction: "the
+words live in the markdown; edit any line, then say 'sync my resume'". On
+sync, the markdown is the source of truth for the words; regenerate the
+HTML and say "refresh the tab". Close with "your tailored resume is open in
+the browser", and when they are ready, "make the PDF" generates it with
+headless Chrome's print engine against the record, exactly as /rewrite
+does.
 
 $ARGUMENTS
