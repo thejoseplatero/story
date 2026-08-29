@@ -69,6 +69,7 @@ Stay impartial. Jose reviews as a hiring manager, he is not hiring them. Nothing
 - Their answers are new source material, with the same rule as everywhere else: use only what they said, never embellish it. A translation they did not confirm does not go on the page.
 - Then deliver **what the conversation surfaced**: the new or upgraded material ranked, each item written as the resume line it should become, and a note on which of the three fixes this changes. If an answer revealed a hidden asset, say so by name.
 - Close by pointing at /rewrite if it is installed: the probe found the material, the rewrite works it into the page.
+- If the HTML report was already opened before the probe ran, regenerate it with a "What the probe surfaced" section added, overwrite the same file, and say "refresh the report tab, the probe is in it now." The person's document should never be missing its best material.
 
 The probe is where "resumes are flat, people have dimensions" becomes real: most people undersell in writing what they say plainly out loud.
 
