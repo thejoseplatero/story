@@ -4,7 +4,6 @@ KIT CONTENT BELOW THIS LINE -->
 name: scout
 description: Builds your target company list by interview, then watches it. First run asks the questions and writes the list. Every run after checks each company for real news and matching open roles, and flags what is new. Also gives a five minute company read on request. Use when someone needs targets, says scout, wants the morning check, or asks whether a company is worth targeting.
 tools: WebSearch, WebFetch, Read, Write, Bash
-model: sonnet
 ---
 
 # Target Scout
