@@ -182,5 +182,17 @@ if (LIVE) {
   }
 }
 
+
+section('kit downloads');
+{
+  const fs = await import('node:fs');
+  for (const dir of ['build/workshop/downloads', 'build/kits/files']) {
+    for (const f of fs.readdirSync(dir).filter(x => x.endsWith('.md'))) {
+      const head = fs.readFileSync(`${dir}/${f}`, 'utf8').slice(0, 500);
+      t(`${dir}/${f} carries its install header`, head.includes('INSTALL INSTRUCTIONS FOR CLAUDE'));
+    }
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
