@@ -164,6 +164,50 @@
   #dimsvg .dim.act circle.halo { animation:dimhalo 1.4s ease-out infinite; }
   @keyframes dimhalo { 0% { opacity:.7; transform:scale(1);} 100% { opacity:0; transform:scale(3);} }
 
+  /* slide 8: the five shifts. the transformation is the point, so it is staged. */
+  .shifts { display:flex; flex-direction:column; gap:1.6vh; }
+  .shead, .srow { display:grid; grid-template-columns:1fr 4.2vw 1.12fr; gap:1.2vw; align-items:center; }
+  .shead { font-family:"JetBrains Mono",monospace; font-weight:700;
+           font-size:clamp(10px,.85vw,13px); letter-spacing:.2em; color:var(--dim);
+           padding-bottom:.6vh; border-bottom:2px solid rgba(23,24,22,.12); margin-bottom:.4vh; }
+  .shead .r { color:var(--orange); }
+  .srow .from { display:flex; align-items:baseline; gap:.9vw; color:var(--dim);
+                font-size:clamp(15px,1.55vw,26px); line-height:1.3; }
+  .srow .from .txt { text-decoration:line-through; text-decoration-thickness:.085em;
+                     text-decoration-color:transparent; }
+  .snum { flex:none; font-family:"Literata",serif; font-weight:900;
+          font-size:clamp(20px,2.3vw,40px); line-height:1; color:transparent;
+          -webkit-text-stroke:1.5px rgba(110,111,105,.5); }
+  .srow .arrow { font-family:"JetBrains Mono",monospace; font-weight:700; color:var(--orange);
+                 font-size:clamp(22px,2.5vw,42px); line-height:1; text-align:center; }
+  .srow .to { font-weight:700; font-size:clamp(16px,1.7vw,29px); line-height:1.3;
+              border-left:4px solid var(--orange); padding-left:1vw; }
+
+  .slide.on .srow { animation:rowin .5s cubic-bezier(.2,.7,.2,1) both; }
+  .slide.on .srow .from .txt { animation:strike .4s ease both; }
+  .slide.on .srow .to { animation:toin .45s cubic-bezier(.2,.7,.2,1) both; }
+  .slide.on .srow:nth-of-type(1) { animation-delay:.10s }
+  .slide.on .srow:nth-of-type(2) { animation-delay:.24s }
+  .slide.on .srow:nth-of-type(3) { animation-delay:.38s }
+  .slide.on .srow:nth-of-type(4) { animation-delay:.52s }
+  .slide.on .srow:nth-of-type(5) { animation-delay:.66s }
+  .slide.on .srow:nth-of-type(1) .from .txt { animation-delay:.40s }
+  .slide.on .srow:nth-of-type(2) .from .txt { animation-delay:.54s }
+  .slide.on .srow:nth-of-type(3) .from .txt { animation-delay:.68s }
+  .slide.on .srow:nth-of-type(4) .from .txt { animation-delay:.82s }
+  .slide.on .srow:nth-of-type(5) .from .txt { animation-delay:.96s }
+  .slide.on .srow:nth-of-type(1) .to { animation-delay:.52s }
+  .slide.on .srow:nth-of-type(2) .to { animation-delay:.66s }
+  .slide.on .srow:nth-of-type(3) .to { animation-delay:.80s }
+  .slide.on .srow:nth-of-type(4) .to { animation-delay:.94s }
+  .slide.on .srow:nth-of-type(5) .to { animation-delay:1.08s }
+  @keyframes rowin { from { opacity:0; transform:translateY(1.4vh);} to { opacity:1; transform:none;} }
+  @keyframes strike { to { text-decoration-color:rgba(232,80,47,.85);} }
+  @keyframes toin { from { opacity:0; transform:translateX(-1.2vw);} to { opacity:1; transform:none;} }
+  @media (prefers-reduced-motion: reduce) {
+    .slide.on .srow, .slide.on .srow .to { animation:none; opacity:1; transform:none; }
+    .slide.on .srow .from .txt { animation:none; text-decoration-color:rgba(232,80,47,.85); } }
+
   @keyframes throb {
     0%,100% { transform:rotate(1deg) scale(1); box-shadow:10px 10px 0 var(--ink); }
     50% { transform:rotate(1deg) scale(1.035); box-shadow:14px 14px 0 var(--ink), 0 0 0 14px rgba(232,80,47,.18); }
@@ -194,6 +238,111 @@
   @media (prefers-reduced-motion: reduce) {
     .fqgrid .qr .qimg { opacity:1; animation:none !important; }
     .cere { animation:none; } }
+
+  /* ------------------------------------------------------------------
+     MOBILE. The deck is designed landscape. On a phone it stops being
+     slides-that-fit and becomes slides-that-scroll, one column, with a
+     nav bar and swipe instead of a keyboard.
+     ------------------------------------------------------------------ */
+  #mnav { display:none; }
+
+  @media (max-width:860px) {
+    html, body { height:100dvh; overflow:hidden; }
+
+    .slide { height:100dvh; overflow-y:auto; overflow-x:hidden;
+             -webkit-overflow-scrolling:touch; overscroll-behavior-y:contain;
+             padding:26px 18px calc(104px + env(safe-area-inset-bottom)) !important; }
+    .pad { position:static !important; inset:auto !important; height:auto !important;
+           padding:0 !important; display:block !important; }
+
+    /* every multi-column grid written inline collapses to one column */
+    .slide [style*="grid-template-columns"]:not(.fqgrid) {
+      grid-template-columns:1fr !important; gap:18px !important; }
+    .facts > div, .bigl > div { grid-template-columns:1fr !important; gap:2px !important; }
+    .facts { max-width:none !important; gap:16px !important; }
+
+    /* headlines get phone-sized floors so long words stop overflowing */
+    h1 { overflow-wrap:break-word; }
+    .h-mega { font-size:clamp(33px,8.6vw,58px) !important; }
+    .h-big  { font-size:clamp(30px,7.8vw,52px) !important; }
+    .h-mid  { font-size:clamp(26px,6.8vw,44px) !important; }
+    .sub    { font-size:17px !important; line-height:1.5 !important; }
+    .kick   { font-size:11px !important; gap:8px !important; }
+    .kick::before { width:9px !important; height:9px !important; }
+    .meta   { font-size:12px !important; }
+
+    /* inline vw max-widths are landscape assumptions */
+    .slide [style*="max-width"] { max-width:100% !important; }
+
+    /* absolutely placed art and tags rejoin the flow, in reading order */
+    .slide .shotw { position:static !important; width:auto !important; height:auto !important;
+                    transform:none !important; margin:0 0 16px !important;
+                    box-shadow:6px 6px 0 rgba(0,0,0,.85) !important; }
+    .slide .shotw img { height:auto !important; object-fit:contain !important;
+                        object-position:top left !important; }
+    .slide .stick { position:static !important; display:inline-block; transform:none !important;
+                    margin:0 8px 10px 0 !important; font-size:11.5px !important;
+                    padding:7px 10px !important; box-shadow:3px 3px 0 rgba(0,0,0,.85) !important; }
+    .slide > p[style*="position:absolute"] { position:static !important; text-align:left !important;
+                    margin:4px 0 16px !important; }
+    .slide .pad div[style*="height:74vh"] { position:static !important; height:auto !important; }
+    .slide .pad div[style*="height:3px"] { display:none !important; }   /* recap connector line */
+    .ghost, #pixeljose, #count { display:none !important; }
+    .sysmap { position:static !important; flex-wrap:wrap; gap:6px !important;
+              margin-top:18px; font-size:11px !important; }
+    .sysmap span { padding:5px 8px !important; }
+
+    /* slide 8: the shift stacks, the arrow turns down */
+    .shead { display:none !important; }
+    .srow { grid-template-columns:1fr !important; gap:4px !important; align-items:start !important;
+            padding-left:14px; border-left:3px solid rgba(23,24,22,.12); margin-bottom:14px; }
+    .srow .from { font-size:16px !important; gap:10px !important; }
+    .snum { font-size:21px !important; }
+    .srow .arrow { text-align:left !important; font-size:19px !important;
+                   transform:rotate(90deg); transform-origin:left center; margin:8px 0 8px 6px; }
+    .srow .to { border-left:0 !important; padding-left:0 !important; font-size:17px !important; }
+    @keyframes toin { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+
+    /* terminal slides */
+    .term-w { width:100% !important; box-shadow:6px 6px 0 rgba(0,0,0,.6) !important; }
+    .term-bar { padding:10px 12px !important; }
+    .term-body { height:auto !important; min-height:34vh; padding:14px 12px 16px !important;
+                 font-size:12px !important; line-height:1.6 !important; overflow-x:auto; }
+
+    .card { padding:18px 16px !important; box-shadow:6px 6px 0 var(--ink) !important; }
+    .card p { font-size:14px !important; }
+    .card li { padding-left:18px !important; font-size:14px !important; }
+    .throb { animation:none !important; transform:none !important; }
+    .slide .card div[style*="border-radius:50%"] { position:static !important;
+        transform:rotate(-6deg) !important; margin:0 auto 12px !important; }
+
+    .qr img, .qimg, .course-qr { width:150px !important;
+        box-shadow:6px 6px 0 rgba(0,0,0,.6) !important; }
+    .qr p, .qr p b, .qr p span { font-size:12px !important; overflow-wrap:anywhere; }
+    .qr p b { font-size:14px !important; }
+    /* side-by-side rows become stacked so long mono strings stop running off */
+    .slide .pad div[style*="display:flex"][style*="align-items:center"]:not([style*="flex-direction:column"]) {
+        flex-direction:column; align-items:flex-start !important; gap:14px !important; }
+    .slide .mono { overflow-wrap:anywhere; }
+    .fqgrid { gap:20px 14px !important; }
+    #timer .n { font-size:34vh; }
+    #timer .skip { font-size:64px; border-width:6px; padding:10px 20px; }
+  }
+
+  /* the phone nav bar: back, position, next */
+  @media (max-width:860px) {
+    #mnav { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:50;
+            align-items:center; justify-content:space-between; gap:10px;
+            padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+            background:rgba(23,24,22,.94); backdrop-filter:blur(6px);
+            border-top:3px solid var(--orange); }
+    #mnav button { flex:1; max-width:132px; appearance:none; border:0; cursor:pointer;
+                   font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
+                   letter-spacing:.1em; padding:13px 10px; background:var(--orange); color:#fff; }
+    #mnav button:disabled { background:#3A3B37; color:#7A7B75; }
+    #mnav #mcount { font-family:"JetBrains Mono",monospace; font-size:12px;
+                    letter-spacing:.12em; color:#9C9D97; }
+  }
 </style>
 </head>
 <body>
@@ -202,18 +351,18 @@
 const CONFIG = {
   // Set sponsor to null to hide the sponsor slide entirely.
   // Brand note (Qatom): ink lockup on its ground #F7F6F2 only. No effects, no rotation.
-  sponsor: {
-    name: "Qatom",
-    logo: "assets/qatom-lockup-ink.svg",
-    line: "Digital bearer assets for agents. Thank you for making today possible.",
-    url: "qatom.ai",
-  },
+  sponsor: null,
 };
 </script>
 
 <div id="bar"></div>
 <div id="timer"><div class="n">10</div><div class="l">THIS IS HOW LONG YOUR RESUME GETS</div><div class="skip">SKIP.</div></div>
 <div id="count" class="mono"></div>
+<nav id="mnav">
+  <button id="mprev" type="button" aria-label="Previous slide">&lsaquo; BACK</button>
+  <span id="mcount" class="mono" aria-live="polite"></span>
+  <button id="mnext" type="button" aria-label="Next slide">NEXT &rsaquo;</button>
+</nav>
 
 <!-- 0 · SPONSOR, while the room settles (flat plate, artwork untouched, per press kit) -->
 <section class="slide" id="sponsor-slide" style="background:#F7F6F2">
@@ -359,37 +508,33 @@ const CONFIG = {
 <section class="slide paper">
   <div class="pad">
     <div class="kick">The lesson</div>
-    <h1 class="h-mid" style="margin:1.5vh 0 3.5vh">Five stucks. <span class="o">Five shifts.</span></h1>
-    <div style="display:flex; flex-direction:column; gap:2vh">
-      <div style="display:grid; grid-template-columns:auto 1fr auto 1.15fr; gap:1.6vw; align-items:baseline">
-        <span class="num">01</span>
-        <div style="color:#6E6F69; font-size:clamp(15px,1.55vw,26px)">Applying to everything.</div>
-        <span class="mono" style="color:var(--orange); font-weight:700; font-size:clamp(18px,1.9vw,32px)">&rarr;</span>
-        <div style="font-weight:700; font-size:clamp(16px,1.7vw,29px)">A short list you aim at, so every application gets sharper.</div>
+    <h1 class="h-mid" style="margin:1.5vh 0 3vh">Five stucks. <span class="o">Five shifts.</span></h1>
+    <div class="shifts">
+      <div class="shead"><span>WHERE YOU ARE STUCK</span><span></span><span class="r">WHERE IT SHIFTS</span></div>
+      <div class="srow">
+        <div class="from"><span class="snum">01</span><span class="txt">Applying to everything.</span></div>
+        <div class="arrow">&rarr;</div>
+        <div class="to">A short list you aim at, so every application gets sharper.</div>
       </div>
-      <div style="display:grid; grid-template-columns:auto 1fr auto 1.15fr; gap:1.6vw; align-items:baseline">
-        <span class="num">02</span>
-        <div style="color:#6E6F69; font-size:clamp(15px,1.55vw,26px)">They looked you up. Nothing there.</div>
-        <span class="mono" style="color:var(--orange); font-weight:700; font-size:clamp(18px,1.9vw,32px)">&rarr;</span>
-        <div style="font-weight:700; font-size:clamp(16px,1.7vw,29px)">Your work in public, so you are found before you apply.</div>
+      <div class="srow">
+        <div class="from"><span class="snum">02</span><span class="txt">They looked you up. Nothing there.</span></div>
+        <div class="arrow">&rarr;</div>
+        <div class="to">Your work in public, so you are found before you apply.</div>
       </div>
-      <div style="display:grid; grid-template-columns:auto 1fr auto 1.15fr; gap:1.6vw; align-items:baseline">
-        <span class="num">03</span>
-        <div style="color:#6E6F69; font-size:clamp(15px,1.55vw,26px)">Real experience, arriving untranslated.</div>
-        <span class="mono" style="color:var(--orange); font-weight:700; font-size:clamp(18px,1.9vw,32px)">&rarr;</span>
-        <div style="font-weight:700; font-size:clamp(16px,1.7vw,29px)">Said in the job's own language. Translated, never inflated.</div>
+      <div class="srow">
+        <div class="from"><span class="snum">03</span><span class="txt">Real experience, arriving untranslated.</span></div>
+        <div class="arrow">&rarr;</div>
+        <div class="to">Said in the job's own language. Translated, never inflated.</div>
       </div>
-      <div style="display:grid; grid-template-columns:auto 1fr auto 1.15fr; gap:1.6vw; align-items:baseline">
-        <span class="num">04</span>
-        <div style="color:#6E6F69; font-size:clamp(15px,1.55vw,26px)">Reaching out only when you need something.</div>
-        <span class="mono" style="color:var(--orange); font-weight:700; font-size:clamp(18px,1.9vw,32px)">&rarr;</span>
-        <div style="font-weight:700; font-size:clamp(16px,1.7vw,29px)">Known long before you need anything.</div>
+      <div class="srow">
+        <div class="from"><span class="snum">04</span><span class="txt">Reaching out only when you need something.</span></div>
+        <div class="arrow">&rarr;</div>
+        <div class="to">Known long before you need anything.</div>
       </div>
-      <div style="display:grid; grid-template-columns:auto 1fr auto 1.15fr; gap:1.6vw; align-items:baseline">
-        <span class="num">05</span>
-        <div style="color:#6E6F69; font-size:clamp(15px,1.55vw,26px)">Walking into the interview blind.</div>
-        <span class="mono" style="color:var(--orange); font-weight:700; font-size:clamp(18px,1.9vw,32px)">&rarr;</span>
-        <div style="font-weight:700; font-size:clamp(16px,1.7vw,29px)">The interviewer is your user. Read the room before the room.</div>
+      <div class="srow">
+        <div class="from"><span class="snum">05</span><span class="txt">Walking into the interview blind.</span></div>
+        <div class="arrow">&rarr;</div>
+        <div class="to">The interviewer is your user. Read the room before the room.</div>
       </div>
     </div>
     <p class="meta dimtx" style="margin-top:3.2vh">Tonight we make three of these shifts. <b style="color:var(--ink)">The other two: Nov 7.</b></p>
@@ -563,19 +708,12 @@ const CONFIG = {
         </ul>
       </div>
       <div class="card throb" style="background:var(--orange); color:#fff; border-color:var(--ink); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; overflow:visible">
-        <div style="position:absolute; top:-4.5vh; right:-2.5vw; width:clamp(110px,10vw,160px); height:clamp(110px,10vw,160px); border-radius:50%; background:var(--ink); color:#fff; border:4px solid var(--paper); display:flex; flex-direction:column; align-items:center; justify-content:center; transform:rotate(12deg); z-index:5; box-shadow:6px 6px 0 rgba(0,0,0,.35)">
-          <span style="font-family:Literata,serif; font-weight:900; font-size:clamp(28px,2.8vw,46px); line-height:1">30%</span>
-          <span class="mono" style="font-size:clamp(12px,1.1vw,17px); font-weight:700; letter-spacing:.15em">OFF</span>
-        </div>
-        <div class="n" style="color:#fff; letter-spacing:.2em">TONIGHT ONLY</div>
-        <div style="display:flex; align-items:baseline; gap:1vw; margin-top:.6vh">
-          <span class="mono" style="font-size:clamp(18px,1.9vw,30px); color:#FFD9CE; text-decoration:line-through; text-decoration-thickness:3px">$299</span>
-          <span style="font-family:Literata,serif; font-weight:900; font-size:clamp(38px,4.4vw,72px); line-height:1">$209</span>
-        </div>
-        <img src="assets/qr-luma-tonight.png" alt="QR: register with code applied" style="width:clamp(150px,13vw,210px); border:4px solid #fff; margin:1.4vh 0 1vh">
+        <div class="n" style="color:#fff; letter-spacing:.2em">NOV 7 · TORONTO</div>
+        <div style="font-family:Literata,serif; font-weight:900; font-size:clamp(38px,4.4vw,72px); line-height:1; margin-top:.8vh">$299</div>
+        <p class="meta" style="color:#FFD9CE; margin-top:.6vh">CAD · 30 SEATS</p>
+        <img src="assets/qr-course.png" alt="QR: register for the course" style="width:clamp(150px,13vw,210px); border:4px solid #fff; margin:1.6vh 0 1vh">
         <p class="meta" style="color:#fff; font-weight:700">SCAN TO REGISTER</p>
-        <p class="meta" style="color:#FFD9CE; margin-top:.8vh">ENTER CODE <b class="mono" style="font-size:clamp(18px,1.9vw,30px); letter-spacing:.06em; color:#fff">TONIGHT30</b> AT CHECKOUT</p>
-        <p class="meta" style="color:#FFD9CE; margin-top:.8vh">EXPIRES AT MIDNIGHT · DETAILS: JOSEPLATERO.COM/BUILD</p>
+        <p class="meta" style="color:#FFD9CE; margin-top:.8vh">DETAILS: JOSEPLATERO.COM/BUILD</p>
       </div>
     </div>
   </div>
@@ -676,6 +814,10 @@ const CONFIG = {
     slides.forEach((s, k) => s.classList.toggle('on', k === i));
     document.getElementById('bar').style.width = ((i + 1) / slides.length * 100) + '%';
     document.getElementById('count').textContent = (i + 1) + ' / ' + slides.length;
+    document.getElementById('mcount').textContent = (i + 1) + ' / ' + slides.length;
+    document.getElementById('mprev').disabled = (i === 0);
+    document.getElementById('mnext').disabled = (i === slides.length - 1);
+    slides[i].scrollTop = 0;
     location.hash = i + 1;
     const t = slides[i].querySelector('.term-body');
     if (t) typeInto(t, scripts[t.dataset.type]);
@@ -721,11 +863,42 @@ const CONFIG = {
     if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); show(i + 1); }
     if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
   });
+  // On a phone the slides scroll and carry links, so tap-anywhere is wrong.
+  // The nav bar and swipe drive it instead.
+  const phone = () => matchMedia('(max-width:860px)').matches;
+
   addEventListener('click', (e) => {
     const tm = document.getElementById('timer');
     if (tm.classList.contains('on')) { timer(false); return; }
     if (e.target.closest('a')) return;
+    if (e.target.closest('#mnav')) return;
+    if (phone()) return;
     show(e.clientX > innerWidth / 3 ? i + 1 : i - 1);
+  });
+
+  document.getElementById('mprev').addEventListener('click', () => show(i - 1));
+  document.getElementById('mnext').addEventListener('click', () => show(i + 1));
+
+  let sx = 0, sy = 0, st = 0;
+  addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) { st = 0; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now();
+  }, { passive: true });
+  addEventListener('touchend', (e) => {
+    if (!st) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx, dy = t.clientY - sy, dt = Date.now() - st;
+    st = 0;
+    if (dt > 800) return;                                  // a slow drag is a scroll
+    if (Math.abs(dx) < 55) return;                          // too small to mean it
+    if (Math.abs(dx) < Math.abs(dy) * 1.4) return;          // mostly vertical: scrolling
+    show(dx < 0 ? i + 1 : i - 1);
+  }, { passive: true });
+
+  // The phone's own back/forward buttons move the hash. Follow it.
+  addEventListener('hashchange', () => {
+    const n = parseInt(location.hash.slice(1), 10) - 1;
+    if (!isNaN(n) && n !== i) show(n);
   });
 
   show(parseInt(location.hash.slice(1), 10) - 1 || 0);
