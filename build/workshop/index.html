@@ -251,7 +251,7 @@
 
     .slide { height:100dvh; overflow-y:auto; overflow-x:hidden;
              -webkit-overflow-scrolling:touch; overscroll-behavior-y:contain;
-             padding:26px 18px calc(104px + env(safe-area-inset-bottom)) !important; }
+             padding:26px 18px calc(74px + env(safe-area-inset-bottom)) !important; }
     .pad { position:static !important; inset:auto !important; height:auto !important;
            padding:0 !important; display:block !important; }
 
@@ -329,19 +329,28 @@
     #timer .skip { font-size:64px; border-width:6px; padding:10px 20px; }
   }
 
-  /* the phone nav bar: back, position, next */
+  /* the phone controls: two quiet chips in the corners, not a toolbar.
+     Cream on an ink border reads on all three slide grounds. */
   @media (max-width:860px) {
-    #mnav { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:50;
-            align-items:center; justify-content:space-between; gap:10px;
-            padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-            background:rgba(23,24,22,.94); backdrop-filter:blur(6px);
-            border-top:3px solid var(--orange); }
-    #mnav button { flex:1; max-width:132px; appearance:none; border:0; cursor:pointer;
-                   font-family:"JetBrains Mono",monospace; font-weight:700; font-size:13px;
-                   letter-spacing:.1em; padding:13px 10px; background:var(--orange); color:#fff; }
-    #mnav button:disabled { background:#3A3B37; color:#7A7B75; }
-    #mnav #mcount { font-family:"JetBrains Mono",monospace; font-size:12px;
-                    letter-spacing:.12em; color:#9C9D97; }
+    #mnav { display:block; position:fixed; left:0; right:0; z-index:50;
+            bottom:calc(10px + env(safe-area-inset-bottom));
+            pointer-events:none; height:44px; }
+    #mnav button { pointer-events:auto; position:absolute; bottom:0;
+                   width:44px; height:44px; padding:0; cursor:pointer;
+                   appearance:none; border:2px solid var(--ink);
+                   background:rgba(251,246,239,.88); color:var(--ink);
+                   -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+                   font-family:"JetBrains Mono",monospace; font-weight:700;
+                   font-size:19px; line-height:1; opacity:.72;
+                   transition:opacity .18s ease, transform .12s ease; }
+    #mnav #mprev { left:14px; }
+    #mnav #mnext { right:14px; }
+    #mnav button:active { opacity:1; transform:scale(.94); }
+    #mnav button:disabled { opacity:.16; pointer-events:none; }
+    #mnav #mcount { position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+                    font-family:"JetBrains Mono",monospace; font-size:11px;
+                    letter-spacing:.14em; color:#8a8b85; mix-blend-mode:difference;
+                    pointer-events:none; white-space:nowrap; }
   }
 </style>
 </head>
@@ -359,9 +368,9 @@ const CONFIG = {
 <div id="timer"><div class="n">10</div><div class="l">THIS IS HOW LONG YOUR RESUME GETS</div><div class="skip">SKIP.</div></div>
 <div id="count" class="mono"></div>
 <nav id="mnav">
-  <button id="mprev" type="button" aria-label="Previous slide">&lsaquo; BACK</button>
+  <button id="mprev" type="button" aria-label="Previous slide">&lsaquo;</button>
   <span id="mcount" class="mono" aria-live="polite"></span>
-  <button id="mnext" type="button" aria-label="Next slide">NEXT &rsaquo;</button>
+  <button id="mnext" type="button" aria-label="Next slide">&rsaquo;</button>
 </nav>
 
 <!-- 0 · SPONSOR, while the room settles (flat plate, artwork untouched, per press kit) -->
