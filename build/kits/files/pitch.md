@@ -100,7 +100,16 @@ remain.
 1. Company name. Derive their real marketing site URL from it and confirm it with the user in one line before scanning; never scan a guessed domain silently.
 2. The full job description. A posting URL counts as the natural way in:
    fetch it, then confirm the role and company back in one line. If the fetch
-   fails, ask them to paste the whole thing, not a summary.
+   fails, ask them to paste the whole thing, not a summary. Then trust only
+   what the page actually displays. Job boards ship hidden template states
+   in their HTML: a "this role has been filled" banner or an empty "no jobs
+   found" block that only renders when true (Webflow marks these
+   w-condition-invisible; others use hidden attributes or display:none). A
+   text-level fetch reads them as if they were shown. Before telling the
+   person a role is closed or a board is empty, check whether that text is
+   actually visible, or load the page in a real browser. A closed-role call
+   needs visible evidence; the person may be looking at the live posting
+   while your fetch reads a banner nobody sees.
 3. `<CANDIDATE_NAME>`'s record: `<RESUME_SOURCE>`, `<TESTIMONIALS_SOURCE>`, `<PERSONAL_SITE_URL>` content, plus anything said in-conversation. **Never invent a metric, a team size, or an outcome.** If a number isn't in the source material, don't cite it.
 3b. **Media is optional, especially on a first page.** A first pitch page ships
 fine with only text and the candidate's mark; never block on photos or video.

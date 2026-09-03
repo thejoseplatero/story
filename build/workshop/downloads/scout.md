@@ -122,7 +122,13 @@ a kit-only install does not have it and is missing nothing.) The contract:
   for a new grad), list them with the level caveat instead of hiding them,
   because a hiring org is still a signal. Before reporting zero roles,
   verify the zero: a page that renders empty or suspiciously small gets a
-  second look via the board's underlying API or another fetch. Report
+  second look via the board's underlying API or another fetch. The mirror
+  rule: before reporting a role closed, verify the closure. Boards keep
+  hidden template text in the HTML ("this role has been filled", "no jobs
+  found") that only displays when true; a text fetch reads it either way.
+  Check whether the text is actually visible (hidden markers like
+  w-condition-invisible, hidden attributes, display:none) before believing
+  it, or confirm via the board's API. Report
   "no matching roles (verified)" and "could not check (page would not load)"
   as the different things they are.
 - Compare against the newest brief in `memory/briefs/`. Anything not in the
